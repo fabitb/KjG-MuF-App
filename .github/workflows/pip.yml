@@ -1,3 +1,13 @@
+name: build apps
+
+# For now we test the frontend by just building it, in the future tests should be run here
+
+on:
+  push:
+    branches:
+      - '**'
+
+
 steps:
 - uses: actions/checkout@v3
 - uses: actions/setup-java@v2
