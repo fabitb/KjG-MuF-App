@@ -16,7 +16,7 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build wev
+      - run: flutter build web
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
