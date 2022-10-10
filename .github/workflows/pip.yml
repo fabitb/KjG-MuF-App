@@ -10,7 +10,7 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build --base-href "/KjG-MuF-App/"  web
+      - run: flutter build web --base-href "/KjG-MuF-App/"
       - name: Deploy 🚀
        # if: ${{ github.ref == 'refs/heads/develop' }}
         uses: JamesIves/github-pages-deploy-action@v4
