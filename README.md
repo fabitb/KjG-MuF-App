@@ -1,6 +1,6 @@
 # kjg_muf_app
 
-An app for the KjG München und Freising
+An app for the KjG München und Freising https://fabitb.github.io/KjG-MuF-App/
 
 ## Getting Started
 
