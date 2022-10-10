@@ -1,0 +1,19 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3     
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build web --base-href "/KjG-MuF-App/"
+      - name: Deploy 🚀
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web # The folder the action should deploy.
+
