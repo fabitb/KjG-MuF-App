@@ -12,7 +12,7 @@ jobs:
       - run: flutter test
       - run: flutter build web --base-href "/KjG-MuF-App/"
       - name: Deploy 🚀
-       # if: ${{ github.ref == 'refs/heads/develop' }}
+        if: ${{ github.ref == 'refs/heads/develop' }}
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build/web # The folder the action should deploy.
