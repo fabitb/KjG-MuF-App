@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.kjg.kjg_muf_app">
    <application
-        android:label="kjg_muf_app"
+        android:label="KjG MuF"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
