@@ -90,7 +90,7 @@ class MidaService {
   }
 
   Future<http.Response> verifyLogin(String email, String password) {
-    return post("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d&user=fabian.thomas-barein&password=Abschluss.15");
+    return post("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d&user=fabian.thomas-barein&password=12345");
     print("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&user=$email&password=$password");
     print(Uri.parse("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&user=fabian.thomas-barein&password=Abschluss.15"));
     return http.post(
