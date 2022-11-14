@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:kjg_muf_app/model/event.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -95,6 +96,17 @@ class MidaService {
 
   Future<http.Response> getGroups() {
     return get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
+  }
+
+  Future<List<Event>> getEvents() async {
+    final response = await get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((data) => Event.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
   }
 
 }
