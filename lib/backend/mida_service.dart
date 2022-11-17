@@ -1,15 +1,86 @@
 import 'dart:convert';
 import 'package:kjg_muf_app/model/event.dart';
-
 import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart';
+import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MidaService {
-
+    
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
+
+  Future<bool> verifyLogin(String username, String password) async {
+    final passwordHash = _generateMd5(password);
+    final response = await _post("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
+
+    if (response.statusCode == 200) {
+      try {
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+        if (jsonResponse['error'] != null) {
+          print(jsonResponse['error']);
+          return false;
+        }
+      } catch (error) {
+        List jsonResponse = json.decode(response.body);
+        if (jsonResponse.isNotEmpty) {
+          await SharedPref().saveName(jsonResponse.first);
+          await SharedPref().saveUserName(username);
+          await SharedPref().savePasswordHash(passwordHash);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  Future<http.Response> getGroups() {
+    return _get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
+  }
+
+  Future<List<Event>> getEvents() async {
+    final response = await _get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((data) => Event.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future<http.Response> _get(String url) {
+    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
+
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        throw Exception("Error while fetching data");
+      }
+      return response;
+    });
+  }
+
+  Future<http.Response> _post(String url, {body, encoding}) {
+    return http
+        .post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        throw Exception("Error while fetching data");
+      }
+      return response;
+    });
+  }
 
   void _updateCookie(http.Response response) {
     String? allSetCookie = response.headers['set-cookie'];
@@ -59,54 +130,8 @@ class MidaService {
     return cookie;
   }
 
-  Future<http.Response> get(String url) {
-    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
-
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;//_decoder.convert(res);
-    });
-  }
-
-  Future<http.Response> post(String url, {body, encoding}) {
-    return http
-        .post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding)
-        .then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;//_decoder.convert(res);
-    });
-  }
-
-  Future<http.Response> verifyLogin(String email, String password) {
-    return post("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d&user=fabian.thomas-barein&password=12345");
-  }
-
-  Future<http.Response> getGroups() {
-    return get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
-  }
-
-  Future<List<Event>> getEvents() async {
-    final response = await get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
-
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => Event.fromJson(data)).toList();
-    } else {
-      throw Exception('Unexpected error occured!');
-    }
+  String _generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
   }
 
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
+import 'package:kjg_muf_app/main.viewmodel.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
+import 'package:kjg_muf_app/ui/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KjG MuF',
-      theme: ThemeData(
-        primarySwatch: Palette.kjgColor,
-        fontFamily: 'SeccaKjG'
-      ),
+      theme: ThemeData(primarySwatch: Palette.kjgColor, fontFamily: 'SeccaKjG'),
       home: const MyHomePage(title: 'KjG München und Freising'),
     );
   }
@@ -32,16 +32,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: const EventList(),
+    return ChangeNotifierProvider(
+      create: (_) => MainViewModel(),
+      child: Consumer<MainViewModel>(builder: (_, model, __) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                UserAccountsDrawerHeader(
+                    accountName: Text(model.nameCache == null
+                        ? "Nicht angemeldet"
+                        : model.nameCache!),
+                    accountEmail: Text(
+                        model.nameCache == null ? "" : "Keine Email-Adresse")),
+                ListTile(
+                  title: const Text("Anmelden"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => LoginScreen()))
+                        .then((value) => model.loadUserName());
+                  },
+                ),
+                ListTile(
+                  title: const Text("Abmelden"),
+                  onTap: () {
+                    model.logoutUser();
+                  },
+                )
+              ],
+            ),
+          ),
+          body: const EventList(),
+        );
+      }),
     );
   }
 }
