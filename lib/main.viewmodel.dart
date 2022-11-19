@@ -12,6 +12,9 @@ class MainViewModel extends ChangeNotifier {
   String? _nameCache;
   String? get nameCache => _nameCache;
 
+  String? _userNameCache;
+  String? get userNameCache => _userNameCache;
+
   MainViewModel() {
     loadUserName();
   }
@@ -23,17 +26,13 @@ class MainViewModel extends ChangeNotifier {
 
   Future<void> loadUserName() async {
     _nameCache = await SharedPref().getName();
-    notifyListeners();
-  }
-
-  void updateUserInformation(String name) {
-    SharedPref().saveName(name);
-    _nameCache = name;
+    _userNameCache = await SharedPref().getUserName();
     notifyListeners();
   }
 
   void logoutUser() {
     _nameCache = null;
+    _userNameCache = null;
     SharedPref().logoutUser();
     notifyListeners();
   }

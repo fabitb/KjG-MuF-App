@@ -49,24 +49,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     accountName: Text(model.nameCache == null
                         ? "Nicht angemeldet"
                         : model.nameCache!),
-                    accountEmail: Text(
-                        model.nameCache == null ? "" : "Keine Email-Adresse")),
-                ListTile(
-                  title: const Text("Anmelden"),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()))
-                        .then((value) => model.loadUserName());
-                  },
-                ),
-                ListTile(
-                  title: const Text("Abmelden"),
-                  onTap: () {
-                    model.logoutUser();
-                  },
-                )
+                    accountEmail: Text(model.userNameCache == null
+                        ? ""
+                        : model.userNameCache!)),
+                !model.isLoggedIn
+                    ? ListTile(
+                        title: const Text("Anmelden"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => LoginScreen()))
+                              .then((value) => model.loadUserName());
+                        },
+                      )
+                    : ListTile(
+                        title: const Text("Konto"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("TODO: Show account details")));
+                        },
+                      ),
+                if (model.isLoggedIn)
+                  ListTile(
+                    title: const Text("Abmelden"),
+                    onTap: () {
+                      model.logoutUser();
+                    },
+                  )
               ],
             ),
           ),
