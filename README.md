@@ -1,16 +1,5 @@
-# kjg_muf_app
+# KjG - App
 
-An app for the KjG München und Freising https://fabitb.github.io/KjG-MuF-App/
+## Was ist die KjG - App?
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Die KjG App ist eine Open-Source Flutter Application, die initial von und für den KjG Diözesanverband München und Freising entwickelt wird. In der Zukunft soll die Integration von anderen Diösezasenverbänden erfolgen. Durch die Entwicklung in Flutter und mit Dart wird die App auf allen gängigen Smartphones und Betriebssystemen laufen.
