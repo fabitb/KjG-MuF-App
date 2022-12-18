@@ -23,10 +23,10 @@ Widget eventItem(BuildContext context, int index, Event event) {
           Row(
             children: [
               const Icon(Icons.date_range_outlined),
-              Text(dateFormat.format(event.dateTime)),
+              Text(dateFormat.format(event.startDateAndTime)),
               const SizedBox(width: 20),
               const Icon(Icons.watch_later_outlined),
-              Text(timeFormat.format(event.dateTime))
+              Text("${timeFormat.format(event.startDateAndTime)}${event.endTime != null ? "-${timeFormat.format(event.endTime!)}" : ""}")
             ],
           ),
           const SizedBox(height: 5),
