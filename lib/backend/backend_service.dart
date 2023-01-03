@@ -16,7 +16,7 @@ class BackendService {
   Future<bool> getBackendStatus() async {
     http.Response response;
     try {
-      response = await _get("http://kjg.thomas-barein.de:3000/api/status");
+      response = await _get("http://kjg.thomas-barein.de/api/status");
     } on Exception catch (_) {
       return false;
     }
