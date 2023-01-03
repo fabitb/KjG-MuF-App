@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
 import 'package:kjg_muf_app/main.viewmodel.dart';
+import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       model.logoutUser();
                     },
-                  )
+                  ),
+                ListTile(
+                  title: const Text("Backend Status"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                        builder: (context) => const BackendStatus()));
+                  },
+                )
               ],
             ),
           ),
