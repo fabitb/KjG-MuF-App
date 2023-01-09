@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
+const String backendBaseURL = "http://kjg.thomas-barein.de/api";
+
 class BackendService {
     
   final JsonDecoder _decoder = const JsonDecoder();
@@ -16,7 +18,7 @@ class BackendService {
   Future<bool> getBackendStatus() async {
     http.Response response;
     try {
-      response = await _get("http://kjg.thomas-barein.de/api/status");
+      response = await _get("$backendBaseURL/status");
     } on Exception catch (_) {
       return false;
     }

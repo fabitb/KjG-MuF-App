@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
+const String midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising";
+
 class MidaService {
     
   final JsonDecoder _decoder = const JsonDecoder();
@@ -14,7 +16,7 @@ class MidaService {
 
   Future<bool> verifyLogin(String username, String password) async {
     final passwordHash = _generateMd5(password);
-    final response = await _post("https://mida.kjg.de/DVMuenchenundFreising/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
+    final response = await _post("$midaBaseURL/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
 
     if (response.statusCode == 200) {
       try {
@@ -37,11 +39,11 @@ class MidaService {
   }
 
   Future<http.Response> getGroups() {
-    return _get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
+    return _get("$midaBaseURL/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
   }
 
   Future<List<Event>> getEvents() async {
-    final response = await _get("https://mida.kjg.de/DVMuenchenundFreising/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
+    final response = await _get("$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
