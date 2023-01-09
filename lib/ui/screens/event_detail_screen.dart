@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +15,9 @@ class EventDetailScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login() {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      MidaService().verifyLogin(emailController.text, passwordController.text);
-    }
+  Future<Location> getLocationFromAddress() async {
+    var locations = await locationFromAddress(event.location);
+    return locations.first;
   }
 
   @override
@@ -30,21 +29,61 @@ class EventDetailScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(event.title),
           ),
-          body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-            child: FlutterMap(
-              options: MapOptions(
-                center: LatLng(51.509364, -0.128928),
-                zoom: 9.2,
+          body: Column(
+            children: [
+              Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      height: 200.0,
+                      child: FutureBuilder<Location?>(
+                        future: getLocationFromAddress(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData &&
+                              snapshot.connectionState == ConnectionState.done) {
+                            return FlutterMap(
+                              options: MapOptions(
+                                  center: LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
+                                  zoom: 14.0,
+                                  interactiveFlags: InteractiveFlag.none),
+                              layers: [
+                                TileLayerOptions(
+                                    minZoom: 1,
+                                    maxZoom: 18,
+                                    backgroundColor: Colors.white,
+                                    urlTemplate:
+                                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                    subdomains: ['a', 'b', 'c']),
+                                MarkerLayerOptions(
+                                    markers: [
+                                      Marker(point: LatLng(snapshot.data!.latitude, snapshot.data!.longitude), builder: (context) => const Icon(Icons.place))
+                                    ]
+                                )
+                              ],
+                            );
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.route),
+                    ),
+                  )
+                ] ,
               ),
-              nonRotatedChildren: [
-                AttributionWidget.defaultWidget(
-                  source: 'OpenStreetMap contributors',
-                  onSourceTapped: null,
-                ),
-              ]
-            ),
+              Text(event.title)
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: const Icon(Icons.plus_one_sharp),
           ),
         );
       }),
