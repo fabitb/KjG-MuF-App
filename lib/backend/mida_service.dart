@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:kjg_muf_app/model/calendar.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
@@ -46,6 +47,17 @@ class MidaService {
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((data) => Event.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future<Calendar> getCalendar(int month, int year) async {
+    final response = await _get("https://mida.kjg.de/DVMuenchenundFreising/?json=&function=GetCalendar&typ=&token=A/wordpress-schnittstelle/fb4956018d8ab7dc5946b45f8fae45d6&m=$month&y=$year");
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic>  jsonResponse = json.decode(response.body);
+      return  Calendar.fromJson(jsonResponse);
     } else {
       throw Exception('Unexpected error occurred!');
     }
