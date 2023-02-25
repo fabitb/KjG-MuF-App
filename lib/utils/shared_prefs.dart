@@ -49,7 +49,4 @@ class SharedPref {
     await prefs.remove(keyUserName);
     await prefs.remove(keyPasswordHash);
   }
-
 }
-
-

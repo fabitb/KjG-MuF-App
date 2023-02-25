@@ -4,6 +4,7 @@ import 'package:kjg_muf_app/main.viewmodel.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
+import 'package:kjg_muf_app/ui/screens/miles_and_morus_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -68,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: const Text("Konto"),
                         onTap: () {
                           Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("TODO: Show account details")));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("TODO: Show account details")));
                         },
                       ),
                 if (model.isLoggedIn)
@@ -82,9 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: const Text("Backend Status"),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const BackendStatus()));
+                  },
+                ),
+                ListTile(
+                  title: const Text("Miles & Morus"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MilesAndMorusScreen()));
                   },
                 )
               ],

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-
   static const MaterialColor kjgColor = MaterialColor(
     0xff00b6be,
-    <int, Color> {
+    <int, Color>{
       50: Color(0xff00a4ab),
       100: Color(0xff009298),
       200: Color(0xff007f85),
