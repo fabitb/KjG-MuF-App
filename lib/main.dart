@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
-import 'package:kjg_muf_app/main.viewmodel.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
+import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() {
