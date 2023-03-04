@@ -41,7 +41,7 @@ dependencies:
   shared_preferences: ^2.0.15
 
   latlong: ^0.6.1
-  flutter_map: any
+  flutter_map: ^3.1.0
   flutter_map_marker_cluster: any
   geocoding: ^2.0.5
 

@@ -12,13 +12,9 @@ Widget eventItem(BuildContext context, int index, Event event) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            event.title,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16
-            )
-          ),
+          Text(event.title,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -26,7 +22,8 @@ Widget eventItem(BuildContext context, int index, Event event) {
               Text(dateFormat.format(event.startDateAndTime)),
               const SizedBox(width: 20),
               const Icon(Icons.watch_later_outlined),
-              Text("${timeFormat.format(event.startDateAndTime)}${event.endTime != null ? "-${timeFormat.format(event.endTime!)}" : ""}")
+              Text(
+                  "${timeFormat.format(event.startDateAndTime)}${event.endTime != null ? "-${timeFormat.format(event.endTime!)}" : ""}")
             ],
           ),
           const SizedBox(height: 5),
