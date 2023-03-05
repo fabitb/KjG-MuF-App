@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MilesAndMorusScreen extends StatelessWidget {
-  MilesAndMorusScreen({super.key});
+  const MilesAndMorusScreen({super.key});
+
+  Future<List<String>> getData() async {
+    var list = List.filled(3, "Test", growable: true);
+    list.add("string");
+    return list;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +21,31 @@ class MilesAndMorusScreen extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: Card(
-                color: Color(0xFFFFD700),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Theme.of(context)
+                    .secondaryHeaderColor, // Color(0xFFFFD700),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
                   child: Column(
-                    children: [
+                    children: const [
                       Text(
                         "245",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w600),
                       ),
-                      Text("Morus Meilen (MM)", style: TextStyle(fontSize: 16)),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Text("Aktueller Status: Gold")
+                      SizedBox(height: 16),
+                      Text("Morus Meilen (MM)", style: TextStyle(fontSize: 16))
                     ],
                   ),
                 )),
           ),
           SizedBox(
             height: 24,
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: [Text("Test")],
           ),
           SizedBox(
             height: 56,
@@ -45,16 +56,11 @@ class MilesAndMorusScreen extends StatelessWidget {
           Text("ME Wochenende, 24.02, 300 Meilen"),
           SizedBox(
             height: 56,
-          ),
-          Align(alignment: Alignment.center, child: ElevatedButton(onPressed: () {}, child: Text("Punkte einlösen"))),
-          SizedBox(
-            height: 56,
-          ),
-          Text("Dein aktueller Status: Silber"),
-          Text("Dir fehlen noch 3000 Punkte bis Gold!")
+          )
         ]),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {}, child: Icon(Icons.monetization_on)),
     );
   }
 }
