@@ -7,7 +7,6 @@ import 'package:kjg_muf_app/utils/shared_prefs.dart';
 const String midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising";
 
 class MidaService {
-    
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
@@ -16,7 +15,8 @@ class MidaService {
 
   Future<bool> verifyLogin(String username, String password) async {
     final passwordHash = _generateMd5(password);
-    final response = await _post("$midaBaseURL/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
+    final response = await _post(
+        "$midaBaseURL/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
 
     if (response.statusCode == 200) {
       try {
@@ -39,11 +39,13 @@ class MidaService {
   }
 
   Future<http.Response> getGroups() {
-    return _get("$midaBaseURL/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
+    return _get(
+        "$midaBaseURL/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
   }
 
   Future<List<Event>> getEvents() async {
-    final response = await _get("$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
+    final response = await _get(
+        "$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -54,8 +56,9 @@ class MidaService {
   }
 
   Future<http.Response> _get(String url) {
-    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
-
+    return http
+        .get(Uri.parse(url), headers: headers)
+        .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
@@ -70,7 +73,8 @@ class MidaService {
 
   Future<http.Response> _post(String url, {body, encoding}) {
     return http
-        .post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding)
+        .post(Uri.parse(url),
+            body: _encoder.convert(body), headers: headers, encoding: encoding)
         .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
@@ -135,5 +139,4 @@ class MidaService {
   String _generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
-
 }

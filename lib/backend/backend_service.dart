@@ -8,7 +8,6 @@ import 'package:kjg_muf_app/utils/shared_prefs.dart';
 const String backendBaseURL = "http://kjg.thomas-barein.de/api";
 
 class BackendService {
-    
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
@@ -26,8 +25,9 @@ class BackendService {
   }
 
   Future<http.Response> _get(String url) {
-    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
-
+    return http
+        .get(Uri.parse(url), headers: headers)
+        .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
@@ -42,7 +42,8 @@ class BackendService {
 
   Future<http.Response> _post(String url, {body, encoding}) {
     return http
-        .post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding)
+        .post(Uri.parse(url),
+            body: _encoder.convert(body), headers: headers, encoding: encoding)
         .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
@@ -103,5 +104,4 @@ class BackendService {
 
     return cookie;
   }
-
 }

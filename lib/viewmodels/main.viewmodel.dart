@@ -3,7 +3,6 @@ import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MainViewModel extends ChangeNotifier {
-
   bool _loading = false;
   bool get loading => _loading;
 
@@ -44,5 +43,4 @@ class MainViewModel extends ChangeNotifier {
     notifyListeners();
     setLoading(false);
   }
-
 }
