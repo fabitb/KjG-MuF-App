@@ -44,7 +44,6 @@ class SharedPref {
   }
 
   Future<String?> getToken() async {
-    var prefs = await SharedPreferences.getInstance();
     String? userName = await getUserName();
     String? passwordHash = await getPasswordHash();
     if (userName != null && passwordHash != null) {

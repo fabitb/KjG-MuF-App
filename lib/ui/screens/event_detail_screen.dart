@@ -152,6 +152,7 @@ class EventDetailScreen extends StatelessWidget {
               ),
             ),
             floatingActionButton: FloatingActionButton.extended(
+              heroTag: null,
               label: const Text("Anmelden / Abmelden"),
               onPressed: () async {
                 final token = await SharedPref().getToken();
