@@ -43,6 +43,17 @@ class SharedPref {
     return prefs.getString(keyPasswordHash);
   }
 
+  Future<String?> getToken() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? userName = await getUserName();
+    String? passwordHash = await getPasswordHash();
+    if (userName != null && passwordHash != null) {
+      return "A/$userName/$passwordHash";
+    } else {
+      return null;
+    }
+  }
+
   Future<void> logoutUser() async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.remove(keyName);
