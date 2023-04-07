@@ -1,3 +1,4 @@
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -58,5 +59,7 @@ class SharedPref {
     await prefs.remove(keyName);
     await prefs.remove(keyUserName);
     await prefs.remove(keyPasswordHash);
+    CookieManager cookieManager = CookieManager.instance();
+    await cookieManager.deleteAllCookies();
   }
 }
