@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'package:kjg_muf_app/model/event.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:crypto/crypto.dart';
+import 'package:http/http.dart' as http;
+import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 const String midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising";

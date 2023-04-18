@@ -12,7 +12,8 @@ class LoginScreen extends StatelessWidget {
 
   void login() {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      MidaService().verifyLogin(emailController.text, passwordController.text);
+      MidaService().verifyLogin(
+          emailController.text.toLowerCase(), passwordController.text);
     }
   }
 

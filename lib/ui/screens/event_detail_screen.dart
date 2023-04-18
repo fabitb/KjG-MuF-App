@@ -5,7 +5,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_map/plugin_api.dart' hide Coords;
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
+import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -148,6 +150,27 @@ class EventDetailScreen extends StatelessWidget {
                       ])),
                 ],
               ),
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              heroTag: null,
+              label: const Text("Anmelden / Abmelden"),
+              onPressed: () async {
+                final token = await SharedPref().getToken();
+                if (context.mounted) {
+                  showModalBottomSheet(
+                      context: context,
+                      useSafeArea: true,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.0),
+                              topRight: Radius.circular(16.0))),
+                      builder: (BuildContext context) {
+                        return MidaWebViewScreen(
+                            url: event.eventUrl, token: token);
+                      });
+                }
+              },
             ));
       }),
     );
