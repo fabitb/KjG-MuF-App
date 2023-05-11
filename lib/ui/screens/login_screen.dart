@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../main.viewmodel.dart';
+import '../../viewmodels/main.viewmodel.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -12,7 +12,8 @@ class LoginScreen extends StatelessWidget {
 
   void login() {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      MidaService().verifyLogin(emailController.text, passwordController.text);
+      MidaService().verifyLogin(
+          emailController.text.toLowerCase(), passwordController.text);
     }
   }
 
