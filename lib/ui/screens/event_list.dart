@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/event_widget.dart';
 
 class EventList extends StatelessWidget {
   const EventList({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class EventList extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                           child:
-                              eventItem(context, index, model.events![index]),
+                              eventWidget(context, index, model.events![index]),
                           onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => EventDetailScreen(

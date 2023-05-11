@@ -37,8 +37,11 @@ class Event {
 
     return Event(
         title: json['titel'],
-        startDateAndTime: DateTime.parse('${json['datum'].toString()} $startTime'),
-        endTime: hasEndTime ? DateTime.parse('${json['datum'].toString()} $endTime') : null,
+        startDateAndTime:
+            DateTime.parse('${json['datum'].toString()} $startTime'),
+        endTime: hasEndTime
+            ? DateTime.parse('${json['datum'].toString()} $endTime')
+            : null,
         location: json['ort'],
         description: json['beschreibung'],
         contactName: json['kontakt'],

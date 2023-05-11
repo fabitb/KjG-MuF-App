@@ -6,12 +6,13 @@ import 'package:flutter_map/plugin_api.dart' hide Coords;
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/event_widget.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
@@ -112,7 +113,7 @@ class EventDetailScreen extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.all(4),
                       child: Column(children: [
-                        eventItem(context, 0, event),
+                        eventWidget(context, 0, event),
                         event.description.isNotEmpty
                             ? Card(
                                 child: Html(data: event.description),

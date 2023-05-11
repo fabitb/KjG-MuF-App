@@ -5,7 +5,7 @@ import 'package:kjg_muf_app/model/event.dart';
 DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 DateFormat timeFormat = DateFormat("HH:mm");
 
-Widget eventItem(BuildContext context, int index, Event event) {
+Widget eventWidget(BuildContext context, int index, Event event) {
   return Card(
     child: Padding(
       padding: const EdgeInsets.all(8.0),

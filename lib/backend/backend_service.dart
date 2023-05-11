@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:kjg_muf_app/model/event.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:crypto/crypto.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
+import 'package:kjg_muf_app/model/miles_data.dart';
 
 const String backendBaseURL = "http://kjg.thomas-barein.de/api";
 
@@ -22,6 +21,21 @@ class BackendService {
       return false;
     }
     return response.statusCode >= 200 && response.statusCode <= 300;
+  }
+
+  Future<MilesData?> getMilesData(String userName) async {
+    http.Response response;
+    try {
+      response = await _get("$backendBaseURL/users/$userName/miles");
+      print(response.body);
+    } on Exception catch (_) {
+      return null;
+    }
+    if (response.statusCode == 200) {
+      return MilesData.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
   }
 
   Future<http.Response> _get(String url) {
