@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
-import 'package:kjg_muf_app/ui/screens/event_list.dart';
+import 'package:kjg_muf_app/ui/screens/event_list1.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          body: const EventList(),
+          body: const EventList1(),
         );
       }),
     );

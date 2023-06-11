@@ -16,16 +16,16 @@ class EventList extends StatelessWidget {
             onRefresh: model.loadEvents,
             child: model.events != null
                 ? ListView.builder(
-                    itemCount: model.events?.length ?? 0,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                          child:
-                              eventItem(context, index, model.events![index]),
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => EventDetailScreen(
-                                      event: model.events![index]))));
-                    })
+                itemCount: model.events?.length ?? 0,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                      child:
+                      eventItem(context, index, model.events![index]),
+                      onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => EventDetailScreen(
+                                  event: model.events![index]))));
+                })
                 : const Center(child: CircularProgressIndicator()),
           );
         }));
