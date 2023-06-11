@@ -1,79 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
-import 'package:kjg_muf_app/model/calendar.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
+import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
+import 'package:provider/provider.dart';
 
-import '../widgets/calendar_item.dart';
-
-class EventList extends StatefulWidget {
-  const EventList({super.key});
-
-  @override
-  State<EventList> createState() => _EventListState();
-}
-
-class _EventListState extends State<EventList> {
-  int month = DateTime.now().month;
-  int year = DateTime.now().year;
-
-  Future<Calendar> getData() async {
-    return MidaService().getCalendar(this.month, this.year);
-  }
-
-  void increaseMonth() {
-    if (month == 12) {
-      this.year++;
-      this.month = 1;
-    } else {
-      this.month++;
-    }
-  }
-
-  void decreaseMonth() {
-    if (month == 1) {
-      this.year--;
-      this.month = 12;
-    } else {
-      this.month--;
-    }
-  }
+class EventList extends StatelessWidget {
+  const EventList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                decreaseMonth();
-              });
-            },
-            child: const Text('<<'),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                increaseMonth();
-              });
-            },
-            child: const Text('>>'),
-          ),
-        ],
-      ),
-      FutureBuilder<Calendar>(
-        future: getData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData &&
-              snapshot.connectionState == ConnectionState.done) {
-            return calendarItem(context, snapshot.data!);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    ]);
+    return ChangeNotifierProvider(
+        create: (_) => EventListViewModel(),
+        child: Consumer<EventListViewModel>(builder: (_, model, __) {
+          return RefreshIndicator(
+            onRefresh: model.loadEvents,
+            child: model.events != null
+                ? ListView.builder(
+                itemCount: model.events?.length ?? 0,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                      child:
+                      eventItem(context, index, model.events![index]),
+                      onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => EventDetailScreen(
+                                  event: model.events![index]))));
+                })
+                : const Center(child: CircularProgressIndicator()),
+          );
+        }));
   }
 }
