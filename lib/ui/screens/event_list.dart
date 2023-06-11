@@ -6,31 +6,74 @@ import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 
 import '../widgets/calendar_item.dart';
 
-class EventList extends StatelessWidget {
-  const EventList({Key? key}) : super(key: key);
+class EventList extends StatefulWidget {
+  const EventList({super.key});
+
+  @override
+  State<EventList> createState() => _EventListState();
+}
+
+class _EventListState extends State<EventList> {
+  int month = DateTime.now().month;
+  int year = DateTime.now().year;
 
   Future<Calendar> getData() async {
-    return MidaService().getCalendar(01, 2023);
+    return MidaService().getCalendar(this.month, this.year);
+  }
+
+  void increaseMonth() {
+    if (month == 12) {
+      this.year++;
+      this.month = 1;
+    } else {
+      this.month++;
+    }
+  }
+
+  void decreaseMonth() {
+    if (month == 1) {
+      this.year--;
+      this.month = 12;
+    } else {
+      this.month--;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Calendar>(
-      future: getData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData &&
-            snapshot.connectionState == ConnectionState.done) {
-          return calendarItem(context,snapshot.data!);
-
-         //   ListView.builder(
-          //    itemCount: snapshot.data == null ? 0 : snapshot.data!.length,
-           //   itemBuilder: (BuildContext context, int index) {
-             //   return eventItem(context, index, snapshot.data![index]);
-              //});
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    );
+    return Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                decreaseMonth();
+              });
+            },
+            child: const Text('<<'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                increaseMonth();
+              });
+            },
+            child: const Text('>>'),
+          ),
+        ],
+      ),
+      FutureBuilder<Calendar>(
+        future: getData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
+            return calendarItem(context, snapshot.data!);
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    ]);
   }
 }

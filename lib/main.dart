@@ -67,7 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: const Text("Konto"),
                         onTap: () {
                           Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("TODO: Show account details")));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("TODO: Show account details")));
                         },
                       ),
                 if (model.isLoggedIn)
@@ -80,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          body: const EventList(),
+          body: EventList(),
         );
       }),
     );
