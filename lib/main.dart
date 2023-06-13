@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
+import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
@@ -96,6 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () async {
                     await launchUrl(Uri.parse(Strings.shopURL),
                         mode: LaunchMode.externalApplication);
+                  },
+                ),
+                ListTile(
+                  title: const Text("Datenschutz"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DataPrivacyScreen()));
                   },
                 ),
                 if (model.isLoggedIn)
