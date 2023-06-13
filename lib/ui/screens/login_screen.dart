@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewmodels/main.viewmodel.dart';
@@ -23,14 +24,14 @@ class LoginScreen extends StatelessWidget {
       create: (_) => MainViewModel(),
       child: Consumer<MainViewModel>(builder: (_, model, __) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const Text("Einloggen"),
           ),
           body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
             child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 64.0),
                 child: !model.isLoggedIn
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +72,19 @@ class LoginScreen extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(elevation: 5),
                                   child: const Text("Einloggen"),
                                 )
-                              : const Center(child: CircularProgressIndicator())
+                              : const Center(
+                                  child: CircularProgressIndicator()),
+                          const Expanded(
+                              child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                      "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
+                                      textAlign: TextAlign.center))),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                              onPressed: () => model.openUrl(
+                                  "mailto:${Strings.contactEmailAddress}"),
+                              child: const Text("Schreib uns eine Mail!"))
                         ],
                       )
                     : Text("Du bist eingeloggt ${model.nameCache}")),
