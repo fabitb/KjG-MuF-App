@@ -39,14 +39,9 @@ class MidaService {
     return false;
   }
 
-  Future<http.Response> getGroups() {
-    return _get(
-        "$midaBaseURL/?api=GetGroups&token=A/fabian.thomas-barein/70c1941a720039395c705ae93f858a3d");
-  }
-
   Future<List<Event>> getEvents() async {
     final response = await _get(
-        "$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503");
+        "$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);

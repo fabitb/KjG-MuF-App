@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_map/plugin_api.dart' hide Coords;
+import 'package:flutter_html/flutter_html.dart' hide Marker;
+import 'package:flutter_map/plugin_api.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
