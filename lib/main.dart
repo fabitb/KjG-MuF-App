@@ -92,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mode: LaunchMode.externalApplication);
                   },
                 ),
+                /*
                 ListTile(
                   title: const Text("Shop"),
                   onTap: () async {
@@ -99,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mode: LaunchMode.externalApplication);
                   },
                 ),
+                 */
                 ListTile(
                   title: const Text("Datenschutz"),
                   onTap: () {

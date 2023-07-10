@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewmodels/main.viewmodel.dart';
@@ -74,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                                 )
                               : const Center(
                                   child: CircularProgressIndicator()),
-                          const Expanded(
+                          /*const Expanded(
                               child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
@@ -84,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                           ElevatedButton(
                               onPressed: () => model.openUrl(
                                   "mailto:${Strings.contactEmailAddress}"),
-                              child: const Text("Schreib uns eine Mail!"))
+                              child: const Text("Schreib uns eine Mail!"))*/
                         ],
                       )
                     : Text("Du bist eingeloggt ${model.nameCache}")),
