@@ -67,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               .then((value) => model.loadUserName());
                         },
                       )
-                    : ListTile(
+                    : const SizedBox(),
+                /*ListTile(
                         title: const Text("Konto"),
                         onTap: () {
                           Navigator.pop(context);
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               const SnackBar(
                                   content: Text("TODO: Show account details")));
                         },
-                      ),
+                      ),*/
                 ListTile(
                   title: const Text("Backend Status"),
                   onTap: () {
