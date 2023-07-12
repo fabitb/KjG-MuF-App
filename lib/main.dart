@@ -111,7 +111,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   ListTile(
                     title: const Text("Abmelden"),
                     onTap: () {
-                      model.logoutUser();
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text("Abmelden"),
+                          content:
+                              const Text("Willst du dich wirklich ausloggen?"),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  model.logoutUser();
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Ja")),
+                            ElevatedButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text("Nein"))
+                          ],
+                        ),
+                      );
                     },
                   )
               ],
