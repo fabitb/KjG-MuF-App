@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -85,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 const Divider(),
+                /*
                 ListTile(
                   title: const Text("Website"),
                   onTap: () async {
@@ -92,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mode: LaunchMode.externalApplication);
                   },
                 ),
+                 */
                 /*
                 ListTile(
                   title: const Text("Shop"),
