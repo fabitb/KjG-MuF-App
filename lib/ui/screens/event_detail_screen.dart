@@ -12,6 +12,7 @@ import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
@@ -115,7 +116,16 @@ class EventDetailScreen extends StatelessWidget {
                         eventItem(context, 0, event),
                         event.description.isNotEmpty
                             ? Card(
-                                child: Html(data: event.description),
+                                child: Html(
+                                    data: event.description,
+                                    onLinkTap: (url, _, __) async {
+                                      if (url != null &&
+                                          await canLaunchUrl(Uri.parse(url))) {
+                                        await launchUrl(Uri.parse(url),
+                                            mode:
+                                                LaunchMode.externalApplication);
+                                      }
+                                    }),
                               )
                             : const SizedBox(),
                         InkWell(
