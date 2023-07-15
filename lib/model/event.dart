@@ -8,6 +8,7 @@ class Event {
   final String contactName;
   final String contactEmail;
   final String eventUrl;
+  final int durationDays;
 
   const Event(
       {required this.eventID,
@@ -18,7 +19,11 @@ class Event {
       required this.description,
       required this.contactName,
       required this.contactEmail,
-      required this.eventUrl});
+      required this.eventUrl,
+      required this.durationDays});
+
+  DateTime get endDate =>
+      startDateAndTime.add(Duration(days: durationDays - 1));
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
@@ -50,6 +55,7 @@ class Event {
         description: json['beschreibung'],
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
-        eventUrl: eventUrl);
+        eventUrl: eventUrl,
+        durationDays: int.parse(json['anzahltage']));
   }
 }

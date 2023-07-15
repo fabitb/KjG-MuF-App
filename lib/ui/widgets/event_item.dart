@@ -19,7 +19,8 @@ Widget eventItem(BuildContext context, int index, Event event) {
           Row(
             children: [
               const Icon(Icons.date_range_outlined),
-              Text(dateFormat.format(event.startDateAndTime)),
+              Text(
+                  "${dateFormat.format(event.startDateAndTime)}${event.durationDays > 1 ? " - ${dateFormat.format(event.endDate)}" : ""}"),
               const SizedBox(width: 20),
               const Icon(Icons.watch_later_outlined),
               Text(
