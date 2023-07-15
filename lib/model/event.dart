@@ -7,6 +7,7 @@ class Event {
   final String contactName;
   final String contactEmail;
   final String eventUrl;
+  final List<String> attachments;
 
   const Event(
       {required this.title,
@@ -16,7 +17,8 @@ class Event {
       required this.description,
       required this.contactName,
       required this.contactEmail,
-      required this.eventUrl});
+      required this.eventUrl,
+      required this.attachments});
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
@@ -34,6 +36,10 @@ class Event {
       endTime = timeInput.split('-')[1];
     }
     String eventUrl = json['url'] + json['link'];
+    List<String> attachments = (json['attachments'] as String)
+        .split("\n")
+        .where((element) => element.isNotEmpty)
+        .toList();
 
     return Event(
         title: json['titel'],
@@ -46,6 +52,7 @@ class Event {
         description: json['beschreibung'],
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
-        eventUrl: eventUrl);
+        eventUrl: eventUrl,
+        attachments: attachments);
   }
 }

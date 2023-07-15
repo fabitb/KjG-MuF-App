@@ -156,7 +156,8 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        if (event.attachments.isNotEmpty) Card()
                       ])),
                 ],
               ),
