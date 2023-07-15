@@ -1,4 +1,5 @@
 class Event {
+  final String eventID;
   final String title;
   final DateTime startDateAndTime;
   final DateTime? endTime;
@@ -9,7 +10,8 @@ class Event {
   final String eventUrl;
 
   const Event(
-      {required this.title,
+      {required this.eventID,
+      required this.title,
       required this.startDateAndTime,
       this.endTime,
       required this.location,
@@ -22,6 +24,7 @@ class Event {
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    String eventID = json['id'];
     String timeInput = json['zeit'];
     String startTime = "00:00";
     bool hasEndTime = false;
@@ -36,6 +39,7 @@ class Event {
     String eventUrl = json['url'] + json['link'];
 
     return Event(
+        eventID: eventID,
         title: json['titel'],
         startDateAndTime:
             DateTime.parse('${json['datum'].toString()} $startTime'),
