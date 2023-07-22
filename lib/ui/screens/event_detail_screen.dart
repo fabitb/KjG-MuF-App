@@ -29,7 +29,7 @@ class EventDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EventDetailViewModel(),
+      create: (_) => EventDetailViewModel(event),
       child: Consumer<EventDetailViewModel>(builder: (_, model, __) {
         return Scaffold(
             appBar: AppBar(
@@ -44,18 +44,12 @@ class EventDetailScreen extends StatelessWidget {
                       Align(
                         child: SizedBox(
                           height: 200.0,
-                          child: FutureBuilder<Location?>(
-                            future: getLocationFromAddress(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData &&
-                                  snapshot.connectionState ==
-                                      ConnectionState.done) {
-                                model.setPositionCache(snapshot.data!.latitude,
-                                    snapshot.data!.longitude);
-                                return FlutterMap(
+                          child: model.geolocationState ==
+                                  GeolocationState.loaded
+                              ? FlutterMap(
                                   options: MapOptions(
-                                      center: LatLng(snapshot.data!.latitude,
-                                          snapshot.data!.longitude),
+                                      center: LatLng(model.location!.latitude,
+                                          model.location!.longitude),
                                       zoom: 14.0,
                                       interactiveFlags: InteractiveFlag.none),
                                   children: [
@@ -68,45 +62,45 @@ class EventDetailScreen extends StatelessWidget {
                                         subdomains: const ['a', 'b', 'c']),
                                     MarkerLayer(markers: [
                                       Marker(
-                                          point: LatLng(snapshot.data!.latitude,
-                                              snapshot.data!.longitude),
+                                          point: LatLng(
+                                              model.location!.latitude,
+                                              model.location!.longitude),
                                           builder: (context) =>
                                               const Icon(Icons.place))
                                     ])
                                   ],
-                                );
-                              } else if (snapshot.hasError) {
-                                return const Center(
-                                    child: Text(
-                                        "Karte konnte nicht geladen werden."));
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
-                          ),
+                                )
+                              : model.geolocationState ==
+                                      GeolocationState.loading
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : const Center(
+                                      child: Text(
+                                          "Es konnte kein Ort gefunden werden")),
                         ),
                       ),
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8, bottom: 8),
-                            child: FloatingActionButton(
-                              onPressed: () async {
-                                final availableMaps =
-                                    await MapLauncher.installedMaps;
-                                await availableMaps.first.showMarker(
-                                  coords: Coords(model.latitudeCache!,
-                                      model.longitudeCache!),
-                                  title: event.location,
-                                );
-                              },
-                              child: const Icon(Icons.map),
+                      if (model.location != null)
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 8, bottom: 8),
+                              child: FloatingActionButton(
+                                onPressed: () async {
+                                  final availableMaps =
+                                      await MapLauncher.installedMaps;
+                                  await availableMaps.first.showMarker(
+                                    coords: Coords(model.latitudeCache!,
+                                        model.longitudeCache!),
+                                    title: event.location,
+                                  );
+                                },
+                                child: const Icon(Icons.map),
+                              ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                   Padding(
