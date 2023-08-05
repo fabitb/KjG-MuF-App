@@ -22,6 +22,18 @@ class MidaWebViewScreen extends StatelessWidget {
           const CloseButton(),
           Expanded(
               child: InAppWebView(
+                  onCloseWindow: (controller) {
+                    Navigator.of(context).pop();
+                  },
+                  onJsAlert: (controller, jsAlertRequest) {
+                    if (jsAlertRequest.message ==
+                        "Skripte können keine Fenster schließen, die nicht von ihnen geöffnet wurden.") {
+                      Navigator.of(context).pop();
+                      return Future.value(
+                          JsAlertResponse(handledByClient: true));
+                    }
+                    return Future.value(null);
+                  },
                   gestureRecognizers: gestureRecognizers,
                   initialUrlRequest: URLRequest(
                       url: Uri.parse(

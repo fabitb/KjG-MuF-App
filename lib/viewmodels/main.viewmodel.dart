@@ -39,7 +39,8 @@ class MainViewModel extends ChangeNotifier {
 
   login(String userName, String password) async {
     setLoading(true);
-    await MidaService().verifyLogin(userName, password);
+    await MidaService().verifyLoginForUserName(userName, password);
+    await MidaService().verifyLoginForUserID(userName, password);
     await loadUserName();
     notifyListeners();
     setLoading(false);

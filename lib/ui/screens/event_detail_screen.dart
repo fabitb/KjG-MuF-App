@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' hide Marker;
 import 'package:flutter_map/plugin_api.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
@@ -12,6 +13,7 @@ import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
@@ -30,7 +32,8 @@ class EventDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => EventDetailViewModel(event),
-      child: Consumer<EventDetailViewModel>(builder: (_, model, __) {
+      child: Builder(builder: (context) {
+        final model = Provider.of<EventDetailViewModel>(context, listen: true);
         return Scaffold(
             appBar: AppBar(
               title: Text(event.title),
@@ -107,9 +110,36 @@ class EventDetailScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(4),
                       child: Column(children: [
                         eventItem(context, 0, event),
+                        Consumer<EventDetailViewModel>(
+                            builder: (_, viewModel, __) {
+                          return viewModel.userRegisteredForEvent
+                              ? const SizedBox(
+                                  width: double.infinity,
+                                  child: Card(
+                                      color: KjGColors.kjgGreen,
+                                      child: Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 8),
+                                          child: Center(
+                                              child: Text(
+                                            "Du bist angemeldet",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )))))
+                              : const SizedBox();
+                        }),
                         event.description.isNotEmpty
                             ? Card(
-                                child: Html(data: event.description),
+                                child: Html(
+                                    data: event.description,
+                                    onLinkTap: (url, _, __) async {
+                                      if (url != null &&
+                                          await canLaunchUrl(Uri.parse(url))) {
+                                        await launchUrl(Uri.parse(url),
+                                            mode:
+                                                LaunchMode.externalApplication);
+                                      }
+                                    }),
                               )
                             : const SizedBox(),
                         InkWell(
@@ -152,17 +182,19 @@ class EventDetailScreen extends StatelessWidget {
                 final token = await SharedPref().getToken();
                 if (context.mounted) {
                   showModalBottomSheet(
-                      context: context,
-                      useSafeArea: true,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16.0),
-                              topRight: Radius.circular(16.0))),
-                      builder: (BuildContext context) {
-                        return MidaWebViewScreen(
-                            url: event.eventUrl, token: token);
-                      });
+                          context: context,
+                          useSafeArea: true,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16.0),
+                                  topRight: Radius.circular(16.0))),
+                          builder: (BuildContext context) {
+                            return MidaWebViewScreen(
+                                url: event.eventUrl, token: token);
+                          })
+                      .whenComplete(
+                          () => model.isUserRegisteredForEvent(event.eventID));
                 }
               },
             ));

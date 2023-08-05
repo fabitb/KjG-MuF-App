@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/strings.dart';
 import '../../viewmodels/main.viewmodel.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,13 +11,6 @@ class LoginScreen extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  void login() {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      MidaService().verifyLogin(
-          emailController.text.toLowerCase(), passwordController.text);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

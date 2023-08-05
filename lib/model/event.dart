@@ -1,4 +1,5 @@
 class Event {
+  final String eventID;
   final String title;
   final DateTime startDateAndTime;
   final DateTime? endTime;
@@ -7,21 +8,28 @@ class Event {
   final String contactName;
   final String contactEmail;
   final String eventUrl;
+  final int durationDays;
 
   const Event(
-      {required this.title,
+      {required this.eventID,
+      required this.title,
       required this.startDateAndTime,
       this.endTime,
       required this.location,
       required this.description,
       required this.contactName,
       required this.contactEmail,
-      required this.eventUrl});
+      required this.eventUrl,
+      required this.durationDays});
+
+  DateTime get endDate =>
+      startDateAndTime.add(Duration(days: durationDays - 1));
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    String eventID = json['id'];
     String timeInput = json['zeit'];
     String startTime = "00:00";
     bool hasEndTime = false;
@@ -36,6 +44,7 @@ class Event {
     String eventUrl = json['url'] + json['link'];
 
     return Event(
+        eventID: eventID,
         title: json['titel'],
         startDateAndTime:
             DateTime.parse('${json['datum'].toString()} $startTime'),
@@ -46,6 +55,7 @@ class Event {
         description: json['beschreibung'],
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
-        eventUrl: eventUrl);
+        eventUrl: eventUrl,
+        durationDays: int.parse(json['anzahltage']));
   }
 }
