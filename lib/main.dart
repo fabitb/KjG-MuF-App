@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
@@ -6,6 +8,9 @@ import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'constants/strings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,24 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 const Divider(),
-                /*
-                ListTile(
-                  title: const Text("Website"),
-                  onTap: () async {
-                    await launchUrl(Uri.parse(Strings.websiteURL),
-                        mode: LaunchMode.externalApplication);
-                  },
-                ),
-                 */
-                /*
-                ListTile(
-                  title: const Text("Shop"),
-                  onTap: () async {
-                    await launchUrl(Uri.parse(Strings.shopURL),
-                        mode: LaunchMode.externalApplication);
-                  },
-                ),
-                 */
+                if (!Platform.isIOS)
+                  ListTile(
+                    title: const Text("Website"),
+                    onTap: () async {
+                      await launchUrl(Uri.parse(Strings.websiteURL),
+                          mode: LaunchMode.externalApplication);
+                    },
+                  ),
+                if (!Platform.isIOS)
+                  ListTile(
+                    title: const Text("Shop"),
+                    onTap: () async {
+                      await launchUrl(Uri.parse(Strings.shopURL),
+                          mode: LaunchMode.externalApplication);
+                    },
+                  ),
                 ListTile(
                   title: const Text("Datenschutz"),
                   onTap: () {

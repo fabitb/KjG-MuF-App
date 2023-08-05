@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/strings.dart';
 import '../../viewmodels/main.viewmodel.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -73,17 +76,19 @@ class LoginScreen extends StatelessWidget {
                                 )
                               : const Center(
                                   child: CircularProgressIndicator()),
-                          /*const Expanded(
-                              child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                      "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
-                                      textAlign: TextAlign.center))),
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                              onPressed: () => model.openUrl(
-                                  "mailto:${Strings.contactEmailAddress}"),
-                              child: const Text("Schreib uns eine Mail!"))*/
+                          if (!Platform.isIOS) ...[
+                            const Expanded(
+                                child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                        "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
+                                        textAlign: TextAlign.center))),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                                onPressed: () => model.openUrl(
+                                    "mailto:${Strings.contactEmailAddress}"),
+                                child: const Text("Schreib uns eine Mail!"))
+                          ]
                         ],
                       )
                     : Text("Du bist eingeloggt ${model.nameCache}")),
