@@ -24,7 +24,8 @@ class Event {
       required this.durationDays,
       required this.attachments});
 
-  DateTime get endDate => startDateAndTime.add(Duration(days: durationDays - 1));
+  DateTime get endDate =>
+      startDateAndTime.add(Duration(days: durationDays - 1));
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
@@ -43,13 +44,19 @@ class Event {
       endTime = timeInput.split('-')[1];
     }
     String eventUrl = json['url'] + json['link'];
-    List<String> attachments = (json['attachments'] as String).split("\n").where((element) => element.isNotEmpty).toList();
+    List<String> attachments = (json['attachments'] as String)
+        .split("\n")
+        .where((element) => element.isNotEmpty)
+        .toList();
 
     return Event(
         eventID: eventID,
         title: json['titel'],
-        startDateAndTime: DateTime.parse('${json['datum'].toString()} $startTime'),
-        endTime: hasEndTime ? DateTime.parse('${json['datum'].toString()} $endTime') : null,
+        startDateAndTime:
+            DateTime.parse('${json['datum'].toString()} $startTime'),
+        endTime: hasEndTime
+            ? DateTime.parse('${json['datum'].toString()} $endTime')
+            : null,
         location: json['ort'],
         description: json['beschreibung'],
         contactName: json['kontakt'],

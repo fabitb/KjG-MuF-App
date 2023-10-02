@@ -6,20 +6,21 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PDFScreen extends StatelessWidget {
   final String pdfLink;
+  final String pageTitle;
 
-  PDFScreen({super.key, required this.pdfLink});
+  const PDFScreen({super.key, required this.pdfLink, required this.pageTitle});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text(pageTitle),
       ),
       body: FutureBuilder<File>(
         future: DefaultCacheManager().getSingleFile(pdfLink),
         builder: (context, snapshot) => snapshot.hasData
             ? PDFView(
-                fitPolicy: FitPolicy.HEIGHT,
+                fitPolicy: FitPolicy.WIDTH,
                 filePath: snapshot.data!.path,
                 pageSnap: true,
               )
