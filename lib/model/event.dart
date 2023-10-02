@@ -1,4 +1,5 @@
 class Event {
+  final String eventID;
   final String title;
   final DateTime startDateAndTime;
   final DateTime? endTime;
@@ -7,10 +8,12 @@ class Event {
   final String contactName;
   final String contactEmail;
   final String eventUrl;
+  final int durationDays;
   final List<String> attachments;
 
   const Event(
-      {required this.title,
+      {required this.eventID,
+      required this.title,
       required this.startDateAndTime,
       this.endTime,
       required this.location,
@@ -18,12 +21,16 @@ class Event {
       required this.contactName,
       required this.contactEmail,
       required this.eventUrl,
+      required this.durationDays,
       required this.attachments});
+
+  DateTime get endDate => startDateAndTime.add(Duration(days: durationDays - 1));
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    String eventID = json['id'];
     String timeInput = json['zeit'];
     String startTime = "00:00";
     bool hasEndTime = false;
@@ -36,23 +43,19 @@ class Event {
       endTime = timeInput.split('-')[1];
     }
     String eventUrl = json['url'] + json['link'];
-    List<String> attachments = (json['attachments'] as String)
-        .split("\n")
-        .where((element) => element.isNotEmpty)
-        .toList();
+    List<String> attachments = (json['attachments'] as String).split("\n").where((element) => element.isNotEmpty).toList();
 
     return Event(
+        eventID: eventID,
         title: json['titel'],
-        startDateAndTime:
-            DateTime.parse('${json['datum'].toString()} $startTime'),
-        endTime: hasEndTime
-            ? DateTime.parse('${json['datum'].toString()} $endTime')
-            : null,
+        startDateAndTime: DateTime.parse('${json['datum'].toString()} $startTime'),
+        endTime: hasEndTime ? DateTime.parse('${json['datum'].toString()} $endTime') : null,
         location: json['ort'],
         description: json['beschreibung'],
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
         eventUrl: eventUrl,
+        durationDays: int.parse(json['anzahltage']),
         attachments: attachments);
   }
 }
