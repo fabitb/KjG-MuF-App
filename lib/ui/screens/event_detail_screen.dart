@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
@@ -107,7 +108,7 @@ class EventDetailScreen extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                      padding: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 128.0),
                       child: Column(children: [
                         eventItem(context, 0, event),
                         Consumer<EventDetailViewModel>(
@@ -155,7 +156,7 @@ class EventDetailScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("Kontakt: ${event.contactName}",
-                                        style: TextStyle(fontSize: 16)),
+                                        style: const TextStyle(fontSize: 16)),
                                     const SizedBox(height: 4),
                                     Row(
                                       children: [
@@ -170,7 +171,9 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        if (event.attachments.isNotEmpty)
+                          attachmentsWidget(context, event.attachments)
                       ])),
                 ],
               ),

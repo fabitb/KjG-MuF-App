@@ -5,6 +5,7 @@ import 'package:kjg_muf_app/constants/palette.dart';
 import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
+import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -89,6 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 const Divider(),
+                ListTile(
+                  title: const Text("Spieledatenbank"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const GameDatabase()));
+                  },
+                ),
                 if (!Platform.isIOS)
                   ListTile(
                     title: const Text("Website"),

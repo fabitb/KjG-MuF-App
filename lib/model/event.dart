@@ -9,6 +9,7 @@ class Event {
   final String contactEmail;
   final String eventUrl;
   final int durationDays;
+  final List<String> attachments;
 
   const Event(
       {required this.eventID,
@@ -20,7 +21,8 @@ class Event {
       required this.contactName,
       required this.contactEmail,
       required this.eventUrl,
-      required this.durationDays});
+      required this.durationDays,
+      required this.attachments});
 
   DateTime get endDate =>
       startDateAndTime.add(Duration(days: durationDays - 1));
@@ -42,6 +44,10 @@ class Event {
       endTime = timeInput.split('-')[1];
     }
     String eventUrl = json['url'] + json['link'];
+    List<String> attachments = (json['attachments'] as String)
+        .split("\n")
+        .where((element) => element.isNotEmpty)
+        .toList();
 
     return Event(
         eventID: eventID,
@@ -56,6 +62,23 @@ class Event {
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
         eventUrl: eventUrl,
-        durationDays: int.parse(json['anzahltage']));
+        durationDays: int.parse(json['anzahltage']),
+        attachments: attachments);
+  }
+
+  static List<Event> createFakeData() {
+    return List.generate(
+        4,
+        (index) => Event(
+            eventID: index.toString(),
+            title: "TestEvent",
+            startDateAndTime: DateTime.now(),
+            location: "",
+            description: "",
+            contactName: "",
+            contactEmail: "",
+            eventUrl: "",
+            durationDays: 1,
+            attachments: []));
   }
 }

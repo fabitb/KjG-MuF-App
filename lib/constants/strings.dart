@@ -1,5 +1,6 @@
 class Strings {
   static const websiteURL = "https://muenchen.kjg.de/";
+  static const midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising";
   static const shopURL =
       "https://mida.kjg.de/DVMuenchenundFreising/?module=shop";
   static const contactEmailAddress = "info@kjg-muenchen.de";

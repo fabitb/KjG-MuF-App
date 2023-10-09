@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
-
-const String midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising";
 
 class MidaService {
   final JsonDecoder _decoder = const JsonDecoder();
@@ -18,7 +17,7 @@ class MidaService {
   Future<bool> verifyLoginForUserName(String username, String password) async {
     final passwordHash = _generateMd5(password);
     final response = await _post(
-        "$midaBaseURL/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
+        "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
 
     if (response.statusCode == 200) {
       try {
@@ -43,7 +42,7 @@ class MidaService {
   Future<bool> verifyLoginForUserID(String username, String password) async {
     final passwordHash = _generateMd5(password);
     final response = await _post(
-        "$midaBaseURL/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id");
+        "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id");
 
     if (response.statusCode == 200) {
       try {
@@ -65,7 +64,7 @@ class MidaService {
 
   Future<List<Event>> getEvents() async {
     final response = await _get(
-        "$midaBaseURL/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
+        "${Strings.midaBaseURL}/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -77,7 +76,7 @@ class MidaService {
 
   Future<List<Registration>> getRegistrationsForEvent(String eventID) async {
     final response = await _get(
-        "$midaBaseURL/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID");
+        "${Strings.midaBaseURL}/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
