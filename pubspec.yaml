@@ -51,6 +51,10 @@ dependencies:
   flutter_cache_manager: ^3.3.0
 
   flutter_inappwebview: ^5.7.2+3
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.1
+  skeletonizer: ^0.8.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.10.0"
@@ -63,6 +67,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.6
 
 flutter_icons:
   android: "ic_launcher"

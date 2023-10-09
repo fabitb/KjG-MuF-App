@@ -64,7 +64,7 @@ class MidaService {
 
   Future<List<Event>> getEvents() async {
     final response = await _get(
-        "${Strings.midaBaseURL}/?api=GetEvents&jahr=2023&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
+        "${Strings.midaBaseURL}/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);

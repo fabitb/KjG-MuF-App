@@ -65,4 +65,20 @@ class Event {
         durationDays: int.parse(json['anzahltage']),
         attachments: attachments);
   }
+
+  static List<Event> createFakeData() {
+    return List.generate(
+        4,
+        (index) => Event(
+            eventID: index.toString(),
+            title: "TestEvent",
+            startDateAndTime: DateTime.now(),
+            location: "",
+            description: "",
+            contactName: "",
+            contactEmail: "",
+            eventUrl: "",
+            durationDays: 1,
+            attachments: []));
+  }
 }
