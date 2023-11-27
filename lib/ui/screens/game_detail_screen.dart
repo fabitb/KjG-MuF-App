@@ -50,33 +50,26 @@ class GameDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8.0),
                       Text("Kategorien: ${game.categories.join(", ")}"),
-                      if (game.materials.isNotEmpty) ...{
-                        const SizedBox(height: 8.0),
-                        Text("Material: ${game.materials}"),
-                      },
-                      if (game.ageLimitations.isNotEmpty) ...{
-                        const SizedBox(height: 8.0),
-                        Text("Altersbeschränkungen: ${game.ageLimitations}"),
-                      },
-                      if (game.spaceLimitations.isNotEmpty) ...{
-                        const SizedBox(height: 8.0),
-                        Text("Raumbeschränkungen: ${game.spaceLimitations}"),
-                      }
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const Icon(Icons.people_alt_outlined),
                           const SizedBox(
-                            width: 4.0,
+                            width: 8.0,
                           ),
-                          Text(game.numberOfPlayers)
+                          SizedBox(
+                            width: 100,
+                            child: Text(game.numberOfPlayers),
+                          )
                         ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const Icon(Icons.timelapse_outlined),
                           const SizedBox(
@@ -90,6 +83,20 @@ class GameDetailScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0),
+              if (game.materials.isNotEmpty) ...{
+                const SizedBox(height: 8.0),
+                Text("Material: ${game.materials}"),
+              },
+              if (game.ageLimitations.isNotEmpty) ...{
+                const SizedBox(height: 8.0),
+                Text("Altersbeschränkungen: ${game.ageLimitations}"),
+              },
+              if (game.spaceLimitations.isNotEmpty) ...{
+                const SizedBox(height: 8.0),
+                Text(
+                  "Raumbeschränkungen: ${game.spaceLimitations}",
+                ),
+              },
               const Divider(),
               if (game.goalOfGame.isNotEmpty) ...{
                 const SizedBox(height: 8.0),

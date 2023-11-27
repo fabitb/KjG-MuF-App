@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kjg_muf_app/model/game.dart';
 
-const String backendBaseURL = "https://app.kjg-muenchen.de/api";
+const String backendBaseURL =
+    "http://192.168.188.185:443/api"; // TODO: back to prod_: https://app.kjg-muenchen.de/api
 
 class BackendService {
   final JsonDecoder _decoder = const JsonDecoder();

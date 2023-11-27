@@ -39,6 +39,11 @@ class GameRepository {
     }
 
     dbService.saveGames(backendGames);
+
+    var gamesToDelete = databaseGames.whereNot(
+        (element) => backendGames.map((e) => e.id).contains(element.id));
+    dbService.deleteGames(gamesToDelete.map((e) => e.id).toList());
+
     callback(backendGames);
   }
 }

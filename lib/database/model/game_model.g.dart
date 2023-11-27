@@ -82,15 +82,25 @@ const GameModelSchema = CollectionSchema(
       name: r'preparationsInstructions',
       type: IsarType.string,
     ),
-    r'spaceLimitations': PropertySchema(
+    r'reviewed': PropertySchema(
       id: 13,
+      name: r'reviewed',
+      type: IsarType.bool,
+    ),
+    r'spaceLimitations': PropertySchema(
+      id: 14,
       name: r'spaceLimitations',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'title',
       type: IsarType.string,
+    ),
+    r'twoAMGame': PropertySchema(
+      id: 16,
+      name: r'twoAMGame',
+      type: IsarType.bool,
     )
   },
   estimateSize: _gameModelEstimateSize,
@@ -153,8 +163,10 @@ void _gameModelSerialize(
   writer.writeString(offsets[10], object.materials);
   writer.writeString(offsets[11], object.numberOfPlayers);
   writer.writeString(offsets[12], object.preparationsInstructions);
-  writer.writeString(offsets[13], object.spaceLimitations);
-  writer.writeString(offsets[14], object.title);
+  writer.writeBool(offsets[13], object.reviewed);
+  writer.writeString(offsets[14], object.spaceLimitations);
+  writer.writeString(offsets[15], object.title);
+  writer.writeBool(offsets[16], object.twoAMGame);
 }
 
 GameModel _gameModelDeserialize(
@@ -178,8 +190,10 @@ GameModel _gameModelDeserialize(
     materials: reader.readString(offsets[10]),
     numberOfPlayers: reader.readString(offsets[11]),
     preparationsInstructions: reader.readString(offsets[12]),
-    spaceLimitations: reader.readString(offsets[13]),
-    title: reader.readString(offsets[14]),
+    reviewed: reader.readBool(offsets[13]),
+    spaceLimitations: reader.readString(offsets[14]),
+    title: reader.readString(offsets[15]),
+    twoAMGame: reader.readBool(offsets[16]),
   );
   return object;
 }
@@ -218,9 +232,13 @@ P _gameModelDeserializeProp<P>(
     case 12:
       return (reader.readString(offset)) as P;
     case 13:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 14:
       return (reader.readString(offset)) as P;
+    case 15:
+      return (reader.readString(offset)) as P;
+    case 16:
+      return (reader.readBool(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1924,6 +1942,16 @@ extension GameModelQueryFilter
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> reviewedEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'reviewed',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition>
       spaceLimitationsEqualTo(
     String value, {
@@ -2189,6 +2217,16 @@ extension GameModelQueryFilter
       ));
     });
   }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> twoAMGameEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'twoAMGame',
+        value: value,
+      ));
+    });
+  }
 }
 
 extension GameModelQueryObject
@@ -2347,6 +2385,18 @@ extension GameModelQuerySortBy on QueryBuilder<GameModel, GameModel, QSortBy> {
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> sortBySpaceLimitations() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'spaceLimitations', Sort.asc);
@@ -2369,6 +2419,18 @@ extension GameModelQuerySortBy on QueryBuilder<GameModel, GameModel, QSortBy> {
   QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByTwoAMGame() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'twoAMGame', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByTwoAMGameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'twoAMGame', Sort.desc);
     });
   }
 }
@@ -2536,6 +2598,18 @@ extension GameModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> thenBySpaceLimitations() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'spaceLimitations', Sort.asc);
@@ -2558,6 +2632,18 @@ extension GameModelQuerySortThenBy
   QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByTwoAMGame() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'twoAMGame', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByTwoAMGameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'twoAMGame', Sort.desc);
     });
   }
 }
@@ -2656,6 +2742,12 @@ extension GameModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QDistinct> distinctByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'reviewed');
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QDistinct> distinctBySpaceLimitations(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2668,6 +2760,12 @@ extension GameModelQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QDistinct> distinctByTwoAMGame() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'twoAMGame');
     });
   }
 }
@@ -2761,6 +2859,12 @@ extension GameModelQueryProperty
     });
   }
 
+  QueryBuilder<GameModel, bool, QQueryOperations> reviewedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'reviewed');
+    });
+  }
+
   QueryBuilder<GameModel, String, QQueryOperations> spaceLimitationsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'spaceLimitations');
@@ -2770,6 +2874,12 @@ extension GameModelQueryProperty
   QueryBuilder<GameModel, String, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
+    });
+  }
+
+  QueryBuilder<GameModel, bool, QQueryOperations> twoAMGameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'twoAMGame');
     });
   }
 }

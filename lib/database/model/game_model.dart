@@ -21,6 +21,8 @@ class GameModel {
   late String endingInstructions;
   late List<String> categories;
   late String author;
+  late bool reviewed;
+  late bool twoAMGame;
   late bool alreadyPlayed;
 
   GameModel(
@@ -39,11 +41,13 @@ class GameModel {
       required this.endingInstructions,
       required this.categories,
       required this.author,
+      required this.reviewed,
+      required this.twoAMGame,
       required this.alreadyPlayed});
 
   factory GameModel.fromGame(Game game) {
     return GameModel(
-        id: game.id,
+        id: game.id.hashCode,
         title: game.title,
         actionScore: game.actionScore,
         cognitiveScore: game.cognitiveScore,
@@ -58,6 +62,8 @@ class GameModel {
         endingInstructions: game.endingInstructions,
         categories: game.categories,
         author: game.author,
+        reviewed: game.reviewed,
+        twoAMGame: game.twoAMGame,
         alreadyPlayed: false);
   }
 }

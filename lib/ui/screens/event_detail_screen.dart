@@ -7,7 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
+import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';

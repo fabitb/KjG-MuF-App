@@ -14,6 +14,7 @@ class SharedPref {
   static const keyUserName = "key.user.name";
   static const keyPasswordHash = "key.password.hash";
   static const keyUserID = "key.user.id";
+  static const keyDatabaseVersion = "key.database.version";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -73,5 +74,15 @@ class SharedPref {
     await prefs.remove(keyUserID);
     CookieManager cookieManager = CookieManager.instance();
     await cookieManager.deleteAllCookies();
+  }
+
+  Future<void> setDatabaseVersion(int dataVersion) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(keyDatabaseVersion, dataVersion);
+  }
+
+  Future<int?> getDatabaseVersion() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(keyDatabaseVersion);
   }
 }

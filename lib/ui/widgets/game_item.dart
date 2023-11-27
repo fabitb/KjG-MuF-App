@@ -34,28 +34,42 @@ class GameItem extends StatelessWidget {
                 )
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.people_alt_outlined),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(game.numberOfPlayers)
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.timelapse_outlined),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(game.duration)
-                  ],
-                )
-              ],
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(Icons.people_alt_outlined),
+                      const SizedBox(
+                        width: 4.0,
+                      ),
+                      Flexible(
+                          child: Text(
+                        game.numberOfPlayers,
+                        overflow: TextOverflow.ellipsis,
+                      ))
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(Icons.timelapse_outlined),
+                      const SizedBox(
+                        width: 4.0,
+                      ),
+                      Flexible(
+                        child: Text(
+                          game.duration,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ],
         ),
