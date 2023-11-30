@@ -15,6 +15,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:add_2_calendar/add_2_calendar.dart' as calendar;
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
@@ -27,6 +28,24 @@ class EventDetailScreen extends StatelessWidget {
   Future<Location> getLocationFromAddress() async {
     var locations = await locationFromAddress(event.location);
     return locations.first;
+  }
+
+  void _addToCalendar() {
+    final event = this.event;
+    if (event != null) {
+      // Adds event link to the end of the description (not as modal)
+      // duration 1 hour if end time equals start time
+      final calendar.Event calendarEvent = calendar.Event(
+          title: event.title,
+          description:
+              "${event.description}\n\n${event.eventUrl.replaceAll("&dialog=1", "")}",
+          location: event.location,
+          startDate: event.startDateAndTime,
+          endDate: event.endDate.compareTo(event.startDateAndTime) == 0
+              ? event.endDate.add(const Duration(hours: 1))
+              : event.endDate);
+      calendar.Add2Calendar.addEvent2Cal(calendarEvent);
+    }
   }
 
   @override
@@ -194,7 +213,10 @@ class EventDetailScreen extends StatelessWidget {
                                   topRight: Radius.circular(16.0))),
                           builder: (BuildContext context) {
                             return MidaWebViewScreen(
-                                url: event.eventUrl, token: token);
+                              url: event.eventUrl,
+                              token: token,
+                              addToCalendar: _addToCalendar,
+                            );
                           })
                       .whenComplete(
                           () => model.isUserRegisteredForEvent(event.eventID));
