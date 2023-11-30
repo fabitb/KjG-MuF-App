@@ -24,24 +24,20 @@ class MidaWebViewScreen extends StatelessWidget {
           const CloseButton(),
           Expanded(
               child: InAppWebView(
-                  onCloseWindow: (controller) {
-                    Navigator.of(context).pop();
-                  },
-                  onJsAlert: (controller, jsAlertRequest) {
-                    if (jsAlertRequest.message ==
-                        "Skripte können keine Fenster schließen, die nicht von ihnen geöffnet wurden.") {
-                      Navigator.of(context).pop();
-                      return Future.value(
-                          JsAlertResponse(handledByClient: true));
-                    }
-                    return Future.value(null);
-                  },
                   onWebViewCreated: (controller) {
-                    // inject custom handler (callback to flutter in js)
+                    // inject custom handlers (callback to flutter in JS)
+                    // add to calendar handler
                     controller.addJavaScriptHandler(
                         handlerName: "addToCalendar",
                         callback: (args) {
                           addToCalendar!();
+                        });
+
+                    // close popup handler
+                    controller.addJavaScriptHandler(
+                        handlerName: "closePopup",
+                        callback: (args) {
+                          Navigator.of(context).pop();
                         });
                   },
                   onLoadStop: (controller, url) {
@@ -58,6 +54,13 @@ class MidaWebViewScreen extends StatelessWidget {
                         btn.removeAttribute("href");
                         btn.onclick = flutterAddToCalendar;
                       });                
+                    """);
+
+                    // override mida CancelPopup function
+                    controller.evaluateJavascript(source: """
+                      CancelPopup = () => {
+                        window.flutter_inappwebview.callHandler("closePopup");
+                      }
                     """);
                   },
                   gestureRecognizers: gestureRecognizers,
