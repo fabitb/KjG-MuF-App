@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 
 class GameDetailScreen extends StatelessWidget {
   final GameModel game;
@@ -124,6 +126,13 @@ class GameDetailScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: Constants.allowedToReviewGames
+          ? FloatingActionButton(
+              child: const Icon(Icons.edit),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => EditGameScreen(game: game))),
+            )
+          : const SizedBox(),
     );
   }
 }
