@@ -49,7 +49,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-    <string>Events aus der MiDa direkt zum Kalender hinzufuegen</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Events aus der MiDa direkt zum Kalender hinzufügen</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Events aus der MiDa direkt zum Kalender hinzufügen</string>
 </dict>
 </plist>
