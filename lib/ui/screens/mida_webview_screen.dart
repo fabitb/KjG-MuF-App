@@ -30,7 +30,7 @@ class MidaWebViewScreen extends StatelessWidget {
                     controller.addJavaScriptHandler(
                         handlerName: "addToCalendar",
                         callback: (args) {
-                          addToCalendar!();
+                          addToCalendar?.call();
                         });
 
                     // close popup handler
