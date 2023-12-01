@@ -172,6 +172,20 @@ class EventDetailScreen extends StatelessWidget {
                                     }),
                               )
                             : const SizedBox(),
+                        event.imageUrl.isNotEmpty
+                            ? Card(
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      const CircularProgressIndicator(),
+                                      Image.network(event.imageUrl),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                         InkWell(
                           onTap: () {
                             model.openUrl("mailto:${event.contactEmail}");
