@@ -16,6 +16,8 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:add_2_calendar/add_2_calendar.dart' as calendar;
+import 'dart:io' show Platform;
+import 'package:html/parser.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
@@ -33,17 +35,25 @@ class EventDetailScreen extends StatelessWidget {
   void _addToCalendar() {
     final event = this.event;
     if (event != null) {
+      String url = event.eventUrl.replaceAll("&dialog=1", "");
+
+      // Add url to Android description
+      // iOS doesn't support html descriptions -> parse text
+      String description = Platform.isAndroid
+          ? "${event.description}\n\n$url"
+          : parse(event.description).documentElement?.text ?? "";
+
       // Adds event link to the end of the description (not as modal)
       // duration 1 hour if end time equals start time
       final calendar.Event calendarEvent = calendar.Event(
           title: event.title,
-          description:
-              "${event.description}\n\n${event.eventUrl.replaceAll("&dialog=1", "")}",
+          description: description,
           location: event.location,
           startDate: event.startDateAndTime,
           endDate: event.endDate.compareTo(event.startDateAndTime) == 0
               ? event.endDate.add(const Duration(hours: 1))
-              : event.endDate);
+              : event.endDate,
+          iosParams: calendar.IOSParams(url: url));
       calendar.Add2Calendar.addEvent2Cal(calendarEvent);
     }
   }
