@@ -174,6 +174,7 @@ class EventDetailScreen extends StatelessWidget {
                             : const SizedBox(),
                         event.imageUrl.isNotEmpty
                             ? Card(
+                                clipBehavior: Clip.antiAlias,
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: Stack(
