@@ -19,6 +19,8 @@ import 'package:add_2_calendar/add_2_calendar.dart' as calendar;
 import 'dart:io' show Platform;
 import 'package:html/parser.dart';
 
+import 'fullscreen_image.dart';
+
 class EventDetailScreen extends StatelessWidget {
   final Event event;
 
@@ -170,6 +172,28 @@ class EventDetailScreen extends StatelessWidget {
                                                 LaunchMode.externalApplication);
                                       }
                                     }),
+                              )
+                            : const SizedBox(),
+                        event.imageUrl.isNotEmpty
+                            ? InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => FullscreenImage(
+                                          url: event.imageUrl)));
+                                },
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        const CircularProgressIndicator(),
+                                        Image.network(event.imageUrl),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               )
                             : const SizedBox(),
                         InkWell(
