@@ -130,11 +130,20 @@ class EditGameScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextField(
-                controller: gameplayInstructionsController,
+                controller: endingInstructionsController,
                 maxLines: null,
                 decoration: const InputDecoration(
-                  labelText: "Spielablauf",
-                  hintText: "Gebe Informationen zum Spielablauf an",
+                  labelText: "Spielende",
+                  hintText: "Gebe Informationen zum Spielende an",
+                  border: Constants.defaultOutlineInputBorder,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              TextField(
+                controller: authorController,
+                decoration: const InputDecoration(
+                  labelText: "Autor",
+                  hintText: "Gebe den Autor des Spiels an",
                   border: Constants.defaultOutlineInputBorder,
                 ),
               ),
