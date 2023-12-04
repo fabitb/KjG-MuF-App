@@ -14,6 +14,7 @@ class SharedPref {
   static const keyUserName = "key.user.name";
   static const keyPasswordHash = "key.password.hash";
   static const keyUserID = "key.user.id";
+  static const keyUserCookie = "key.user.cookie";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -53,6 +54,16 @@ class SharedPref {
   Future<int?> getUserID() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt(keyUserID);
+  }
+
+  Future<void> saveUserCookie(String cookie) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyUserCookie, cookie);
+  }
+
+  Future<String?> getUserCookie() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyUserCookie);
   }
 
   Future<String?> getToken() async {

@@ -24,11 +24,19 @@ class EventList extends StatelessWidget {
                     itemCount: events.length,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
-                          child: eventItem(context, index, events[index]),
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => EventDetailScreen(
-                                      event: events[index]))));
+                          child: eventItem(
+                              context,
+                              index,
+                              events[index],
+                              model.registeredMap?[events[index].eventID] ??
+                                  false),
+                          onTap: () => Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                builder: (context) => EventDetailScreen(
+                                    event: events[index],
+                                    registeredMap: model.registeredMap ?? {}),
+                              ))
+                              .then((value) => model.refresh()));
                     }),
               ));
         }));

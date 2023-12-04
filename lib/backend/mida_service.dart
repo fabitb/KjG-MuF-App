@@ -1,10 +1,15 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
+import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MidaService {
@@ -62,6 +67,72 @@ class MidaService {
     return false;
   }
 
+  Future<List<CSVEvent>> getFutureEventsPersonal() async {
+    // need cookie set by e.g. verifyuser
+    // now stored in sharedpref when logging in (doesn't work when already logged in)
+    // could also always call verifyuser at app start and keep cookies in MidaService (would be smart if password changes?)
+    var userCookie = await SharedPref().getUserCookie();
+    if (userCookie != null) {
+      headers["cookie"] = userCookie;
+    } else {
+      // not logged in -> no personal events or registration info
+      return [];
+    }
+
+    // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
+    final response = await _get(
+        "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeZ&filtermandant=K");
+
+    if (response.statusCode != 200) {
+      throw Exception('Unexpected error occurred!');
+    }
+
+    final List<int> bytes = response.bodyBytes;
+    // response header says utf8, but it isn't
+    final String csvString = latin1.decode(bytes);
+
+    List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
+
+    if (response.statusCode == 200) {
+      return csvEvents;
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future<List<CSVEvent>> getWeekEventsPersonal(DateTime dateTime) async {
+    // need cookie set by e.g. verifyuser
+    // now stored in sharedpref when logging in (doesn't work when already logged in)
+    // could also always call verifyuser at app start and keep cookies in MidaService (would be smart if password changes?)
+    var userCookie = await SharedPref().getUserCookie();
+    if (userCookie != null) {
+      headers["cookie"] = userCookie;
+    } else {
+      // not logged in -> no personal events or registration info
+      return [];
+    }
+
+    // get week of events starting at event date
+    final response = await _get(
+        "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(dateTime)}&filtermandant=K");
+
+    if (response.statusCode != 200) {
+      throw Exception('Unexpected error occurred!');
+    }
+
+    final List<int> bytes = response.bodyBytes;
+    // response header says utf8, but it isn't
+    final String csvString = latin1.decode(bytes);
+
+    List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
+
+    if (response.statusCode == 200) {
+      return csvEvents;
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
   Future<List<Event>> getEvents() async {
     final response = await _get(
         "${Strings.midaBaseURL}/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
@@ -69,6 +140,17 @@ class MidaService {
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((data) => Event.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future<Event> getEvent(String id) async {
+    final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
+
+    if (response.statusCode == 200) {
+      dynamic jsonResponse = json.decode(response.body);
+      return Event.fromJson(jsonResponse);
     } else {
       throw Exception('Unexpected error occurred!');
     }
@@ -90,7 +172,6 @@ class MidaService {
     return http
         .get(Uri.parse(url), headers: headers)
         .then((http.Response response) {
-      final String res = response.body;
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
@@ -147,6 +228,9 @@ class MidaService {
         // ignore keys that aren't cookies
         if (key == 'path' || key == 'expires') {
           return;
+        }
+        if (key == 'token') {
+          SharedPref().saveUserCookie(rawCookie);
         }
 
         cookies[key] = value;

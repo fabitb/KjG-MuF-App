@@ -11,6 +11,7 @@ import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
+import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +24,10 @@ import 'fullscreen_image.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final Event event;
+  final Map<String, bool> registeredMap;
 
-  EventDetailScreen({super.key, required this.event});
+  EventDetailScreen(
+      {super.key, required this.event, required this.registeredMap});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -63,7 +66,10 @@ class EventDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EventDetailViewModel(event),
+      create: (_) => EventDetailViewModel(
+        event,
+        registeredMap,
+      ),
       child: Builder(builder: (context) {
         final model = Provider.of<EventDetailViewModel>(context, listen: true);
         return Scaffold(
@@ -141,7 +147,8 @@ class EventDetailScreen extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 128.0),
                       child: Column(children: [
-                        eventItem(context, 0, event),
+                        eventItem(
+                            context, 0, event, model.userRegisteredForEvent),
                         Consumer<EventDetailViewModel>(
                             builder: (_, viewModel, __) {
                           return viewModel.userRegisteredForEvent
