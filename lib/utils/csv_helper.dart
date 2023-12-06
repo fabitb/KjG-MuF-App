@@ -16,7 +16,6 @@ class CSVHelper {
     int dateIndex = -1;
     int titleIndex = -1;
     List<dynamic> firstRow = rowsAsListOfValues[0];
-    debugPrint(firstRow.toString());
     for (int i = 0; i < firstRow.length; i++) {
       if (firstRow[i] == "Link") {
         idIndex = i;
@@ -64,12 +63,10 @@ class CSVHelper {
           }
         }
 
-        debugPrint("EventID: $id, Status: ${row[statusIndex]}");
-
         csvEvents.add(
           CSVEvent(
             eventID: id,
-            registered: row[statusIndex] == "angemeldet",
+            registered: (row[statusIndex] as String).contains("angemeldet"),
             title: row[titleIndex],
             startTime: d,
             place: row[placeIndex],

@@ -27,15 +27,6 @@ class EventListViewModel extends ChangeNotifier {
     if (_events != null) {
       List<Event> eNN = _events!;
       var list = await MidaService().getFutureEventsPersonal();
-      for(CSVEvent e in list) {
-        debugPrint(e.toString());
-      }
-
-      // find personal events
-      List<String> eventIDs = list.map((e) => e.eventID).toList();
-      for (Event e in eNN) {
-        eventIDs.remove(e.eventID);
-      }
 
       List<String> publicEventIDs = eNN.map((e) => e.eventID).toList();
       bool inserted = false;
@@ -47,9 +38,12 @@ class EventListViewModel extends ChangeNotifier {
             // getEvent sometimes empty... catch while investigating
             eNN.add(await MidaService().getEvent(event.eventID));
           } catch (e) {
+            // display event with basic information instead
+            // WebView will have full information
             Event ev = Event(
               title: event.title,
-              description: "<b>Genaue Daten nicht in App verfügbar<br>Bitte über MiDa Knopf anschauen</b>",
+              description:
+                  "<b>Genaue Daten zur Veranstaltung sind nicht in der App verfügbar.<br>Bitte über den MiDa Knopf anschauen.</b>",
               imageUrl: "",
               location: event.place,
               attachments: [],
@@ -66,6 +60,7 @@ class EventListViewModel extends ChangeNotifier {
           inserted = true;
         }
       }
+
       if (inserted) {
         eNN.sort(
           (a, b) => a.startDateAndTime.compareTo(b.startDateAndTime),
