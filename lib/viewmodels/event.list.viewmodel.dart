@@ -36,7 +36,12 @@ class EventListViewModel extends ChangeNotifier {
 
       // add personal events to list and sort
       for (String s in eventIDs) {
-        eNN.add(await MidaService().getEvent(s));
+        try {
+          // getEvent sometimes empty... catch while investigating
+          eNN.add(await MidaService().getEvent(s));
+        } catch (e) {
+          debugPrint("Error getting event $s");
+        }
       }
       if (eventIDs.isNotEmpty) {
         eNN.sort(
