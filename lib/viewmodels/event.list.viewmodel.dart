@@ -27,6 +27,9 @@ class EventListViewModel extends ChangeNotifier {
     if (_events != null) {
       List<Event> eNN = _events!;
       var list = await MidaService().getFutureEventsPersonal();
+      for(CSVEvent e in list) {
+        debugPrint(e.toString());
+      }
 
       // find personal events
       List<String> eventIDs = list.map((e) => e.eventID).toList();
@@ -34,16 +37,36 @@ class EventListViewModel extends ChangeNotifier {
         eventIDs.remove(e.eventID);
       }
 
+      List<String> publicEventIDs = eNN.map((e) => e.eventID).toList();
+      bool inserted = false;
+
       // add personal events to list and sort
-      for (String s in eventIDs) {
-        try {
-          // getEvent sometimes empty... catch while investigating
-          eNN.add(await MidaService().getEvent(s));
-        } catch (e) {
-          debugPrint("Error getting event $s");
+      for (CSVEvent event in list) {
+        if (!publicEventIDs.contains(event.eventID)) {
+          try {
+            // getEvent sometimes empty... catch while investigating
+            eNN.add(await MidaService().getEvent(event.eventID));
+          } catch (e) {
+            Event ev = Event(
+              title: event.title,
+              description: "<b>Genaue Daten nicht in App verfügbar<br>Bitte über MiDa Knopf anschauen</b>",
+              imageUrl: "",
+              location: event.place,
+              attachments: [],
+              contactEmail: "",
+              contactName: "",
+              durationDays: 0,
+              eventID: event.eventID,
+              eventUrl: event.link,
+              startDateAndTime: event.startTime,
+              endTime: event.startTime,
+            );
+            eNN.add(ev);
+          }
+          inserted = true;
         }
       }
-      if (eventIDs.isNotEmpty) {
+      if (inserted) {
         eNN.sort(
           (a, b) => a.startDateAndTime.compareTo(b.startDateAndTime),
         );

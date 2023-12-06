@@ -1,4 +1,6 @@
 import 'package:csv/csv.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import '../model/csv_event.dart';
 
@@ -11,7 +13,10 @@ class CSVHelper {
     int idIndex = -1;
     int statusIndex = -1;
     int placeIndex = -1;
+    int dateIndex = -1;
+    int titleIndex = -1;
     List<dynamic> firstRow = rowsAsListOfValues[0];
+    debugPrint(firstRow.toString());
     for (int i = 0; i < firstRow.length; i++) {
       if (firstRow[i] == "Link") {
         idIndex = i;
@@ -19,10 +24,17 @@ class CSVHelper {
         statusIndex = i;
       } else if (firstRow[i] == "Ort") {
         placeIndex = i;
+      } else if (firstRow[i] == "Veranstaltung") {
+        titleIndex = i;
+      } else if (firstRow[i] == "Datum") {
+        dateIndex = i;
       }
     }
     // something went wrong (wrong token?)
-    if (placeIndex == -1 || idIndex == -1 || statusIndex == -1) {
+    if (placeIndex == -1 ||
+        idIndex == -1 ||
+        statusIndex == -1 ||
+        dateIndex == -1) {
       throw Exception("Error getting personal events");
     }
 
@@ -35,10 +47,31 @@ class CSVHelper {
       if (a != -1) {
         String id = link.substring(a + 14, b == -1 ? link.length : b);
 
+        String date = (row[dateIndex] as String).substring(3);
+
+        int dashIndex = date.indexOf("-");
+        DateTime d;
+        if (dashIndex == -1) {
+          d = DateFormat("dd.MM.yy, HH:mm").parse(date);
+        } else {
+          date = date.substring(0, dashIndex);
+          if (date.length == 15) {
+            d = DateFormat("dd.MM.yy, HH:mm").parse(date);
+          } else if (date.length == 8) {
+            d = DateFormat("dd.MM.yy").parse(date);
+          } else {
+            d = DateTime.now();
+          }
+        }
+
         csvEvents.add(
           CSVEvent(
             eventID: id,
             registered: row[statusIndex] == "angemeldet",
+            title: row[titleIndex],
+            startTime: d,
+            place: row[placeIndex],
+            link: row[idIndex],
           ),
         );
       }
