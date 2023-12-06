@@ -64,6 +64,8 @@ class CSVHelper {
           }
         }
 
+        debugPrint("EventID: $id, Status: ${row[statusIndex]}");
+
         csvEvents.add(
           CSVEvent(
             eventID: id,
