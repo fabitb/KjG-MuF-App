@@ -3,15 +3,24 @@ import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 
-import '../utils/shared_prefs.dart';
-
 class EventListViewModel extends ChangeNotifier {
   List<Event>? _events;
   Map<String, bool>? _registeredMap;
 
-  List<Event>? get events => _events;
+  List<Event>? get events => onlyRegistered
+      ? _events
+          ?.where((element) => registeredMap?[element.eventID] ?? false)
+          .toList()
+      : _events;
 
   Map<String, bool>? get registeredMap => _registeredMap;
+
+  bool onlyRegistered = false;
+
+  void setOnlyRegistered(bool newValue) {
+    onlyRegistered = newValue;
+    notifyListeners();
+  }
 
   EventListViewModel() {
     loadEvents();

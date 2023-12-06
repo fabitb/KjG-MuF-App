@@ -21,8 +21,23 @@ class EventList extends StatelessWidget {
                 effect: const ShimmerEffect(),
                 enabled: model.events == null,
                 child: ListView.builder(
-                    itemCount: events.length,
+                    itemCount: events.length + 1,
                     itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text("Nur angemeldete Veranstaltungen"),
+                            Switch(
+                              onChanged: (value) {
+                                model.setOnlyRegistered(value);
+                              },
+                              value: model.onlyRegistered,
+                            )
+                          ],
+                        );
+                      }
+                      index -= 1;
                       return InkWell(
                           child: eventItem(
                               context,
