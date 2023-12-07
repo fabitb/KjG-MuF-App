@@ -1,4 +1,5 @@
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -13,8 +14,8 @@ class SharedPref {
   static const keyName = "key.full.name";
   static const keyUserName = "key.user.name";
   static const keyPasswordHash = "key.password.hash";
+  static const keyPassword = "key.password";
   static const keyUserID = "key.user.id";
-  static const keyUserCookie = "key.user.cookie";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -46,6 +47,16 @@ class SharedPref {
     return prefs.getString(keyPasswordHash);
   }
 
+  Future<void> savePassword(String password) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyPassword, password);
+  }
+
+  Future<String?> getPassword() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyPassword);
+  }
+
   Future<void> saveUserID(int userID) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setInt(keyUserID, userID);
@@ -54,16 +65,6 @@ class SharedPref {
   Future<int?> getUserID() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt(keyUserID);
-  }
-
-  Future<void> saveUserCookie(String cookie) async {
-    var prefs = await SharedPreferences.getInstance();
-    await prefs.setString(keyUserCookie, cookie);
-  }
-
-  Future<String?> getUserCookie() async {
-    var prefs = await SharedPreferences.getInstance();
-    return prefs.getString(keyUserCookie);
   }
 
   Future<String?> getToken() async {
@@ -82,7 +83,9 @@ class SharedPref {
     await prefs.remove(keyUserName);
     await prefs.remove(keyPasswordHash);
     await prefs.remove(keyUserID);
+    await prefs.remove(keyPassword);
     CookieManager cookieManager = CookieManager.instance();
+    MidaService().deleteAllCookies();
     await cookieManager.deleteAllCookies();
   }
 }

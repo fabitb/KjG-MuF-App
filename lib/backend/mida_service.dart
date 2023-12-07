@@ -13,11 +13,24 @@ import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MidaService {
+  static final MidaService _midaService = MidaService._internal();
+
+  factory MidaService() {
+    return _midaService;
+  }
+
+  MidaService._internal();
+
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
+
+  void deleteAllCookies() {
+    headers = {"content-type": "text/json"};
+    cookies = {};
+  }
 
   Future<bool> verifyLoginForUserName(String username, String password) async {
     final passwordHash = _generateMd5(password);
@@ -37,6 +50,7 @@ class MidaService {
           await SharedPref().saveName(jsonResponse.first);
           await SharedPref().saveUserName(username);
           await SharedPref().savePasswordHash(passwordHash);
+          await SharedPref().savePassword(password);
           return true;
         }
       }
@@ -68,17 +82,6 @@ class MidaService {
   }
 
   Future<List<CSVEvent>> getFutureEventsPersonal() async {
-    // need cookie set by e.g. verifyuser
-    // now stored in sharedpref when logging in (doesn't work when already logged in)
-    // could also always call verifyuser at app start and keep cookies in MidaService (would be smart if password changes?)
-    var userCookie = await SharedPref().getUserCookie();
-    if (userCookie != null) {
-      headers["cookie"] = userCookie;
-    } else {
-      // not logged in -> no personal events or registration info
-      return [];
-    }
-
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
     final response = await _get(
         "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeZ&filtermandant=K");
@@ -101,17 +104,6 @@ class MidaService {
   }
 
   Future<List<CSVEvent>> getWeekEventsPersonal(DateTime dateTime) async {
-    // need cookie set by e.g. verifyuser
-    // now stored in sharedpref when logging in (doesn't work when already logged in)
-    // could also always call verifyuser at app start and keep cookies in MidaService (would be smart if password changes?)
-    var userCookie = await SharedPref().getUserCookie();
-    if (userCookie != null) {
-      headers["cookie"] = userCookie;
-    } else {
-      // not logged in -> no personal events or registration info
-      return [];
-    }
-
     // get week of events starting at event date
     final response = await _get(
         "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(dateTime)}&filtermandant=K");
@@ -228,9 +220,6 @@ class MidaService {
         // ignore keys that aren't cookies
         if (key == 'path' || key == 'expires') {
           return;
-        }
-        if (key == 'token') {
-          SharedPref().saveUserCookie(rawCookie);
         }
 
         cookies[key] = value;

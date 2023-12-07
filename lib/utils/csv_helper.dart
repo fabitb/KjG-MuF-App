@@ -34,7 +34,7 @@ class CSVHelper {
         idIndex == -1 ||
         statusIndex == -1 ||
         dateIndex == -1) {
-      throw Exception("Error getting personal events");
+      return [];
     }
 
     List<CSVEvent> csvEvents = [];
