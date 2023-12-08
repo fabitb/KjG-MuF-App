@@ -3,6 +3,7 @@ import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
+import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -12,11 +13,15 @@ class EventList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => EventListViewModel(),
-        child: Consumer<EventListViewModel>(builder: (_, model, __) {
+      create: (_) => EventListViewModel(),
+      builder: (context, child) {
+        bool loggedIn = Provider.of<MainViewModel>(context).isLoggedIn;
+        Provider.of<EventListViewModel>(context, listen: false)
+            .loadEvents(loggedIn);
+        return Consumer<EventListViewModel>(builder: (_, model, __) {
           final events = model.events ?? Event.createFakeData();
           return RefreshIndicator(
-              onRefresh: model.loadEvents,
+              onRefresh: () => model.loadEvents(loggedIn),
               child: Skeletonizer(
                 effect: const ShimmerEffect(),
                 enabled: model.events == null,
@@ -54,6 +59,8 @@ class EventList extends StatelessWidget {
                               .then((value) => model.refresh()));
                     }),
               ));
-        }));
+        });
+      },
+    );
   }
 }

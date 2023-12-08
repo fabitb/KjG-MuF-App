@@ -36,7 +36,6 @@ class MainViewModel extends ChangeNotifier {
     _userNameCache = await SharedPref().getUserName();
     String? password = await SharedPref().getPassword();
 
-    debugPrint("Init $userNameCache $password");
     if (_userNameCache != null && password != null) {
       bool loggedIn =
           await MidaService().verifyLoginForUserName(_userNameCache!, password);
@@ -46,9 +45,10 @@ class MainViewModel extends ChangeNotifier {
       } else {
         notifyListeners();
       }
+    } else {
+      _initiated = true;
+      notifyListeners();
     }
-    _initiated = true;
-    notifyListeners();
   }
 
   Future<void> loadUserName() async {

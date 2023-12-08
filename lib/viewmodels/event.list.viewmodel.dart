@@ -23,17 +23,17 @@ class EventListViewModel extends ChangeNotifier {
   }
 
   EventListViewModel() {
-    loadEvents();
   }
 
   bool registeredForEvent(String eventID) {
     return registeredMap?[eventID] ?? false;
   }
 
-  Future<void> loadEvents() async {
+  Future<void> loadEvents(bool loggedIn) async {
+    debugPrint("loadEvents $loggedIn");
     _events = await MidaService().getEvents();
 
-    if (_events != null) {
+    if (_events != null && loggedIn) {
       List<Event> eNN = _events!;
       var list = await MidaService().getFutureEventsPersonal();
 
@@ -82,6 +82,8 @@ class EventListViewModel extends ChangeNotifier {
         registeredMap[e.eventID] = e.registered;
       }
       _registeredMap = registeredMap;
+    }else {
+      _registeredMap = {};
     }
 
     notifyListeners();
