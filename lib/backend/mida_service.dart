@@ -41,7 +41,7 @@ class MidaService {
       try {
         Map<String, dynamic> jsonResponse = json.decode(response.body);
         if (jsonResponse['error'] != null) {
-          print(jsonResponse['error']);
+          debugPrint(jsonResponse['error']);
           return false;
         }
       } catch (error) {

@@ -45,7 +45,6 @@ class EventListViewModel extends ChangeNotifier {
   }
 
   Future<void> loadEvents(bool loggedIn) async {
-    debugPrint("loadEvents $loggedIn");
     _events = await MidaService().getEvents();
 
     if (_events != null && loggedIn) {
