@@ -4,6 +4,8 @@ import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 
+import '../database/model/event_model.dart';
+
 class EventListViewModel extends ChangeNotifier {
   List<Event>? _events;
   Map<String, bool>? _registeredMap;
@@ -28,7 +30,14 @@ class EventListViewModel extends ChangeNotifier {
   }
 
   Future<void> _loadCachedEvents() async {
-    _events = await DBService().getCachedEvents();
+    List<EventModel> eventModels = await DBService().getCachedEvents();
+
+    _events = [];
+    _registeredMap = {};
+    for (EventModel eM in eventModels) {
+      _events?.add(eM.toEvent());
+      _registeredMap?[eM.eventID] = eM.registered;
+    }
   }
 
   bool registeredForEvent(String eventID) {
@@ -91,6 +100,8 @@ class EventListViewModel extends ChangeNotifier {
     } else {
       _registeredMap = {};
     }
+
+    DBService().cacheEvents(_events ?? [], _registeredMap ?? {});
 
     notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'model/event_model.dart';
 import 'model/game_model.dart';
 
 class DBService {
@@ -27,16 +28,26 @@ class DBService {
     return await isar.gameModels.where().findAll();
   }
 
-  // This is where I would put my cache
-  // IF I HAD ONE
-  Future<List<Event>> getCachedEvents() async {
-    return Event.createFakeData();
+  Future<List<EventModel>> getCachedEvents() async {
+    final isar = await db;
+    return await isar.eventModels.where().findAll();
+  }
+
+  Future<void> cacheEvents(
+      List<Event> events, Map<String, bool> registeredMap) async {
+    List<EventModel> newEvents = events
+        .map((e) => EventModel.fromEvent(e, registeredMap[e.eventID] ?? false))
+        .toList();
+
+    final isar = await db;
+    isar.writeTxn(() => isar.eventModels.clear());
+    isar.writeTxn(() => isar.eventModels.putAll(newEvents));
   }
 
   Future<Isar> openDB() async {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
-      return await Isar.open([GameModelSchema],
+      return await Isar.open([GameModelSchema, EventModelSchema],
           directory: dir.path, inspector: true);
     }
 
