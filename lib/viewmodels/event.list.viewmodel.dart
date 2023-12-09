@@ -38,6 +38,7 @@ class EventListViewModel extends ChangeNotifier {
       _events?.add(eM.toEvent());
       _registeredMap?[eM.eventID] = eM.registered;
     }
+    notifyListeners();
   }
 
   bool registeredForEvent(String eventID) {
