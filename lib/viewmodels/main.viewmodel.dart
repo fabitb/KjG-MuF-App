@@ -40,7 +40,10 @@ class MainViewModel extends ChangeNotifier {
     _userNameCache = await SharedPref().getUserName();
     String? password = await SharedPref().getPassword();
 
-    if (_userNameCache != null && password != null) {
+    if (userNameCache != null && password == null) {
+      // users of older version of the app need to log in again
+      logoutUser();
+    } else if (_userNameCache != null && password != null) {
       bool loggedIn;
       try {
         loggedIn = await MidaService()
