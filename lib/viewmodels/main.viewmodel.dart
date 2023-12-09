@@ -22,8 +22,12 @@ class MainViewModel extends ChangeNotifier {
 
   bool get initiated => _initiated;
 
+  bool _offline = false;
+
+  bool get offline => _offline;
+
   MainViewModel() {
-    _init();
+    init();
   }
 
   setLoading(bool loading) async {
@@ -31,14 +35,21 @@ class MainViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     _nameCache = await SharedPref().getName();
     _userNameCache = await SharedPref().getUserName();
     String? password = await SharedPref().getPassword();
 
     if (_userNameCache != null && password != null) {
-      bool loggedIn =
-          await MidaService().verifyLoginForUserName(_userNameCache!, password);
+      bool loggedIn;
+      try {
+        loggedIn = await MidaService()
+            .verifyLoginForUserName(_userNameCache!, password);
+        _offline = false;
+      } catch (e) {
+        loggedIn = _nameCache != null;
+        _offline = true;
+      }
       _initiated = true;
       if (!loggedIn) {
         logoutUser();

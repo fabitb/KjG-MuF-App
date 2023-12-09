@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 
@@ -23,6 +24,11 @@ class EventListViewModel extends ChangeNotifier {
   }
 
   EventListViewModel() {
+    _loadCachedEvents();
+  }
+
+  Future<void> _loadCachedEvents() async {
+    _events = await DBService().getCachedEvents();
   }
 
   bool registeredForEvent(String eventID) {
@@ -82,7 +88,7 @@ class EventListViewModel extends ChangeNotifier {
         registeredMap[e.eventID] = e.registered;
       }
       _registeredMap = registeredMap;
-    }else {
+    } else {
       _registeredMap = {};
     }
 

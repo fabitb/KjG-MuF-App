@@ -12,6 +12,7 @@ import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
+import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
@@ -25,9 +26,13 @@ import 'fullscreen_image.dart';
 class EventDetailScreen extends StatelessWidget {
   final Event event;
   final Map<String, bool> registeredMap;
+  final bool offline;
 
   EventDetailScreen(
-      {super.key, required this.event, required this.registeredMap});
+      {super.key,
+      required this.event,
+      required this.registeredMap,
+      required this.offline});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -69,6 +74,7 @@ class EventDetailScreen extends StatelessWidget {
       create: (_) => EventDetailViewModel(
         event,
         registeredMap,
+        offline,
       ),
       child: Builder(builder: (context) {
         final model = Provider.of<EventDetailViewModel>(context, listen: true);
@@ -83,42 +89,50 @@ class EventDetailScreen extends StatelessWidget {
                   Stack(
                     children: [
                       Align(
-                        child: SizedBox(
-                          height: 200.0,
-                          child: model.geolocationState ==
-                                  GeolocationState.loaded
-                              ? FlutterMap(
-                                  options: MapOptions(
-                                      center: LatLng(model.location!.latitude,
-                                          model.location!.longitude),
-                                      zoom: 14.0,
-                                      interactiveFlags: InteractiveFlag.none),
-                                  children: [
-                                    TileLayer(
-                                        minZoom: 1,
-                                        maxZoom: 18,
-                                        backgroundColor: Colors.white,
-                                        urlTemplate:
-                                            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                        subdomains: const ['a', 'b', 'c']),
-                                    MarkerLayer(markers: [
-                                      Marker(
-                                          point: LatLng(
-                                              model.location!.latitude,
-                                              model.location!.longitude),
-                                          builder: (context) =>
-                                              const Icon(Icons.place))
-                                    ])
-                                  ],
-                                )
-                              : model.geolocationState ==
-                                      GeolocationState.loading
-                                  ? const Center(
-                                      child: CircularProgressIndicator())
-                                  : const Center(
-                                      child: Text(
-                                          "Es konnte kein Ort gefunden werden")),
-                        ),
+                        child: event.location == ""
+                            ? Container()
+                            : SizedBox(
+                                height: 200.0,
+                                child: model.geolocationState ==
+                                        GeolocationState.loaded
+                                    ? FlutterMap(
+                                        options: MapOptions(
+                                            center: LatLng(
+                                                model.location!.latitude,
+                                                model.location!.longitude),
+                                            zoom: 14.0,
+                                            interactiveFlags:
+                                                InteractiveFlag.none),
+                                        children: [
+                                          TileLayer(
+                                              minZoom: 1,
+                                              maxZoom: 18,
+                                              backgroundColor: Colors.white,
+                                              urlTemplate:
+                                                  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                              subdomains: const [
+                                                'a',
+                                                'b',
+                                                'c'
+                                              ]),
+                                          MarkerLayer(markers: [
+                                            Marker(
+                                                point: LatLng(
+                                                    model.location!.latitude,
+                                                    model.location!.longitude),
+                                                builder: (context) =>
+                                                    const Icon(Icons.place))
+                                          ])
+                                        ],
+                                      )
+                                    : model.geolocationState ==
+                                            GeolocationState.loading
+                                        ? const Center(
+                                            child: CircularProgressIndicator())
+                                        : const Center(
+                                            child: Text(
+                                                "Es konnte kein Ort gefunden werden")),
+                              ),
                       ),
                       if (model.location != null)
                         Positioned.fill(

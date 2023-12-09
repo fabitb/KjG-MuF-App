@@ -150,9 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          body: model.initiated
-              ? const EventList()
-              : const Center(child: CircularProgressIndicator()),
+          body: const EventList()
         );
       }),
     );

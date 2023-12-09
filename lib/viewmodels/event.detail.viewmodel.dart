@@ -15,6 +15,7 @@ class EventDetailViewModel extends ChangeNotifier {
   bool get userRegisteredForEvent => registeredMap[event.eventID] ?? false;
   final Map<String, bool> registeredMap;
   final Event event;
+  final bool offline;
 
   Location? _location;
 
@@ -24,7 +25,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
   GeolocationState get geolocationState => _geolocationState;
 
-  EventDetailViewModel(this.event, this.registeredMap) {
+  EventDetailViewModel(this.event, this.registeredMap, this.offline) {
     getLocationFromAddress(event);
     isUserRegisteredForEvent(event.eventID);
   }
@@ -55,6 +56,7 @@ class EventDetailViewModel extends ChangeNotifier {
   }
 
   Future<void> isUserRegisteredForEvent(String eventID) async {
+    if (offline) return;
     if (await SharedPref().getToken() == null) {
       return;
     }
