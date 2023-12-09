@@ -30,7 +30,7 @@ class DBService {
 
   Future<List<EventModel>> getCachedEvents() async {
     final isar = await db;
-    return await isar.eventModels.where().findAll();
+    return await isar.eventModels.where().sortByStartDateAndTime().findAll();
   }
 
   Future<void> cacheEvents(
