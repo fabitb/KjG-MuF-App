@@ -2,6 +2,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/strings.dart';
 import '../model/csv_event.dart';
 
 class CSVHelper {
@@ -10,41 +11,43 @@ class CSVHelper {
     List<List<dynamic>> rowsAsListOfValues =
         const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
 
-    int idIndex = -1;
+    int linkIndex = -1;
     int statusIndex = -1;
     int placeIndex = -1;
     int dateIndex = -1;
     int titleIndex = -1;
     List<dynamic> firstRow = rowsAsListOfValues[0];
     for (int i = 0; i < firstRow.length; i++) {
-      if (firstRow[i] == "Link") {
-        idIndex = i;
-      } else if (firstRow[i] == "Status") {
+      if (firstRow[i] == Strings.midaCsvLinkHeader) {
+        linkIndex = i;
+      } else if (firstRow[i] == Strings.midaCsvStatusHeader) {
         statusIndex = i;
-      } else if (firstRow[i] == "Ort") {
+      } else if (firstRow[i] == Strings.midaCsvPlaceHeader) {
         placeIndex = i;
-      } else if (firstRow[i] == "Veranstaltung") {
+      } else if (firstRow[i] == Strings.midaCsvTitleHeader) {
         titleIndex = i;
-      } else if (firstRow[i] == "Datum") {
+      } else if (firstRow[i] == Strings.midaCsvDateHeader) {
         dateIndex = i;
       }
     }
     // something went wrong (wrong token?)
     if (placeIndex == -1 ||
-        idIndex == -1 ||
+        linkIndex == -1 ||
         statusIndex == -1 ||
-        dateIndex == -1) {
+        dateIndex == -1 ||
+        titleIndex == -1) {
       return [];
     }
 
     List<CSVEvent> csvEvents = [];
     for (List<dynamic> row in rowsAsListOfValues) {
       // e.g. https://mida.kjg.de/DVMuenchenundFreising_METrudering/?veranstaltung=6226@876 (@ doesn't always exist)
-      String link = row[idIndex];
-      int a = link.indexOf("veranstaltung=");
-      int b = link.indexOf("@");
-      if (a != -1) {
-        String id = link.substring(a + 14, b == -1 ? link.length : b);
+      String link = row[linkIndex];
+      int idStart = link.indexOf("veranstaltung=");
+      int idEnd = link.indexOf("@");
+      if (idStart != -1) {
+        String id =
+            link.substring(idStart + 14, idEnd == -1 ? link.length : idEnd);
 
         String date = (row[dateIndex] as String).substring(3);
 
@@ -70,7 +73,7 @@ class CSVHelper {
             title: row[titleIndex],
             startTime: d,
             place: row[placeIndex],
-            link: row[idIndex],
+            link: row[linkIndex],
           ),
         );
       }

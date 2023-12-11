@@ -5,4 +5,11 @@ class Strings {
       "https://mida.kjg.de/DVMuenchenundFreising/?module=shop";
   static const contactEmailAddress = "info@kjg-muenchen.de";
   static const dataPrivacyLink = "https://muenchen.kjg.de/datenschutz-kjg-app/";
+
+  // table headers returned form MiDa CSV Export
+  static const midaCsvLinkHeader = "Link";
+  static const midaCsvStatusHeader = "Status";
+  static const midaCsvPlaceHeader = "Ort";
+  static const midaCsvTitleHeader = "Veranstaltung";
+  static const midaCsvDateHeader = "Datum";
 }
