@@ -27,7 +27,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
   EventDetailViewModel(this.event, this.registeredMap, this.offline) {
     getLocationFromAddress(event);
-    isUserRegisteredForEvent(event.eventID);
+    refreshUserRegisteredForEvent(event.eventID);
   }
 
   getLocationFromAddress(Event event) async {
@@ -55,7 +55,7 @@ class EventDetailViewModel extends ChangeNotifier {
     longitudeCache = longitude;
   }
 
-  Future<void> isUserRegisteredForEvent(String eventID) async {
+  Future<void> refreshUserRegisteredForEvent(String eventID) async {
     if (offline) return;
     if (await SharedPref().getToken() == null) {
       return;

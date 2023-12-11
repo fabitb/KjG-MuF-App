@@ -163,24 +163,21 @@ class EventDetailScreen extends StatelessWidget {
                       child: Column(children: [
                         eventItem(
                             context, 0, event, model.userRegisteredForEvent),
-                        Consumer<EventDetailViewModel>(
-                            builder: (_, viewModel, __) {
-                          return viewModel.userRegisteredForEvent
-                              ? const SizedBox(
-                                  width: double.infinity,
-                                  child: Card(
-                                      color: KjGColors.kjgGreen,
-                                      child: Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: Center(
-                                              child: Text(
-                                            "Du bist angemeldet",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          )))))
-                              : const SizedBox();
-                        }),
+                        model.userRegisteredForEvent
+                            ? const SizedBox(
+                                width: double.infinity,
+                                child: Card(
+                                    color: KjGColors.kjgGreen,
+                                    child: Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 8),
+                                        child: Center(
+                                            child: Text(
+                                          "Du bist angemeldet",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        )))))
+                            : const SizedBox(),
                         event.description.isNotEmpty
                             ? Card(
                                 child: Html(
@@ -254,7 +251,7 @@ class EventDetailScreen extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton.extended(
               heroTag: null,
-              label: const Text("Anmelden / Abmelden"),
+              label: Text(model.userRegisteredForEvent ? "Abmelden" : "Anmelden"),
               onPressed: () async {
                 final token = await SharedPref().getToken();
                 if (context.mounted) {
@@ -274,7 +271,7 @@ class EventDetailScreen extends StatelessWidget {
                             );
                           })
                       .whenComplete(
-                          () => model.isUserRegisteredForEvent(event.eventID));
+                          () => model.refreshUserRegisteredForEvent(event.eventID));
                 }
               },
             ));
