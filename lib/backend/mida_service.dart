@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:csv/csv.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -67,7 +66,7 @@ class MidaService {
       try {
         Map<String, dynamic> jsonResponse = json.decode(response.body);
         if (jsonResponse['error'] != null) {
-          print(jsonResponse['error']);
+          debugPrint(jsonResponse['error']);
           return false;
         }
       } catch (error) {
@@ -81,10 +80,19 @@ class MidaService {
     return false;
   }
 
-  Future<List<CSVEvent>> getFutureEventsPersonal() async {
+  /// Gets future events for the logged in user.
+  ///
+  /// All future events if no argument is given.
+  /// Events for one week from weekStartingFrom if provided.
+  Future<List<CSVEvent>> getFutureEventsPersonal(
+      {DateTime? weekStartingFrom}) async {
+    String action = weekStartingFrom != null
+        ? "&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(weekStartingFrom)}"
+        : "&art=ListeZ";
+
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
     final response = await _get(
-        "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeZ&filtermandant=K");
+        "${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K");
 
     if (response.statusCode != 200) {
       throw Exception('Unexpected error occurred!');
@@ -96,33 +104,7 @@ class MidaService {
 
     List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
 
-    if (response.statusCode == 200) {
-      return csvEvents;
-    } else {
-      throw Exception('Unexpected error occurred!');
-    }
-  }
-
-  Future<List<CSVEvent>> getWeekEventsPersonal(DateTime dateTime) async {
-    // get week of events starting at event date
-    final response = await _get(
-        "${Strings.midaBaseURL}/?action=events_kalender&print=csv&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(dateTime)}&filtermandant=K");
-
-    if (response.statusCode != 200) {
-      throw Exception('Unexpected error occurred!');
-    }
-
-    final List<int> bytes = response.bodyBytes;
-    // response header says utf8, but it isn't
-    final String csvString = latin1.decode(bytes);
-
-    List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
-
-    if (response.statusCode == 200) {
-      return csvEvents;
-    } else {
-      throw Exception('Unexpected error occurred!');
-    }
+    return csvEvents;
   }
 
   Future<List<Event>> getEvents() async {

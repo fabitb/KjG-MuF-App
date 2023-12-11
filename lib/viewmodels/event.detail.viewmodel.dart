@@ -63,7 +63,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
     // get events starting from event date for a week (less not possible)
     List<CSVEvent> events =
-        await MidaService().getWeekEventsPersonal(event.startDateAndTime);
+        await MidaService().getFutureEventsPersonal(weekStartingFrom: event.startDateAndTime);
 
     bool isUserRegisteredForEvent = false;
     for (CSVEvent e in events) {
