@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,18 +11,23 @@ enum GeolocationState { loaded, loading, error }
 class EventDetailViewModel extends ChangeNotifier {
   double? latitudeCache;
   double? longitudeCache;
-  bool _userRegisteredForEvent = false;
-  bool get userRegisteredForEvent => _userRegisteredForEvent;
+
+  bool get userRegisteredForEvent => registeredMap[event.eventID] ?? false;
+  final Map<String, bool> registeredMap;
+  final Event event;
+  final bool offline;
 
   Location? _location;
+
   Location? get location => _location;
 
   GeolocationState _geolocationState = GeolocationState.loading;
+
   GeolocationState get geolocationState => _geolocationState;
 
-  EventDetailViewModel(Event event) {
+  EventDetailViewModel(this.event, this.registeredMap, this.offline) {
     getLocationFromAddress(event);
-    isUserRegisteredForEvent(event.eventID);
+    refreshUserRegisteredForEvent(event.eventID);
   }
 
   getLocationFromAddress(Event event) async {
@@ -49,21 +55,26 @@ class EventDetailViewModel extends ChangeNotifier {
     longitudeCache = longitude;
   }
 
-  Future<void> isUserRegisteredForEvent(String eventID) async {
+  Future<void> refreshUserRegisteredForEvent(String eventID) async {
+    if (offline) return;
     if (await SharedPref().getToken() == null) {
       return;
     }
 
-    var registrations = await MidaService().getRegistrationsForEvent(eventID);
-    var userID = await SharedPref().getUserID();
+    // get events starting from event date for a week (less not possible)
+    List<CSVEvent> events =
+        await MidaService().getFutureEventsPersonal(weekStartingFrom: event.startDateAndTime);
 
-    bool isUserRegisteredForEvent = registrations
-        .where((element) =>
-            element.userID == userID.toString() && element.status == 0)
-        .isNotEmpty;
+    bool isUserRegisteredForEvent = false;
+    for (CSVEvent e in events) {
+      if (e.eventID == eventID) {
+        isUserRegisteredForEvent = e.registered;
+        break;
+      }
+    }
 
-    if (_userRegisteredForEvent != isUserRegisteredForEvent) {
-      _userRegisteredForEvent = isUserRegisteredForEvent;
+    if (userRegisteredForEvent != isUserRegisteredForEvent) {
+      registeredMap[eventID] = isUserRegisteredForEvent;
       notifyListeners();
     }
   }

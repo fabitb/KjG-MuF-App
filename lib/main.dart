@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          body: const EventList(),
+          body: const EventList()
         );
       }),
     );

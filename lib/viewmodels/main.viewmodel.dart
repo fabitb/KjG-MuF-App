@@ -5,23 +5,64 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MainViewModel extends ChangeNotifier {
   bool _loading = false;
+
   bool get loading => _loading;
 
   bool get isLoggedIn => nameCache != null;
 
   String? _nameCache;
+
   String? get nameCache => _nameCache;
 
   String? _userNameCache;
+
   String? get userNameCache => _userNameCache;
 
+  bool _initiated = false;
+
+  bool get initiated => _initiated;
+
+  bool _offline = false;
+
+  bool get offline => _offline;
+
   MainViewModel() {
-    loadUserName();
+    init();
   }
 
   setLoading(bool loading) async {
     _loading = loading;
     notifyListeners();
+  }
+
+  Future<void> init() async {
+    _nameCache = await SharedPref().getName();
+    _userNameCache = await SharedPref().getUserName();
+    String? password = await SharedPref().getPassword();
+
+    if (userNameCache != null && password == null) {
+      // users of older version of the app need to log in again
+      logoutUser();
+    } else if (_userNameCache != null && password != null) {
+      bool loggedIn;
+      try {
+        loggedIn = await MidaService()
+            .verifyLoginForUserName(_userNameCache!, password);
+        _offline = false;
+      } catch (e) {
+        loggedIn = _nameCache != null;
+        _offline = true;
+      }
+      _initiated = true;
+      if (!loggedIn) {
+        logoutUser();
+      } else {
+        notifyListeners();
+      }
+    } else {
+      _initiated = true;
+      notifyListeners();
+    }
   }
 
   Future<void> loadUserName() async {

@@ -1,18 +1,35 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
+import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MidaService {
+  static final MidaService _midaService = MidaService._internal();
+
+  factory MidaService() {
+    return _midaService;
+  }
+
+  MidaService._internal();
+
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
+
+  void deleteAllCookies() {
+    headers = {"content-type": "text/json"};
+    cookies = {};
+  }
 
   Future<bool> verifyLoginForUserName(String username, String password) async {
     final passwordHash = _generateMd5(password);
@@ -23,7 +40,7 @@ class MidaService {
       try {
         Map<String, dynamic> jsonResponse = json.decode(response.body);
         if (jsonResponse['error'] != null) {
-          print(jsonResponse['error']);
+          debugPrint(jsonResponse['error']);
           return false;
         }
       } catch (error) {
@@ -32,6 +49,7 @@ class MidaService {
           await SharedPref().saveName(jsonResponse.first);
           await SharedPref().saveUserName(username);
           await SharedPref().savePasswordHash(passwordHash);
+          await SharedPref().savePassword(password);
           return true;
         }
       }
@@ -48,7 +66,7 @@ class MidaService {
       try {
         Map<String, dynamic> jsonResponse = json.decode(response.body);
         if (jsonResponse['error'] != null) {
-          print(jsonResponse['error']);
+          debugPrint(jsonResponse['error']);
           return false;
         }
       } catch (error) {
@@ -62,6 +80,33 @@ class MidaService {
     return false;
   }
 
+  /// Gets future events for the logged in user.
+  ///
+  /// All future events if no argument is given.
+  /// Events for one week from weekStartingFrom if provided.
+  Future<List<CSVEvent>> getFutureEventsPersonal(
+      {DateTime? weekStartingFrom}) async {
+    String action = weekStartingFrom != null
+        ? "&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(weekStartingFrom)}"
+        : "&art=ListeZ";
+
+    // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
+    final response = await _get(
+        "${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K");
+
+    if (response.statusCode != 200) {
+      throw Exception('Unexpected error occurred!');
+    }
+
+    final List<int> bytes = response.bodyBytes;
+    // response header says utf8, but it isn't
+    final String csvString = latin1.decode(bytes);
+
+    List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
+
+    return csvEvents;
+  }
+
   Future<List<Event>> getEvents() async {
     final response = await _get(
         "${Strings.midaBaseURL}/?api=GetEvents&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
@@ -69,6 +114,17 @@ class MidaService {
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((data) => Event.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future<Event> getEvent(String id) async {
+    final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
+
+    if (response.statusCode == 200) {
+      dynamic jsonResponse = json.decode(response.body);
+      return Event.fromJson(jsonResponse);
     } else {
       throw Exception('Unexpected error occurred!');
     }
@@ -90,7 +146,6 @@ class MidaService {
     return http
         .get(Uri.parse(url), headers: headers)
         .then((http.Response response) {
-      final String res = response.body;
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
