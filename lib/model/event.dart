@@ -1,3 +1,5 @@
+import '../constants/strings.dart';
+
 class Event {
   final String eventID;
   final String title;
@@ -45,7 +47,7 @@ class Event {
       hasEndTime = true;
       endTime = timeInput.split('-')[1];
     }
-    String eventUrl = json['url'] + json['link'];
+    String eventUrl = (json['url'] ?? Strings.midaBaseURL) + json['link'];
     String imageURL = (json['bild'] as String).isEmpty
         ? ""
         : json['url'] + "/?download=" + json['bild'];
