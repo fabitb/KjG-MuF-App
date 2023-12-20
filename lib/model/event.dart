@@ -13,6 +13,7 @@ class Event {
   final int durationDays;
   final List<String> attachments;
   final String imageUrl;
+  final String organizer;
 
   const Event(
       {required this.eventID,
@@ -26,7 +27,8 @@ class Event {
       required this.eventUrl,
       required this.durationDays,
       required this.attachments,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.organizer});
 
   DateTime get endDate =>
       startDateAndTime.add(Duration(days: durationDays - 1));
@@ -71,7 +73,8 @@ class Event {
         eventUrl: eventUrl,
         durationDays: int.parse(json['anzahltage']),
         attachments: attachments,
-        imageUrl: imageURL);
+        imageUrl: imageURL,
+        organizer: json['verein']);
   }
 
   static List<Event> createFakeData() {
@@ -88,6 +91,7 @@ class Event {
             eventUrl: "",
             durationDays: 1,
             attachments: [],
-            imageUrl: ""));
+            imageUrl: "",
+            organizer: ""));
   }
 }

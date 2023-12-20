@@ -78,6 +78,7 @@ class EventListViewModel extends ChangeNotifier {
               eventUrl: event.link,
               startDateAndTime: event.startTime,
               endTime: event.startTime,
+              organizer: ""
             );
             eNN.add(ev);
           }
