@@ -192,6 +192,27 @@ class EventDetailScreen extends StatelessWidget {
                                     }),
                               )
                             : const SizedBox(),
+                        event.organizer.isNotEmpty
+                            ? Card(
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Veranstalter",
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        Text(event.organizer),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                         event.imageUrl.isNotEmpty
                             ? InkWell(
                                 onTap: () {
@@ -251,7 +272,8 @@ class EventDetailScreen extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton.extended(
               heroTag: null,
-              label: Text(model.userRegisteredForEvent ? "Abmelden" : "Anmelden"),
+              label:
+                  Text(model.userRegisteredForEvent ? "Abmelden" : "Anmelden"),
               onPressed: () async {
                 final token = await SharedPref().getToken();
                 if (context.mounted) {
@@ -270,8 +292,8 @@ class EventDetailScreen extends StatelessWidget {
                               addToCalendar: _addToCalendar,
                             );
                           })
-                      .whenComplete(
-                          () => model.refreshUserRegisteredForEvent(event.eventID));
+                      .whenComplete(() =>
+                          model.refreshUserRegisteredForEvent(event.eventID));
                 }
               },
             ));

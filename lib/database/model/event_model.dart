@@ -18,6 +18,7 @@ class EventModel {
   late int durationDays;
   late List<String> attachments;
   late String imageUrl;
+  late String organizer;
   late bool registered;
 
   EventModel(
@@ -34,6 +35,7 @@ class EventModel {
       this.durationDays,
       this.attachments,
       this.imageUrl,
+      this.organizer,
       this.registered);
 
   factory EventModel.fromEvent(Event event, bool registered) {
@@ -51,6 +53,7 @@ class EventModel {
         event.durationDays,
         event.attachments,
         event.imageUrl,
+        event.organizer,
         registered);
   }
 
@@ -66,6 +69,7 @@ class EventModel {
         eventUrl: eventUrl,
         durationDays: durationDays,
         attachments: attachments,
-        imageUrl: imageUrl);
+        imageUrl: imageUrl,
+        organizer: organizer);
   }
 }
