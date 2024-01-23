@@ -10,15 +10,66 @@ class EventListViewModel extends ChangeNotifier {
   List<Event>? _events;
   Map<String, bool>? _registeredMap;
 
-  List<Event>? get events => onlyRegistered
-      ? _events
-          ?.where((element) => registeredMap?[element.eventID] ?? false)
-          .toList()
-      : _events;
+  List<Event>? get events => _filteredEvents();
 
   Map<String, bool>? get registeredMap => _registeredMap;
 
+  List<Event>? _filteredEvents() {
+    List<Event>? e = _events;
+
+    if (onlyRegistered) {
+      e = e
+          ?.where((element) => registeredMap?[element.eventID] ?? false)
+          .toList();
+    }
+
+    if (_organiserFilter.isNotEmpty) {
+      e = e
+          ?.where((element) => !_organiserFilter.contains(element.organizer))
+          .toList();
+    }
+
+    if (_dateTimeRange != null) {
+      e = e
+          ?.where(
+            (element) =>
+                element.startDateAndTime.isAfter(_dateTimeRange!.start) &&
+                element.startDateAndTime.isBefore(_dateTimeRange!.end),
+          )
+          .toList();
+    }
+
+    return e;
+  }
+
+  List<String>? getOrganisers() {
+    List<String>? organisers =
+        _events?.map((e) => e.organizer).toSet().toList();
+    organisers?.sort(
+      (a, b) => a.compareTo(b),
+    );
+    return organisers;
+  }
+
   bool onlyRegistered = false;
+
+  List<String> get organiserFilter => _organiserFilter;
+
+  List<String> _organiserFilter = [];
+
+  DateTimeRange? _dateTimeRange;
+
+  DateTimeRange? get dateTimeRange => _dateTimeRange;
+
+  setDateTimeRange(DateTimeRange? dateTimeRange) {
+    _dateTimeRange = dateTimeRange;
+    notifyListeners();
+  }
+
+  void setOrganiserFilter(List<String> newFilter) {
+    _organiserFilter = newFilter;
+    notifyListeners();
+  }
 
   void setOnlyRegistered(bool newValue) {
     onlyRegistered = newValue;
@@ -65,21 +116,20 @@ class EventListViewModel extends ChangeNotifier {
             // display event with basic information instead
             // WebView will have full information
             Event ev = Event(
-              title: event.title,
-              description:
-                  "<b>Genaue Daten zur Veranstaltung sind nicht in der App verfügbar.<br>Bitte über den MiDa Knopf anschauen.</b>",
-              imageUrl: "",
-              location: event.place,
-              attachments: [],
-              contactEmail: "",
-              contactName: "",
-              durationDays: 0,
-              eventID: event.eventID,
-              eventUrl: event.link,
-              startDateAndTime: event.startTime,
-              endTime: event.startTime,
-              organizer: ""
-            );
+                title: event.title,
+                description:
+                    "<b>Genaue Daten zur Veranstaltung sind nicht in der App verfügbar.<br>Bitte über den MiDa Knopf anschauen.</b>",
+                imageUrl: "",
+                location: event.place,
+                attachments: [],
+                contactEmail: "",
+                contactName: "",
+                durationDays: 0,
+                eventID: event.eventID,
+                eventUrl: event.link,
+                startDateAndTime: event.startTime,
+                endTime: event.startTime,
+                organizer: "");
             eNN.add(ev);
           }
           inserted = true;
