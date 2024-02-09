@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
-import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
@@ -81,14 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   content: Text("TODO: Show account details")));
                         },
                       ),*/
-                ListTile(
-                  title: const Text("Backend Status"),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const BackendStatus()));
-                  },
-                ),
                 const Divider(),
                 ListTile(
                   title: const Text("Spieledatenbank"),
