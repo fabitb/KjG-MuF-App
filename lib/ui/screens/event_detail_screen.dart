@@ -1,14 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' hide Marker;
 import 'package:flutter_map/plugin_api.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:latlong2/latlong.dart';
@@ -23,11 +21,6 @@ class EventDetailScreen extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  Future<Location> getLocationFromAddress() async {
-    var locations = await locationFromAddress(event.location);
-    return locations.first;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +90,7 @@ class EventDetailScreen extends StatelessWidget {
                                   await availableMaps.first.showMarker(
                                     coords: Coords(model.latitudeCache!,
                                         model.longitudeCache!),
-                                    title: event.location,
+                                    title: event.location!,
                                   );
                                 },
                                 child: const Icon(Icons.map),
@@ -129,51 +122,53 @@ class EventDetailScreen extends StatelessWidget {
                                           )))))
                               : const SizedBox();
                         }),
-                        event.description.isNotEmpty
-                            ? Card(
-                                child: Html(
-                                    data: event.description,
-                                    onLinkTap: (url, _, __) async {
-                                      if (url != null &&
-                                          await canLaunchUrl(Uri.parse(url))) {
-                                        await launchUrl(Uri.parse(url),
-                                            mode:
-                                                LaunchMode.externalApplication);
-                                      }
-                                    }),
-                              )
-                            : const SizedBox(),
-                        InkWell(
-                          onTap: () {
-                            model.openUrl("mailto:${event.contactEmail}");
-                          },
-                          child: Card(
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Kontakt: ${event.contactName}",
-                                        style: const TextStyle(fontSize: 16)),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.mail),
-                                        const SizedBox(width: 16),
-                                        Flexible(
-                                            child: Text(event.contactEmail)),
-                                      ],
-                                    )
-                                  ],
+                        if (event.description.isNotNullAndNotEmpty())
+                          Card(
+                            child: Html(
+                                data: event.description,
+                                onLinkTap: (url, _, __) async {
+                                  if (url != null &&
+                                      await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url),
+                                        mode: LaunchMode.externalApplication);
+                                  }
+                                }),
+                          ),
+                        if (event.contactEmail != null &&
+                            event.contactName != null)
+                          InkWell(
+                            onTap: () {
+                              model.openUrl("mailto:${event.contactEmail}");
+                            },
+                            child: Card(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Kontakt: ${event.contactName}",
+                                          style: const TextStyle(fontSize: 16)),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.mail),
+                                          const SizedBox(width: 16),
+                                          Flexible(
+                                              child: Text(event.contactEmail!)),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        if (event.attachments.isNotEmpty)
-                          attachmentsWidget(context, event.attachments)
+                        if (event.attachments != null &&
+                            event.attachments!.isNotEmpty)
+                          attachmentsWidget(context, event.attachments!)
                       ])),
                 ],
               ),
@@ -182,22 +177,31 @@ class EventDetailScreen extends StatelessWidget {
               heroTag: null,
               label: const Text("Anmelden / Abmelden"),
               onPressed: () async {
-                final token = await SharedPref().getToken();
-                if (context.mounted) {
-                  showModalBottomSheet(
-                          context: context,
-                          useSafeArea: true,
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16.0),
-                                  topRight: Radius.circular(16.0))),
-                          builder: (BuildContext context) {
-                            return MidaWebViewScreen(
-                                url: event.eventUrl, token: token);
-                          })
-                      .whenComplete(
-                          () => model.isUserRegisteredForEvent(event.eventID));
+                if (event.eventUrl.isNotNullAndNotEmpty()) {
+                  final token = await SharedPref().getToken();
+                  if (context.mounted) {
+                    showModalBottomSheet(
+                      context: context,
+                      useSafeArea: true,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.0),
+                              topRight: Radius.circular(16.0))),
+                      builder: (BuildContext context) {
+                        return MidaWebViewScreen(
+                            url: event.eventUrl!, token: token);
+                      },
+                    ).whenComplete(
+                        () => model.isUserRegisteredForEvent(event.eventID));
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          "Aktuell kann das Event in der MiDa zum Anmelden nicht aufgerufen werden. Versuche es später noch einmal oder melde dich im Menü mit deinem Konto an"),
+                    ),
+                  );
                 }
               },
             ));
