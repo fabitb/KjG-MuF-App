@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   content: Text("TODO: Show account details")));
                         },
                       ),*/
-                const Divider(),
+                !model.isLoggedIn ? const Divider() : const SizedBox(),
                 ListTile(
                   title: const Text("Spieledatenbank"),
                   onTap: () {
