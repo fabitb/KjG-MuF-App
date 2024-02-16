@@ -32,9 +32,10 @@ class EventListViewModel extends ChangeNotifier {
     if (_dateTimeRange != null) {
       e = e
           ?.where(
-            (element) =>
-                element.startDateAndTime.isAfter(_dateTimeRange!.start) &&
-                element.startDateAndTime.isBefore(_dateTimeRange!.end),
+            (element) => element.startDateAndTime == null
+                ? false
+                : element.startDateAndTime!.isAfter(_dateTimeRange!.start) &&
+                    element.startDateAndTime!.isBefore(_dateTimeRange!.end),
           )
           .toList();
     }
@@ -137,9 +138,11 @@ class EventListViewModel extends ChangeNotifier {
       }
 
       if (inserted) {
-        eNN.sort(
-          (a, b) => a.startDateAndTime.compareTo(b.startDateAndTime),
-        );
+        eNN.sort((a, b) {
+          if (a.startDateAndTime == null) return 1;
+          if (b.startDateAndTime == null) return -1;
+          return a.startDateAndTime!.compareTo(b.startDateAndTime!);
+        });
       }
 
       // create map eventID -> registered
