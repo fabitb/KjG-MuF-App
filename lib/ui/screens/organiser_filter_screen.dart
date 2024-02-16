@@ -6,24 +6,18 @@ import 'package:provider/provider.dart';
 
 class OrganiserFilterScreen extends StatelessWidget {
   final List<String> organisers;
-  final List<String> filters;
+  final Map<String, bool> showOrganizer;
 
-  const OrganiserFilterScreen({super.key, required this.organisers, required this.filters});
+  const OrganiserFilterScreen({super.key, required this.organisers, required this.showOrganizer});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => OrganiserFilterViewModel(organisers, filters),
+      create: (context) => OrganiserFilterViewModel(organisers, showOrganizer),
       builder: (context, child) => Consumer<OrganiserFilterViewModel>(
         builder: (context, model, child) => WillPopScope(
           onWillPop: () {
-            List<String> filters = [];
-            for (int i = 0; i < model.filtered.length; i++) {
-              if (!model.filtered[i]) {
-                filters.add(organisers[i]);
-              }
-            }
-            Navigator.of(context).pop(filters);
+            Navigator.of(context).pop(model.showOrganizer);
             return Future.value(false);
           },
           child: Scaffold(
@@ -34,11 +28,11 @@ class OrganiserFilterScreen extends StatelessWidget {
                   return ListTile(
                     title: Text(organisers[index]),
                     trailing: Switch(
-                      value: model.filtered[index],
-                      onChanged: (value) => model.setFiltered(index, value),
+                      value: model.showOrganizer[organisers[index]] ?? true,
+                      onChanged: (value) => model.toggleFiltered(index),
                     ),
                     onTap: () {
-                      model.setFiltered(index, !model.filtered[index]);
+                      model.toggleFiltered(index);
                     },
                   );
                 },

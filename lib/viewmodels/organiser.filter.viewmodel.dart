@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
 class OrganiserFilterViewModel extends ChangeNotifier {
-  final List<bool> _filtered;
+  final Map<String, bool> _showOrganizer;
+  final List<String> _organisers;
 
-  List<bool> get filtered => _filtered;
+  Map<String, bool> get showOrganizer => _showOrganizer;
 
-  OrganiserFilterViewModel(List<String> organisers, List<String> filters)
-      : _filtered = [] {
-    for (int i = 0; i < organisers.length; i++) {
-      _filtered.add(!filters.contains(organisers[i]));
-    }
-  }
+  OrganiserFilterViewModel(this._organisers, this._showOrganizer){}
 
-  setFiltered(int index, bool enabled) {
-    filtered[index] = enabled;
+  toggleFiltered(int index) {
+    bool before = _showOrganizer[_organisers[index]] ?? true;
+    _showOrganizer[_organisers[index]] = !before;
     notifyListeners();
   }
 }

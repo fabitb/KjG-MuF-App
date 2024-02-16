@@ -42,34 +42,7 @@ class EventList extends StatelessWidget {
                     itemCount: events.length + 1,
                     itemBuilder: (BuildContext context, int index) {
                       if (index == 0) {
-                        return FilterWidget();
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            offline
-                                ? Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: InkWell(
-                                      onTap: () => _showSnackBar(context),
-                                      child: const Text("Offlinemodus",
-                                          style: TextStyle(color: Colors.red)),
-                                    ),
-                                  )
-                                : Container(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Text("Nur angemeldete Veranstaltungen"),
-                                Switch(
-                                  onChanged: (value) {
-                                    model.setOnlyRegistered(value);
-                                  },
-                                  value: model.onlyRegistered,
-                                )
-                              ],
-                            ),
-                          ],
-                        );
+                        return const FilterWidget();
                       }
                       index -= 1;
                       return InkWell(

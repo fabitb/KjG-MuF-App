@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/ui/screens/filter_screen.dart';
 import 'package:kjg_muf_app/ui/screens/organiser_filter_screen.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -10,63 +13,65 @@ class FilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EventListViewModel>(
-      builder: (context, model, child) {
-        return SizedBox(
-          width: double.infinity,
+    return Consumer<EventListViewModel>(builder: (context, model, child) {
+      return InkWell(
+        onTap: () async {
+          final result = await Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FilterScreen(
+                    events: model.eventsUnfiltered ?? [],
+                    filterSettings: model.filterSettings,
+                  )));
+
+          if (result != null) {
+            model.setFilterSettings(result as FilterSettings);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ListTile(
-                title: Text("Nur angemeldete Veranstaltungen"),
-                trailing: Switch(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  onChanged: (value) {
-                    model.setOnlyRegistered(value);
-                  },
-                  value: model.onlyRegistered,
-                ),
-                onTap: () {
-                  model.setOnlyRegistered(!model.onlyRegistered);
-                },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Filter",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                      Icon(Icons.keyboard_arrow_right)
+                    ],
+                  ),
+                  Text(_getFilterString(model.filterSettings)),
+                ],
               ),
-              ListTile(
-                title: Text("Nach Veranstalter filtern"),
-                trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: () async {
-                  final result =
-                      await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrganiserFilterScreen(
-                        organisers: model.getOrganisers() ?? [],
-                        filters: model.organiserFilter),
-                  ));
-
-                  if (result != null) {
-                    model.setOrganiserFilter(result as List<String>);
-                  }
-                },
-              ),
-              ListTile(
-                title: Text("Nach Datum filtern"),
-                subtitle: model.dateTimeRange != null
-                    ? Text(
-                        "${DateFormat("dd.MM.yyyy").format(model.dateTimeRange!.start)} - ${DateFormat("dd.MM.yyyy").format(model.dateTimeRange!.end)}")
-                    : null,
-                trailing: Icon(Icons.date_range),
-                onTap: () async {
-                  final result = await showDateRangePicker(
-                    context: context,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(Duration(days: 365 * 2)),
-                    initialDateRange: model.dateTimeRange,
-                  );
-
-                  model.setDateTimeRange(result);
-                },
-              ),
+              const Padding(padding: EdgeInsets.only(top: 8)),
+              Text(_getResultCountString(model.events?.length ?? 0,
+                  model.eventsUnfiltered?.length ?? 0))
             ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
+  }
+
+  String _getResultCountString(int filteredCount, int totalCount) {
+    return "$filteredCount Ergebnisse (von $totalCount)";
+  }
+
+  String _getFilterString(FilterSettings filterSettings) {
+    List<String> parts = [];
+    if (filterSettings.onlyRegistered) parts.add("nur angemeldet");
+    if (filterSettings.dateTimeRange != null) {
+      parts.add(filterSettings.dateTimeRange!.startEndString());
+    }
+    int count =
+        filterSettings.showOrganizer.values.where((element) => !element).length;
+    if (count > 0) parts.add("$count Veranstalter ausgeblendet");
+
+    return parts.isNotEmpty ? parts.join(", ") : "keine Filter aktiv";
   }
 }

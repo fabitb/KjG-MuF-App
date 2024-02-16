@@ -3,6 +3,7 @@ import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/model/filter_settings.dart';
 
 import '../database/model/event_model.dart';
 
@@ -11,33 +12,43 @@ class EventListViewModel extends ChangeNotifier {
   Map<String, bool>? _registeredMap;
 
   List<Event>? get events => _filteredEvents();
+  List<Event>? get eventsUnfiltered => _events;
 
   Map<String, bool>? get registeredMap => _registeredMap;
+
+  FilterSettings _filterSettings = FilterSettings();
+
+  FilterSettings get filterSettings => _filterSettings;
+
+  setFilterSettings(FilterSettings newValue) {
+    _filterSettings = newValue;
+    notifyListeners();
+  }
 
   List<Event>? _filteredEvents() {
     List<Event>? e = _events;
 
-    if (onlyRegistered) {
+    if (_filterSettings.onlyRegistered) {
       e = e
           ?.where((element) => registeredMap?[element.eventID] ?? false)
           .toList();
     }
 
-    if (_organiserFilter.isNotEmpty) {
-      e = e
-          ?.where((element) => !_organiserFilter.contains(element.organizer))
-          .toList();
-    }
+    e = e
+        ?.where((element) =>
+            _filterSettings.showOrganizer[element.organizer] ?? true)
+        .toList();
 
-    if (_dateTimeRange != null) {
-      e = e
-          ?.where(
-            (element) => element.startDateAndTime == null
-                ? false
-                : element.startDateAndTime!.isAfter(_dateTimeRange!.start) &&
-                    element.startDateAndTime!.isBefore(_dateTimeRange!.end),
-          )
-          .toList();
+    if (_filterSettings.dateTimeRange != null) {
+      e = e?.where((element) {
+        if (element.startDateAndTime == null) return false;
+        DateTime start = _filterSettings.dateTimeRange!.start;
+        // Aktionen am Endtag sollen inkludiert sein
+        DateTime end =
+            _filterSettings.dateTimeRange!.end.add(const Duration(days: 1));
+        return element.startDateAndTime!.isAfter(start) &&
+            element.startDateAndTime!.isBefore(end);
+      }).toList();
     }
 
     return e;
@@ -50,31 +61,6 @@ class EventListViewModel extends ChangeNotifier {
       (a, b) => a.compareTo(b),
     );
     return organisers;
-  }
-
-  bool onlyRegistered = false;
-
-  List<String> get organiserFilter => _organiserFilter;
-
-  List<String> _organiserFilter = [];
-
-  DateTimeRange? _dateTimeRange;
-
-  DateTimeRange? get dateTimeRange => _dateTimeRange;
-
-  setDateTimeRange(DateTimeRange? dateTimeRange) {
-    _dateTimeRange = dateTimeRange;
-    notifyListeners();
-  }
-
-  void setOrganiserFilter(List<String> newFilter) {
-    _organiserFilter = newFilter;
-    notifyListeners();
-  }
-
-  void setOnlyRegistered(bool newValue) {
-    onlyRegistered = newValue;
-    notifyListeners();
   }
 
   EventListViewModel() {
