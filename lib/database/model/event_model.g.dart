@@ -145,14 +145,24 @@ int _eventModelEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
-  bytesCount += 3 + object.imageUrl.length * 3;
+  {
+    final value = object.imageUrl;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.location;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
-  bytesCount += 3 + object.organizer.length * 3;
+  {
+    final value = object.organizer;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
@@ -198,8 +208,8 @@ EventModel _eventModelDeserialize(
     reader.readStringOrNull(offsets[7]),
     reader.readLongOrNull(offsets[4]),
     reader.readStringList(offsets[0]),
-    reader.readString(offsets[8]),
-    reader.readString(offsets[10]),
+    reader.readStringOrNull(offsets[8]),
+    reader.readStringOrNull(offsets[10]),
     reader.readBool(offsets[11]),
   );
   return object;
@@ -229,11 +239,11 @@ P _eventModelDeserializeProp<P>(
     case 7:
       return (reader.readStringOrNull(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
       return (reader.readBool(offset)) as P;
     case 12:
@@ -1522,8 +1532,25 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'imageUrl',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      imageUrlIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'imageUrl',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1537,7 +1564,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       imageUrlGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1552,7 +1579,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1567,8 +1594,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1807,8 +1834,26 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      organizerIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'organizer',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      organizerIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'organizer',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1822,7 +1867,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       organizerGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1837,7 +1882,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1852,8 +1897,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2648,7 +2693,7 @@ extension EventModelQueryProperty
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> imageUrlProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> imageUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'imageUrl');
     });
@@ -2660,7 +2705,7 @@ extension EventModelQueryProperty
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> organizerProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> organizerProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'organizer');
     });

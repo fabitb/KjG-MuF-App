@@ -17,8 +17,8 @@ class EventModel {
   late String? eventUrl;
   late int? durationDays;
   late List<String>? attachments;
-  late String imageUrl;
-  late String organizer;
+  late String? imageUrl;
+  late String? organizer;
   late bool registered;
 
   EventModel(

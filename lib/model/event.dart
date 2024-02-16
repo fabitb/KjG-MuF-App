@@ -12,8 +12,8 @@ class Event {
   final String? eventUrl;
   final int? durationDays;
   final List<String>? attachments;
-  final String imageUrl;
-  final String organizer;
+  final String? imageUrl;
+  final String? organizer;
 
   const Event(
       {required this.eventID,
@@ -27,8 +27,8 @@ class Event {
       this.eventUrl,
       this.durationDays,
       this.attachments,
-      required this.imageUrl,
-      required this.organizer});
+      this.imageUrl,
+      this.organizer});
 
   DateTime? get endDate =>
       startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
@@ -49,14 +49,18 @@ class Event {
       hasEndTime = true;
       endTime = timeInput.split('-')[1];
     }
-    String eventUrl = (json['url'] ?? Strings.midaBaseURL) + json['link'];
-    String imageURL = (json['bild'] as String).isEmpty
-        ? ""
-        : json['url'] + "/?download=" + json['bild'];
-    List<String> attachments = (json['attachments'] as String)
-        .split("\n")
-        .where((element) => element.isNotEmpty)
-        .toList();
+    String? eventUrl = (json['url'] != null && json['link'] != null)
+        ? json['url'] + json['link']
+        : null;
+    String? imageURL = json['url'] != null && json['bild'] != null
+        ? json['url'] + "/?download=" + json['bild']
+        : null;
+    List<String>? attachments = json['attachments'] != null
+        ? (json['attachments'] as String)
+            .split("\n")
+            .where((element) => element.isNotEmpty)
+            .toList()
+        : null;
 
     return Event(
         eventID: eventID,

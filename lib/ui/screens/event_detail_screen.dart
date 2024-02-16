@@ -187,7 +187,7 @@ class EventDetailScreen extends StatelessWidget {
                                     }),
                               )
                             : const SizedBox(),
-                        event.organizer.isNotEmpty
+                        event.organizer.isNotNullAndNotEmpty()
                             ? Card(
                                 child: SizedBox(
                                   width: double.infinity,
@@ -201,19 +201,19 @@ class EventDetailScreen extends StatelessWidget {
                                           "Veranstalter",
                                           style: TextStyle(fontSize: 16),
                                         ),
-                                        Text(event.organizer),
+                                        Text(event.organizer!),
                                       ],
                                     ),
                                   ),
                                 ),
                               )
                             : const SizedBox(),
-                        event.imageUrl.isNotEmpty
+                        event.imageUrl.isNotNullAndNotEmpty()
                             ? InkWell(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => FullscreenImage(
-                                          url: event.imageUrl)));
+                                          url: event.imageUrl!)));
                                 },
                                 child: Card(
                                   clipBehavior: Clip.antiAlias,
@@ -223,7 +223,7 @@ class EventDetailScreen extends StatelessWidget {
                                       alignment: Alignment.center,
                                       children: [
                                         const CircularProgressIndicator(),
-                                        Image.network(event.imageUrl),
+                                        Image.network(event.imageUrl!),
                                       ],
                                     ),
                                   ),

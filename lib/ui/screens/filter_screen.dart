@@ -51,10 +51,7 @@ class FilterScreen extends StatelessWidget {
                         ),
                         ListTile(
                           title: const Text("Nach Veranstalter filtern"),
-                          subtitle: Text(model.showOrganizer.entries
-                              .where((element) => element.value)
-                              .map((e) => e.key)
-                              .join(", ")),
+                          subtitle: Text(_getOrganizerFilterString(model.organisers, model.showOrganizer)),
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             final result = await Navigator.of(context)
@@ -99,5 +96,13 @@ class FilterScreen extends StatelessWidget {
             );
           }),
     );
+  }
+  
+  String _getOrganizerFilterString(List<String> organisers, Map<String, bool> showOrganizer) {
+    List<String> show = [];
+    for(String o in organisers) {
+      if(showOrganizer[o] ?? true) show.add(o);
+    }
+    return show.join(", ");
   }
 }

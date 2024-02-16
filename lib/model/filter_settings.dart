@@ -14,7 +14,6 @@ class FilterSettings {
 
   factory FilterSettings.fromJson(Map<String, dynamic> json) => _$FilterSettingsFromJson(json);
 
-  /// Connect the generated [_$PersonToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$FilterSettingsToJson(this);
 
   @override

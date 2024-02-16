@@ -39,7 +39,7 @@ class EventListViewModel extends ChangeNotifier {
 
     e = e
         ?.where((element) =>
-            _filterSettings.showOrganizer[element.organizer] ?? true)
+            _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ?? true)
         .toList();
 
     if (_filterSettings.dateTimeRange != null) {
@@ -55,15 +55,6 @@ class EventListViewModel extends ChangeNotifier {
     }
 
     return e;
-  }
-
-  List<String>? getOrganisers() {
-    List<String>? organisers =
-        _events?.map((e) => e.organizer).toSet().toList();
-    organisers?.sort(
-      (a, b) => a.compareTo(b),
-    );
-    return organisers;
   }
 
   EventListViewModel() {

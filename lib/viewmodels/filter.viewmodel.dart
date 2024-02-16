@@ -18,7 +18,7 @@ class FilterViewModel extends ChangeNotifier {
   bool get onlyRegistered => _filterSettings.onlyRegistered;
 
   FilterViewModel(List<Event> events, this._filterSettings)
-      : _organisers = events.map((e) => e.organizer).toSet().toList() {
+      : _organisers = events.map((e) => e.organizer ?? "Unbekannt").toSet().toList() {
     _organisers.sort();
     for (var element in _organisers) {
       if (!_filterSettings.showOrganizer.containsKey(element)) {
