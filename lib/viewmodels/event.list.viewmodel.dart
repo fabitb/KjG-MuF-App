@@ -6,6 +6,7 @@ import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 
 import '../database/model/event_model.dart';
+import '../utils/shared_prefs.dart';
 
 class EventListViewModel extends ChangeNotifier {
   List<Event>? _events;
@@ -20,9 +21,11 @@ class EventListViewModel extends ChangeNotifier {
 
   FilterSettings get filterSettings => _filterSettings;
 
-  setFilterSettings(FilterSettings newValue) {
+  setFilterSettings(FilterSettings newValue, {bool saveInPrefs = true}) {
     _filterSettings = newValue;
     notifyListeners();
+
+    if(saveInPrefs) SharedPref().saveFilterSettings(newValue);
   }
 
   List<Event>? _filteredEvents() {
@@ -65,6 +68,12 @@ class EventListViewModel extends ChangeNotifier {
 
   EventListViewModel() {
     _loadCachedEvents();
+    _loadFilterSettings();
+  }
+
+  Future<void> _loadFilterSettings() async {
+    FilterSettings? cached = await SharedPref().getFilterSettings();
+    if(cached != null) setFilterSettings(cached, saveInPrefs: false);
   }
 
   Future<void> _loadCachedEvents() async {
