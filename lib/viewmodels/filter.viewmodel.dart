@@ -52,6 +52,7 @@ class FilterViewModel extends ChangeNotifier {
   resetFilterSettings() {
     _filterSettings.onlyRegistered = false;
     _filterSettings.dateTimeRange = null;
+    _filterSettings.hideGremien = false;
     _filterSettings.showOrganizer.forEach((key, value) {
       _filterSettings.showOrganizer[key] = true;
     });
