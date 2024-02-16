@@ -14,6 +14,7 @@ class Event {
   final List<String>? attachments;
   final String? imageUrl;
   final String? organizer;
+  final String? type;
 
   const Event(
       {required this.eventID,
@@ -28,7 +29,8 @@ class Event {
       this.durationDays,
       this.attachments,
       this.imageUrl,
-      this.organizer});
+      this.organizer,
+      this.type});
 
   DateTime? get endDate =>
       startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
@@ -63,22 +65,24 @@ class Event {
         : null;
 
     return Event(
-        eventID: eventID,
-        title: json['titel'],
-        startDateAndTime:
-            DateTime.parse('${json['datum'].toString()} $startTime'),
-        endTime: hasEndTime
-            ? DateTime.parse('${json['datum'].toString()} $endTime')
-            : null,
-        location: json['ort'],
-        description: json['beschreibung'],
-        contactName: json['kontakt'],
-        contactEmail: json['kontaktemail'],
-        eventUrl: eventUrl,
-        durationDays: int.parse(json['anzahltage'] ?? "0"),
-        attachments: attachments,
-        imageUrl: imageURL,
-        organizer: json['verein']);
+      eventID: eventID,
+      title: json['titel'],
+      startDateAndTime:
+          DateTime.parse('${json['datum'].toString()} $startTime'),
+      endTime: hasEndTime
+          ? DateTime.parse('${json['datum'].toString()} $endTime')
+          : null,
+      location: json['ort'],
+      description: json['beschreibung'],
+      contactName: json['kontakt'],
+      contactEmail: json['kontaktemail'],
+      eventUrl: eventUrl,
+      durationDays: int.parse(json['anzahltage'] ?? "0"),
+      attachments: attachments,
+      imageUrl: imageURL,
+      organizer: json['verein'],
+      type: json['typ'],
+    );
   }
 
   static List<Event> createFakeData() {

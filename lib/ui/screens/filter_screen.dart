@@ -68,6 +68,20 @@ class FilterScreen extends StatelessWidget {
                           },
                         ),
                         ListTile(
+                          title: const Text("Gremiensitzungen ausblenden"),
+                          trailing: Switch(
+                            materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                            onChanged: (value) {
+                              model.setHideGremien(value);
+                            },
+                            value: model.hideGremien,
+                          ),
+                          onTap: () {
+                            model.setHideGremien(!model.hideGremien);
+                          },
+                        ),
+                        ListTile(
                           title: const Text("Nach Datum filtern"),
                           subtitle: model.dateTimeRange != null
                               ? Text(model.dateTimeRange!.startEndString())

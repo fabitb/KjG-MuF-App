@@ -37,6 +37,11 @@ class EventListViewModel extends ChangeNotifier {
           .toList();
     }
 
+    if(_filterSettings.hideGremien) {
+      // Natürlich nur in MuF Gremiensitzung = typ 100
+      e = e?.where((element) => element.type != "100").toList();
+    }
+
     e = e
         ?.where((element) =>
             _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ?? true)

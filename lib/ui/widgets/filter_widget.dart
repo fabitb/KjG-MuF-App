@@ -72,6 +72,8 @@ class FilterWidget extends StatelessWidget {
         filterSettings.showOrganizer.values.where((element) => !element).length;
     if (count > 0) parts.add("$count Veranstalter ausgeblendet");
 
+    if(filterSettings.hideGremien) parts.add("keine Gremiensitzungen");
+
     return parts.isNotEmpty ? parts.join(", ") : "keine Filter aktiv";
   }
 }

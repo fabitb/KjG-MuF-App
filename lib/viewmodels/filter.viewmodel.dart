@@ -17,6 +17,8 @@ class FilterViewModel extends ChangeNotifier {
 
   bool get onlyRegistered => _filterSettings.onlyRegistered;
 
+  bool get hideGremien => _filterSettings.hideGremien;
+
   FilterViewModel(List<Event> events, this._filterSettings)
       : _organisers = events.map((e) => e.organizer ?? "Unbekannt").toSet().toList() {
     _organisers.sort();
@@ -39,6 +41,11 @@ class FilterViewModel extends ChangeNotifier {
 
   setDateTimeRange(DateTimeRange? newValue) {
     _filterSettings.dateTimeRange = newValue;
+    notifyListeners();
+  }
+
+  setHideGremien(bool newValue) {
+    _filterSettings.hideGremien = newValue;
     notifyListeners();
   }
 
