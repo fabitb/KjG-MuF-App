@@ -8,17 +8,17 @@ class EventModel {
   late Id id;
   late String eventID;
   late String title;
-  late DateTime startDateAndTime;
+  late DateTime? startDateAndTime;
   late DateTime? endTime;
-  late String location;
-  late String description;
-  late String contactName;
-  late String contactEmail;
-  late String eventUrl;
-  late int durationDays;
-  late List<String> attachments;
-  late String imageUrl;
-  late String organizer;
+  late String? location;
+  late String? description;
+  late String? contactName;
+  late String? contactEmail;
+  late String? eventUrl;
+  late int? durationDays;
+  late List<String>? attachments;
+  late String? imageUrl;
+  late String? organizer;
   late bool registered;
 
   EventModel(

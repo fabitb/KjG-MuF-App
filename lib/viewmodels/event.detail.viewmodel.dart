@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,14 +27,18 @@ class EventDetailViewModel extends ChangeNotifier {
   GeolocationState get geolocationState => _geolocationState;
 
   EventDetailViewModel(this.event, this.registeredMap, this.offline) {
-    getLocationFromAddress(event);
+    if (event.location.isNotNullAndNotEmpty()) {
+      getLocationFromAddress(event);
+    } else {
+      _geolocationState = GeolocationState.error;
+    }
     refreshUserRegisteredForEvent(event.eventID);
   }
 
   getLocationFromAddress(Event event) async {
     List<Location> locations = List.empty();
     try {
-      locations = await locationFromAddress(event.location);
+      locations = await locationFromAddress(event.location!);
     } catch (_) {
       _geolocationState = GeolocationState.error;
       notifyListeners();

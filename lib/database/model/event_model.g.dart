@@ -108,21 +108,61 @@ int _eventModelEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.attachments.length * 3;
   {
-    for (var i = 0; i < object.attachments.length; i++) {
-      final value = object.attachments[i];
-      bytesCount += value.length * 3;
+    final list = object.attachments;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
     }
   }
-  bytesCount += 3 + object.contactEmail.length * 3;
-  bytesCount += 3 + object.contactName.length * 3;
-  bytesCount += 3 + object.description.length * 3;
+  {
+    final value = object.contactEmail;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.contactName;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.description;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.eventID.length * 3;
-  bytesCount += 3 + object.eventUrl.length * 3;
-  bytesCount += 3 + object.imageUrl.length * 3;
-  bytesCount += 3 + object.location.length * 3;
-  bytesCount += 3 + object.organizer.length * 3;
+  {
+    final value = object.eventUrl;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.imageUrl;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.location;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.organizer;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
@@ -159,17 +199,17 @@ EventModel _eventModelDeserialize(
     id,
     reader.readString(offsets[6]),
     reader.readString(offsets[13]),
-    reader.readDateTime(offsets[12]),
+    reader.readDateTimeOrNull(offsets[12]),
     reader.readDateTimeOrNull(offsets[5]),
-    reader.readString(offsets[9]),
-    reader.readString(offsets[3]),
-    reader.readString(offsets[2]),
-    reader.readString(offsets[1]),
-    reader.readString(offsets[7]),
-    reader.readLong(offsets[4]),
-    reader.readStringList(offsets[0]) ?? [],
-    reader.readString(offsets[8]),
-    reader.readString(offsets[10]),
+    reader.readStringOrNull(offsets[9]),
+    reader.readStringOrNull(offsets[3]),
+    reader.readStringOrNull(offsets[2]),
+    reader.readStringOrNull(offsets[1]),
+    reader.readStringOrNull(offsets[7]),
+    reader.readLongOrNull(offsets[4]),
+    reader.readStringList(offsets[0]),
+    reader.readStringOrNull(offsets[8]),
+    reader.readStringOrNull(offsets[10]),
     reader.readBool(offsets[11]),
   );
   return object;
@@ -183,31 +223,31 @@ P _eventModelDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readStringList(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
       return (reader.readBool(offset)) as P;
     case 12:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 13:
       return (reader.readString(offset)) as P;
     default:
@@ -306,6 +346,24 @@ extension EventModelQueryWhere
 
 extension EventModelQueryFilter
     on QueryBuilder<EventModel, EventModel, QFilterCondition> {
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      attachmentsIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'attachments',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      attachmentsIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'attachments',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       attachmentsElementEqualTo(
     String value, {
@@ -532,8 +590,26 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      contactEmailIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'contactEmail',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      contactEmailIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'contactEmail',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactEmailEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -547,7 +623,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactEmailGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -563,7 +639,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactEmailLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -579,8 +655,8 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactEmailBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -668,8 +744,26 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      contactNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'contactName',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      contactNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'contactName',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactNameEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -683,7 +777,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactNameGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -699,7 +793,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactNameLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -715,8 +809,8 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       contactNameBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -804,8 +898,26 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      descriptionIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'description',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      descriptionIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'description',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       descriptionEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -819,7 +931,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       descriptionGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -835,7 +947,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       descriptionLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -851,8 +963,8 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       descriptionBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -940,7 +1052,25 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
-      durationDaysEqualTo(int value) {
+      durationDaysIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'durationDays',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      durationDaysIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'durationDays',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      durationDaysEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'durationDays',
@@ -951,7 +1081,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       durationDaysGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -965,7 +1095,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       durationDaysLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -979,8 +1109,8 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       durationDaysBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1198,8 +1328,25 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> eventUrlIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'eventUrl',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      eventUrlIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'eventUrl',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> eventUrlEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1213,7 +1360,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       eventUrlGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1228,7 +1375,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> eventUrlLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1243,8 +1390,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> eventUrlBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1385,8 +1532,25 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'imageUrl',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      imageUrlIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'imageUrl',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1400,7 +1564,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       imageUrlGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1415,7 +1579,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1430,8 +1594,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> imageUrlBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1519,8 +1683,25 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> locationIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'location',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      locationIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'location',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> locationEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1534,7 +1715,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       locationGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1549,7 +1730,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> locationLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1564,8 +1745,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> locationBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1653,8 +1834,26 @@ extension EventModelQueryFilter
     });
   }
 
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      organizerIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'organizer',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      organizerIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'organizer',
+      ));
+    });
+  }
+
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1668,7 +1867,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       organizerGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1683,7 +1882,7 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1698,8 +1897,8 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition> organizerBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1798,7 +1997,25 @@ extension EventModelQueryFilter
   }
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
-      startDateAndTimeEqualTo(DateTime value) {
+      startDateAndTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'startDateAndTime',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      startDateAndTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'startDateAndTime',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      startDateAndTimeEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'startDateAndTime',
@@ -1809,7 +2026,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       startDateAndTimeGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1823,7 +2040,7 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       startDateAndTimeLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1837,8 +2054,8 @@ extension EventModelQueryFilter
 
   QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
       startDateAndTimeBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2427,32 +2644,32 @@ extension EventModelQueryProperty
     });
   }
 
-  QueryBuilder<EventModel, List<String>, QQueryOperations>
+  QueryBuilder<EventModel, List<String>?, QQueryOperations>
       attachmentsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'attachments');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> contactEmailProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> contactEmailProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'contactEmail');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> contactNameProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> contactNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'contactName');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> descriptionProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> descriptionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'description');
     });
   }
 
-  QueryBuilder<EventModel, int, QQueryOperations> durationDaysProperty() {
+  QueryBuilder<EventModel, int?, QQueryOperations> durationDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'durationDays');
     });
@@ -2470,25 +2687,25 @@ extension EventModelQueryProperty
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> eventUrlProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> eventUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'eventUrl');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> imageUrlProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> imageUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'imageUrl');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> locationProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> locationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'location');
     });
   }
 
-  QueryBuilder<EventModel, String, QQueryOperations> organizerProperty() {
+  QueryBuilder<EventModel, String?, QQueryOperations> organizerProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'organizer');
     });
@@ -2500,7 +2717,7 @@ extension EventModelQueryProperty
     });
   }
 
-  QueryBuilder<EventModel, DateTime, QQueryOperations>
+  QueryBuilder<EventModel, DateTime?, QQueryOperations>
       startDateAndTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'startDateAndTime');

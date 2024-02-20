@@ -3,6 +3,7 @@ import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
+import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -41,33 +42,7 @@ class EventList extends StatelessWidget {
                     itemCount: events.length + 1,
                     itemBuilder: (BuildContext context, int index) {
                       if (index == 0) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            offline
-                                ? Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: InkWell(
-                                      onTap: () => _showSnackBar(context),
-                                      child: const Text("Offlinemodus",
-                                          style: TextStyle(color: Colors.red)),
-                                    ),
-                                  )
-                                : Container(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Text("Nur angemeldete Veranstaltungen"),
-                                Switch(
-                                  onChanged: (value) {
-                                    model.setOnlyRegistered(value);
-                                  },
-                                  value: model.onlyRegistered,
-                                )
-                              ],
-                            ),
-                          ],
-                        );
+                        return const FilterWidget();
                       }
                       index -= 1;
                       return InkWell(
