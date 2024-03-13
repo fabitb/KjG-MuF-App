@@ -192,6 +192,27 @@ class EventDetailScreen extends StatelessWidget {
                                     }),
                               )
                             : const SizedBox(),
+                        event.organizer.isNotEmpty
+                            ? Card(
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Veranstalter",
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        Text(event.organizer),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                         event.imageUrl.isNotEmpty
                             ? InkWell(
                                 onTap: () {
