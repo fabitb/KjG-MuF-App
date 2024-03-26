@@ -65,21 +65,20 @@ class EventListViewModel extends ChangeNotifier {
             // display event with basic information instead
             // WebView will have full information
             Event ev = Event(
-              title: event.title,
-              description:
-                  "<b>Genaue Daten zur Veranstaltung sind nicht in der App verfügbar.<br>Bitte über den MiDa Knopf anschauen.</b>",
-              imageUrl: "",
-              location: event.place,
-              attachments: [],
-              contactEmail: "",
-              contactName: "",
-              durationDays: 0,
-              eventID: event.eventID,
-              eventUrl: event.link,
-              startDateAndTime: event.startTime,
-              endTime: event.startTime,
-              organizer: ""
-            );
+                title: event.title,
+                description:
+                    "<b>Genaue Daten zur Veranstaltung sind nicht in der App verfügbar.<br>Bitte über den MiDa Knopf anschauen.</b>",
+                imageUrl: "",
+                location: event.place,
+                attachments: [],
+                contactEmail: "",
+                contactName: "",
+                durationDays: 0,
+                eventID: event.eventID,
+                eventUrl: event.link,
+                startDateAndTime: event.startTime,
+                endTime: event.startTime,
+                organizer: "");
             eNN.add(ev);
           }
           inserted = true;
@@ -87,9 +86,13 @@ class EventListViewModel extends ChangeNotifier {
       }
 
       if (inserted) {
-        eNN.sort(
-          (a, b) => a.startDateAndTime.compareTo(b.startDateAndTime),
-        );
+        eNN.sort((a, b) {
+          if (a.startDateAndTime != null && b.startDateAndTime != null) {
+            return a.startDateAndTime!.compareTo(b.startDateAndTime!);
+          } else {
+            return -1;
+          }
+        });
       }
 
       // create map eventID -> registered

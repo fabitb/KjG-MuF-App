@@ -1,62 +1,70 @@
-import '../constants/strings.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 
 class Event {
   final String eventID;
   final String title;
-  final DateTime startDateAndTime;
+  final DateTime? startDateAndTime;
   final DateTime? endTime;
-  final String location;
-  final String description;
-  final String contactName;
-  final String contactEmail;
-  final String eventUrl;
-  final int durationDays;
-  final List<String> attachments;
-  final String imageUrl;
-  final String organizer;
+  final String? location;
+  final String? description;
+  final String? contactName;
+  final String? contactEmail;
+  final String? eventUrl;
+  final int? durationDays;
+  final List<String>? attachments;
+  final String? imageUrl;
+  final String? organizer;
 
   const Event(
       {required this.eventID,
       required this.title,
-      required this.startDateAndTime,
+      this.startDateAndTime,
       this.endTime,
-      required this.location,
-      required this.description,
-      required this.contactName,
-      required this.contactEmail,
-      required this.eventUrl,
-      required this.durationDays,
-      required this.attachments,
-      required this.imageUrl,
-      required this.organizer});
+      this.location,
+      this.description,
+      this.contactName,
+      this.contactEmail,
+      this.eventUrl,
+      this.durationDays,
+      this.attachments,
+      this.imageUrl,
+      this.organizer});
 
-  DateTime get endDate =>
-      startDateAndTime.add(Duration(days: durationDays - 1));
+  DateTime? get endDate =>
+      startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
 
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
 
   factory Event.fromJson(Map<String, dynamic> json) {
     String eventID = json['id'];
-    String timeInput = json['zeit'];
+    String? timeInput = json['zeit'];
     String startTime = "00:00";
     bool hasEndTime = false;
     String endTime = "00:00";
-    if (regexStartTime.hasMatch(timeInput)) {
+    if (timeInput != null && regexStartTime.hasMatch(timeInput)) {
       startTime = timeInput;
-    } else if (regexStartAndEndTime.hasMatch(timeInput)) {
+    } else if (timeInput != null && regexStartAndEndTime.hasMatch(timeInput)) {
       startTime = timeInput.split('-').first;
       hasEndTime = true;
       endTime = timeInput.split('-')[1];
     }
-    String eventUrl = (json['url'] ?? Strings.midaBaseURL) + json['link'];
-    String imageURL = (json['bild'] as String).isEmpty
-        ? ""
-        : json['url'] + "/?download=" + json['bild'];
-    List<String> attachments = (json['attachments'] as String)
-        .split("\n")
-        .where((element) => element.isNotEmpty)
-        .toList();
+
+    String? eventUrl = (json['url'] != null && json['link'] != null)
+        ? json['url'] + json['link']
+        : null;
+
+    List<String>? attachments = json['attachments'] != null
+        ? (json['attachments'] as String)
+            .split("\n")
+            .where((element) => element.isNotEmpty)
+            .toList()
+        : null;
+
+    String? imageURL =
+        ((json['bild'] as String).isNotNullAndNotEmpty() && json['url'] != null)
+            ? json['url'] + "/?download=" + json['bild']
+            : null;
 
     return Event(
         eventID: eventID,
@@ -71,7 +79,7 @@ class Event {
         contactName: json['kontakt'],
         contactEmail: json['kontaktemail'],
         eventUrl: eventUrl,
-        durationDays: int.parse(json['anzahltage']),
+        durationDays: int.parse(json['anzahltage'] ?? "0"),
         attachments: attachments,
         imageUrl: imageURL,
         organizer: json['verein']);
