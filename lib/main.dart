@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/palette.dart';
-import 'package:kjg_muf_app/ui/screens/backend_status.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
@@ -24,7 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KjG MuF',
-      theme: ThemeData(primarySwatch: Palette.kjgColor, fontFamily: 'SeccaKjG'),
+      theme: ThemeData(
+        primarySwatch: Palette.kjgColor,
+        fontFamily: 'SeccaKjG',
+        useMaterial3: false,
+      ),
       home: const MyHomePage(title: 'KjG München und Freising'),
     );
   }
@@ -46,33 +49,33 @@ class _MyHomePageState extends State<MyHomePage> {
       create: (_) => MainViewModel(),
       child: Consumer<MainViewModel>(builder: (_, model, __) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                UserAccountsDrawerHeader(
-                    accountName: Text(model.nameCache == null
-                        ? "Nicht angemeldet"
-                        : model.nameCache!),
-                    accountEmail: Text(model.userNameCache == null
-                        ? ""
-                        : model.userNameCache!)),
-                !model.isLoggedIn
-                    ? ListTile(
-                        title: const Text("Anmelden"),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (context) => LoginScreen()))
-                              .then((value) => model.loadUserName());
-                        },
-                      )
-                    : const SizedBox(),
-                /*ListTile(
+            appBar: AppBar(
+              title: Text(widget.title),
+            ),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  UserAccountsDrawerHeader(
+                      accountName: Text(model.nameCache == null
+                          ? "Nicht angemeldet"
+                          : model.nameCache!),
+                      accountEmail: Text(model.userNameCache == null
+                          ? ""
+                          : model.userNameCache!)),
+                  !model.isLoggedIn
+                      ? ListTile(
+                          title: const Text("Anmelden"),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => LoginScreen()))
+                                .then((value) => model.loadUserName());
+                          },
+                        )
+                      : const SizedBox(),
+                  /*ListTile(
                         title: const Text("Konto"),
                         onTap: () {
                           Navigator.pop(context);
@@ -81,77 +84,68 @@ class _MyHomePageState extends State<MyHomePage> {
                                   content: Text("TODO: Show account details")));
                         },
                       ),*/
-                ListTile(
-                  title: const Text("Backend Status"),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const BackendStatus()));
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  title: const Text("Spieledatenbank"),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const GameDatabase()));
-                  },
-                ),
-                if (!Platform.isIOS)
+                  !model.isLoggedIn ? const Divider() : const SizedBox(),
                   ListTile(
-                    title: const Text("Website"),
-                    onTap: () async {
-                      await launchUrl(Uri.parse(Strings.websiteURL),
-                          mode: LaunchMode.externalApplication);
-                    },
-                  ),
-                if (!Platform.isIOS)
-                  ListTile(
-                    title: const Text("Shop"),
-                    onTap: () async {
-                      await launchUrl(Uri.parse(Strings.shopURL),
-                          mode: LaunchMode.externalApplication);
-                    },
-                  ),
-                ListTile(
-                  title: const Text("Datenschutz"),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DataPrivacyScreen()));
-                  },
-                ),
-                if (model.isLoggedIn)
-                  ListTile(
-                    title: const Text("Abmelden"),
+                    title: const Text("Spieledatenbank"),
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text("Abmelden"),
-                          content:
-                              const Text("Willst du dich wirklich ausloggen?"),
-                          actions: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  model.logoutUser();
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("Ja")),
-                            ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text("Nein"))
-                          ],
-                        ),
-                      );
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const GameDatabase()));
                     },
-                  )
-              ],
+                  ),
+                  if (!Platform.isIOS)
+                    ListTile(
+                      title: const Text("Website"),
+                      onTap: () async {
+                        await launchUrl(Uri.parse(Strings.websiteURL),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                  if (!Platform.isIOS)
+                    ListTile(
+                      title: const Text("Shop"),
+                      onTap: () async {
+                        await launchUrl(Uri.parse(Strings.shopURL),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                  ListTile(
+                    title: const Text("Datenschutz"),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DataPrivacyScreen()));
+                    },
+                  ),
+                  if (model.isLoggedIn)
+                    ListTile(
+                      title: const Text("Abmelden"),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text("Abmelden"),
+                            content: const Text(
+                                "Willst du dich wirklich ausloggen?"),
+                            actions: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    model.logoutUser();
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Ja")),
+                              ElevatedButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text("Nein"))
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                ],
+              ),
             ),
-          ),
-          body: const EventList()
-        );
+            body: const EventList());
       }),
     );
   }

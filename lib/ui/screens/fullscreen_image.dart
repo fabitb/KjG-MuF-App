@@ -20,5 +20,4 @@ class FullscreenImage extends StatelessWidget {
       ),
     );
   }
-
 }
