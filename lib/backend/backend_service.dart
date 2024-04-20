@@ -4,8 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kjg_muf_app/model/game.dart';
 
-const String backendBaseURL =
-    "http://192.168.188.185:443/api"; // TODO: back to prod_: https://app.kjg-muenchen.de/api
+const String backendBaseURL = "http://192.168.177.97:80/api"; // TODO: back to prod_: https://app.kjg-muenchen.de/api
 
 class BackendService {
   final JsonDecoder _decoder = const JsonDecoder();
@@ -36,9 +35,7 @@ class BackendService {
   }
 
   Future<http.Response> _get(String url) {
-    return http
-        .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
+    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
@@ -52,10 +49,7 @@ class BackendService {
   }
 
   Future<http.Response> _post(String url, {body, encoding}) {
-    return http
-        .post(Uri.parse(url),
-            body: _encoder.convert(body), headers: headers, encoding: encoding)
-        .then((http.Response response) {
+    return http.post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
