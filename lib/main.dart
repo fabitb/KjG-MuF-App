@@ -31,16 +31,11 @@ class KjGApp extends StatelessWidget {
   }
 }
 
-class KjGAppMain extends StatefulWidget {
+class KjGAppMain extends StatelessWidget {
   const KjGAppMain({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
-  @override
-  State<KjGAppMain> createState() => _KjGAppMainState();
-}
-
-class _KjGAppMainState extends State<KjGAppMain> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -49,7 +44,7 @@ class _KjGAppMainState extends State<KjGAppMain> {
         builder: (_, model, __) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(widget.title),
+              title: Text(title),
               backgroundColor: KjGColors.kjgLightBlue,
             ),
             drawer: Drawer(
@@ -57,65 +52,71 @@ class _KjGAppMainState extends State<KjGAppMain> {
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                    accountName: Text(model.nameCache == null
-                        ? "Nicht angemeldet"
-                        : model.nameCache!),
-                    accountEmail: Text(model.userNameCache == null
-                        ? ""
-                        : model.userNameCache!),
+                    accountName: Text(
+                      model.nameCache == null
+                          ? "Nicht angemeldet"
+                          : model.nameCache!,
+                    ),
+                    accountEmail: Text(
+                      model.userNameCache == null ? "" : model.userNameCache!,
+                    ),
                   ),
-                  !model.isLoggedIn
-                      ? ListTile(
-                          title: const Text("Anmelden"),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                    builder: (context) => LoginScreen()))
-                                .then((value) => model.loadUserName());
-                          },
-                        )
-                      : const SizedBox(),
-                  /*ListTile(
-                        title: const Text("Konto"),
-                        onTap: () {
-                          Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("TODO: Show account details")));
-                        },
-                      ),*/
-                  !model.isLoggedIn ? const Divider() : const SizedBox(),
+                  if (!model.isLoggedIn) ...[
+                    ListTile(
+                      title: const Text("Anmelden"),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context)
+                            .push(
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            )
+                            .then((value) => model.loadUserName());
+                      },
+                    ),
+                    const Divider(),
+                  ],
                   ListTile(
                     title: const Text("Spieledatenbank"),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const GameDatabase()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GameDatabase(),
+                        ),
+                      );
                     },
                   ),
                   if (!Platform.isIOS)
                     ListTile(
                       title: const Text("Website"),
                       onTap: () async {
-                        await launchUrl(Uri.parse(Strings.websiteURL),
-                            mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          Uri.parse(Strings.websiteURL),
+                          mode: LaunchMode.externalApplication,
+                        );
                       },
                     ),
                   if (!Platform.isIOS)
                     ListTile(
                       title: const Text("Shop"),
                       onTap: () async {
-                        await launchUrl(Uri.parse(Strings.shopURL),
-                            mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          Uri.parse(Strings.shopURL),
+                          mode: LaunchMode.externalApplication,
+                        );
                       },
                     ),
                   ListTile(
                     title: const Text("Datenschutz"),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DataPrivacyScreen()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DataPrivacyScreen(),
+                        ),
+                      );
                     },
                   ),
                   if (model.isLoggedIn)
@@ -127,7 +128,8 @@ class _KjGAppMainState extends State<KjGAppMain> {
                           builder: (BuildContext context) => AlertDialog(
                             title: const Text("Abmelden"),
                             content: const Text(
-                                "Willst du dich wirklich ausloggen?"),
+                              "Willst du dich wirklich ausloggen?",
+                            ),
                             actions: [
                               ElevatedButton(
                                 onPressed: () {
@@ -137,8 +139,9 @@ class _KjGAppMainState extends State<KjGAppMain> {
                                 child: const Text("Ja"),
                               ),
                               ElevatedButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text("Nein")),
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text("Nein"),
+                              ),
                             ],
                           ),
                         );
