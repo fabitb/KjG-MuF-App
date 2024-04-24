@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/constants/palette.dart';
+import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
@@ -10,59 +11,59 @@ import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'constants/strings.dart';
-
 void main() {
-  runApp(const MyApp());
+  runApp(const KjGApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class KjGApp extends StatelessWidget {
+  const KjGApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'KjG MuF',
       theme: ThemeData(
-        primarySwatch: Palette.kjgColor,
+        colorScheme: ColorScheme.fromSeed(seedColor: KjGColors.kjgLightBlue),
         fontFamily: 'SeccaKjG',
-        useMaterial3: false,
       ),
-      home: const MyHomePage(title: 'KjG München und Freising'),
+      home: const KjGAppMain(title: 'KjG München und Freising'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class KjGAppMain extends StatefulWidget {
+  const KjGAppMain({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<KjGAppMain> createState() => _KjGAppMainState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _KjGAppMainState extends State<KjGAppMain> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => MainViewModel(),
-      child: Consumer<MainViewModel>(builder: (_, model, __) {
-        return Scaffold(
+      child: Consumer<MainViewModel>(
+        builder: (_, model, __) {
+          return Scaffold(
             appBar: AppBar(
               title: Text(widget.title),
+              backgroundColor: KjGColors.kjgLightBlue,
             ),
             drawer: Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                      accountName: Text(model.nameCache == null
-                          ? "Nicht angemeldet"
-                          : model.nameCache!),
-                      accountEmail: Text(model.userNameCache == null
-                          ? ""
-                          : model.userNameCache!)),
+                    accountName: Text(model.nameCache == null
+                        ? "Nicht angemeldet"
+                        : model.nameCache!),
+                    accountEmail: Text(model.userNameCache == null
+                        ? ""
+                        : model.userNameCache!),
+                  ),
                   !model.isLoggedIn
                       ? ListTile(
                           title: const Text("Anmelden"),
@@ -129,24 +130,27 @@ class _MyHomePageState extends State<MyHomePage> {
                                 "Willst du dich wirklich ausloggen?"),
                             actions: [
                               ElevatedButton(
-                                  onPressed: () {
-                                    model.logoutUser();
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Ja")),
+                                onPressed: () {
+                                  model.logoutUser();
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Ja"),
+                              ),
                               ElevatedButton(
                                   onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text("Nein"))
+                                  child: const Text("Nein")),
                             ],
                           ),
                         );
                       },
-                    )
+                    ),
                 ],
               ),
             ),
-            body: const EventList());
-      }),
+            body: const EventList(),
+          );
+        },
+      ),
     );
   }
 }
