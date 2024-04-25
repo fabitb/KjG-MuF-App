@@ -1,5 +1,3 @@
-import '../constants/strings.dart';
-
 class Event {
   final String eventID;
   final String title;
@@ -16,21 +14,22 @@ class Event {
   final String? organizer;
   final String? type;
 
-  const Event(
-      {required this.eventID,
-      required this.title,
-      this.startDateAndTime,
-      this.endTime,
-      this.location,
-      this.description,
-      this.contactName,
-      this.contactEmail,
-      this.eventUrl,
-      this.durationDays,
-      this.attachments,
-      this.imageUrl,
-      this.organizer,
-      this.type});
+  const Event({
+    required this.eventID,
+    required this.title,
+    this.startDateAndTime,
+    this.endTime,
+    this.location,
+    this.description,
+    this.contactName,
+    this.contactEmail,
+    this.eventUrl,
+    this.durationDays,
+    this.attachments,
+    this.imageUrl,
+    this.organizer,
+    this.type,
+  });
 
   DateTime? get endDate =>
       startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
@@ -51,6 +50,7 @@ class Event {
       hasEndTime = true;
       endTime = timeInput.split('-')[1];
     }
+
     String? eventUrl = (json['url'] != null && json['link'] != null)
         ? json['url'] + json['link']
         : null;
@@ -87,19 +87,21 @@ class Event {
 
   static List<Event> createFakeData() {
     return List.generate(
-        4,
-        (index) => Event(
-            eventID: index.toString(),
-            title: "TestEvent",
-            startDateAndTime: DateTime.now(),
-            location: "",
-            description: "",
-            contactName: "",
-            contactEmail: "",
-            eventUrl: "",
-            durationDays: 1,
-            attachments: [],
-            imageUrl: "",
-            organizer: ""));
+      4,
+      (index) => Event(
+        eventID: index.toString(),
+        title: "TestEvent",
+        startDateAndTime: DateTime.now(),
+        location: "",
+        description: "",
+        contactName: "",
+        contactEmail: "",
+        eventUrl: "",
+        durationDays: 1,
+        attachments: [],
+        imageUrl: "",
+        organizer: "",
+      ),
+    );
   }
 }

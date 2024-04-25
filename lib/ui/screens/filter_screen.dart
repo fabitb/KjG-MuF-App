@@ -51,7 +51,8 @@ class FilterScreen extends StatelessWidget {
                         ),
                         ListTile(
                           title: const Text("Nach Veranstalter filtern"),
-                          subtitle: Text(_getOrganizerFilterString(model.organisers, model.showOrganizer)),
+                          subtitle: Text(_getOrganizerFilterString(
+                              model.organisers, model.showOrganizer)),
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             final result = await Navigator.of(context)
@@ -71,7 +72,7 @@ class FilterScreen extends StatelessWidget {
                           title: const Text("Gremiensitzungen ausblenden"),
                           trailing: Switch(
                             materialTapTargetSize:
-                            MaterialTapTargetSize.shrinkWrap,
+                                MaterialTapTargetSize.shrinkWrap,
                             onChanged: (value) {
                               model.setHideGremien(value);
                             },
@@ -91,17 +92,19 @@ class FilterScreen extends StatelessWidget {
                             final result = await showDateRangePicker(
                               context: context,
                               firstDate: DateTime.now(),
-                              lastDate:
-                                  DateTime.now().add(const Duration(days: 365 * 2)),
+                              lastDate: DateTime.now()
+                                  .add(const Duration(days: 365 * 2)),
                               initialDateRange: model.dateTimeRange,
                             );
 
                             model.setDateTimeRange(result);
                           },
                         ),
-                        ElevatedButton(onPressed: (){
-                          model.resetFilterSettings();
-                        }, child: const Text("Filter zurücksetzen"))
+                        ElevatedButton(
+                            onPressed: () {
+                              model.resetFilterSettings();
+                            },
+                            child: const Text("Filter zurücksetzen"))
                       ],
                     ),
                   ),
@@ -111,11 +114,12 @@ class FilterScreen extends StatelessWidget {
           }),
     );
   }
-  
-  String _getOrganizerFilterString(List<String> organisers, Map<String, bool> showOrganizer) {
+
+  String _getOrganizerFilterString(
+      List<String> organisers, Map<String, bool> showOrganizer) {
     List<String> show = [];
-    for(String o in organisers) {
-      if(showOrganizer[o] ?? true) show.add(o);
+    for (String o in organisers) {
+      if (showOrganizer[o] ?? true) show.add(o);
     }
     return show.join(", ");
   }

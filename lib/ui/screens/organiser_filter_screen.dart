@@ -8,7 +8,8 @@ class OrganiserFilterScreen extends StatelessWidget {
   final List<String> organisers;
   final Map<String, bool> showOrganizer;
 
-  const OrganiserFilterScreen({super.key, required this.organisers, required this.showOrganizer});
+  const OrganiserFilterScreen(
+      {super.key, required this.organisers, required this.showOrganizer});
 
   @override
   Widget build(BuildContext context) {

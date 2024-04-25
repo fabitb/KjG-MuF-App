@@ -8,7 +8,7 @@ extension StringExtension on String? {
 extension DateTimeRangeExtension on DateTimeRange {
   String startEndString() {
     var dateFormat = DateFormat("dd.MM.yyyy");
-    if(start == end) {
+    if (start == end) {
       return dateFormat.format(start);
     }
     return "${dateFormat.format(start)} - ${DateFormat("dd.MM.yyyy").format(end)}";

@@ -6,7 +6,7 @@ class OrganiserFilterViewModel extends ChangeNotifier {
 
   Map<String, bool> get showOrganizer => _showOrganizer;
 
-  OrganiserFilterViewModel(this._organisers, this._showOrganizer){}
+  OrganiserFilterViewModel(this._organisers, this._showOrganizer) {}
 
   toggleFiltered(int index) {
     bool before = _showOrganizer[_organisers[index]] ?? true;

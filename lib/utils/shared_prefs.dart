@@ -96,7 +96,8 @@ class SharedPref {
 
   Future<void> saveFilterSettings(FilterSettings filterSettings) async {
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setString(keyFilterSettings, jsonEncode(filterSettings.toJson()));
+    await prefs.setString(
+        keyFilterSettings, jsonEncode(filterSettings.toJson()));
   }
 
   Future<FilterSettings?> getFilterSettings() async {

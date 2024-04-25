@@ -25,7 +25,7 @@ class EventListViewModel extends ChangeNotifier {
     _filterSettings = newValue;
     notifyListeners();
 
-    if(saveInPrefs) SharedPref().saveFilterSettings(newValue);
+    if (saveInPrefs) SharedPref().saveFilterSettings(newValue);
   }
 
   List<Event>? _filteredEvents() {
@@ -37,14 +37,15 @@ class EventListViewModel extends ChangeNotifier {
           .toList();
     }
 
-    if(_filterSettings.hideGremien) {
+    if (_filterSettings.hideGremien) {
       // Natürlich nur in MuF Gremiensitzung = typ 100
       e = e?.where((element) => element.type != "100").toList();
     }
 
     e = e
         ?.where((element) =>
-            _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ?? true)
+            _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ??
+            true)
         .toList();
 
     if (_filterSettings.dateTimeRange != null) {
@@ -69,7 +70,7 @@ class EventListViewModel extends ChangeNotifier {
 
   Future<void> _loadFilterSettings() async {
     FilterSettings? cached = await SharedPref().getFilterSettings();
-    if(cached != null) setFilterSettings(cached, saveInPrefs: false);
+    if (cached != null) setFilterSettings(cached, saveInPrefs: false);
   }
 
   Future<void> _loadCachedEvents() async {
@@ -130,9 +131,11 @@ class EventListViewModel extends ChangeNotifier {
 
       if (inserted) {
         eNN.sort((a, b) {
-          if (a.startDateAndTime == null) return 1;
-          if (b.startDateAndTime == null) return -1;
-          return a.startDateAndTime!.compareTo(b.startDateAndTime!);
+          if (a.startDateAndTime != null && b.startDateAndTime != null) {
+            return a.startDateAndTime!.compareTo(b.startDateAndTime!);
+          } else {
+            return -1;
+          }
         });
       }
 
