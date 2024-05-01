@@ -1,0 +1,7 @@
+{
+  "onlyRegisteredEvents": "Nur angemeldete Veranstaltungen",
+  "hideCommitteeMeetings": "Gremiensitzungen ausblenden",
+  "filterByOrganizer": "Nach Veranstalter filtern",
+  "filterByDate": "Nach Datum filtern",
+  "resetFilter": "Filter zurücksetzen"
+}

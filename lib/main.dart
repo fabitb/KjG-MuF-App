@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
@@ -26,6 +27,8 @@ class KjGApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: KjGColors.kjgLightBlue),
         fontFamily: 'SeccaKjG',
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const KjGAppMain(title: 'KjG München und Freising'),
     );
   }
@@ -53,9 +56,7 @@ class KjGAppMain extends StatelessWidget {
                 children: [
                   UserAccountsDrawerHeader(
                     accountName: Text(
-                      model.nameCache == null
-                          ? "Nicht angemeldet"
-                          : model.nameCache!,
+                      model.nameCache == null ? "Nicht angemeldet" : model.nameCache!,
                     ),
                     accountEmail: Text(
                       model.userNameCache == null ? "" : model.userNameCache!,
