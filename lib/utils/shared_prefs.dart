@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -16,6 +20,7 @@ class SharedPref {
   static const keyPasswordHash = "key.password.hash";
   static const keyPassword = "key.password";
   static const keyUserID = "key.user.id";
+  static const keyFilterSettings = "key.filtersettings";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -87,5 +92,17 @@ class SharedPref {
     CookieManager cookieManager = CookieManager.instance();
     MidaService().deleteAllCookies();
     await cookieManager.deleteAllCookies();
+  }
+
+  Future<void> saveFilterSettings(FilterSettings filterSettings) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+        keyFilterSettings, jsonEncode(filterSettings.toJson()));
+  }
+
+  Future<FilterSettings?> getFilterSettings() async {
+    var prefs = await SharedPreferences.getInstance();
+    var f = prefs.getString(keyFilterSettings);
+    return f == null ? null : FilterSettings.fromJson(jsonDecode(f));
   }
 }
