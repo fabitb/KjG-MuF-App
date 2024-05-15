@@ -44,8 +44,26 @@ class EventList extends StatelessWidget {
                     enabled: model.events == null,
                     child: ListView.builder(
                       itemCount: events.length +
-                          (model.filterSettings.isActive() ? 1 : 0),
+                          (model.filterSettings.isActive() ? 2 : 1),
                       itemBuilder: (BuildContext context, int index) {
+                        if (index == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              onChanged: (_) => model.searchChanged(),
+                              controller: model.filterController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Suche",
+                                prefixIcon: const Icon(Icons.search),
+                              ),
+                            ),
+                          );
+                        }
+                        index--;
+
                         if (model.filterSettings.isActive()) {
                           if (index == 0) {
                             return const FilterWidget();

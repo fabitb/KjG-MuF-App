@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
@@ -9,6 +10,7 @@ import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class EventListViewModel extends ChangeNotifier {
   List<EventModel>? _events;
+  TextEditingController filterController = TextEditingController();
 
   List<EventModel>? get events => _filteredEvents();
 
@@ -23,6 +25,10 @@ class EventListViewModel extends ChangeNotifier {
     notifyListeners();
 
     if (saveInPrefs) SharedPref().saveFilterSettings(newValue);
+  }
+
+  searchChanged() {
+    notifyListeners();
   }
 
   List<EventModel>? _filteredEvents() {
@@ -52,6 +58,15 @@ class EventListViewModel extends ChangeNotifier {
             _filterSettings.dateTimeRange!.end.add(const Duration(days: 1));
         return element.startDateAndTime!.isAfter(start) &&
             element.startDateAndTime!.isBefore(end);
+      }).toList();
+    }
+
+    final searchText = filterController.text.toLowerCase();
+    if (searchText.isNotEmpty) {
+      e = e?.where((element) {
+        return element.title.toLowerCase().contains(searchText) ||
+            (element.location?.toLowerCase().contains(searchText) ?? false) ||
+            (element.organizer?.toLowerCase().contains(searchText) ?? false);
       }).toList();
     }
 
@@ -136,7 +151,6 @@ class EventListViewModel extends ChangeNotifier {
           }
         });
       }
-
     }
 
     DBService().cacheEvents(_events ?? []);

@@ -9,7 +9,7 @@ class FilterSettings {
   Map<String, bool> showOrganizer = {};
   bool onlyRegistered = false;
   DateTimeRange? dateTimeRange;
-  bool hideGremien = false;
+  bool hideGremien = true;
 
   FilterSettings();
 
