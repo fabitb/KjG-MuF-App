@@ -146,7 +146,8 @@ class EventDetailScreen extends StatelessWidget {
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(right: 8, bottom: 8),
-                              child: FloatingActionButton(
+                              child: ElevatedButton(
+                                child: const Icon(Icons.map),
                                 onPressed: () async {
                                   final availableMaps =
                                       await MapLauncher.installedMaps;
@@ -158,7 +159,6 @@ class EventDetailScreen extends StatelessWidget {
                                     title: event.location!,
                                   );
                                 },
-                                child: const Icon(Icons.map),
                               ),
                             ),
                           ),

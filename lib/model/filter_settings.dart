@@ -18,6 +18,13 @@ class FilterSettings {
 
   Map<String, dynamic> toJson() => _$FilterSettingsToJson(this);
 
+  bool isActive() {
+    return onlyRegistered ||
+        hideGremien ||
+        dateTimeRange != null ||
+        !showOrganizer.values.every((show) => show);
+  }
+
   @override
   String toString() {
     return "$showOrganizer $onlyRegistered $dateTimeRange";
@@ -33,7 +40,9 @@ class CustomDateTimeRangeConverter
     var parts = json.split(";");
 
     return DateTimeRange(
-        start: DateTime.parse(parts[0]), end: DateTime.parse(parts[1]));
+      start: DateTime.parse(parts[0]),
+      end: DateTime.parse(parts[1]),
+    );
   }
 
   @override

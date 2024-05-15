@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../model/event.dart';
-import '../model/filter_settings.dart';
+import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/model/filter_settings.dart';
 
 class FilterViewModel extends ChangeNotifier {
   final List<String> _organisers;
