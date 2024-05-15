@@ -42,7 +42,7 @@ class EventList extends StatelessWidget {
                     effect: const ShimmerEffect(),
                     enabled: model.events == null,
                     child: ListView.builder(
-                      itemCount: events.length + 1,
+                      itemCount: events.length + model.filterSettings.isActive() ? 1 : 0,
                       itemBuilder: (BuildContext context, int index) {
                         if (model.filterSettings.isActive()) {
                           if (index == 0) {
