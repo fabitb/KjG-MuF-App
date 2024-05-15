@@ -7,11 +7,9 @@ import 'package:kjg_muf_app/utils/extensions.dart';
 DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 DateFormat timeFormat = DateFormat("HH:mm");
 
-Widget eventItem(
-  BuildContext context,
-  int index,
-  EventModel event,
-) {
+Widget eventItem(BuildContext context,
+    int index,
+    EventModel event,) {
   return Card(
     color: event.registered ? KjGColors.kjgGreen : null,
     child: Padding(
@@ -34,12 +32,17 @@ Widget eventItem(
               children: [
                 const Icon(Icons.date_range_outlined),
                 Text(
-                  "${dateFormat.format(event.startDateAndTime!)}${event.durationDays! > 1 ? " - ${dateFormat.format(event.endDate!)}" : ""}",
+                  "${dateFormat.format(event.startDateAndTime!)}${event
+                      .durationDays! > 1 ? " - ${dateFormat.format(
+                      event.endDate!)}" : ""}",
                 ),
                 const SizedBox(width: 20),
                 const Icon(Icons.watch_later_outlined),
                 Text(
-                  "${timeFormat.format(event.startDateAndTime!)}${event.endTime != null ? "-${timeFormat.format(event.endTime!)}" : ""}",
+                  "${timeFormat.format(event.startDateAndTime!)}${event
+                      .endTime != null
+                      ? "-${timeFormat.format(event.endTime!)}"
+                      : ""}",
                 ),
               ],
             ),
@@ -48,7 +51,16 @@ Widget eventItem(
             Row(
               children: [
                 const Icon(Icons.place_outlined),
-                Flexible(child: Text(event.location!)),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(event.locationName!),
+                      if (event.locationForMap.isNotNullAndNotEmpty)
+                        Text(event.locationForMap!)
+                    ],
+                  ),
+                )
               ],
             ),
         ],

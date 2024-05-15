@@ -18,7 +18,7 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 
 class EventDetailScreen extends StatelessWidget {
   final EventModel event;
@@ -82,9 +82,8 @@ class EventDetailScreen extends StatelessWidget {
                   Stack(
                     children: [
                       Align(
-                        child: event.location == ""
-                            ? Container()
-                            : SizedBox(
+                        child: event.locationForMap.isNotNullAndNotEmpty
+                            ? SizedBox(
                                 height: 200.0,
                                 child: model.geolocationState ==
                                         GeolocationState.loaded
@@ -135,7 +134,8 @@ class EventDetailScreen extends StatelessWidget {
                                               "Es konnte kein Ort gefunden werden",
                                             ),
                                           ),
-                              ),
+                              )
+                            : Container(),
                       ),
                       if (model.location != null)
                         Positioned.fill(
@@ -154,7 +154,7 @@ class EventDetailScreen extends StatelessWidget {
                                       model.latitudeCache!,
                                       model.longitudeCache!,
                                     ),
-                                    title: event.location!,
+                                    title: event.locationForMap!,
                                   );
                                 },
                               ),
@@ -300,8 +300,7 @@ class EventDetailScreen extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton.extended(
               heroTag: null,
-              label:
-                  Text(model.event.registered ? "Abmelden" : "Anmelden"),
+              label: Text(model.event.registered ? "Abmelden" : "Anmelden"),
               onPressed: () async {
                 if (event.eventUrl.isNotNullAndNotEmpty) {
                   final token = await SharedPref().getToken();

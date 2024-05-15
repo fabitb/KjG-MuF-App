@@ -27,6 +27,24 @@ class EventModel {
   DateTime? get endDate =>
       startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
 
+  String? get locationName {
+    if (location.isNotNullAndNotEmpty) {
+      final parts = location!.split(":");
+      return parts[0];
+    }
+    return null;
+  }
+
+  String? get locationForMap {
+    if (location.isNotNullAndNotEmpty) {
+      final parts = location!.split(":");
+      if(parts.length > 1) {
+        return parts[1].trim();
+      }
+    }
+    return null;
+  }
+
   static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
   static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
 
@@ -81,7 +99,11 @@ class EventModel {
       }
     }
 
-
+    String? location;
+    String? ort = json["ort"];
+    if (ort.isNotNullAndNotEmpty) {
+      location = ort;
+    }
 
     List<String>? attachments = json['attachments'] != null
         ? (json['attachments'] as String)
@@ -98,7 +120,7 @@ class EventModel {
       endTime: hasEndTime
           ? DateTime.parse('${json['datum'].toString()} $endTime')
           : null,
-      location: json['ort'],
+      location: location,
       description: json['beschreibung'],
       contactName: json['kontakt'],
       contactEmail: json['kontaktemail'],
