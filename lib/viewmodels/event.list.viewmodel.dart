@@ -76,11 +76,16 @@ class EventListViewModel extends ChangeNotifier {
   Future<void> _loadCachedEvents() async {
     List<EventModel> eventModels = await DBService().getCachedEvents();
 
+    final now = DateTime.now();
+    final startOfToday = DateTime(now.year, now.month, now.day);
+
     _events = [];
     _registeredMap = {};
     for (EventModel eM in eventModels) {
-      _events?.add(eM.toEvent());
-      _registeredMap?[eM.eventID] = eM.registered;
+      if (eM.startDateAndTime?.isAfter(startOfToday) ?? false) {
+        _events?.add(eM.toEvent());
+        _registeredMap?[eM.eventID] = eM.registered;
+      }
     }
     notifyListeners();
   }
