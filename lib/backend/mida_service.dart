@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
-import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
 import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
@@ -107,24 +107,24 @@ class MidaService {
     return csvEvents;
   }
 
-  Future<List<Event>> getEvents() async {
+  Future<List<EventModel>> getEvents() async {
     final response = await _get(
         "${Strings.midaBaseURL}/?api=GetEvents&token=${await SharedPref().getToken()}&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => Event.fromJson(data)).toList();
+      return jsonResponse.map((data) => EventModel.fromJson(data)).toList();
     } else {
       throw Exception('Unexpected error occurred!');
     }
   }
 
-  Future<Event> getEvent(String id) async {
+  Future<EventModel> getEvent(String id) async {
     final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
 
     if (response.statusCode == 200) {
       dynamic jsonResponse = json.decode(response.body);
-      return Event.fromJson(jsonResponse);
+      return EventModel.fromJson(jsonResponse);
     } else {
       throw Exception('Unexpected error occurred!');
     }

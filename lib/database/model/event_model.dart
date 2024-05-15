@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 
 part 'event_model.g.dart';
 
@@ -19,57 +20,98 @@ class EventModel {
   late List<String>? attachments;
   late String? imageUrl;
   late String? organizer;
+  late String? type;
   late bool registered;
 
-  EventModel(
-      this.id,
-      this.eventID,
-      this.title,
-      this.startDateAndTime,
-      this.endTime,
-      this.location,
-      this.description,
-      this.contactName,
-      this.contactEmail,
-      this.eventUrl,
-      this.durationDays,
-      this.attachments,
-      this.imageUrl,
-      this.organizer,
-      this.registered);
+  DateTime? get endDate =>
+      startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
 
-  factory EventModel.fromEvent(Event event, bool registered) {
+  static RegExp regexStartTime = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
+  static RegExp regexStartAndEndTime = RegExp(r'^\d{2}:\d{2}-\d{2}:\d{2}$');
+
+  EventModel({
+    required this.eventID,
+    required this.title,
+    this.startDateAndTime,
+    this.endTime,
+    this.location,
+    this.description,
+    this.contactName,
+    this.contactEmail,
+    this.eventUrl,
+    this.durationDays,
+    this.attachments,
+    this.imageUrl,
+    this.organizer,
+    this.type,
+    this.registered = false,
+  }) : id = int.parse(eventID);
+
+  factory EventModel.fromJson(Map<String, dynamic> json) {
+    String eventID = json['id'];
+    String? timeInput = json['zeit'];
+    String startTime = "00:00";
+    bool hasEndTime = false;
+    String endTime = "00:00";
+    if (timeInput != null && regexStartTime.hasMatch(timeInput)) {
+      startTime = timeInput;
+    } else if (timeInput != null && regexStartAndEndTime.hasMatch(timeInput)) {
+      startTime = timeInput.split('-').first;
+      hasEndTime = true;
+      endTime = timeInput.split('-')[1];
+    }
+
+    String? eventUrl = (json['url'] != null && json['link'] != null)
+        ? json['url'] + json['link']
+        : "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
+    String? imageURL = json['url'] != null && json['bild'] != null
+        ? json['url'] + "/?download=" + json['bild']
+        : null;
+    List<String>? attachments = json['attachments'] != null
+        ? (json['attachments'] as String)
+            .split("\n")
+            .where((element) => element.isNotEmpty)
+            .toList()
+        : null;
+
     return EventModel(
-        int.parse(event.eventID),
-        event.eventID,
-        event.title,
-        event.startDateAndTime,
-        event.endTime,
-        event.location,
-        event.description,
-        event.contactName,
-        event.contactEmail,
-        event.eventUrl,
-        event.durationDays,
-        event.attachments,
-        event.imageUrl,
-        event.organizer,
-        registered);
+      eventID: eventID,
+      title: json['titel'],
+      startDateAndTime:
+          DateTime.parse('${json['datum'].toString()} $startTime'),
+      endTime: hasEndTime
+          ? DateTime.parse('${json['datum'].toString()} $endTime')
+          : null,
+      location: json['ort'],
+      description: json['beschreibung'],
+      contactName: json['kontakt'],
+      contactEmail: json['kontaktemail'],
+      eventUrl: eventUrl,
+      durationDays: int.parse(json['anzahltage'] ?? "0"),
+      attachments: attachments,
+      imageUrl: imageURL,
+      organizer: json['verein'],
+      type: json['typ'],
+    );
   }
 
-  Event toEvent() {
-    return Event(
-        eventID: eventID,
-        title: title,
-        startDateAndTime: startDateAndTime,
-        location: location,
-        description: description,
-        contactName: contactName,
-        contactEmail: contactEmail,
-        eventUrl: eventUrl,
-        durationDays: durationDays,
-        attachments: attachments,
-        imageUrl: imageUrl,
-        organizer: organizer);
+  static List<EventModel> createFakeData() {
+    return List.generate(
+      4,
+      (index) => EventModel(
+        eventID: index.toString(),
+        title: "TestEvent",
+        startDateAndTime: DateTime.now(),
+        location: "",
+        description: "",
+        contactName: "",
+        contactEmail: "",
+        eventUrl: "",
+        durationDays: 1,
+        attachments: [],
+        imageUrl: "",
+        organizer: "",
+      ),
+    );
   }
 }

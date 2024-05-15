@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
-import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,9 +13,7 @@ class EventDetailViewModel extends ChangeNotifier {
   double? latitudeCache;
   double? longitudeCache;
 
-  bool get userRegisteredForEvent => registeredMap[event.eventID] ?? false;
-  final Map<String, bool> registeredMap;
-  final Event event;
+  final EventModel event;
   final bool offline;
 
   Location? _location;
@@ -26,7 +24,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
   GeolocationState get geolocationState => _geolocationState;
 
-  EventDetailViewModel(this.event, this.registeredMap, this.offline) {
+  EventDetailViewModel(this.event, this.offline) {
     if (event.location.isNotNullAndNotEmpty()) {
       getLocationFromAddress(event);
     } else {
@@ -35,7 +33,7 @@ class EventDetailViewModel extends ChangeNotifier {
     refreshUserRegisteredForEvent(event.eventID);
   }
 
-  getLocationFromAddress(Event event) async {
+  getLocationFromAddress(EventModel event) async {
     List<Location> locations = List.empty();
     try {
       locations = await locationFromAddress(event.location!);
@@ -78,8 +76,8 @@ class EventDetailViewModel extends ChangeNotifier {
       }
     }
 
-    if (userRegisteredForEvent != isUserRegisteredForEvent) {
-      registeredMap[eventID] = isUserRegisteredForEvent;
+    if (event.registered != isUserRegisteredForEvent) {
+      event.registered = isUserRegisteredForEvent;
       notifyListeners();
     }
   }

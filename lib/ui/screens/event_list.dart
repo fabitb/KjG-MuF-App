@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
@@ -27,7 +27,7 @@ class EventList extends StatelessWidget {
         }
         return Consumer<EventListViewModel>(
           builder: (_, model, __) {
-            final events = model.events ?? Event.createFakeData();
+            final events = model.events ?? EventModel.createFakeData();
             return Stack(
               children: [
                 RefreshIndicator(
@@ -57,15 +57,12 @@ class EventList extends StatelessWidget {
                             context,
                             index,
                             events[index],
-                            model.registeredMap?[events[index].eventID] ??
-                                false,
                           ),
                           onTap: () => Navigator.of(context)
                               .push(
                                 MaterialPageRoute(
                                   builder: (context) => EventDetailScreen(
                                     event: events[index],
-                                    registeredMap: model.registeredMap ?? {},
                                     offline: offline,
                                   ),
                                 ),

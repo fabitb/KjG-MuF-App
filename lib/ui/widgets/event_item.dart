@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 
 DateFormat dateFormat = DateFormat("dd.MM.yyyy");
@@ -10,11 +10,10 @@ DateFormat timeFormat = DateFormat("HH:mm");
 Widget eventItem(
   BuildContext context,
   int index,
-  Event event,
-  bool registered,
+  EventModel event,
 ) {
   return Card(
-    color: registered ? KjGColors.kjgGreen : null,
+    color: event.registered ? KjGColors.kjgGreen : null,
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

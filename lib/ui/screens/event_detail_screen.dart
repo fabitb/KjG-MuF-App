@@ -6,7 +6,6 @@ import 'package:flutter_html/flutter_html.dart' hide Marker;
 import 'package:flutter_map/plugin_api.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/model/event.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
@@ -19,15 +18,15 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../database/model/event_model.dart';
+
 class EventDetailScreen extends StatelessWidget {
-  final Event event;
-  final Map<String, bool> registeredMap;
+  final EventModel event;
   final bool offline;
 
   EventDetailScreen({
     super.key,
     required this.event,
-    required this.registeredMap,
     required this.offline,
   });
 
@@ -66,7 +65,6 @@ class EventDetailScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => EventDetailViewModel(
         event,
-        registeredMap,
         offline,
       ),
       child: Builder(
@@ -173,11 +171,10 @@ class EventDetailScreen extends StatelessWidget {
                           context,
                           0,
                           event,
-                          model.userRegisteredForEvent,
                         ),
                         Consumer<EventDetailViewModel>(
                           builder: (_, viewModel, __) {
-                            return viewModel.userRegisteredForEvent
+                            return viewModel.event.registered
                                 ? const SizedBox(
                                     width: double.infinity,
                                     child: Card(
@@ -304,7 +301,7 @@ class EventDetailScreen extends StatelessWidget {
             floatingActionButton: FloatingActionButton.extended(
               heroTag: null,
               label:
-                  Text(model.userRegisteredForEvent ? "Abmelden" : "Anmelden"),
+                  Text(model.event.registered ? "Abmelden" : "Anmelden"),
               onPressed: () async {
                 if (event.eventUrl.isNotNullAndNotEmpty()) {
                   final token = await SharedPref().getToken();

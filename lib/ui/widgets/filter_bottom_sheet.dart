@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/ui/screens/organizer_filter_screen.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
@@ -8,7 +8,7 @@ import 'package:kjg_muf_app/viewmodels/filter.viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatelessWidget {
-  final List<Event> events;
+  final List<EventModel> events;
   final FilterSettings filterSettings;
   final Function(FilterSettings) onSettingsChanged;
 
