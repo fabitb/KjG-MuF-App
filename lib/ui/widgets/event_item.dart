@@ -44,7 +44,7 @@ Widget eventItem(
               ],
             ),
           const SizedBox(height: 5),
-          if (event.location.isNotNullAndNotEmpty())
+          if (event.location.isNotNullAndNotEmpty)
             Row(
               children: [
                 const Icon(Icons.place_outlined),

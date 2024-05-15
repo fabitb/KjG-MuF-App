@@ -196,7 +196,7 @@ class EventDetailScreen extends StatelessWidget {
                                 : const SizedBox();
                           },
                         ),
-                        if (event.description.isNotNullAndNotEmpty())
+                        if (event.description.isNotNullAndNotEmpty)
                           Card(
                             child: Html(
                               data: event.description,
@@ -211,7 +211,7 @@ class EventDetailScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                        if (event.organizer.isNotNullAndNotEmpty())
+                        if (event.organizer.isNotNullAndNotEmpty)
                           Card(
                             child: SizedBox(
                               width: double.infinity,
@@ -230,7 +230,7 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (event.imageUrl.isNotNullAndNotEmpty())
+                        if (event.imageUrl.isNotNullAndNotEmpty)
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(
@@ -254,8 +254,8 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (event.contactEmail.isNotNullAndNotEmpty() &&
-                            event.contactName.isNotNullAndNotEmpty())
+                        if (event.contactEmail.isNotNullAndNotEmpty &&
+                            event.contactName.isNotNullAndNotEmpty)
                           InkWell(
                             onTap: () {
                               model.openUrl("mailto:${event.contactEmail}");
@@ -303,7 +303,7 @@ class EventDetailScreen extends StatelessWidget {
               label:
                   Text(model.event.registered ? "Abmelden" : "Anmelden"),
               onPressed: () async {
-                if (event.eventUrl.isNotNullAndNotEmpty()) {
+                if (event.eventUrl.isNotNullAndNotEmpty) {
                   final token = await SharedPref().getToken();
                   if (context.mounted) {
                     showModalBottomSheet(

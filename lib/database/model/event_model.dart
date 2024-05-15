@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 
 part 'event_model.g.dart';
 
@@ -56,29 +57,44 @@ class EventModel {
     if (timeInput != null && regexStartTime.hasMatch(timeInput)) {
       startTime = timeInput;
     } else if (timeInput != null && regexStartAndEndTime.hasMatch(timeInput)) {
-      startTime = timeInput.split('-').first;
+      startTime = timeInput
+          .split('-')
+          .first;
       hasEndTime = true;
       endTime = timeInput.split('-')[1];
     }
 
-    String? eventUrl = (json['url'] != null && json['link'] != null)
-        ? json['url'] + json['link']
-        : "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
-    String? imageURL = json['url'] != null && json['bild'] != null
-        ? json['url'] + "/?download=" + json['bild']
-        : null;
+    String? eventUrl;
+    String? imageUrl;
+    if (json.containsKey('url')) {
+      final url = json['url'] as String?;
+      if (url.isNotNullAndNotEmpty) {
+        final link = json['link'] as String?;
+        eventUrl = link.isNotNullAndNotEmpty
+            ? "$url$link"
+            : "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
+
+        final bild = json['bild'] as String?;
+        if(bild.isNotNullAndNotEmpty) {
+          imageUrl = "$url/?download=$bild";
+        }
+      }
+    }
+
+
+
     List<String>? attachments = json['attachments'] != null
         ? (json['attachments'] as String)
-            .split("\n")
-            .where((element) => element.isNotEmpty)
-            .toList()
+        .split("\n")
+        .where((element) => element.isNotEmpty)
+        .toList()
         : null;
 
     return EventModel(
       eventID: eventID,
       title: json['titel'],
       startDateAndTime:
-          DateTime.parse('${json['datum'].toString()} $startTime'),
+      DateTime.parse('${json['datum'].toString()} $startTime'),
       endTime: hasEndTime
           ? DateTime.parse('${json['datum'].toString()} $endTime')
           : null,
@@ -89,7 +105,7 @@ class EventModel {
       eventUrl: eventUrl,
       durationDays: int.parse(json['anzahltage'] ?? "0"),
       attachments: attachments,
-      imageUrl: imageURL,
+      imageUrl: imageUrl,
       organizer: json['verein'],
       type: json['typ'],
     );
@@ -98,20 +114,21 @@ class EventModel {
   static List<EventModel> createFakeData() {
     return List.generate(
       4,
-      (index) => EventModel(
-        eventID: index.toString(),
-        title: "TestEvent",
-        startDateAndTime: DateTime.now(),
-        location: "",
-        description: "",
-        contactName: "",
-        contactEmail: "",
-        eventUrl: "",
-        durationDays: 1,
-        attachments: [],
-        imageUrl: "",
-        organizer: "",
-      ),
+          (index) =>
+          EventModel(
+            eventID: index.toString(),
+            title: "TestEvent",
+            startDateAndTime: DateTime.now(),
+            location: "",
+            description: "",
+            contactName: "",
+            contactEmail: "",
+            eventUrl: "",
+            durationDays: 1,
+            attachments: [],
+            imageUrl: "",
+            organizer: "",
+          ),
     );
   }
 }

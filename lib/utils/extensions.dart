@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension StringExtension on String? {
-  bool isNotNullAndNotEmpty() => this != null && this!.isNotEmpty;
+  bool get isNotNullAndNotEmpty => this != null && this!.isNotEmpty;
 }
 
 extension DateTimeRangeExtension on DateTimeRange {

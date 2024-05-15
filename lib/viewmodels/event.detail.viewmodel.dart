@@ -25,7 +25,7 @@ class EventDetailViewModel extends ChangeNotifier {
   GeolocationState get geolocationState => _geolocationState;
 
   EventDetailViewModel(this.event, this.offline) {
-    if (event.location.isNotNullAndNotEmpty()) {
+    if (event.location.isNotNullAndNotEmpty) {
       getLocationFromAddress(event);
     } else {
       _geolocationState = GeolocationState.error;
