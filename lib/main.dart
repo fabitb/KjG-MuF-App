@@ -56,7 +56,9 @@ class KjGAppMain extends StatelessWidget {
                 children: [
                   UserAccountsDrawerHeader(
                     accountName: Text(
-                      model.nameCache == null ? "Nicht angemeldet" : model.nameCache!,
+                      model.nameCache == null
+                          ? "Nicht angemeldet"
+                          : model.nameCache!,
                     ),
                     accountEmail: Text(
                       model.userNameCache == null ? "" : model.userNameCache!,

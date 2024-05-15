@@ -17,7 +17,8 @@ class FilterWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(_getFilterString(model.filterSettings)),
-              Text(_getResultCountString(model.events?.length ?? 0, model.eventsUnfiltered?.length ?? 0)),
+              Text(_getResultCountString(model.events?.length ?? 0,
+                  model.eventsUnfiltered?.length ?? 0)),
             ],
           ),
         );
@@ -35,7 +36,8 @@ class FilterWidget extends StatelessWidget {
     if (filterSettings.dateTimeRange != null) {
       parts.add(filterSettings.dateTimeRange!.startEndString());
     }
-    int count = filterSettings.showOrganizer.values.where((element) => !element).length;
+    int count =
+        filterSettings.showOrganizer.values.where((element) => !element).length;
     if (count > 0) parts.add("$count Veranstalter ausgeblendet");
 
     if (filterSettings.hideGremien) parts.add("Keine Gremiensitzungen");

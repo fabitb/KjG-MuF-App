@@ -12,7 +12,11 @@ class FilterBottomSheet extends StatelessWidget {
   final FilterSettings filterSettings;
   final Function(FilterSettings) onSettingsChanged;
 
-  const FilterBottomSheet({super.key, required this.events, required this.filterSettings, required this.onSettingsChanged});
+  const FilterBottomSheet(
+      {super.key,
+      required this.events,
+      required this.filterSettings,
+      required this.onSettingsChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,8 @@ class FilterBottomSheet extends StatelessWidget {
             return Column(
               children: [
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.onlyRegisteredEvents),
+                  title:
+                      Text(AppLocalizations.of(context)!.onlyRegisteredEvents),
                   trailing: Checkbox(
                     value: model.onlyRegistered,
                     onChanged: (checked) {
@@ -37,7 +42,8 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.hideCommitteeMeetings),
+                  title:
+                      Text(AppLocalizations.of(context)!.hideCommitteeMeetings),
                   trailing: Checkbox(
                     value: model.hideGremien,
                     onChanged: (checked) {
@@ -51,12 +57,15 @@ class FilterBottomSheet extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.filterByOrganizer),
-                  subtitle: Text(_getOrganizerFilterString(model.organisers, model.showOrganizer)),
+                  subtitle: Text(_getOrganizerFilterString(
+                      model.organisers, model.showOrganizer)),
                   trailing: const Icon(Icons.keyboard_arrow_right),
                   onTap: () async {
                     final result = await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => OrganizerFilterScreen(organizers: model.organisers, showOrganizer: model.showOrganizer),
+                        builder: (context) => OrganizerFilterScreen(
+                            organizers: model.organisers,
+                            showOrganizer: model.showOrganizer),
                       ),
                     );
 
@@ -68,13 +77,16 @@ class FilterBottomSheet extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.filterByDate),
-                  subtitle: model.dateTimeRange != null ? Text(model.dateTimeRange!.startEndString()) : null,
+                  subtitle: model.dateTimeRange != null
+                      ? Text(model.dateTimeRange!.startEndString())
+                      : null,
                   trailing: const Icon(Icons.date_range),
                   onTap: () async {
                     final result = await showDateRangePicker(
                       context: context,
                       firstDate: DateTime.now(),
-                      lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 365 * 2)),
                       initialDateRange: model.dateTimeRange,
                     );
 
@@ -97,7 +109,8 @@ class FilterBottomSheet extends StatelessWidget {
     );
   }
 
-  String _getOrganizerFilterString(List<String> organisers, Map<String, bool> showOrganizer) {
+  String _getOrganizerFilterString(
+      List<String> organisers, Map<String, bool> showOrganizer) {
     List<String> show = [];
     for (String o in organisers) {
       if (showOrganizer[o] ?? true) show.add(o);

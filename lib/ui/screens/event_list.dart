@@ -22,7 +22,8 @@ class EventList extends StatelessWidget {
         bool loggedIn = mainViewModel.isLoggedIn;
         bool offline = mainViewModel.offline;
         if (mainViewModel.initiated && !offline) {
-          Provider.of<EventListViewModel>(context, listen: false).loadEvents(loggedIn);
+          Provider.of<EventListViewModel>(context, listen: false)
+              .loadEvents(loggedIn);
         }
         return Consumer<EventListViewModel>(
           builder: (_, model, __) {
@@ -42,7 +43,8 @@ class EventList extends StatelessWidget {
                     effect: const ShimmerEffect(),
                     enabled: model.events == null,
                     child: ListView.builder(
-                      itemCount: events.length + model.filterSettings.isActive() ? 1 : 0,
+                      itemCount: events.length +
+                          (model.filterSettings.isActive() ? 1 : 0),
                       itemBuilder: (BuildContext context, int index) {
                         if (model.filterSettings.isActive()) {
                           if (index == 0) {
@@ -55,7 +57,8 @@ class EventList extends StatelessWidget {
                             context,
                             index,
                             events[index],
-                            model.registeredMap?[events[index].eventID] ?? false,
+                            model.registeredMap?[events[index].eventID] ??
+                                false,
                           ),
                           onTap: () => Navigator.of(context)
                               .push(
@@ -92,7 +95,8 @@ class EventList extends StatelessWidget {
                                     events: model.eventsUnfiltered ?? [],
                                     filterSettings: model.filterSettings,
                                     onSettingsChanged: (newFilterSettings) {
-                                      model.setFilterSettings(newFilterSettings);
+                                      model
+                                          .setFilterSettings(newFilterSettings);
                                     },
                                   ),
                                 ),
@@ -100,7 +104,9 @@ class EventList extends StatelessWidget {
                             },
                           );
                         },
-                        child: Icon(model.filterSettings.isActive() ? Icons.filter_list : Icons.filter_list_off),
+                        child: Icon(model.filterSettings.isActive()
+                            ? Icons.filter_list
+                            : Icons.filter_list_off),
                       ),
                     ),
                   ),

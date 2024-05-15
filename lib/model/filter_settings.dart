@@ -13,12 +13,16 @@ class FilterSettings {
 
   FilterSettings();
 
-  factory FilterSettings.fromJson(Map<String, dynamic> json) => _$FilterSettingsFromJson(json);
+  factory FilterSettings.fromJson(Map<String, dynamic> json) =>
+      _$FilterSettingsFromJson(json);
 
   Map<String, dynamic> toJson() => _$FilterSettingsToJson(this);
 
   bool isActive() {
-    return onlyRegistered || hideGremien || dateTimeRange != null || !showOrganizer.values.every((show) => show);
+    return onlyRegistered ||
+        hideGremien ||
+        dateTimeRange != null ||
+        !showOrganizer.values.every((show) => show);
   }
 
   @override
@@ -27,7 +31,8 @@ class FilterSettings {
   }
 }
 
-class CustomDateTimeRangeConverter implements JsonConverter<DateTimeRange, String> {
+class CustomDateTimeRangeConverter
+    implements JsonConverter<DateTimeRange, String> {
   const CustomDateTimeRangeConverter();
 
   @override
@@ -41,5 +46,6 @@ class CustomDateTimeRangeConverter implements JsonConverter<DateTimeRange, Strin
   }
 
   @override
-  String toJson(DateTimeRange json) => "${json.start.toIso8601String()};${json.end.toIso8601String()}";
+  String toJson(DateTimeRange json) =>
+      "${json.start.toIso8601String()};${json.end.toIso8601String()}";
 }
