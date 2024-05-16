@@ -73,7 +73,7 @@ class EventModel {
           'id': String eventID,
           'zeit': String timeInput,
           'titel': String titel,
-          'datum': String? datum,
+          'datum': String datum,
         }) {
       String startTime = "00:00";
       bool hasEndTime = false;
