@@ -108,13 +108,14 @@ class EventListViewModel extends ChangeNotifier {
       List<String> publicEventIDs = eNN.map((e) => e.eventID).toList();
       bool inserted = false;
 
-      // add personal events to list and sort
+      // add personal events to list and create registered map
+      final Map<String, bool> registeredMap = {};
       for (CSVEvent event in list) {
+        registeredMap[event.eventID] = event.registered;
         if (!publicEventIDs.contains(event.eventID)) {
           try {
             // getEvent sometimes empty... catch while investigating
             final backendEvent = await MidaService().getEvent(event.eventID);
-            backendEvent.registered = event.registered;
             eNN.add(backendEvent);
           } catch (e) {
             // display event with basic information instead
@@ -151,6 +152,10 @@ class EventListViewModel extends ChangeNotifier {
           }
         });
       }
+
+      _events = eNN
+          .map((e) => e..registered = registeredMap[e.eventID] ?? false)
+          .toList();
     }
 
     DBService().cacheEvents(_events ?? []);
