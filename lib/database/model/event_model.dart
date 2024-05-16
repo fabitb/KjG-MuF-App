@@ -38,7 +38,7 @@ class EventModel {
   String? get locationForMap {
     if (location.isNotNullAndNotEmpty) {
       final parts = location!.split(":");
-      if(parts.length > 1) {
+      if (parts.length > 1) {
         return parts[1].trim();
       }
     }
@@ -66,91 +66,90 @@ class EventModel {
     this.registered = false,
   }) : id = int.parse(eventID);
 
-  factory EventModel.fromJson(Map<String, dynamic> json) {
-    String eventID = json['id'];
-    String? timeInput = json['zeit'];
-    String startTime = "00:00";
-    bool hasEndTime = false;
-    String endTime = "00:00";
-    if (timeInput != null && regexStartTime.hasMatch(timeInput)) {
-      startTime = timeInput;
-    } else if (timeInput != null && regexStartAndEndTime.hasMatch(timeInput)) {
-      startTime = timeInput
-          .split('-')
-          .first;
-      hasEndTime = true;
-      endTime = timeInput.split('-')[1];
-    }
-
-    String? eventUrl;
-    String? imageUrl;
-    if (json.containsKey('url')) {
-      final url = json['url'] as String?;
-      if (url.isNotNullAndNotEmpty) {
-        final link = json['link'] as String?;
-        eventUrl = link.isNotNullAndNotEmpty
-            ? "$url$link"
-            : "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
-
-        final bild = json['bild'] as String?;
-        if(bild.isNotNullAndNotEmpty) {
-          imageUrl = "$url/?download=$bild";
-        }
+  static EventModel? fromJson(Map<String, dynamic> json) {
+    // match necessary json values
+    if (json
+        case {
+          'id': String eventID,
+          'zeit': String timeInput,
+          'titel': String titel,
+          'datum': String? datum,
+        }) {
+      String startTime = "00:00";
+      bool hasEndTime = false;
+      String endTime = "00:00";
+      if (regexStartTime.hasMatch(timeInput)) {
+        startTime = timeInput;
+      } else if (regexStartAndEndTime.hasMatch(timeInput)) {
+        startTime = timeInput.split('-').first;
+        hasEndTime = true;
+        endTime = timeInput.split('-')[1];
       }
+
+      String? eventUrl;
+      String? imageUrl;
+      if (json.getStringNonEmpty('url') case String url) {
+        if (json.getStringNonEmpty('link') case String link) {
+          eventUrl = "$url$link";
+        } else {
+          eventUrl = "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
+        }
+
+        if (json.getStringNonEmpty('bild') case String bild) imageUrl = "$url/?download=$bild";
+      }
+
+      String? location;
+      if (json.getStringNonEmpty('ort') case String ort) location = ort;
+
+      List<String>? attachments;
+      if (json.getStringNonEmpty('attachments') case String attachmentsString) {
+        attachmentsString
+            .split("\n")
+            .where((element) => element.isNotEmpty)
+            .toList();
+      }
+
+      int durationDays = 0;
+      if (json['anzahltage'] case String anzahltage) durationDays = int.tryParse(anzahltage) ?? 0;
+
+      return EventModel(
+        eventID: eventID,
+        title: titel,
+        startDateAndTime: DateTime.parse('$datum $startTime'),
+        endTime: hasEndTime ? DateTime.parse('$datum $endTime') : null,
+        location: location,
+        description: json.getStringNonEmpty('beschreibung'),
+        contactName: json.getStringNonEmpty('kontakt'),
+        contactEmail: json.getStringNonEmpty('kontaktemail'),
+        eventUrl: eventUrl,
+        durationDays: durationDays,
+        attachments: attachments,
+        imageUrl: imageUrl,
+        organizer: json.getStringNonEmpty('verein'),
+        type: json.getStringNonEmpty('typ'),
+      );
     }
 
-    String? location;
-    String? ort = json["ort"];
-    if (ort.isNotNullAndNotEmpty) {
-      location = ort;
-    }
-
-    List<String>? attachments = json['attachments'] != null
-        ? (json['attachments'] as String)
-        .split("\n")
-        .where((element) => element.isNotEmpty)
-        .toList()
-        : null;
-
-    return EventModel(
-      eventID: eventID,
-      title: json['titel'],
-      startDateAndTime:
-      DateTime.parse('${json['datum'].toString()} $startTime'),
-      endTime: hasEndTime
-          ? DateTime.parse('${json['datum'].toString()} $endTime')
-          : null,
-      location: location,
-      description: json['beschreibung'],
-      contactName: json['kontakt'],
-      contactEmail: json['kontaktemail'],
-      eventUrl: eventUrl,
-      durationDays: int.parse(json['anzahltage'] ?? "0"),
-      attachments: attachments,
-      imageUrl: imageUrl,
-      organizer: json['verein'],
-      type: json['typ'],
-    );
+    return null;
   }
 
   static List<EventModel> createFakeData() {
     return List.generate(
       4,
-          (index) =>
-          EventModel(
-            eventID: index.toString(),
-            title: "TestEvent",
-            startDateAndTime: DateTime.now(),
-            location: "",
-            description: "",
-            contactName: "",
-            contactEmail: "",
-            eventUrl: "",
-            durationDays: 1,
-            attachments: [],
-            imageUrl: "",
-            organizer: "",
-          ),
+      (index) => EventModel(
+        eventID: index.toString(),
+        title: "TestEvent",
+        startDateAndTime: DateTime.now(),
+        location: "",
+        description: "",
+        contactName: "",
+        contactEmail: "",
+        eventUrl: "",
+        durationDays: 1,
+        attachments: [],
+        imageUrl: "",
+        organizer: "",
+      ),
     );
   }
 }

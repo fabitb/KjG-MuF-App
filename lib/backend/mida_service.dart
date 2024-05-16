@@ -113,7 +113,10 @@ class MidaService {
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => EventModel.fromJson(data)).toList();
+      return jsonResponse
+          .map((data) => EventModel.fromJson(data))
+          .nonNulls
+          .toList();
     } else {
       throw Exception('Unexpected error occurred!');
     }
@@ -124,7 +127,9 @@ class MidaService {
 
     if (response.statusCode == 200) {
       dynamic jsonResponse = json.decode(response.body);
-      return EventModel.fromJson(jsonResponse);
+      final eventModel = EventModel.fromJson(jsonResponse);
+      if (eventModel == null) throw const FormatException("Invalid json");
+      return eventModel;
     } else {
       throw Exception('Unexpected error occurred!');
     }
