@@ -91,12 +91,12 @@ class EventModel {
       if (json.getStringNonEmpty('url') case String url) {
         if (json.getStringNonEmpty('link') case String link) {
           eventUrl = "$url$link";
-        } else {
-          eventUrl = "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
         }
 
         if (json.getStringNonEmpty('bild') case String bild) imageUrl = "$url/?download=$bild";
       }
+
+      eventUrl ??= "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
 
       String? location;
       if (json.getStringNonEmpty('ort') case String ort) location = ort;
