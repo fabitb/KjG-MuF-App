@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/ui/screens/dashboard.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
-import 'package:kjg_muf_app/ui/screens/event_list.dart';
+import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
@@ -56,9 +57,7 @@ class KjGAppMain extends StatelessWidget {
                 children: [
                   UserAccountsDrawerHeader(
                     accountName: Text(
-                      model.nameCache == null
-                          ? "Nicht angemeldet"
-                          : model.nameCache!,
+                      model.nameCache == null ? "Nicht angemeldet" : model.nameCache!,
                     ),
                     accountEmail: Text(
                       model.userNameCache == null ? "" : model.userNameCache!,
@@ -80,6 +79,17 @@ class KjGAppMain extends StatelessWidget {
                     ),
                     const Divider(),
                   ],
+                  ListTile(
+                    title: const Text("Veranstaltungen"),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const EventListScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   ListTile(
                     title: const Text("Spieledatenbank"),
                     onTap: () {
@@ -153,7 +163,7 @@ class KjGAppMain extends StatelessWidget {
                 ],
               ),
             ),
-            body: const EventList(),
+            body: const Dashboard(),
           );
         },
       ),
