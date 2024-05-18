@@ -33,8 +33,7 @@ class MidaService {
 
   Future<bool> verifyLoginForUserName(String username, String password) async {
     final passwordHash = _generateMd5(password);
-    final response = await _post(
-        "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
+    final response = await _post("${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password");
 
     if (response.statusCode == 200) {
       try {
@@ -59,8 +58,7 @@ class MidaService {
 
   Future<bool> verifyLoginForUserID(String username, String password) async {
     final passwordHash = _generateMd5(password);
-    final response = await _post(
-        "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id");
+    final response = await _post("${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id");
 
     if (response.statusCode == 200) {
       try {
@@ -84,15 +82,11 @@ class MidaService {
   ///
   /// All future events if no argument is given.
   /// Events for one week from weekStartingFrom if provided.
-  Future<List<CSVEvent>> getFutureEventsPersonal(
-      {DateTime? weekStartingFrom}) async {
-    String action = weekStartingFrom != null
-        ? "&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(weekStartingFrom)}"
-        : "&art=ListeZ";
+  Future<List<CSVEvent>> getFutureEventsPersonal({DateTime? weekStartingFrom}) async {
+    String action = weekStartingFrom != null ? "&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(weekStartingFrom)}" : "&art=ListeZ";
 
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
-    final response = await _get(
-        "${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K");
+    final response = await _get("${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K");
 
     if (response.statusCode != 200) {
       throw Exception('Unexpected error occurred!');
@@ -131,8 +125,7 @@ class MidaService {
   }
 
   Future<List<Registration>> getRegistrationsForEvent(String eventID) async {
-    final response = await _get(
-        "${Strings.midaBaseURL}/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID");
+    final response = await _get("${Strings.midaBaseURL}/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -143,9 +136,7 @@ class MidaService {
   }
 
   Future<http.Response> _get(String url) {
-    return http
-        .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
+    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
@@ -158,10 +149,7 @@ class MidaService {
   }
 
   Future<http.Response> _post(String url, {body, encoding}) {
-    return http
-        .post(Uri.parse(url),
-            body: _encoder.convert(body), headers: headers, encoding: encoding)
-        .then((http.Response response) {
+    return http.post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
