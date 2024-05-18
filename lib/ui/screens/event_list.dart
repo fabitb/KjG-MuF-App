@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
@@ -27,7 +27,7 @@ class EventList extends StatelessWidget {
         }
         return Consumer<EventListViewModel>(
           builder: (_, model, __) {
-            final events = model.events ?? Event.createFakeData();
+            final events = model.events ?? EventModel.createFakeData();
             return Stack(
               children: [
                 RefreshIndicator(
@@ -44,8 +44,26 @@ class EventList extends StatelessWidget {
                     enabled: model.events == null,
                     child: ListView.builder(
                       itemCount: events.length +
-                          (model.filterSettings.isActive() ? 1 : 0),
+                          (model.filterSettings.isActive() ? 2 : 1),
                       itemBuilder: (BuildContext context, int index) {
+                        if (index == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              onChanged: (_) => model.searchChanged(),
+                              controller: model.filterController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Suche",
+                                prefixIcon: const Icon(Icons.search),
+                              ),
+                            ),
+                          );
+                        }
+                        index--;
+
                         if (model.filterSettings.isActive()) {
                           if (index == 0) {
                             return const FilterWidget();
@@ -57,15 +75,12 @@ class EventList extends StatelessWidget {
                             context,
                             index,
                             events[index],
-                            model.registeredMap?[events[index].eventID] ??
-                                false,
                           ),
                           onTap: () => Navigator.of(context)
                               .push(
                                 MaterialPageRoute(
                                   builder: (context) => EventDetailScreen(
                                     event: events[index],
-                                    registeredMap: model.registeredMap ?? {},
                                     offline: offline,
                                   ),
                                 ),

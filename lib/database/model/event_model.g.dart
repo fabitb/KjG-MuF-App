@@ -42,49 +42,59 @@ const EventModelSchema = CollectionSchema(
       name: r'durationDays',
       type: IsarType.long,
     ),
-    r'endTime': PropertySchema(
+    r'endDate': PropertySchema(
       id: 5,
+      name: r'endDate',
+      type: IsarType.dateTime,
+    ),
+    r'endTime': PropertySchema(
+      id: 6,
       name: r'endTime',
       type: IsarType.dateTime,
     ),
     r'eventID': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'eventID',
       type: IsarType.string,
     ),
     r'eventUrl': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'eventUrl',
       type: IsarType.string,
     ),
     r'imageUrl': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'imageUrl',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'location',
       type: IsarType.string,
     ),
     r'organizer': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'organizer',
       type: IsarType.string,
     ),
     r'registered': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'registered',
       type: IsarType.bool,
     ),
     r'startDateAndTime': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'startDateAndTime',
       type: IsarType.dateTime,
     ),
     r'title': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'title',
+      type: IsarType.string,
+    ),
+    r'type': PropertySchema(
+      id: 15,
+      name: r'type',
       type: IsarType.string,
     )
   },
@@ -164,6 +174,12 @@ int _eventModelEstimateSize(
     }
   }
   bytesCount += 3 + object.title.length * 3;
+  {
+    final value = object.type;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -178,15 +194,17 @@ void _eventModelSerialize(
   writer.writeString(offsets[2], object.contactName);
   writer.writeString(offsets[3], object.description);
   writer.writeLong(offsets[4], object.durationDays);
-  writer.writeDateTime(offsets[5], object.endTime);
-  writer.writeString(offsets[6], object.eventID);
-  writer.writeString(offsets[7], object.eventUrl);
-  writer.writeString(offsets[8], object.imageUrl);
-  writer.writeString(offsets[9], object.location);
-  writer.writeString(offsets[10], object.organizer);
-  writer.writeBool(offsets[11], object.registered);
-  writer.writeDateTime(offsets[12], object.startDateAndTime);
-  writer.writeString(offsets[13], object.title);
+  writer.writeDateTime(offsets[5], object.endDate);
+  writer.writeDateTime(offsets[6], object.endTime);
+  writer.writeString(offsets[7], object.eventID);
+  writer.writeString(offsets[8], object.eventUrl);
+  writer.writeString(offsets[9], object.imageUrl);
+  writer.writeString(offsets[10], object.location);
+  writer.writeString(offsets[11], object.organizer);
+  writer.writeBool(offsets[12], object.registered);
+  writer.writeDateTime(offsets[13], object.startDateAndTime);
+  writer.writeString(offsets[14], object.title);
+  writer.writeString(offsets[15], object.type);
 }
 
 EventModel _eventModelDeserialize(
@@ -196,22 +214,23 @@ EventModel _eventModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = EventModel(
-    id,
-    reader.readString(offsets[6]),
-    reader.readString(offsets[13]),
-    reader.readDateTimeOrNull(offsets[12]),
-    reader.readDateTimeOrNull(offsets[5]),
-    reader.readStringOrNull(offsets[9]),
-    reader.readStringOrNull(offsets[3]),
-    reader.readStringOrNull(offsets[2]),
-    reader.readStringOrNull(offsets[1]),
-    reader.readStringOrNull(offsets[7]),
-    reader.readLongOrNull(offsets[4]),
-    reader.readStringList(offsets[0]),
-    reader.readStringOrNull(offsets[8]),
-    reader.readStringOrNull(offsets[10]),
-    reader.readBool(offsets[11]),
+    attachments: reader.readStringList(offsets[0]),
+    contactEmail: reader.readStringOrNull(offsets[1]),
+    contactName: reader.readStringOrNull(offsets[2]),
+    description: reader.readStringOrNull(offsets[3]),
+    durationDays: reader.readLongOrNull(offsets[4]),
+    endTime: reader.readDateTimeOrNull(offsets[6]),
+    eventID: reader.readString(offsets[7]),
+    eventUrl: reader.readStringOrNull(offsets[8]),
+    imageUrl: reader.readStringOrNull(offsets[9]),
+    location: reader.readStringOrNull(offsets[10]),
+    organizer: reader.readStringOrNull(offsets[11]),
+    registered: reader.readBoolOrNull(offsets[12]) ?? false,
+    startDateAndTime: reader.readDateTimeOrNull(offsets[13]),
+    title: reader.readString(offsets[14]),
+    type: reader.readStringOrNull(offsets[15]),
   );
+  object.id = id;
   return object;
 }
 
@@ -235,9 +254,9 @@ P _eventModelDeserializeProp<P>(
     case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 6:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 7:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 8:
       return (reader.readStringOrNull(offset)) as P;
     case 9:
@@ -245,11 +264,15 @@ P _eventModelDeserializeProp<P>(
     case 10:
       return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readBool(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 12:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 13:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 14:
       return (reader.readString(offset)) as P;
+    case 15:
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1117,6 +1140,77 @@ extension EventModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'durationDays',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> endDateIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'endDate',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      endDateIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'endDate',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> endDateEqualTo(
+      DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'endDate',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition>
+      endDateGreaterThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'endDate',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> endDateLessThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'endDate',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> endDateBetween(
+    DateTime? lower,
+    DateTime? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'endDate',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2200,6 +2294,152 @@ extension EventModelQueryFilter
       ));
     });
   }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'type',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'type',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'type',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'type',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'type',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'type',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterFilterCondition> typeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'type',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension EventModelQueryObject
@@ -2255,6 +2495,18 @@ extension EventModelQuerySortBy
   QueryBuilder<EventModel, EventModel, QAfterSortBy> sortByDurationDaysDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'durationDays', Sort.desc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> sortByEndDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'endDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> sortByEndDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'endDate', Sort.desc);
     });
   }
 
@@ -2366,6 +2618,18 @@ extension EventModelQuerySortBy
       return query.addSortBy(r'title', Sort.desc);
     });
   }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> sortByType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'type', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> sortByTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'type', Sort.desc);
+    });
+  }
 }
 
 extension EventModelQuerySortThenBy
@@ -2415,6 +2679,18 @@ extension EventModelQuerySortThenBy
   QueryBuilder<EventModel, EventModel, QAfterSortBy> thenByDurationDaysDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'durationDays', Sort.desc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> thenByEndDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'endDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> thenByEndDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'endDate', Sort.desc);
     });
   }
 
@@ -2538,6 +2814,18 @@ extension EventModelQuerySortThenBy
       return query.addSortBy(r'title', Sort.desc);
     });
   }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> thenByType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'type', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QAfterSortBy> thenByTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'type', Sort.desc);
+    });
+  }
 }
 
 extension EventModelQueryWhereDistinct
@@ -2572,6 +2860,12 @@ extension EventModelQueryWhereDistinct
   QueryBuilder<EventModel, EventModel, QDistinct> distinctByDurationDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'durationDays');
+    });
+  }
+
+  QueryBuilder<EventModel, EventModel, QDistinct> distinctByEndDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'endDate');
     });
   }
 
@@ -2634,6 +2928,13 @@ extension EventModelQueryWhereDistinct
       return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
     });
   }
+
+  QueryBuilder<EventModel, EventModel, QDistinct> distinctByType(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'type', caseSensitive: caseSensitive);
+    });
+  }
 }
 
 extension EventModelQueryProperty
@@ -2672,6 +2973,12 @@ extension EventModelQueryProperty
   QueryBuilder<EventModel, int?, QQueryOperations> durationDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'durationDays');
+    });
+  }
+
+  QueryBuilder<EventModel, DateTime?, QQueryOperations> endDateProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'endDate');
     });
   }
 
@@ -2727,6 +3034,12 @@ extension EventModelQueryProperty
   QueryBuilder<EventModel, String, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
+    });
+  }
+
+  QueryBuilder<EventModel, String?, QQueryOperations> typeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'type');
     });
   }
 }

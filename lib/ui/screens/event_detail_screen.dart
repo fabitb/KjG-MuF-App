@@ -6,7 +6,7 @@ import 'package:flutter_html/flutter_html.dart' hide Marker;
 import 'package:flutter_map/plugin_api.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
@@ -20,14 +20,12 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailScreen extends StatelessWidget {
-  final Event event;
-  final Map<String, bool> registeredMap;
+  final EventModel event;
   final bool offline;
 
   EventDetailScreen({
     super.key,
     required this.event,
-    required this.registeredMap,
     required this.offline,
   });
 
@@ -66,7 +64,6 @@ class EventDetailScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => EventDetailViewModel(
         event,
-        registeredMap,
         offline,
       ),
       child: Builder(
@@ -81,65 +78,60 @@ class EventDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    children: [
-                      Align(
-                        child: event.location == ""
-                            ? Container()
-                            : SizedBox(
-                                height: 200.0,
-                                child: model.geolocationState ==
-                                        GeolocationState.loaded
-                                    ? FlutterMap(
-                                        options: MapOptions(
-                                          center: LatLng(
-                                            model.location!.latitude,
-                                            model.location!.longitude,
-                                          ),
-                                          zoom: 14.0,
-                                          interactiveFlags:
-                                              InteractiveFlag.none,
+                  if (event.locationForMap.isNotNullAndNotEmpty)
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 200.0,
+                          child:
+                              model.geolocationState == GeolocationState.loaded
+                                  ? FlutterMap(
+                                      options: MapOptions(
+                                        center: LatLng(
+                                          model.location!.latitude,
+                                          model.location!.longitude,
                                         ),
-                                        children: [
-                                          TileLayer(
-                                            minZoom: 1,
-                                            maxZoom: 18,
-                                            backgroundColor: Colors.white,
-                                            urlTemplate:
-                                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                            subdomains: const [
-                                              'a',
-                                              'b',
-                                              'c',
-                                            ],
-                                          ),
-                                          MarkerLayer(
-                                            markers: [
-                                              Marker(
-                                                point: LatLng(
-                                                  model.location!.latitude,
-                                                  model.location!.longitude,
-                                                ),
-                                                builder: (context) =>
-                                                    const Icon(Icons.place),
+                                        zoom: 14.0,
+                                        interactiveFlags: InteractiveFlag.none,
+                                      ),
+                                      children: [
+                                        TileLayer(
+                                          minZoom: 1,
+                                          maxZoom: 18,
+                                          backgroundColor: Colors.white,
+                                          urlTemplate:
+                                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                          subdomains: const [
+                                            'a',
+                                            'b',
+                                            'c',
+                                          ],
+                                        ),
+                                        MarkerLayer(
+                                          markers: [
+                                            Marker(
+                                              point: LatLng(
+                                                model.location!.latitude,
+                                                model.location!.longitude,
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    : model.geolocationState ==
-                                            GeolocationState.loading
-                                        ? const Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : const Center(
-                                            child: Text(
-                                              "Es konnte kein Ort gefunden werden",
+                                              builder: (context) =>
+                                                  const Icon(Icons.place),
                                             ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : model.geolocationState ==
+                                          GeolocationState.loading
+                                      ? const Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : const Center(
+                                          child: Text(
+                                            "Es konnte kein Ort gefunden werden",
                                           ),
-                              ),
-                      ),
-                      if (model.location != null)
+                                        ),
+                        ),
                         Positioned.fill(
                           child: Align(
                             alignment: Alignment.bottomRight,
@@ -156,15 +148,15 @@ class EventDetailScreen extends StatelessWidget {
                                       model.latitudeCache!,
                                       model.longitudeCache!,
                                     ),
-                                    title: event.location!,
+                                    title: event.locationForMap!,
                                   );
                                 },
                               ),
                             ),
                           ),
                         ),
-                    ],
-                  ),
+                      ],
+                    ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 128.0),
                     child: Column(
@@ -173,11 +165,10 @@ class EventDetailScreen extends StatelessWidget {
                           context,
                           0,
                           event,
-                          model.userRegisteredForEvent,
                         ),
                         Consumer<EventDetailViewModel>(
                           builder: (_, viewModel, __) {
-                            return viewModel.userRegisteredForEvent
+                            return viewModel.event.registered
                                 ? const SizedBox(
                                     width: double.infinity,
                                     child: Card(
@@ -199,7 +190,7 @@ class EventDetailScreen extends StatelessWidget {
                                 : const SizedBox();
                           },
                         ),
-                        if (event.description.isNotNullAndNotEmpty())
+                        if (event.description.isNotNullAndNotEmpty)
                           Card(
                             child: Html(
                               data: event.description,
@@ -214,7 +205,7 @@ class EventDetailScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                        if (event.organizer.isNotNullAndNotEmpty())
+                        if (event.organizer.isNotNullAndNotEmpty)
                           Card(
                             child: SizedBox(
                               width: double.infinity,
@@ -233,7 +224,7 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (event.imageUrl.isNotNullAndNotEmpty())
+                        if (event.imageUrl.isNotNullAndNotEmpty)
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(
@@ -257,8 +248,8 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (event.contactEmail.isNotNullAndNotEmpty() &&
-                            event.contactName.isNotNullAndNotEmpty())
+                        if (event.contactEmail.isNotNullAndNotEmpty &&
+                            event.contactName.isNotNullAndNotEmpty)
                           InkWell(
                             onTap: () {
                               model.openUrl("mailto:${event.contactEmail}");
@@ -303,10 +294,9 @@ class EventDetailScreen extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton.extended(
               heroTag: null,
-              label:
-                  Text(model.userRegisteredForEvent ? "Abmelden" : "Anmelden"),
+              label: Text(model.event.registered ? "Abmelden" : "Anmelden"),
               onPressed: () async {
-                if (event.eventUrl.isNotNullAndNotEmpty()) {
+                if (event.eventUrl.isNotNullAndNotEmpty) {
                   final token = await SharedPref().getToken();
                   if (context.mounted) {
                     showModalBottomSheet(

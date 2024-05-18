@@ -1,5 +1,4 @@
 import 'package:isar/isar.dart';
-import 'package:kjg_muf_app/model/event.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'model/event_model.dart';
@@ -33,15 +32,10 @@ class DBService {
     return await isar.eventModels.where().sortByStartDateAndTime().findAll();
   }
 
-  Future<void> cacheEvents(
-      List<Event> events, Map<String, bool> registeredMap) async {
-    List<EventModel> newEvents = events
-        .map((e) => EventModel.fromEvent(e, registeredMap[e.eventID] ?? false))
-        .toList();
-
+  Future<void> cacheEvents(List<EventModel> events) async {
     final isar = await db;
     isar.writeTxn(() => isar.eventModels.clear());
-    isar.writeTxn(() => isar.eventModels.putAll(newEvents));
+    isar.writeTxn(() => isar.eventModels.putAll(events));
   }
 
   Future<Isar> openDB() async {
