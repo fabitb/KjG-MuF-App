@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
+import 'package:kjg_muf_app/ui/widgets/newsletter_subscribe_button.dart';
 import 'package:kjg_muf_app/viewmodels/dashboard.viewmodel.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,9 @@ class Dashboard extends StatelessWidget {
                             title: AppLocalizations.of(context)!.news,
                             newsList: dashboardViewModel.news ?? List.empty(),
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
-                                context, news.websiteURL),
+                              context,
+                              news.websiteURL,
+                            ),
                           ),
                         PostLoadingState.loading =>
                           const CircularProgressIndicator(),
@@ -75,17 +78,28 @@ class Dashboard extends StatelessWidget {
                             newsList:
                                 dashboardViewModel.activities ?? List.empty(),
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
-                                context, news.websiteURL),
+                              context,
+                              news.websiteURL,
+                            ),
                           ),
                         PostLoadingState.loading =>
                           const CircularProgressIndicator(),
                         PostLoadingState.noPostAvailable => Text(
-                            AppLocalizations.of(context)!
-                                .noActivitiesAvailable),
+                            AppLocalizations.of(context)!.noActivitiesAvailable,
+                          ),
                         PostLoadingState.error => Text(
-                            AppLocalizations.of(context)!
-                                .noActivitiesAvailable),
+                            AppLocalizations.of(context)!.noActivitiesAvailable,
+                          ),
                       },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
+                        context,
+                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
+                      ),
                     ),
                   ],
                 ),
