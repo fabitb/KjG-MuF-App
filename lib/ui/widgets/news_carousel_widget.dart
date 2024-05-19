@@ -32,7 +32,7 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
           widget.title,
           style: const TextStyle(
             color: KjGColors.kjgLightBlue,
-            fontSize: 14.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.w700,
           ),
         ),
