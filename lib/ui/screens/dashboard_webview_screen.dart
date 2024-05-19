@@ -35,6 +35,18 @@ class DashboardWebViewScreen extends StatelessWidget {
                   },
                 );
               },
+              onPageCommitVisible: (controller, url) {
+                controller.evaluateJavascript(
+                  source: """
+                    var header = document.querySelector('div.container.main-container');
+                    var menuButton = document.querySelector('#rmp_menu_trigger-14309');
+                    var bottomMenu = document.querySelector('#colophon');
+                    header.remove();
+                    menuButton.remove();
+                    bottomMenu.remove();
+                    """,
+                );
+              },
               gestureRecognizers: gestureRecognizers,
               initialUrlRequest: URLRequest(
                 url: Uri.parse(url),
