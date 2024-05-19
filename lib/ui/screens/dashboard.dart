@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/ui/widgets/news_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
 import 'package:kjg_muf_app/viewmodels/dashboard.viewmodel.dart';
+import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
-
-import '../../viewmodels/main.viewmodel.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -20,33 +22,96 @@ class Dashboard extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.bottomRight,
-                child: Image.asset(
-                  "assets/mausis/mercimausi.png",
-                  width: 300,
-                  opacity: const AlwaysStoppedAnimation(.3),
+                child: FractionallySizedBox(
+                  heightFactor: 0.5,
+                  child: Image.asset(
+                    "assets/mausis/mercimausi.png",
+                    fit: BoxFit.fitHeight,
+                    opacity: const AlwaysStoppedAnimation(.3),
+                  ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Hallo ${mainViewModel.nameCache ?? "Chef"}",
-                  ),
-                  if (dashboardViewModel.news != null)
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: dashboardViewModel.news!.length,
-                        itemBuilder: (context, index) {
-                          return NewsItem(news: dashboardViewModel.news![index]);
-                        },
-                      ),
-                    )
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!
+                          .greeting(mainViewModel.firstName ?? "DU"),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 24.0,
+                          color: KjGColors.kjgLightBlue),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Center(
+                      child: switch (dashboardViewModel.newsLoadingState) {
+                        PostLoadingState.postsLoaded => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.news,
+                            newsList: dashboardViewModel.news ?? List.empty(),
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                                context, news.websiteURL),
+                          ),
+                        PostLoadingState.loading =>
+                          const CircularProgressIndicator(),
+                        PostLoadingState.noPostAvailable =>
+                          Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        PostLoadingState.error =>
+                          Text(AppLocalizations.of(context)!.noNewsAvailable),
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    Center(
+                      child: switch (
+                          dashboardViewModel.activitiesLoadingState) {
+                        PostLoadingState.postsLoaded => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.activities,
+                            newsList:
+                                dashboardViewModel.activities ?? List.empty(),
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                                context, news.websiteURL),
+                          ),
+                        PostLoadingState.loading =>
+                          const CircularProgressIndicator(),
+                        PostLoadingState.noPostAvailable => Text(
+                            AppLocalizations.of(context)!
+                                .noActivitiesAvailable),
+                        PostLoadingState.error => Text(
+                            AppLocalizations.of(context)!
+                                .noActivitiesAvailable),
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           );
         },
       ),
+    );
+  }
+
+  _showWebsiteBottomSheet(BuildContext context, String url) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return DashboardWebViewScreen(
+          url: url,
+        );
+      },
     );
   }
 }

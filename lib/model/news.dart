@@ -18,6 +18,10 @@ class News {
     String imageURL = yoastContent["og_image"][0]["url"];
     String websiteURL = yoastContent["og_url"];
 
-    return News(title: title, content: content, imageURL: imageURL, websiteURL: websiteURL);
+    return News(
+        title: title,
+        content: content,
+        imageURL: imageURL,
+        websiteURL: websiteURL);
   }
 }

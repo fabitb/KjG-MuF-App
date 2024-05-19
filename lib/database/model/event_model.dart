@@ -93,7 +93,8 @@ class EventModel {
           eventUrl = "$url$link";
         }
 
-        if (json.getStringNonEmpty('bild') case String bild) imageUrl = "$url/?download=$bild";
+        if (json.getStringNonEmpty('bild') case String bild)
+          imageUrl = "$url/?download=$bild";
       }
 
       eventUrl ??= "${Strings.midaBaseURL}/?veranstaltung=$eventID&dialog=1";
@@ -110,7 +111,8 @@ class EventModel {
       }
 
       int durationDays = 0;
-      if (json['anzahltage'] case String anzahltage) durationDays = int.tryParse(anzahltage) ?? 0;
+      if (json['anzahltage'] case String anzahltage)
+        durationDays = int.tryParse(anzahltage) ?? 0;
 
       return EventModel(
         eventID: eventID,

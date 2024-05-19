@@ -21,12 +21,25 @@ class WordpressService {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((e) => News.fromJson(e)).toList();
     } else {
-      throw Exception("Unexprecred");
+      throw Exception("Unexpected");
+    }
+  }
+
+  Future<List<News>> getActivities() async {
+    final response = await _get("$wordpressBaseURL/aktion?news-kategorie=149");
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((e) => News.fromJson(e)).toList();
+    } else {
+      throw Exception("Unexpected");
     }
   }
 
   Future<http.Response> _get(String url) {
-    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
+    return http
+        .get(Uri.parse(url), headers: headers)
+        .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
@@ -40,7 +53,10 @@ class WordpressService {
   }
 
   Future<http.Response> _post(String url, {body, encoding}) {
-    return http.post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding).then((http.Response response) {
+    return http
+        .post(Uri.parse(url),
+            body: _encoder.convert(body), headers: headers, encoding: encoding)
+        .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 

@@ -97,6 +97,7 @@ flutter:
 
   assets:
     - assets/mausis/
+    - assets/elements/
 
   fonts:
     - family: SeccaKjG
