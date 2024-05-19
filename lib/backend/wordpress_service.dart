@@ -2,15 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
-import '../model/news.dart';
+import 'package:kjg_muf_app/model/news.dart';
 
 const String wordpressBaseURL = "https://muenchen.kjg.de/wp-json/wp/v2";
 
 class WordpressService {
-  final JsonDecoder _decoder = const JsonDecoder();
-  final JsonEncoder _encoder = const JsonEncoder();
-
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
 
@@ -40,24 +36,6 @@ class WordpressService {
     return http
         .get(Uri.parse(url), headers: headers)
         .then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;
-    });
-  }
-
-  Future<http.Response> _post(String url, {body, encoding}) {
-    return http
-        .post(Uri.parse(url),
-            body: _encoder.convert(body), headers: headers, encoding: encoding)
-        .then((http.Response response) {
-      final String res = response.body;
       final int statusCode = response.statusCode;
 
       _updateCookie(response);

@@ -5,6 +5,8 @@
   "filterByDate": "Nach Datum filtern",
   "resetFilter": "Filter zurücksetzen",
 
+  "events": "Veranstaltungen",
+
   "greeting": "Hallo {name}!",
   "@greeting": {
     "placeholders": {

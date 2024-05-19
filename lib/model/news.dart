@@ -19,9 +19,10 @@ class News {
     String websiteURL = yoastContent["og_url"];
 
     return News(
-        title: title,
-        content: content,
-        imageURL: imageURL,
-        websiteURL: websiteURL);
+      title: title,
+      content: content,
+      imageURL: imageURL,
+      websiteURL: websiteURL,
+    );
   }
 }
