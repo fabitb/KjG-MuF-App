@@ -23,7 +23,7 @@ class Dashboard extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: FractionallySizedBox(
-                  heightFactor: 0.5,
+                  heightFactor: 0.3,
                   child: Image.asset(
                     "assets/mausis/mercimausi.png",
                     fit: BoxFit.fitHeight,
@@ -40,9 +40,10 @@ class Dashboard extends StatelessWidget {
                       AppLocalizations.of(context)!
                           .greeting(mainViewModel.firstName ?? "DU"),
                       style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24.0,
-                          color: KjGColors.kjgLightBlue),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24.0,
+                        color: KjGColors.kjgLightBlue,
+                      ),
                     ),
                     const SizedBox(
                       height: 8.0,
