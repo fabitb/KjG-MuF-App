@@ -21,6 +21,7 @@ class NewsCarouselWidget extends StatefulWidget {
 
 class _NewsCarouselState extends State<NewsCarouselWidget> {
   int position = 0;
+  PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
           height: 180,
           width: double.infinity,
           child: PageView.builder(
+            controller: pageController,
             itemCount: news.length,
             itemBuilder: (context, pagePosition) {
               return GestureDetector(
@@ -81,12 +83,21 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
   }
 
   Widget positionCircle(int p) {
-    return Container(
-      height: 12,
-      width: 12,
-      decoration: BoxDecoration(
-        color: position == p ? KjGColors.kjgDarkBlue : Colors.grey.shade300,
-        borderRadius: const BorderRadius.all(Radius.circular(25)),
+    return GestureDetector(
+      onTap: () => setState(() {
+        pageController.animateToPage(
+          p,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.linear,
+        );
+      }),
+      child: Container(
+        height: 12,
+        width: 12,
+        decoration: BoxDecoration(
+          color: position == p ? KjGColors.kjgDarkBlue : Colors.grey.shade300,
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+        ),
       ),
     );
   }
