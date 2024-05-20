@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 
 class NewsletterSubscribeButton extends StatelessWidget {
-  final Function? onButtonClicked;
+  final Function onButtonClicked;
 
   const NewsletterSubscribeButton({
     super.key,
@@ -15,7 +15,7 @@ class NewsletterSubscribeButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: GestureDetector(
-        onTap: () => onButtonClicked,
+        onTap: () => onButtonClicked(),
         child: Card(
           color: KjGColors.kjgDarkBlue,
           child: Padding(
