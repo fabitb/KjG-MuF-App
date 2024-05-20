@@ -25,4 +25,16 @@ class News {
       websiteURL: websiteURL,
     );
   }
+
+  static List<News> createFakeData() {
+    return List.generate(
+      2,
+      (index) => const News(
+        title: "NewsTitle",
+        content: "NewsContent",
+        imageURL: "NewsImageURL",
+        websiteURL: "NewsWebsiteURL",
+      ),
+    );
+  }
 }

@@ -51,18 +51,17 @@ class Dashboard extends StatelessWidget {
                     ),
                     Center(
                       child: switch (dashboardViewModel.newsLoadingState) {
-                        PostLoadingState.postsLoaded => NewsCarouselWidget(
+                        PostLoadingState.postsLoaded ||
+                        PostLoadingState.loading =>
+                          NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.news,
-                            newsList: dashboardViewModel.news ?? List.empty(),
+                            newsList: dashboardViewModel.news,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,
                               news.websiteURL,
                             ),
                           ),
-                        PostLoadingState.loading =>
-                          const CircularProgressIndicator(),
-                        PostLoadingState.noPostAvailable =>
-                          Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        PostLoadingState.noPostAvailable ||
                         PostLoadingState.error =>
                           Text(AppLocalizations.of(context)!.noNewsAvailable),
                       },
@@ -73,21 +72,19 @@ class Dashboard extends StatelessWidget {
                     Center(
                       child: switch (
                           dashboardViewModel.activitiesLoadingState) {
-                        PostLoadingState.postsLoaded => NewsCarouselWidget(
+                        PostLoadingState.postsLoaded ||
+                        PostLoadingState.loading =>
+                          NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
-                            newsList:
-                                dashboardViewModel.activities ?? List.empty(),
+                            newsList: dashboardViewModel.activities,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,
                               news.websiteURL,
                             ),
                           ),
-                        PostLoadingState.loading =>
-                          const CircularProgressIndicator(),
-                        PostLoadingState.noPostAvailable => Text(
-                            AppLocalizations.of(context)!.noActivitiesAvailable,
-                          ),
-                        PostLoadingState.error => Text(
+                        PostLoadingState.noPostAvailable ||
+                        PostLoadingState.error =>
+                          Text(
                             AppLocalizations.of(context)!.noActivitiesAvailable,
                           ),
                       },
