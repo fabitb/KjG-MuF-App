@@ -2,61 +2,39 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kjg_muf_app/model/game.dart';
+import 'package:kjg_muf_app/model/news.dart';
 
-const String backendBaseURL = "https://app.kjg-muenchen.de/api";
+const String wordpressBaseURL = "https://muenchen.kjg.de/wp-json/wp/v2";
 
-class BackendService {
-  final JsonDecoder _decoder = const JsonDecoder();
-  final JsonEncoder _encoder = const JsonEncoder();
-
+class WordpressService {
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
 
-  Future<bool> getBackendStatus() async {
-    http.Response response;
-    try {
-      response = await _get("$backendBaseURL/status");
-    } on Exception catch (_) {
-      return false;
-    }
-    return response.statusCode >= 200 && response.statusCode <= 300;
-  }
-
-  Future<List<Game>> getGames() async {
-    final response = await _get("$backendBaseURL/games");
+  Future<List<News>> getNews() async {
+    final response = await _get("$wordpressBaseURL/posts?news-kategorie=149");
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((e) => Game.fromJson(e)).toList();
+      return jsonResponse.map((e) => News.fromJson(e)).toList();
     } else {
-      throw Exception('Unexpected error occurred!');
+      throw Exception("Unexpected");
+    }
+  }
+
+  Future<List<News>> getActivities() async {
+    final response = await _get("$wordpressBaseURL/aktion?news-kategorie=149");
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((e) => News.fromJson(e)).toList();
+    } else {
+      throw Exception("Unexpected");
     }
   }
 
   Future<http.Response> _get(String url) {
     return http
         .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;
-    });
-  }
-
-  Future<http.Response> _post(String url, {body, encoding}) {
-    return http
-        .post(
-      Uri.parse(url),
-      body: _encoder.convert(body),
-      headers: headers,
-      encoding: encoding,
-    )
         .then((http.Response response) {
       final int statusCode = response.statusCode;
 

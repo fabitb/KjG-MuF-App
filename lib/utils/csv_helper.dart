@@ -1,9 +1,7 @@
 import 'package:csv/csv.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-
-import '../constants/strings.dart';
-import '../model/csv_event.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/model/csv_event.dart';
 
 class CSVHelper {
   static List<CSVEvent> csvToEvents(String csvString) {

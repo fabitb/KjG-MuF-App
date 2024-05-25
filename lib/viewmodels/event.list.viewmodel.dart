@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
-
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class EventListViewModel extends ChangeNotifier {

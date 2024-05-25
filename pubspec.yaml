@@ -95,6 +95,10 @@ flutter:
   uses-material-design: true
   generate: true
 
+  assets:
+    - assets/mausis/
+    - assets/elements/
+
   fonts:
     - family: SeccaKjG
       fonts:

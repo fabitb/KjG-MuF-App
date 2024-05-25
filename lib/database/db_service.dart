@@ -1,8 +1,7 @@
 import 'package:isar/isar.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'model/event_model.dart';
-import 'model/game_model.dart';
 
 class DBService {
   late Future<Isar> db;

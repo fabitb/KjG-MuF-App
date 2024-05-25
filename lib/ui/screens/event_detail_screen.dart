@@ -9,7 +9,7 @@ import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/attachments_widgert.dart';
+import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';

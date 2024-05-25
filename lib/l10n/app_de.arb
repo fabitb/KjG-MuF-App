@@ -3,5 +3,22 @@
   "hideCommitteeMeetings": "Gremiensitzungen ausblenden",
   "filterByOrganizer": "Nach Veranstalter filtern",
   "filterByDate": "Nach Datum filtern",
-  "resetFilter": "Filter zurücksetzen"
+  "resetFilter": "Filter zurücksetzen",
+
+  "events": "Veranstaltungen",
+
+  "greeting": "Hallo {name}!",
+  "@greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Cosmas"
+      }
+    }
+  },
+  "news": "Neuigkeiten",
+  "noNewsAvailable": "Wir konnten leider keine Neuigkeiten laden. Versuche es einfach später nochmal!",
+  "activities": "Aktionen",
+  "noActivitiesAvailable": "Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!",
+  "subscribeToNewsletter": "Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!"
 }

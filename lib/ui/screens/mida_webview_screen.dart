@@ -12,37 +12,42 @@ class MidaWebViewScreen extends StatelessWidget {
   final Function? addToCalendar;
 
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
-    Factory(() => EagerGestureRecognizer())
+    Factory(() => EagerGestureRecognizer()),
   };
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height:
-            MediaQuery.of(context).size.height - AppBar().preferredSize.height,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      height:
+          MediaQuery.of(context).size.height - AppBar().preferredSize.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
           const CloseButton(),
           Expanded(
-              child: InAppWebView(
-                  onWebViewCreated: (controller) {
-                    // inject custom handlers (callback to flutter in JS)
-                    // add to calendar handler
-                    controller.addJavaScriptHandler(
-                        handlerName: "addToCalendar",
-                        callback: (args) {
-                          addToCalendar?.call();
-                        });
-
-                    // close popup handler
-                    controller.addJavaScriptHandler(
-                        handlerName: "closePopup",
-                        callback: (args) {
-                          Navigator.of(context).pop();
-                        });
+            child: InAppWebView(
+              onWebViewCreated: (controller) {
+                // inject custom handlers (callback to flutter in JS)
+                // add to calendar handler
+                controller.addJavaScriptHandler(
+                  handlerName: "addToCalendar",
+                  callback: (args) {
+                    addToCalendar?.call();
                   },
-                  onLoadStop: (controller, url) {
-                    // Remove link from all calendar buttons and call handler instead
-                    controller.evaluateJavascript(source: """
+                );
+
+                // close popup handler
+                controller.addJavaScriptHandler(
+                  handlerName: "closePopup",
+                  callback: (args) {
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+              onLoadStop: (controller, url) {
+                // Remove link from all calendar buttons and call handler instead
+                controller.evaluateJavascript(
+                  source: """
                       function flutterAddToCalendar() {
                         window.flutter_inappwebview.callHandler("addToCalendar");
                       }
@@ -54,19 +59,26 @@ class MidaWebViewScreen extends StatelessWidget {
                         btn.removeAttribute("href");
                         btn.onclick = flutterAddToCalendar;
                       });                
-                    """);
+                    """,
+                );
 
-                    // override mida CancelPopup function
-                    controller.evaluateJavascript(source: """
+                // override mida CancelPopup function
+                controller.evaluateJavascript(
+                  source: """
                       CancelPopup = () => {
                         window.flutter_inappwebview.callHandler("closePopup");
                       }
-                    """);
-                  },
-                  gestureRecognizers: gestureRecognizers,
-                  initialUrlRequest: URLRequest(
-                      url: Uri.parse(
-                          "$url${token != null ? "&token=$token" : ""}"))))
-        ]));
+                    """,
+                );
+              },
+              gestureRecognizers: gestureRecognizers,
+              initialUrlRequest: URLRequest(
+                  url:
+                      Uri.parse("$url${token != null ? "&token=$token" : ""}")),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
