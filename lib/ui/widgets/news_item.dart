@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/news.dart';
 
 class NewsItem extends StatelessWidget {
@@ -13,10 +14,14 @@ class NewsItem extends StatelessWidget {
       child: Stack(
         fit: StackFit.passthrough,
         children: [
-          Image.network(
-            news.imageURL,
-            fit: BoxFit.cover,
-          ),
+          news.imageURL.isNotEmpty
+              ? Image.network(
+                  news.imageURL,
+                  fit: BoxFit.cover,
+                )
+              : Container(
+                  color: KjGColors.kjgLightBlue,
+                ),
           Image.asset(
             "assets/elements/bottom_element.png",
             fit: BoxFit.cover,

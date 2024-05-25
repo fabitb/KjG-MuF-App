@@ -32,7 +32,7 @@ class News {
       (index) => const News(
         title: "NewsTitle",
         content: "NewsContent",
-        imageURL: "NewsImageURL",
+        imageURL: "",
         websiteURL: "NewsWebsiteURL",
       ),
     );
