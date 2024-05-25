@@ -38,7 +38,6 @@ class BackendService {
     return http
         .get(Uri.parse(url), headers: headers)
         .then((http.Response response) {
-      final String res = response.body;
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
@@ -52,10 +51,13 @@ class BackendService {
 
   Future<http.Response> _post(String url, {body, encoding}) {
     return http
-        .post(Uri.parse(url),
-            body: _encoder.convert(body), headers: headers, encoding: encoding)
+        .post(
+      Uri.parse(url),
+      body: _encoder.convert(body),
+      headers: headers,
+      encoding: encoding,
+    )
         .then((http.Response response) {
-      final String res = response.body;
       final int statusCode = response.statusCode;
 
       _updateCookie(response);

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {

@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
-
-import '../../model/game.dart';
+import 'package:kjg_muf_app/model/game.dart';
 
 part 'game_model.g.dart';
 
@@ -23,41 +22,43 @@ class GameModel {
   late String author;
   late bool alreadyPlayed;
 
-  GameModel(
-      {required this.id,
-      required this.title,
-      required this.actionScore,
-      required this.cognitiveScore,
-      required this.numberOfPlayers,
-      required this.duration,
-      required this.ageLimitations,
-      required this.spaceLimitations,
-      required this.materials,
-      required this.goalOfGame,
-      required this.preparationsInstructions,
-      required this.gameplayInstructions,
-      required this.endingInstructions,
-      required this.categories,
-      required this.author,
-      required this.alreadyPlayed});
+  GameModel({
+    required this.id,
+    required this.title,
+    required this.actionScore,
+    required this.cognitiveScore,
+    required this.numberOfPlayers,
+    required this.duration,
+    required this.ageLimitations,
+    required this.spaceLimitations,
+    required this.materials,
+    required this.goalOfGame,
+    required this.preparationsInstructions,
+    required this.gameplayInstructions,
+    required this.endingInstructions,
+    required this.categories,
+    required this.author,
+    required this.alreadyPlayed,
+  });
 
   factory GameModel.fromGame(Game game) {
     return GameModel(
-        id: game.id,
-        title: game.title,
-        actionScore: game.actionScore,
-        cognitiveScore: game.cognitiveScore,
-        numberOfPlayers: game.numberOfPlayer,
-        duration: game.duration,
-        ageLimitations: game.ageLimitations,
-        spaceLimitations: game.spaceLimitations,
-        materials: game.materials,
-        goalOfGame: game.goalOfGame,
-        preparationsInstructions: game.preparationsInstructions,
-        gameplayInstructions: game.gameplayInstructions,
-        endingInstructions: game.endingInstructions,
-        categories: game.categories,
-        author: game.author,
-        alreadyPlayed: false);
+      id: game.id,
+      title: game.title,
+      actionScore: game.actionScore,
+      cognitiveScore: game.cognitiveScore,
+      numberOfPlayers: game.numberOfPlayer,
+      duration: game.duration,
+      ageLimitations: game.ageLimitations,
+      spaceLimitations: game.spaceLimitations,
+      materials: game.materials,
+      goalOfGame: game.goalOfGame,
+      preparationsInstructions: game.preparationsInstructions,
+      gameplayInstructions: game.gameplayInstructions,
+      endingInstructions: game.endingInstructions,
+      categories: game.categories,
+      author: game.author,
+      alreadyPlayed: false,
+    );
   }
 }
