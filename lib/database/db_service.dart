@@ -1,10 +1,8 @@
 import 'package:isar/isar.dart';
-import 'package:kjg_muf_app/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'model/event_model.dart';
-import 'model/game_model.dart';
 
 const NEWEST_DATABASE_VERSION = 1;
 
@@ -22,8 +20,7 @@ class DBService {
 
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
-    return isar.writeTxn<List<int>>(
-        () async => await isar.gameModels.putAll(newGames));
+    return isar.writeTxn<List<int>>(() async => await isar.gameModels.putAll(newGames));
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -33,8 +30,7 @@ class DBService {
 
   Future<int> deleteGames(List<int> gameIds) async {
     final isar = await db;
-    return await isar
-        .writeTxn(() async => await isar.gameModels.deleteAll(gameIds));
+    return await isar.writeTxn(() async => await isar.gameModels.deleteAll(gameIds));
   }
 
   Future<void> _performMigrationIfNeeded(Isar isar) async {
@@ -59,22 +55,16 @@ class DBService {
     return await isar.eventModels.where().sortByStartDateAndTime().findAll();
   }
 
-  Future<void> cacheEvents(
-      List<Event> events, Map<String, bool> registeredMap) async {
-    List<EventModel> newEvents = events
-        .map((e) => EventModel.fromEvent(e, registeredMap[e.eventID] ?? false))
-        .toList();
-
+  Future<void> cacheEvents(List<EventModel> events) async {
     final isar = await db;
     isar.writeTxn(() => isar.eventModels.clear());
-    isar.writeTxn(() => isar.eventModels.putAll(newEvents));
+    isar.writeTxn(() => isar.eventModels.putAll(events));
   }
 
   Future<Isar> openDB() async {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
-      Isar isar = await Isar.open([GameModelSchema, EventModelSchema],
-          directory: dir.path, inspector: true);
+      Isar isar = await Isar.open([GameModelSchema, EventModelSchema], directory: dir.path, inspector: true);
       await _performMigrationIfNeeded(isar);
       return isar;
     }

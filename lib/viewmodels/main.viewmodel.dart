@@ -18,6 +18,8 @@ class MainViewModel extends ChangeNotifier {
 
   String? get userNameCache => _userNameCache;
 
+  String? get firstName => _nameCache?.split(',').last.trim();
+
   bool _initiated = false;
 
   bool get initiated => _initiated;

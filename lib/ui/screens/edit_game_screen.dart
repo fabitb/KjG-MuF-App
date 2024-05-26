@@ -53,7 +53,7 @@ class EditGameScreenState extends State<EditGameScreen> {
                     border: Constants.defaultOutlineInputBorder,
                   ),
                   validator: (value) {
-                    if (!value.isNotNullAndNotEmpty()) {
+                    if (!value.isNotNullAndNotEmpty) {
                       return "Du musst einen Spielnamen eingeben";
                     } else {
                       return null;

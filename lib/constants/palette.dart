@@ -13,7 +13,7 @@ class Palette {
       600: Color(0xff003739),
       700: Color(0xff002426),
       800: Color(0xff001213),
-      900: Color(0xff000000)
+      900: Color(0xff000000),
     },
   );
 }
