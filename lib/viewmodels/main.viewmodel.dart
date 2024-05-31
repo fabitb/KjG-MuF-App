@@ -18,6 +18,16 @@ class MainViewModel extends ChangeNotifier {
 
   String? get userNameCache => _userNameCache;
 
+  String? _memberId;
+  String? _ebene;
+  String? _unterEbene;
+
+  String? get memberId => _memberId;
+
+  String? get ebene => _ebene;
+
+  String? get unterEbene => _unterEbene;
+
   String? get firstName => _nameCache?.split(',').last.trim();
 
   bool _initiated = false;
@@ -38,8 +48,7 @@ class MainViewModel extends ChangeNotifier {
   }
 
   Future<void> init() async {
-    _nameCache = await SharedPref().getName();
-    _userNameCache = await SharedPref().getUserName();
+    loadUserData();
     String? password = await SharedPref().getPassword();
 
     if (userNameCache != null && password == null) {
@@ -67,24 +76,39 @@ class MainViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> loadUserName() async {
+  Future<void> loadUserData() async {
     _nameCache = await SharedPref().getName();
     _userNameCache = await SharedPref().getUserName();
+    _memberId = await SharedPref().getMitgliedsNummer();
+    _ebene = await SharedPref().getEbene();
+    _unterEbene = await SharedPref().getUnterebene();
     notifyListeners();
   }
 
   void logoutUser() {
     _nameCache = null;
     _userNameCache = null;
+    _memberId = null;
+    _ebene = null;
+    _unterEbene = null;
     SharedPref().logoutUser();
     notifyListeners();
   }
 
   login(String userName, String password) async {
     setLoading(true);
-    await MidaService().verifyLoginForUserName(userName, password);
-    await MidaService().verifyLoginForUserID(userName, password);
-    await loadUserName();
+    try {
+      // these three requests can run in parallel
+      await Future.wait([
+        MidaService().verifyLoginForUserName(userName, password),
+        MidaService().verifyLoginForUserID(userName, password),
+        MidaService().getEbene(userName, password),
+      ]);
+      // needs to wait for getEbene
+      await MidaService().getMember();
+    } catch (e) {}
+
+    await loadUserData();
     notifyListeners();
     setLoading(false);
   }

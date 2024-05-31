@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
@@ -77,6 +78,80 @@ class MidaService {
           await SharedPref().saveUserID(int.parse(jsonResponse.first));
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  ///
+  /// Gets Ebene, Unterebene and Ebenenlink
+  ///
+  Future<bool> getEbene(String username, String password) async {
+    final response = await _post(
+      "${Strings.midaBaseURL}/?newuser=$username&newpassword=$password",
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        var document = parse(response.body);
+        final ebenenLink = document
+            .querySelector("div.rowdatenschutz a")
+            ?.attributes["href"]
+            ?.replaceAll("?datenschutz", "");
+        final response2 = await _get(
+          "$ebenenLink/?action=start_orga",
+        );
+        final document2 = parse(response2.body);
+        document2.querySelector("div.buttonline a")?.attributes["href"];
+        final unterebeneElement = document2.querySelector("a u");
+        final unterebene = unterebeneElement?.text;
+        final ebene = document2
+            .querySelector("footer [href='?action=start_orga']")
+            ?.parent
+            ?.querySelector("b")
+            ?.text;
+
+        if (ebene != null) SharedPref().saveEbene(ebene);
+        if (unterebene != null) SharedPref().saveUnterebene(unterebene);
+
+        final onclick = unterebeneElement?.parent?.attributes["onclick"];
+        if (onclick != null) {
+          final linkStart = onclick.indexOf("https://mida.kjg.de/");
+          final linkEnd = onclick.indexOf("/?settokenfreund");
+          final link = onclick.substring(linkStart, linkEnd);
+
+          SharedPref().saveEbenenLink(link);
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  ///
+  /// Gets memberId (and could get more info from profile screen
+  ///
+  /// needs to be run after getEbene
+  ///
+  Future<bool> getMember() async {
+    final response = await _get(
+      "${await SharedPref().getEbenenLink()}?action=profile_edit",
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        var document = parse(response.body);
+        final memberId =
+            document.getElementById("mitgliedsnummer")?.attributes["value"];
+        final dekanat =
+            document.getElementById("key_dekanat")?.attributes["value"];
+        if (memberId != null) SharedPref().saveMitgliedsNummer(memberId);
+
+        return true;
+      } catch (error) {
+        return false;
       }
     }
     return false;
