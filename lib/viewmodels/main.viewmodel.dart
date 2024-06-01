@@ -4,9 +4,9 @@ import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainViewModel extends ChangeNotifier {
-  bool _loading = false;
+  LoginStatus _loginStatus = LoginStatus.normal;
 
-  bool get loading => _loading;
+  LoginStatus get loginStatus => _loginStatus;
 
   bool get isLoggedIn => nameCache != null;
 
@@ -19,14 +19,14 @@ class MainViewModel extends ChangeNotifier {
   String? get userNameCache => _userNameCache;
 
   String? _memberId;
+  String? _ueberEbene;
   String? _ebene;
-  String? _unterEbene;
 
   String? get memberId => _memberId;
 
-  String? get ebene => _ebene;
+  String? get ueberEbene => _ueberEbene;
 
-  String? get unterEbene => _unterEbene;
+  String? get ebene => _ebene;
 
   String? get firstName => _nameCache?.split(',').last.trim();
 
@@ -42,8 +42,8 @@ class MainViewModel extends ChangeNotifier {
     init();
   }
 
-  setLoading(bool loading) async {
-    _loading = loading;
+  setLoginStatus(LoginStatus newStatus) async {
+    _loginStatus = newStatus;
     notifyListeners();
   }
 
@@ -80,8 +80,8 @@ class MainViewModel extends ChangeNotifier {
     _nameCache = await SharedPref().getName();
     _userNameCache = await SharedPref().getUserName();
     _memberId = await SharedPref().getMitgliedsNummer();
+    _ueberEbene = await SharedPref().getUeberEbene();
     _ebene = await SharedPref().getEbene();
-    _unterEbene = await SharedPref().getUnterebene();
     notifyListeners();
   }
 
@@ -89,28 +89,33 @@ class MainViewModel extends ChangeNotifier {
     _nameCache = null;
     _userNameCache = null;
     _memberId = null;
+    _ueberEbene = null;
     _ebene = null;
-    _unterEbene = null;
     SharedPref().logoutUser();
     notifyListeners();
   }
 
   login(String userName, String password) async {
-    setLoading(true);
+    setLoginStatus(LoginStatus.loading);
     try {
-      // these three requests can run in parallel
-      await Future.wait([
-        MidaService().verifyLoginForUserName(userName, password),
-        MidaService().verifyLoginForUserID(userName, password),
-        MidaService().getEbene(userName, password),
-      ]);
-      // needs to wait for getEbene
-      await MidaService().getMember();
+      var validLogin =
+          await MidaService().verifyLoginForUserName(userName, password);
+
+      if (validLogin) {
+        setLoginStatus(LoginStatus.loadingUserData);
+        // these requests can run in parallel
+        await Future.wait([
+          MidaService().verifyLoginForUserID(userName, password),
+          MidaService().getEbene(),
+        ]);
+        // needs to wait for getEbene
+        await MidaService().getMember();
+      }
     } catch (e) {}
 
     await loadUserData();
     notifyListeners();
-    setLoading(false);
+    setLoginStatus(LoginStatus.normal);
   }
 
   Future<void> openUrl(String url) async {
@@ -121,3 +126,5 @@ class MainViewModel extends ChangeNotifier {
     }
   }
 }
+
+enum LoginStatus { normal, loading, loadingUserData }

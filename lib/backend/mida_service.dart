@@ -86,35 +86,33 @@ class MidaService {
   ///
   /// Gets Ebene, Unterebene and Ebenenlink
   ///
-  Future<bool> getEbene(String username, String password) async {
+  Future<bool> getEbene() async {
     final response = await _post(
-      "${Strings.midaBaseURL}/?newuser=$username&newpassword=$password",
+      "${Strings.midaBaseURL}/?action=start_orga",
     );
 
     if (response.statusCode == 200) {
       try {
         var document = parse(response.body);
-        final ebenenLink = document
-            .querySelector("div.rowdatenschutz a")
-            ?.attributes["href"]
-            ?.replaceAll("?datenschutz", "");
-        final response2 = await _get(
-          "$ebenenLink/?action=start_orga",
-        );
-        final document2 = parse(response2.body);
-        document2.querySelector("div.buttonline a")?.attributes["href"];
-        final unterebeneElement = document2.querySelector("a u");
-        final unterebene = unterebeneElement?.text;
-        final ebene = document2
-            .querySelector("footer [href='?action=start_orga']")
-            ?.parent
-            ?.querySelector("b")
-            ?.text;
 
+        // my ebene is underlined -> a u
+        final ebeneElement = document.querySelector("a u");
+        final ebene = ebeneElement?.text;
+
+        // find visible minus buttons -> expanded options
+        final minusButtons = document
+            .querySelectorAll('div a.minus:not([style="display:none;"])');
+        // choose second open or Bundesebene
+        final highestNotBundes =
+            minusButtons.length > 1 ? minusButtons[1] : minusButtons[0];
+        // find corresponding name
+        final ueberEbene = highestNotBundes.parent?.children[2].text;
+
+        if (ueberEbene != null) SharedPref().saveUeberEbene(ueberEbene);
         if (ebene != null) SharedPref().saveEbene(ebene);
-        if (unterebene != null) SharedPref().saveUnterebene(unterebene);
 
-        final onclick = unterebeneElement?.parent?.attributes["onclick"];
+        // get link to own ebene
+        final onclick = ebeneElement?.parent?.attributes["onclick"];
         if (onclick != null) {
           final linkStart = onclick.indexOf("https://mida.kjg.de/");
           final linkEnd = onclick.indexOf("/?settokenfreund");

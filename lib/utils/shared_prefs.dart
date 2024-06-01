@@ -21,8 +21,8 @@ class SharedPref {
   static const keyUserID = "key.user.id";
   static const keyFilterSettings = "key.filtersettings";
   static const keyEbenenLink = "key.ebenenlink";
+  static const keyUeberEbene = "key.ueberebene";
   static const keyEbene = "key.ebene";
-  static const keyUnterebene = "key.unterebene";
   static const keyMitgliedsNummer = "key.mitgliedsnummer";
 
   Future<void> saveName(String fullName) async {
@@ -119,6 +119,16 @@ class SharedPref {
     return prefs.getString(keyEbenenLink);
   }
 
+  Future<void> saveUeberEbene(String ueberEbene) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyUeberEbene, ueberEbene);
+  }
+
+  Future<String?> getUeberEbene() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyUeberEbene);
+  }
+
   Future<void> saveEbene(String ebene) async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.setString(keyEbene, ebene);
@@ -127,16 +137,6 @@ class SharedPref {
   Future<String?> getEbene() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getString(keyEbene);
-  }
-
-  Future<void> saveUnterebene(String unterebene) async {
-    var prefs = await SharedPreferences.getInstance();
-    await prefs.setString(keyUnterebene, unterebene);
-  }
-
-  Future<String?> getUnterebene() async {
-    var prefs = await SharedPreferences.getInstance();
-    return prefs.getString(keyUnterebene);
   }
 
   Future<void> saveMitgliedsNummer(String mitgliedsnummer) async {

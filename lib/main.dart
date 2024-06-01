@@ -9,7 +9,6 @@ import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
-import 'package:kjg_muf_app/ui/screens/member_card_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -198,8 +197,8 @@ class KjGAppMain extends StatelessWidget {
           child: MemberCard(
             name: model.nameCache ?? "",
             memberId: model.memberId ?? "",
-            ebene: model.ebene ?? "",
-            unterebene: model.unterEbene ?? "",
+            ebene: model.ueberEbene ?? "",
+            unterebene: model.ebene ?? "",
           ),
         );
       },

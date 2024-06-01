@@ -68,20 +68,32 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 50),
-                          !model.loading
-                              ? ElevatedButton(
-                                  onPressed: () {
-                                    model.login(
-                                      emailController.text,
-                                      passwordController.text,
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(elevation: 5),
-                                  child: const Text("Einloggen"),
-                                )
-                              : const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                          if (model.loginStatus == LoginStatus.normal)
+                            ElevatedButton(
+                              onPressed: () {
+                                model.login(
+                                  emailController.text,
+                                  passwordController.text,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(elevation: 5),
+                              child: const Text("Einloggen"),
+                            )
+                          else
+                            Column(
+                              children: [
+                                const CircularProgressIndicator(),
+                                if (model.loginStatus ==
+                                    LoginStatus.loadingUserData) ...[
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  const Text(
+                                    "Login erfolgreich, lade weitere Nutzerdaten",
+                                  ),
+                                ],
+                              ],
+                            ),
                           if (!Platform.isIOS) ...[
                             const Expanded(
                               child: Align(
