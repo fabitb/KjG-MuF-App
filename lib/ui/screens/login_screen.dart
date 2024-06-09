@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: const Text("Einloggen"),
+              title: Text(context.localizations.login),
             ),
             body: Center(
               child: Padding(
@@ -31,9 +32,9 @@ class LoginScreen extends StatelessWidget {
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          const Text(
-                            "Login Mida",
-                            style: TextStyle(
+                          Text(
+                            context.localizations.loginMida,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
                             ),
@@ -47,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
                               filled: true,
-                              hintText: "Benutzername",
+                              hintText: context.localizations.username,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
                               filled: true,
-                              hintText: "Password",
+                              hintText: context.localizations.password,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -77,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                                 );
                               },
                               style: ElevatedButton.styleFrom(elevation: 5),
-                              child: const Text("Einloggen"),
+                              child: Text(context.localizations.login),
                             )
                           else
                             Column(
@@ -88,18 +89,17 @@ class LoginScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  const Text(
-                                    "Login erfolgreich, lade weitere Nutzerdaten",
+                                  Text(context.localizations.loadingUserdata,
                                   ),
                                 ],
                               ],
                             ),
                           if (!Platform.isIOS) ...[
-                            const Expanded(
+                            Expanded(
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
-                                  "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
+                                  context.localizations.signupText,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -109,12 +109,12 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () => model.openUrl(
                                 "mailto:${Strings.contactEmailAddress}",
                               ),
-                              child: const Text("Schreib uns eine Mail!"),
+                              child: Text(context.localizations.writeEmail),
                             ),
                           ],
                         ],
                       )
-                    : Text("Du bist eingeloggt ${model.nameCache}"),
+                    : Text(context.localizations.loggedInText(model.nameCache!)),
               ),
             ),
           );

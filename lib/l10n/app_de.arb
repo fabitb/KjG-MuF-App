@@ -20,5 +20,23 @@
   "noNewsAvailable": "Wir konnten leider keine Neuigkeiten laden. Versuche es einfach später nochmal!",
   "activities": "Aktionen",
   "noActivitiesAvailable": "Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!",
-  "subscribeToNewsletter": "Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!"
+  "subscribeToNewsletter": "Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!",
+
+  "login": "Einloggen",
+  "username": "Benutzername",
+  "password": "Passwort",
+  "loginMida": "Login Mida",
+  "loadingUserdata": "Login erfolgreich, lade weitere Nutzerdaten",
+  "signupText": "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
+  "writeEmail": "Schreib uns eine Mail!",
+  "loggedInText": "Du bist eingeloggt {name}",
+  "@loggedInText": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Cosmas"
+      }
+    }
+  }
+
 }

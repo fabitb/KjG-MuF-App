@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension StringExtension on String? {
   bool get isNotNullAndNotEmpty => this != null && this!.isNotEmpty;
@@ -22,5 +23,11 @@ extension DateTimeRangeExtension on DateTimeRange {
       return dateFormat.format(start);
     }
     return "${dateFormat.format(start)} - ${DateFormat("dd.MM.yyyy").format(end)}";
+  }
+}
+
+extension LocalizationExtension on BuildContext {
+  AppLocalizations get localizations {
+    return AppLocalizations.of(this)!;
   }
 }
