@@ -61,22 +61,28 @@ class EditGameScreenState extends State<EditGameScreen> {
                   },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: numberOfPlayerController,
                   decoration: const InputDecoration(
                     labelText: "Spieleranzahl",
                     hintText: "Gebe an für wie viele Spieler das Spiel ausgelegt ist",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Du musst eine Spieleranzahl angeben" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: durationController,
                   decoration: const InputDecoration(
                     labelText: "Dauer",
                     hintText: "Gebe an wie lang das Spiel dauert",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Du musst eine Spieldauer angeben" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
@@ -106,7 +112,7 @@ class EditGameScreenState extends State<EditGameScreen> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: goalOfGameController,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -114,9 +120,12 @@ class EditGameScreenState extends State<EditGameScreen> {
                     hintText: "Was ist das Ziel des Spieles?",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Du musst ein Spielziel angeben" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: preparationsInstructionsController,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -124,9 +133,12 @@ class EditGameScreenState extends State<EditGameScreen> {
                     hintText: "Was gibt es zu vorzubereiten-?",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Bite trage nötige Vorbereitungen ein" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: gameplayInstructionsController,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -134,9 +146,12 @@ class EditGameScreenState extends State<EditGameScreen> {
                     hintText: "Gebe Informationen zum Spielablauf an",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Bite trage Infos zum Spielablauf ein" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: endingInstructionsController,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -144,6 +159,9 @@ class EditGameScreenState extends State<EditGameScreen> {
                     hintText: "Gebe Informationen zum Spielende an",
                     border: Constants.defaultOutlineInputBorder,
                   ),
+                  validator: (value) {
+                    return !value.isNotNullAndNotEmpty ? "Bite trage Infos zum Spielende ein" : null;
+                  },
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
