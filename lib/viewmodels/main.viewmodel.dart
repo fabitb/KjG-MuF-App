@@ -64,10 +64,17 @@ class MainViewModel extends ChangeNotifier {
         loggedIn = _nameCache != null;
         _offline = true;
       }
-      _initiated = true;
       if (!loggedIn) {
+        _initiated = true;
         logoutUser();
       } else {
+        if (_memberId == null) {
+          // load userdata for users that were logged in before update
+          await MidaService().getEbene();
+          await MidaService().getMember();
+        }
+
+        _initiated = true;
         notifyListeners();
       }
     } else {
