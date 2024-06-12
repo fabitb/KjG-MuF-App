@@ -63,6 +63,7 @@ dependencies:
   html: ^0.15.4
   photo_view: ^0.14.0
   csv: ^5.1.1
+  flip_card: ^0.7.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.10.0"
@@ -96,6 +97,7 @@ flutter:
   generate: true
 
   assets:
+    - assets/
     - assets/mausis/
     - assets/elements/
 

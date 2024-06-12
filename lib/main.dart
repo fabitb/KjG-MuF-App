@@ -9,6 +9,7 @@ import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
 import 'package:kjg_muf_app/ui/screens/login_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,6 +51,13 @@ class KjGAppMain extends StatelessWidget {
             appBar: AppBar(
               title: Text(title),
               backgroundColor: KjGColors.kjgLightBlue,
+              actions: [
+                if (model.isLoggedIn)
+                  IconButton(
+                    onPressed: () => _showMemberCardBottomSheet(context, model),
+                    icon: const Icon(Icons.credit_card),
+                  ),
+              ],
             ),
             drawer: Drawer(
               child: ListView(
@@ -76,7 +84,7 @@ class KjGAppMain extends StatelessWidget {
                                 builder: (context) => LoginScreen(),
                               ),
                             )
-                            .then((value) => model.loadUserName());
+                            .then((value) => model.loadUserData());
                       },
                     ),
                     const Divider(),
@@ -169,6 +177,31 @@ class KjGAppMain extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  _showMemberCardBottomSheet(BuildContext context, MainViewModel model) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding:
+              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          child: MemberCard(
+            name: model.nameCache ?? "",
+            memberId: model.memberId ?? "",
+            ebene: model.ueberEbene ?? "",
+            unterebene: model.ebene ?? "",
+          ),
+        );
+      },
     );
   }
 }

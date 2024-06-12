@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
@@ -77,6 +78,78 @@ class MidaService {
           await SharedPref().saveUserID(int.parse(jsonResponse.first));
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  ///
+  /// Gets Ebene, Unterebene and Ebenenlink
+  ///
+  Future<bool> getEbene() async {
+    final response = await _post(
+      "${Strings.midaBaseURL}/?action=start_orga",
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        var document = parse(response.body);
+
+        // my ebene is underlined -> a u
+        final ebeneElement = document.querySelector("a u");
+        final ebene = ebeneElement?.text;
+
+        // find visible minus buttons -> expanded options
+        final minusButtons = document
+            .querySelectorAll('div a.minus:not([style="display:none;"])');
+        // choose second open or Bundesebene
+        final highestNotBundes =
+            minusButtons.length > 1 ? minusButtons[1] : minusButtons[0];
+        // find corresponding name
+        final ueberEbene = highestNotBundes.parent?.children[2].text;
+
+        if (ueberEbene != null) SharedPref().saveUeberEbene(ueberEbene);
+        if (ebene != null) SharedPref().saveEbene(ebene);
+
+        // get link to own ebene
+        final onclick = ebeneElement?.parent?.attributes["onclick"];
+        if (onclick != null) {
+          final linkStart = onclick.indexOf("https://mida.kjg.de/");
+          final linkEnd = onclick.indexOf("/?settokenfreund");
+          final link = onclick.substring(linkStart, linkEnd);
+
+          SharedPref().saveEbenenLink(link);
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  ///
+  /// Gets memberId (and could get more info from profile screen
+  ///
+  /// needs to be run after getEbene
+  ///
+  Future<bool> getMember() async {
+    final response = await _get(
+      "${await SharedPref().getEbenenLink()}?action=profile_edit",
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        var document = parse(response.body);
+        final memberId =
+            document.getElementById("mitgliedsnummer")?.attributes["value"];
+        final dekanat =
+            document.getElementById("key_dekanat")?.attributes["value"];
+        if (memberId != null) SharedPref().saveMitgliedsNummer(memberId);
+
+        return true;
+      } catch (error) {
+        return false;
       }
     }
     return false;

@@ -20,6 +20,10 @@ class SharedPref {
   static const keyPassword = "key.password";
   static const keyUserID = "key.user.id";
   static const keyFilterSettings = "key.filtersettings";
+  static const keyEbenenLink = "key.ebenenlink";
+  static const keyUeberEbene = "key.ueberebene";
+  static const keyEbene = "key.ebene";
+  static const keyMitgliedsNummer = "key.mitgliedsnummer";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -103,5 +107,45 @@ class SharedPref {
     var prefs = await SharedPreferences.getInstance();
     var f = prefs.getString(keyFilterSettings);
     return f == null ? null : FilterSettings.fromJson(jsonDecode(f));
+  }
+
+  Future<void> saveEbenenLink(String link) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyEbenenLink, link);
+  }
+
+  Future<String?> getEbenenLink() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyEbenenLink);
+  }
+
+  Future<void> saveUeberEbene(String ueberEbene) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyUeberEbene, ueberEbene);
+  }
+
+  Future<String?> getUeberEbene() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyUeberEbene);
+  }
+
+  Future<void> saveEbene(String ebene) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyEbene, ebene);
+  }
+
+  Future<String?> getEbene() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyEbene);
+  }
+
+  Future<void> saveMitgliedsNummer(String mitgliedsnummer) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(keyMitgliedsNummer, mitgliedsnummer);
+  }
+
+  Future<String?> getMitgliedsNummer() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(keyMitgliedsNummer);
   }
 }
