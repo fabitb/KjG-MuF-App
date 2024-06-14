@@ -107,16 +107,20 @@ class EventDetailViewModel extends ChangeNotifier {
       futures.add(KjGCacheManager.instance.downloadFile(url));
     }
 
-    Future.wait(futures, eagerError: true).then((value) {
-      event.cachedTime = DateTime.now();
-      DBService().saveEvent(event);
-      loadingAttachments = false;
+    Future.wait(futures, eagerError: true).then(
+      (value) {
+        event.cachedTime = DateTime.now();
+        DBService().saveEvent(event);
+        loadingAttachments = false;
 
-      notifyListeners();
-    }).catchError((error, stackTrace) {
-      // do nothing, probably no internet
-      loadingAttachments = false;
-    });
+        notifyListeners();
+      },
+      onError: (error, stackTrace) {
+        // do nothing, probably no internet
+        loadingAttachments = false;
+        notifyListeners();
+      },
+    );
   }
 
   deleteAttachments() {

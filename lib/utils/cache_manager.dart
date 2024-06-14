@@ -7,7 +7,7 @@ class KjGCacheManager {
     Config(
       key,
       stalePeriod: const Duration(days: 90),
-      maxNrOfCacheObjects: 100,
+      maxNrOfCacheObjects: 1000,
     ),
   );
 }
