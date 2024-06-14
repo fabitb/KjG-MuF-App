@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class EventListViewModel extends ChangeNotifier {
@@ -42,9 +44,11 @@ class EventListViewModel extends ChangeNotifier {
     }
 
     e = e
-        ?.where((element) =>
-            _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ??
-            true)
+        ?.where(
+          (element) =>
+              _filterSettings.showOrganizer[element.organizer ?? "Unbekannt"] ??
+              true,
+        )
         .toList();
 
     if (_filterSettings.dateTimeRange != null) {
@@ -91,6 +95,20 @@ class EventListViewModel extends ChangeNotifier {
     for (EventModel eM in eventModels) {
       if (eM.startDateAndTime?.isAfter(startOfToday) ?? false) {
         _events?.add(eM);
+      } else {
+        // delete cached attachments for old event
+        if (eM.baseUrl case String baseUrl) {
+          eM.attachments?.forEach((element) {
+            KjGCacheManager.instance.removeFile(
+              Strings.attachmentDownloadLink(baseUrl, element),
+            );
+          });
+        }
+
+        // delete event image
+        if (eM.imageUrl case String imageUrl) {
+          KjGCacheManager.instance.removeFile(imageUrl);
+        }
       }
     }
     notifyListeners();
@@ -113,7 +131,8 @@ class EventListViewModel extends ChangeNotifier {
         if (!publicEventIDs.contains(event.eventID)) {
           try {
             // getEvent sometimes empty... catch while investigating
-            final backendEvent = await MidaService().getEvent(event.eventID);
+            var backendEvent = await MidaService()
+                .getEvent(event.eventID, baseUrl: event.baseUrl);
             eNN.add(backendEvent);
           } catch (e) {
             // display event with basic information instead

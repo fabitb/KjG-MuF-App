@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:kjg_muf_app/utils/cache_manager.dart';
 
 class PDFScreen extends StatelessWidget {
   final String pdfLink;
@@ -17,7 +18,7 @@ class PDFScreen extends StatelessWidget {
         title: Text(pageTitle),
       ),
       body: FutureBuilder<File>(
-        future: DefaultCacheManager().getSingleFile(pdfLink),
+        future: KjGCacheManager.instance.getSingleFile(pdfLink),
         builder: (context, snapshot) => snapshot.hasData
             ? PDFView(
                 fitPolicy: FitPolicy.WIDTH,

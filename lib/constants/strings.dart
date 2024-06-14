@@ -12,4 +12,8 @@ class Strings {
   static const midaCsvPlaceHeader = "Ort";
   static const midaCsvTitleHeader = "Veranstaltung";
   static const midaCsvDateHeader = "Datum";
+
+  static String attachmentDownloadLink(String baseUrl, String attachment) {
+    return "$baseUrl/?download=$attachment";
+  }
 }

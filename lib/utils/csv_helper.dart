@@ -46,6 +46,7 @@ class CSVHelper {
       if (idStart != -1) {
         String id =
             link.substring(idStart + 14, idEnd == -1 ? link.length : idEnd);
+        String baseUrl = link.substring(0, idStart - 1);
 
         String date = (row[dateIndex] as String).substring(3);
 
@@ -72,6 +73,7 @@ class CSVHelper {
             startTime: d,
             place: row[placeIndex],
             link: row[linkIndex],
+            baseUrl: baseUrl,
           ),
         );
       }

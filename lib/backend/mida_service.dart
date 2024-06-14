@@ -200,12 +200,12 @@ class MidaService {
     }
   }
 
-  Future<EventModel> getEvent(String id) async {
+  Future<EventModel> getEvent(String id, {String? baseUrl}) async {
     final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
 
     if (response.statusCode == 200) {
       dynamic jsonResponse = json.decode(response.body);
-      final eventModel = EventModel.fromJson(jsonResponse);
+      final eventModel = EventModel.fromJson(jsonResponse, baseUrl: baseUrl);
       if (eventModel == null) throw const FormatException("Invalid json");
       return eventModel;
     } else {

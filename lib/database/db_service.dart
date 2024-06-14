@@ -4,9 +4,15 @@ import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DBService {
+  static final DBService _instance = DBService._internal();
+
   late Future<Isar> db;
 
-  DBService() {
+  factory DBService() {
+    return _instance;
+  }
+
+  DBService._internal() {
     db = openDB();
   }
 
@@ -35,6 +41,11 @@ class DBService {
     final isar = await db;
     isar.writeTxn(() => isar.eventModels.clear());
     isar.writeTxn(() => isar.eventModels.putAll(events));
+  }
+
+  Future<void> saveEvent(EventModel event) async {
+    final isar = await db;
+    isar.writeTxn(() => isar.eventModels.put(event));
   }
 
   Future<Isar> openDB() async {

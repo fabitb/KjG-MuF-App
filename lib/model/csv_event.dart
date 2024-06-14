@@ -5,6 +5,7 @@ class CSVEvent {
   final String eventID;
   final bool registered;
   final String link;
+  final String baseUrl;
 
   CSVEvent({
     required this.eventID,
@@ -13,6 +14,7 @@ class CSVEvent {
     required this.startTime,
     required this.place,
     required this.link,
+    required this.baseUrl,
   });
 
   @override

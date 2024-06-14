@@ -11,6 +11,7 @@ import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
+import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
@@ -238,13 +239,7 @@ class EventDetailScreen extends StatelessWidget {
                               clipBehavior: Clip.antiAlias,
                               child: AspectRatio(
                                 aspectRatio: 1,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    const CircularProgressIndicator(),
-                                    Image.network(event.imageUrl!),
-                                  ],
-                                ),
+                                child: _getImageCached(context),
                               ),
                             ),
                           ),
@@ -284,8 +279,13 @@ class EventDetailScreen extends StatelessWidget {
                             ),
                           ),
                         if (event.attachments != null &&
-                            event.attachments!.isNotEmpty)
-                          attachmentsWidget(context, event.attachments!),
+                            event.attachments!.isNotEmpty &&
+                            event.baseUrl != null)
+                          AttachmentsWidget(
+                            baseUrl: event.baseUrl!,
+                            attachments: event.attachments!,
+                            cachedTime: event.cachedTime,
+                          ),
                       ],
                     ),
                   ),
@@ -334,6 +334,21 @@ class EventDetailScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget _getImageCached(BuildContext context) {
+    return FutureBuilder(
+      future: KjGCacheManager.instance.getSingleFile(event.imageUrl!),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Image(
+            image: FileImage(snapshot.data!.absolute),
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
