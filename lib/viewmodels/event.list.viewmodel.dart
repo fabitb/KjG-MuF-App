@@ -115,6 +115,11 @@ class EventListViewModel extends ChangeNotifier {
   }
 
   Future<void> loadEvents(bool loggedIn) async {
+    Map<int, EventModel> cachedEvents = {};
+    _events?.forEach((element) {
+      cachedEvents[element.id] = element;
+    });
+
     _events = await MidaService().getEvents();
 
     if (_events != null && loggedIn) {
@@ -171,7 +176,8 @@ class EventListViewModel extends ChangeNotifier {
       }
 
       _events = eNN
-          .map((e) => e..registered = registeredMap[e.eventID] ?? false)
+          .map((e) => (e..registered = registeredMap[e.eventID] ?? false)
+            ..cachedTime = cachedEvents[e.id]?.cachedTime)
           .toList();
     }
 
