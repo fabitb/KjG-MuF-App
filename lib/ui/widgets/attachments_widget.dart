@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/pdf_screen.dart';
-import 'package:kjg_muf_app/utils/cache_manager.dart';
+import 'package:kjg_muf_app/ui/widgets/download_dialog.dart';
 import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
 import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 
 class AttachmentsWidget extends StatelessWidget {
   final String baseUrl;
@@ -32,7 +33,10 @@ class AttachmentsWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Dateien", style: TextStyle(fontSize: 16)),
+                  Text(
+                    context.localizations.attachments,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                   _iconButton(context),
                 ],
               ),
@@ -92,12 +96,12 @@ class AttachmentsWidget extends StatelessWidget {
   _showDeleteDialog(BuildContext context, EventDetailViewModel viewModel) {
     _showAlertDialog(
       context,
-      "Löschen",
-      "Möchtest du die Anhänge wirklich nicht mehr offline verfügbar haben?",
+      context.localizations.delete,
+      context.localizations.deleteDescription,
       okAction: () {
         viewModel.deleteAttachments();
       },
-      okText: "Löschen",
+      okText: context.localizations.delete,
       withCancel: true,
     );
   }
@@ -136,8 +140,8 @@ class AttachmentsWidget extends StatelessWidget {
     if (fileType.isUnsupported) {
       _showAlertDialog(
         context,
-        "Fehler",
-        "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
+        context.localizations.error,
+        context.localizations.fileErrorDescription,
       );
       return;
     }
@@ -164,10 +168,12 @@ class AttachmentsWidget extends StatelessWidget {
     BuildContext context,
     String title,
     String message, {
-    String okText = "OK",
+    String? okText,
     Function()? okAction,
     bool withCancel = false,
   }) {
+    okText ??= context.localizations.ok;
+
     // set up the button
     Widget okButton = TextButton(
       onPressed: () {
@@ -188,7 +194,7 @@ class AttachmentsWidget extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("Abbrechen"),
+            child: Text(context.localizations.cancel),
           ),
       ],
     );
@@ -224,72 +230,4 @@ enum FileType {
   bool get isImage => this == FileType.image;
 
   bool get isUnsupported => this == FileType.unsupported;
-}
-
-class DownloadDialog extends StatefulWidget {
-  final Function(bool) downloadAction;
-
-  const DownloadDialog({
-    super.key,
-    required this.downloadAction,
-  });
-
-  @override
-  State<DownloadDialog> createState() => _DownloadDialogState();
-}
-
-class _DownloadDialogState extends State<DownloadDialog> {
-  bool _showDownloadDialog = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text("Herunterladen"),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            "Alle Anhänge für 90 Tage in der App offline verfügbar machen",
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Switch(
-                value: _showDownloadDialog,
-                onChanged: (newValue) {
-                  setState(() {
-                    _showDownloadDialog = newValue;
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text("Nicht erneut nachfragen"),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            widget.downloadAction(
-              _showDownloadDialog,
-            );
-            Navigator.of(context).pop();
-          },
-          child: const Text("Herunterladen"),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text("Abbrechen"),
-        ),
-      ],
-    );
-  }
 }

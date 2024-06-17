@@ -37,6 +37,17 @@
         "example": "Cosmas"
       }
     }
-  }
+  },
+
+  "dontAskAgain": "Nicht erneut nachfragen",
+  "download": "Herunterladen",
+  "downloadDescription": "Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen",
+  "cancel": "Abbrechen",
+  "ok": "OK",
+  "error": "Fehler",
+  "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
+  "delete": "Löschen",
+  "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
+  "attachments": "Dateien"
 
 }
