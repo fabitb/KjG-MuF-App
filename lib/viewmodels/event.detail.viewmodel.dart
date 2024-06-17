@@ -18,6 +18,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
   final EventModel event;
   final bool offline;
+  bool _showDownloadDialog = true;
 
   Location? _location;
 
@@ -26,6 +27,8 @@ class EventDetailViewModel extends ChangeNotifier {
   GeolocationState _geolocationState = GeolocationState.loading;
 
   GeolocationState get geolocationState => _geolocationState;
+
+  bool get showDownloadDialog => _showDownloadDialog;
 
   bool loadingAttachments = false;
 
@@ -36,6 +39,15 @@ class EventDetailViewModel extends ChangeNotifier {
       _geolocationState = GeolocationState.error;
     }
     refreshUserRegisteredForEvent(event.eventID);
+
+    _init();
+  }
+
+  _init() async {
+    _showDownloadDialog = await SharedPref().getDownloadDialog() ?? true;
+    if (!_showDownloadDialog) {
+      notifyListeners();
+    }
   }
 
   getLocationFromAddress(EventModel event) async {
@@ -95,7 +107,9 @@ class EventDetailViewModel extends ChangeNotifier {
     }
   }
 
-  cacheAttachments() async {
+  cacheAttachments(bool showDownloadDialog) async {
+    SharedPref().setDownloadDialog(showDownloadDialog);
+
     loadingAttachments = true;
     notifyListeners();
 

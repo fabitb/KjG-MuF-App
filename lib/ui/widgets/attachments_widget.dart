@@ -61,14 +61,44 @@ class AttachmentsWidget extends StatelessWidget {
 
     if (cachedTime == null) {
       return IconButton(
-        onPressed: () => viewModel.cacheAttachments(),
+        onPressed: () => _showDownloadDialog(context, viewModel),
         icon: const Icon(Icons.download),
       );
     }
 
     return IconButton(
-      onPressed: () => viewModel.deleteAttachments(),
+      onPressed: () => _showDeleteDialog(context, viewModel),
       icon: const Icon(Icons.delete),
+    );
+  }
+
+  _showDownloadDialog(BuildContext context, EventDetailViewModel viewModel) {
+    if (viewModel.showDownloadDialog) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return DownloadDialog(
+            downloadAction: (showDownloadDialog) {
+              viewModel.cacheAttachments(showDownloadDialog);
+            },
+          );
+        },
+      );
+    } else {
+      viewModel.cacheAttachments(false);
+    }
+  }
+
+  _showDeleteDialog(BuildContext context, EventDetailViewModel viewModel) {
+    _showAlertDialog(
+      context,
+      "Löschen",
+      "Möchtest du die Anhänge wirklich nicht mehr offline verfügbar haben?",
+      okAction: () {
+        viewModel.deleteAttachments();
+      },
+      okText: "Löschen",
+      withCancel: true,
     );
   }
 
@@ -104,7 +134,7 @@ class AttachmentsWidget extends StatelessWidget {
     FileType fileType,
   ) {
     if (fileType.isUnsupported) {
-      showAlertDialog(
+      _showAlertDialog(
         context,
         "Fehler",
         "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
@@ -130,13 +160,21 @@ class AttachmentsWidget extends StatelessWidget {
     );
   }
 
-  showAlertDialog(BuildContext context, String title, String message) {
+  _showAlertDialog(
+    BuildContext context,
+    String title,
+    String message, {
+    String okText = "OK",
+    Function()? okAction,
+    bool withCancel = false,
+  }) {
     // set up the button
     Widget okButton = TextButton(
-      child: const Text("OK"),
       onPressed: () {
+        okAction?.call();
         Navigator.of(context).pop();
       },
+      child: Text(okText),
     );
 
     // set up the AlertDialog
@@ -145,6 +183,13 @@ class AttachmentsWidget extends StatelessWidget {
       content: Text(message),
       actions: [
         okButton,
+        if (withCancel)
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("Abbrechen"),
+          ),
       ],
     );
 
@@ -179,4 +224,72 @@ enum FileType {
   bool get isImage => this == FileType.image;
 
   bool get isUnsupported => this == FileType.unsupported;
+}
+
+class DownloadDialog extends StatefulWidget {
+  final Function(bool) downloadAction;
+
+  const DownloadDialog({
+    super.key,
+    required this.downloadAction,
+  });
+
+  @override
+  State<DownloadDialog> createState() => _DownloadDialogState();
+}
+
+class _DownloadDialogState extends State<DownloadDialog> {
+  bool _showDownloadDialog = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text("Herunterladen"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Alle Anhänge für 90 Tage in der App offline verfügbar machen",
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Switch(
+                value: _showDownloadDialog,
+                onChanged: (newValue) {
+                  setState(() {
+                    _showDownloadDialog = newValue;
+                  });
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              const Text("Nicht erneut nachfragen"),
+            ],
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            widget.downloadAction(
+              _showDownloadDialog,
+            );
+            Navigator.of(context).pop();
+          },
+          child: const Text("Herunterladen"),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("Abbrechen"),
+        ),
+      ],
+    );
+  }
 }
