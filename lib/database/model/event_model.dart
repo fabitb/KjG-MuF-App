@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
@@ -22,6 +23,8 @@ class EventModel {
   late String? organizer;
   late String? type;
   late bool registered;
+  late String? baseUrl;
+  late DateTime? cachedTime;
 
   DateTime? get endDate =>
       startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
@@ -63,9 +66,11 @@ class EventModel {
     this.organizer,
     this.type,
     this.registered = false,
+    this.baseUrl,
+    this.cachedTime,
   }) : id = int.parse(eventID);
 
-  static EventModel? fromJson(Map<String, dynamic> json) {
+  static EventModel? fromJson(Map<String, dynamic> json, {String? baseUrl}) {
     // match necessary json values
     if (json
         case {
@@ -85,15 +90,17 @@ class EventModel {
         endTime = timeInput.split('-')[1];
       }
 
+      baseUrl ??= json.getStringNonEmpty('url');
+
       String? eventUrl;
       String? imageUrl;
-      if (json.getStringNonEmpty('url') case String url) {
+      if (baseUrl != null) {
         if (json.getStringNonEmpty('link') case String link) {
-          eventUrl = "$url$link";
+          eventUrl = "$baseUrl$link";
         }
 
         if (json.getStringNonEmpty('bild') case String bild) {
-          imageUrl = "$url/?download=$bild";
+          imageUrl = "$baseUrl/?download=$bild";
         }
       }
 
@@ -104,7 +111,7 @@ class EventModel {
 
       List<String>? attachments;
       if (json.getStringNonEmpty('attachments') case String attachmentsString) {
-        attachmentsString
+        attachments = attachmentsString
             .split("\n")
             .where((element) => element.isNotEmpty)
             .toList();
@@ -130,6 +137,7 @@ class EventModel {
         imageUrl: imageUrl,
         organizer: json.getStringNonEmpty('verein'),
         type: json.getStringNonEmpty('typ'),
+        baseUrl: baseUrl,
       );
     }
 

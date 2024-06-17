@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
+import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +18,7 @@ class EventDetailViewModel extends ChangeNotifier {
 
   final EventModel event;
   final bool offline;
+  bool _showDownloadDialog = true;
 
   Location? _location;
 
@@ -24,6 +28,10 @@ class EventDetailViewModel extends ChangeNotifier {
 
   GeolocationState get geolocationState => _geolocationState;
 
+  bool get showDownloadDialog => _showDownloadDialog;
+
+  bool loadingAttachments = false;
+
   EventDetailViewModel(this.event, this.offline) {
     if (event.locationForMap.isNotNullAndNotEmpty) {
       getLocationFromAddress(event);
@@ -31,6 +39,15 @@ class EventDetailViewModel extends ChangeNotifier {
       _geolocationState = GeolocationState.error;
     }
     refreshUserRegisteredForEvent(event.eventID);
+
+    _init();
+  }
+
+  _init() async {
+    _showDownloadDialog = await SharedPref().getDownloadDialog() ?? true;
+    if (!_showDownloadDialog) {
+      notifyListeners();
+    }
   }
 
   getLocationFromAddress(EventModel event) async {
@@ -88,5 +105,48 @@ class EventDetailViewModel extends ChangeNotifier {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  cacheAttachments(bool showDownloadDialog) async {
+    SharedPref().setDownloadDialog(showDownloadDialog);
+
+    loadingAttachments = true;
+    notifyListeners();
+
+    List<Future> futures = [];
+
+    for (var attachment in event.attachments ?? []) {
+      final url = Strings.attachmentDownloadLink(event.baseUrl!, attachment);
+
+      futures.add(KjGCacheManager.instance.downloadFile(url));
+    }
+
+    Future.wait(futures, eagerError: true).then(
+      (value) {
+        event.cachedTime = DateTime.now();
+        DBService().saveEvent(event);
+        loadingAttachments = false;
+
+        notifyListeners();
+      },
+      onError: (error, stackTrace) {
+        // do nothing, probably no internet
+        loadingAttachments = false;
+        notifyListeners();
+      },
+    );
+  }
+
+  deleteAttachments() {
+    for (var attachment in event.attachments ?? []) {
+      final url = Strings.attachmentDownloadLink(event.baseUrl!, attachment);
+
+      KjGCacheManager.instance.removeFile(url);
+    }
+
+    event.cachedTime = null;
+    DBService().saveEvent(event);
+
+    notifyListeners();
   }
 }

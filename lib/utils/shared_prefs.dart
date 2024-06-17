@@ -24,6 +24,7 @@ class SharedPref {
   static const keyUeberEbene = "key.ueberebene";
   static const keyEbene = "key.ebene";
   static const keyMitgliedsNummer = "key.mitgliedsnummer";
+  static const keyDownloadDialog = "key.download";
 
   Future<void> saveName(String fullName) async {
     var prefs = await SharedPreferences.getInstance();
@@ -147,5 +148,15 @@ class SharedPref {
   Future<String?> getMitgliedsNummer() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getString(keyMitgliedsNummer);
+  }
+
+  Future<void> setDownloadDialog(bool newValue) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(keyDownloadDialog, newValue);
+  }
+
+  Future<bool?> getDownloadDialog() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(keyDownloadDialog);
   }
 }
