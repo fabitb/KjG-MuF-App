@@ -12,11 +12,11 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = '1000301' //X.XX.XX.XX major, minor, mini, build localProperties.getProperty('flutter.versionCode')
+def flutterVersionCode = '1010001' //X.XX.XX.XX major, minor, mini, build localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
 }
-def flutterVersionName = '1.0.3' //localProperties.getProperty('flutter.versionName')
+def flutterVersionName = '1.1.0' //localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
