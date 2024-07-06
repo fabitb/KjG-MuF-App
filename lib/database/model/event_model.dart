@@ -27,7 +27,7 @@ class EventModel {
   late DateTime? cachedTime;
 
   DateTime? get endDate =>
-      startDateAndTime?.add(Duration(days: durationDays ?? 1 - 1));
+      startDateAndTime?.add(Duration(days: (durationDays ?? 1) - 1));
 
   String? get locationName {
     if (location.isNotNullAndNotEmpty) {
