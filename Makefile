@@ -18,3 +18,9 @@ test:
 
 format:
 	fvm dart format .
+
+splash:
+	fvm dart run flutter_native_splash:create
+
+icon:
+	fvm dart run flutter_launcher_icons:main
