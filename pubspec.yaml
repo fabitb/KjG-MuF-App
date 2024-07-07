@@ -65,6 +65,7 @@ dependencies:
   csv: ^5.1.1
   flip_card: ^0.7.0
   mime: ^1.0.5
+  flutter_native_splash: ^2.2.16
 
 dev_dependencies:
   flutter_launcher_icons: "^0.10.0"
@@ -86,7 +87,7 @@ flutter_icons:
   min_sdk_android: 21
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/icon_seelenbohrer.png"
+  image_path: "assets/app_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

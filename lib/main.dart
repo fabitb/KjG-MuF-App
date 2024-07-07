@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
@@ -15,7 +16,13 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // keep showing splash screen, hide after loading e. g. theme
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+
   runApp(const KjGApp());
+  FlutterNativeSplash.remove();
 }
 
 class KjGApp extends StatelessWidget {
