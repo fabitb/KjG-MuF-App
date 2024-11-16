@@ -2,6 +2,7 @@ import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 
 class CSVHelper {
   static List<CSVEvent> csvToEvents(String csvString) {
@@ -49,36 +50,33 @@ class CSVHelper {
         String baseUrl = link.substring(0, idStart - 1);
 
         String date = (row[dateIndex] as String).substring(3);
+        DateTime? d = _tryParseCsvDateString(date);
 
-        int dashIndex = date.indexOf("-");
-        DateTime d;
-        if (dashIndex == -1) {
-          d = DateFormat("dd.MM.yy, HH:mm").parse(date);
-        } else {
-          date = date.substring(0, dashIndex);
-          if (date.length == 15) {
-            d = DateFormat("dd.MM.yy, HH:mm").parse(date);
-          } else if (date.length == 8) {
-            d = DateFormat("dd.MM.yy").parse(date);
-          } else {
-            d = DateTime.now();
-          }
+        if (d != null) {
+          csvEvents.add(
+            CSVEvent(
+              eventID: id,
+              registered: (row[statusIndex] as String).contains("angemeldet"),
+              title: row[titleIndex],
+              startTime: d,
+              place: row[placeIndex],
+              link: row[linkIndex],
+              baseUrl: baseUrl,
+            ),
+          );
         }
-
-        csvEvents.add(
-          CSVEvent(
-            eventID: id,
-            registered: (row[statusIndex] as String).contains("angemeldet"),
-            title: row[titleIndex],
-            startTime: d,
-            place: row[placeIndex],
-            link: row[linkIndex],
-            baseUrl: baseUrl,
-          ),
-        );
       }
     }
 
     return csvEvents;
+  }
+
+  static DateTime? _tryParseCsvDateString(String date) {
+    DateTime? d;
+
+    d = DateFormat("dd.MM.yy, HH:mm").tryParse(date);
+    d ??= DateFormat("dd.MM.yy").tryParse(date);
+
+    return d;
   }
 }
