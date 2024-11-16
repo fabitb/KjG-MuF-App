@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
@@ -20,13 +22,21 @@ void main() {
   // keep showing splash screen, hide after loading e. g. theme
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  // lock portrait for android phones, iOS set in Xcode
+  if (Platform.isAndroid) {
+    final view = widgetsBinding.platformDispatcher.views.first;
+    final size = view.physicalSize / view.devicePixelRatio;
+    if (size.width <= Constants.phoneMaxWidth) {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    }
+  }
 
   runApp(const KjGApp());
   FlutterNativeSplash.remove();
 }
 
 class KjGApp extends StatelessWidget {
-  const KjGApp({Key? key}) : super(key: key);
+  const KjGApp({super.key});
 
   @override
   Widget build(BuildContext context) {
