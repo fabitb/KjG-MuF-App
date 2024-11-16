@@ -83,9 +83,9 @@ dev_dependencies:
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
 
-flutter_icons:
-  android: "ic_launcher"
+flutter_launcher_icons:
   min_sdk_android: 21
+  android: true
   ios: true
   remove_alpha_ios: true
   image_path: "assets/app_icon.png"
