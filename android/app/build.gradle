@@ -28,6 +28,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace "de.kjg.kjg_muf_app"
+
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
