@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/newsletter_subscribe_button.dart';
 
@@ -27,78 +28,121 @@ class Dashboard extends ConsumerWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.greeting("DU"),
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24.0,
-                  color: KjGColors.kjgLightBlue,
+        CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: KjGColors.kjgLightBlue,
+              pinned: true,
+              snap: false,
+              floating: true,
+              expandedHeight: 100.0,
+              actions: [
+                IconButton(
+                  onPressed: () => _showMemberCardBottomSheet(context),
+                  icon: const Icon(Icons.credit_card, color: Colors.white,),
+                ),
+                SizedBox(width: 14),
+              ],
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.all(16.0),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.greeting("DU"),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20.0,
+                        color: KjGColors.kjgWhite,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              Center(
-                child: switch (news) {
-                  AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
-                  AsyncData(:final value) => NewsCarouselWidget(
-                      title: AppLocalizations.of(context)!.news,
-                      newsList: value,
-                      onNewsClicked: (news) => _showWebsiteBottomSheet(
+            ),
+            SliverPadding(
+              padding: EdgeInsets.all(8.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Center(
+                      child: switch (news) {
+                        AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        AsyncData(:final value) => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.news,
+                            newsList: value,
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                              context,
+                              news.websiteURL,
+                            ),
+                          ),
+                        _ => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.news,
+                            newsList: null,
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                              context,
+                              news.websiteURL,
+                            ),
+                          ),
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    Center(
+                      child: switch (activities) {
+                        AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
+                        AsyncData(:final value) => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.activities,
+                            newsList: value,
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                              context,
+                              news.websiteURL,
+                            ),
+                          ),
+                        _ => NewsCarouselWidget(
+                            title: AppLocalizations.of(context)!.activities,
+                            newsList: null,
+                            onNewsClicked: (news) => _showWebsiteBottomSheet(
+                              context,
+                              news.websiteURL,
+                            ),
+                          ),
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
                         context,
-                        news.websiteURL,
+                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
                       ),
                     ),
-                  _ => NewsCarouselWidget(
-                      title: AppLocalizations.of(context)!.news,
-                      newsList: null,
-                      onNewsClicked: (news) => _showWebsiteBottomSheet(
+                    NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
                         context,
-                        news.websiteURL,
+                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
                       ),
                     ),
-                },
-              ),
-              const SizedBox(
-                height: 32.0,
-              ),
-              Center(
-                child: switch (activities) {
-                  AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
-                  AsyncData(:final value) => NewsCarouselWidget(
-                      title: AppLocalizations.of(context)!.activities,
-                      newsList: value,
-                      onNewsClicked: (news) => _showWebsiteBottomSheet(
+                    NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
                         context,
-                        news.websiteURL,
+                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
                       ),
                     ),
-                  _ => NewsCarouselWidget(
-                      title: AppLocalizations.of(context)!.activities,
-                      newsList: null,
-                      onNewsClicked: (news) => _showWebsiteBottomSheet(
+                    NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
                         context,
-                        news.websiteURL,
+                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
                       ),
                     ),
-                },
-              ),
-              const SizedBox(
-                height: 32.0,
-              ),
-              NewsletterSubscribeButton(
-                onButtonClicked: () => _showWebsiteBottomSheet(
-                  context,
-                  "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
@@ -118,6 +162,30 @@ class Dashboard extends ConsumerWidget {
       builder: (BuildContext context) {
         return DashboardWebViewScreen(
           url: url,
+        );
+      },
+    );
+  }
+
+  _showMemberCardBottomSheet(BuildContext context /*, MainViewModel model*/) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          child: MemberCard(
+            name: "Fabian", //model.nameCache ?? "",
+            memberId: "12345", //model.memberId ?? "",
+            ebene: "Tolle Ebene", //model.ueberEbene ?? "",
+            unterebene: "Tolle Unterebene", //model.ebene ?? "",
+          ),
         );
       },
     );
