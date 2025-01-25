@@ -72,6 +72,7 @@ class LoginWidget extends ConsumerWidget {
           if (authState case AuthStateLoggedOut(:final error)) ...[
             ElevatedButton(
               onPressed: () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 ref.read(authProvider.notifier).login(
                       emailController.text,
                       passwordController.text,
