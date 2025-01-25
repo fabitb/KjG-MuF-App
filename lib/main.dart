@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/more_screen.dart';
-import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +25,11 @@ void main() {
     }
   }
 
-  runApp(const KjGApp());
+  runApp(
+    ProviderScope(
+      child: const KjGApp(),
+    ),
+  );
   FlutterNativeSplash.remove();
 }
 
@@ -49,7 +52,7 @@ class KjGApp extends StatelessWidget {
 }
 
 class KjGAppMain extends StatefulWidget {
-  const KjGAppMain({Key? key, required this.title}) : super(key: key);
+  const KjGAppMain({super.key, required this.title});
 
   final String title;
 
@@ -62,44 +65,37 @@ class _KjGAppMainState extends State<KjGAppMain> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MainViewModel(),
-      child: Consumer<MainViewModel>(
-        builder: (_, model, __) {
-          return Scaffold(
-            bottomNavigationBar: NavigationBar(
-              onDestinationSelected: (int index) {
-                setState(() {
-                  currentPageIndex = index;
-                });
-              },
-              selectedIndex: currentPageIndex,
-              destinations: [
-                NavigationDestination(
-                  selectedIcon: Icon(Icons.home),
-                  icon: Icon(Icons.home_outlined),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  selectedIcon: Icon(Icons.list),
-                  icon: Icon(Icons.list_outlined),
-                  label: AppLocalizations.of(context)!.events,
-                ),
-                NavigationDestination(
-                  selectedIcon: Icon(Icons.more_horiz),
-                  icon: Icon(Icons.more_horiz_outlined),
-                  label: 'Mehr',
-                ),
-              ],
-            ),
-            body: [
-              const Dashboard(),
-              const EventListScreen(),
-              const MoreScreen(),
-            ][currentPageIndex],
-          );
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
         },
+        selectedIndex: currentPageIndex,
+        destinations: [
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.list),
+            icon: Icon(Icons.list_outlined),
+            label: AppLocalizations.of(context)!.events,
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.more_horiz),
+            icon: Icon(Icons.more_horiz_outlined),
+            label: 'Mehr',
+          ),
+        ],
       ),
+      body: [
+        const Dashboard(),
+        const EventListScreen(),
+        const MoreScreen(),
+      ][currentPageIndex],
     );
   }
 }
