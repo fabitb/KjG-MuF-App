@@ -6,16 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
-import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
-import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
-import 'package:kjg_muf_app/ui/screens/login_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/member_card.dart';
+import 'package:kjg_muf_app/ui/screens/more_screen.dart';
 import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -53,10 +48,17 @@ class KjGApp extends StatelessWidget {
   }
 }
 
-class KjGAppMain extends StatelessWidget {
+class KjGAppMain extends StatefulWidget {
   const KjGAppMain({Key? key, required this.title}) : super(key: key);
 
   final String title;
+
+  @override
+  State<KjGAppMain> createState() => _KjGAppMainState();
+}
+
+class _KjGAppMainState extends State<KjGAppMain> {
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,160 +67,39 @@ class KjGAppMain extends StatelessWidget {
       child: Consumer<MainViewModel>(
         builder: (_, model, __) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-              backgroundColor: KjGColors.kjgLightBlue,
-              actions: [
-                if (model.isLoggedIn)
-                  IconButton(
-                    onPressed: () => _showMemberCardBottomSheet(context, model),
-                    icon: const Icon(Icons.credit_card),
-                  ),
+            bottomNavigationBar: NavigationBar(
+              onDestinationSelected: (int index) {
+                setState(() {
+                  currentPageIndex = index;
+                });
+              },
+              selectedIndex: currentPageIndex,
+              destinations: [
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.home),
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.list),
+                  icon: Icon(Icons.list_outlined),
+                  label: AppLocalizations.of(context)!.events,
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.more_horiz),
+                  icon: Icon(Icons.more_horiz_outlined),
+                  label: 'Mehr',
+                ),
               ],
             ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  UserAccountsDrawerHeader(
-                    accountName: Text(
-                      model.nameCache == null
-                          ? "Nicht angemeldet"
-                          : model.nameCache!,
-                    ),
-                    accountEmail: Text(
-                      model.userNameCache == null ? "" : model.userNameCache!,
-                    ),
-                  ),
-                  if (!model.isLoggedIn) ...[
-                    ListTile(
-                      title: const Text("Anmelden"),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context)
-                            .push(
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            )
-                            .then((value) => model.loadUserData());
-                      },
-                    ),
-                    const Divider(),
-                  ],
-                  ListTile(
-                    title: const Text("Veranstaltungen"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const EventListScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    title: const Text("Spieledatenbank"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const GameDatabase(),
-                        ),
-                      );
-                    },
-                  ),
-                  if (!Platform.isIOS)
-                    ListTile(
-                      title: const Text("Website"),
-                      onTap: () async {
-                        await launchUrl(
-                          Uri.parse(Strings.websiteURL),
-                          mode: LaunchMode.externalApplication,
-                        );
-                      },
-                    ),
-                  if (!Platform.isIOS)
-                    ListTile(
-                      title: const Text("Shop"),
-                      onTap: () async {
-                        await launchUrl(
-                          Uri.parse(Strings.shopURL),
-                          mode: LaunchMode.externalApplication,
-                        );
-                      },
-                    ),
-                  ListTile(
-                    title: const Text("Datenschutz"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DataPrivacyScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  if (model.isLoggedIn)
-                    ListTile(
-                      title: const Text("Abmelden"),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text("Abmelden"),
-                            content: const Text(
-                              "Willst du dich wirklich ausloggen?",
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  model.logoutUser();
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("Ja"),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text("Nein"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                ],
-              ),
-            ),
-            body: const Dashboard(),
+            body: [
+              const Dashboard(),
+              const EventListScreen(),
+              const MoreScreen(),
+            ][currentPageIndex],
           );
         },
       ),
-    );
-  }
-
-  _showMemberCardBottomSheet(BuildContext context, MainViewModel model) {
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-      ),
-      builder: (BuildContext context) {
-        return Padding(
-          padding:
-              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
-          child: MemberCard(
-            name: model.nameCache ?? "",
-            memberId: model.memberId ?? "",
-            ebene: model.ueberEbene ?? "",
-            unterebene: model.ebene ?? "",
-          ),
-        );
-      },
     );
   }
 }
