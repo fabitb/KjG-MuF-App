@@ -16,11 +16,14 @@ Stream<List<News>?> news(Ref ref) async* {
   final List<News> networkData = await WordpressService().getNews();
   await DBService().cacheNews(
     networkData
-        .map((news) => NewsModel()
-          ..title = news.title
-          ..content = news.content
-          ..imageURL = news.imageURL
-          ..websiteURL = news.websiteURL)
+        .map(
+          (news) => NewsModel()
+            ..title = news.title
+            ..content = news.content
+            ..imageURL = news.imageURL
+            ..websiteURL = news.websiteURL
+            ..orderNumber = news.orderNumber,
+        )
         .toList(),
   );
   yield networkData;
@@ -34,11 +37,14 @@ Stream<List<News>?> activities(Ref ref) async* {
   final List<News> networkData = await WordpressService().getActivities();
   await DBService().cacheActivities(
     networkData
-        .map((news) => ActivitiesModel()
-          ..title = news.title
-          ..content = news.content
-          ..imageURL = news.imageURL
-          ..websiteURL = news.websiteURL)
+        .map(
+          (news) => ActivitiesModel()
+            ..title = news.title
+            ..content = news.content
+            ..imageURL = news.imageURL
+            ..websiteURL = news.websiteURL
+            ..orderNumber = news.orderNumber,
+        )
         .toList(),
   );
   yield networkData;

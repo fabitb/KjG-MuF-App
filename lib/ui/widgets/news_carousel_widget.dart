@@ -27,6 +27,7 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
   @override
   Widget build(BuildContext context) {
     final news = widget.newsList ?? News.createFakeData();
+    news.sort((a, b) => a.orderNumber.compareTo(b.orderNumber));
 
     return Skeletonizer(
       effect: const ShimmerEffect(),

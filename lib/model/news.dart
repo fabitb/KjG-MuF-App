@@ -1,3 +1,4 @@
+import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
 
@@ -6,12 +7,14 @@ class News {
   final String content;
   final String imageURL;
   final String websiteURL;
+  final int orderNumber;
 
   const News({
     required this.title,
     required this.content,
     required this.imageURL,
     required this.websiteURL,
+    required this.orderNumber,
   });
 
   factory News.fromJson(Map<String, dynamic> json) {
@@ -20,12 +23,14 @@ class News {
     String content = yoastContent["og_description"];
     String imageURL = yoastContent["og_image"][0]["url"];
     String websiteURL = yoastContent["og_url"];
+    int orderNumber = json["menu_order"] ?? Constants.maxInt;
 
     return News(
       title: title,
       content: content,
       imageURL: imageURL,
       websiteURL: websiteURL,
+      orderNumber: orderNumber,
     );
   }
 
@@ -35,6 +40,7 @@ class News {
       content: newsModel.content,
       imageURL: newsModel.imageURL,
       websiteURL: newsModel.websiteURL,
+      orderNumber: newsModel.orderNumber,
     );
   }
 
@@ -44,6 +50,7 @@ class News {
       content: activitiesModel.content,
       imageURL: activitiesModel.imageURL,
       websiteURL: activitiesModel.websiteURL,
+      orderNumber: activitiesModel.orderNumber,
     );
   }
 
@@ -55,6 +62,7 @@ class News {
         content: "NewsContent",
         imageURL: "",
         websiteURL: "NewsWebsiteURL",
+        orderNumber: 0,
       ),
     );
   }
