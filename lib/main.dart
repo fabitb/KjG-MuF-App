@@ -94,11 +94,14 @@ class _KjGAppMainState extends State<KjGAppMain> {
           ),
         ],
       ),
-      body: [
-        const Dashboard(),
-        const EventListScreen(),
-        const MoreScreen(),
-      ][currentPageIndex],
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: [
+          const Dashboard(),
+          const EventListScreen(),
+          const MoreScreen(),
+        ],
+      ),
     );
   }
 }

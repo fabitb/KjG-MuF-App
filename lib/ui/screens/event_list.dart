@@ -57,6 +57,9 @@ class EventList extends StatelessWidget {
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 hintText: "Suche",
+                                // fix for text misalignment
+                                prefixIconConstraints:
+                                    BoxConstraints(minWidth: 48),
                                 prefixIcon: const Icon(Icons.search),
                               ),
                             ),
