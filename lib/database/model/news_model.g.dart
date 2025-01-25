@@ -27,13 +27,18 @@ const NewsModelSchema = CollectionSchema(
       name: r'imageURL',
       type: IsarType.string,
     ),
-    r'title': PropertySchema(
+    r'orderNumber': PropertySchema(
       id: 2,
+      name: r'orderNumber',
+      type: IsarType.long,
+    ),
+    r'title': PropertySchema(
+      id: 3,
       name: r'title',
       type: IsarType.string,
     ),
     r'websiteURL': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'websiteURL',
       type: IsarType.string,
     )
@@ -73,8 +78,9 @@ void _newsModelSerialize(
 ) {
   writer.writeString(offsets[0], object.content);
   writer.writeString(offsets[1], object.imageURL);
-  writer.writeString(offsets[2], object.title);
-  writer.writeString(offsets[3], object.websiteURL);
+  writer.writeLong(offsets[2], object.orderNumber);
+  writer.writeString(offsets[3], object.title);
+  writer.writeString(offsets[4], object.websiteURL);
 }
 
 NewsModel _newsModelDeserialize(
@@ -87,8 +93,9 @@ NewsModel _newsModelDeserialize(
   object.content = reader.readString(offsets[0]);
   object.id = id;
   object.imageURL = reader.readString(offsets[1]);
-  object.title = reader.readString(offsets[2]);
-  object.websiteURL = reader.readString(offsets[3]);
+  object.orderNumber = reader.readLong(offsets[2]);
+  object.title = reader.readString(offsets[3]);
+  object.websiteURL = reader.readString(offsets[4]);
   return object;
 }
 
@@ -104,8 +111,10 @@ P _newsModelDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 3:
+      return (reader.readString(offset)) as P;
+    case 4:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -518,6 +527,60 @@ extension NewsModelQueryFilter
     });
   }
 
+  QueryBuilder<NewsModel, NewsModel, QAfterFilterCondition> orderNumberEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'orderNumber',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<NewsModel, NewsModel, QAfterFilterCondition>
+      orderNumberGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'orderNumber',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<NewsModel, NewsModel, QAfterFilterCondition> orderNumberLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'orderNumber',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<NewsModel, NewsModel, QAfterFilterCondition> orderNumberBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'orderNumber',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<NewsModel, NewsModel, QAfterFilterCondition> titleEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -814,6 +877,18 @@ extension NewsModelQuerySortBy on QueryBuilder<NewsModel, NewsModel, QSortBy> {
     });
   }
 
+  QueryBuilder<NewsModel, NewsModel, QAfterSortBy> sortByOrderNumber() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderNumber', Sort.asc);
+    });
+  }
+
+  QueryBuilder<NewsModel, NewsModel, QAfterSortBy> sortByOrderNumberDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderNumber', Sort.desc);
+    });
+  }
+
   QueryBuilder<NewsModel, NewsModel, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -877,6 +952,18 @@ extension NewsModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<NewsModel, NewsModel, QAfterSortBy> thenByOrderNumber() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderNumber', Sort.asc);
+    });
+  }
+
+  QueryBuilder<NewsModel, NewsModel, QAfterSortBy> thenByOrderNumberDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderNumber', Sort.desc);
+    });
+  }
+
   QueryBuilder<NewsModel, NewsModel, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -918,6 +1005,12 @@ extension NewsModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<NewsModel, NewsModel, QDistinct> distinctByOrderNumber() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'orderNumber');
+    });
+  }
+
   QueryBuilder<NewsModel, NewsModel, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -950,6 +1043,12 @@ extension NewsModelQueryProperty
   QueryBuilder<NewsModel, String, QQueryOperations> imageURLProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'imageURL');
+    });
+  }
+
+  QueryBuilder<NewsModel, int, QQueryOperations> orderNumberProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'orderNumber');
     });
   }
 
