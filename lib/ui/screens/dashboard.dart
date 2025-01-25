@@ -3,6 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/model/auth_state.dart';
+import 'package:kjg_muf_app/model/user_data.dart';
+import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/member_card.dart';
@@ -16,6 +19,13 @@ class Dashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final news = ref.watch(newsProvider);
     final activities = ref.watch(activitiesProvider);
+    final authState = ref.watch(authProvider);
+    
+    final name = switch (authState) {
+      AuthStateLoggedIn(:final userData) => userData.firstName,
+      _ => "DU",
+    };
+
     return Stack(
       children: [
         Align(
@@ -54,7 +64,7 @@ class Dashboard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.greeting("DU"),
+                      AppLocalizations.of(context)!.greeting(name),
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 20.0,
@@ -72,7 +82,8 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        AsyncError() =>
+                          Text(AppLocalizations.of(context)!.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.news,
                             newsList: value,
@@ -96,7 +107,8 @@ class Dashboard extends ConsumerWidget {
                     ),
                     Center(
                       child: switch (activities) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
+                        AsyncError() => Text(AppLocalizations.of(context)!
+                            .noActivitiesAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
                             newsList: value,
@@ -165,7 +177,8 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding:
+              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
             name: "Fabian", //model.nameCache ?? "",
             memberId: "12345", //model.memberId ?? "",
