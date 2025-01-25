@@ -93,6 +93,9 @@ class SharedPref {
     await prefs.remove(keyPasswordHash);
     await prefs.remove(keyUserID);
     await prefs.remove(keyPassword);
+    await prefs.remove(keyMitgliedsNummer);
+    await prefs.remove(keyEbene);
+    await prefs.remove(keyEbenenLink);
     CookieManager cookieManager = CookieManager.instance();
     MidaService().deleteAllCookies();
     await cookieManager.deleteAllCookies();

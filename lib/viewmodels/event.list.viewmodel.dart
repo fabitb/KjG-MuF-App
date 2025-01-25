@@ -93,7 +93,7 @@ class EventListViewModel extends ChangeNotifier {
 
     _events = [];
     for (EventModel eM in eventModels) {
-      if (eM.startDateAndTime?.isAfter(startOfToday) ?? false) {
+      if (eM.endDate?.isAfter(startOfToday) ?? false) {
         _events?.add(eM);
       } else {
         // delete cached attachments for old event

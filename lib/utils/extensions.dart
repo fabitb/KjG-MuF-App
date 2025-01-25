@@ -31,3 +31,13 @@ extension LocalizationExtension on BuildContext {
     return AppLocalizations.of(this)!;
   }
 }
+
+extension DateFormatExtension on DateFormat {
+  DateTime? tryParse(String inputString) {
+    try {
+      return parse(inputString);
+    } on Exception {
+      return null;
+    }
+  }
+}

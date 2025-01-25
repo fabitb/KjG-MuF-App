@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class MidaWebViewScreen extends StatelessWidget {
-  MidaWebViewScreen(
-      {super.key, required this.url, required this.token, this.addToCalendar});
+  MidaWebViewScreen({
+    super.key,
+    required this.url,
+    required this.token,
+    this.addToCalendar,
+  });
 
   final String url;
   final String? token;
@@ -73,8 +77,12 @@ class MidaWebViewScreen extends StatelessWidget {
               },
               gestureRecognizers: gestureRecognizers,
               initialUrlRequest: URLRequest(
-                  url:
-                      Uri.parse("$url${token != null ? "&token=$token" : ""}")),
+                url: WebUri.uri(
+                  Uri.parse(
+                    "$url${token != null ? "&token=$token" : ""}",
+                  ),
+                ),
+              ),
             ),
           ),
         ],

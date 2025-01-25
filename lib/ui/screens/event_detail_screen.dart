@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:add_2_calendar/add_2_calendar.dart' as calendar;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' hide Marker;
-import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
@@ -88,18 +88,19 @@ class EventDetailScreen extends StatelessWidget {
                               model.geolocationState == GeolocationState.loaded
                                   ? FlutterMap(
                                       options: MapOptions(
-                                        center: LatLng(
+                                        initialCenter: LatLng(
                                           model.location!.latitude,
                                           model.location!.longitude,
                                         ),
-                                        zoom: 14.0,
-                                        interactiveFlags: InteractiveFlag.none,
+                                        initialZoom: 14.0,
+                                        interactionOptions: InteractionOptions(
+                                          flags: InteractiveFlag.none,
+                                        ),
                                       ),
                                       children: [
                                         TileLayer(
                                           minZoom: 1,
                                           maxZoom: 18,
-                                          backgroundColor: Colors.white,
                                           urlTemplate:
                                               'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                                           subdomains: const [
@@ -115,8 +116,7 @@ class EventDetailScreen extends StatelessWidget {
                                                 model.location!.latitude,
                                                 model.location!.longitude,
                                               ),
-                                              builder: (context) =>
-                                                  const Icon(Icons.place),
+                                              child: const Icon(Icons.place),
                                             ),
                                           ],
                                         ),
