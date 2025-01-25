@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/news.dart';
+import 'package:kjg_muf_app/utils/cache_manager.dart';
 
 class NewsItem extends StatelessWidget {
   final News news;
@@ -15,10 +16,7 @@ class NewsItem extends StatelessWidget {
         fit: StackFit.passthrough,
         children: [
           news.imageURL.isNotEmpty
-              ? Image.network(
-                  news.imageURL,
-                  fit: BoxFit.cover,
-                )
+              ? _getImageCached(context, news.imageURL)
               : Container(
                   color: KjGColors.kjgLightBlue,
                 ),
@@ -43,6 +41,22 @@ class NewsItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _getImageCached(BuildContext context, String imageUrl) {
+    return FutureBuilder(
+      future: KjGCacheManager.instance.getSingleFile(imageUrl),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Image(
+            image: FileImage(snapshot.data!.absolute),
+            fit: BoxFit.cover,
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
