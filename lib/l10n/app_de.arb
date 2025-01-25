@@ -48,6 +48,10 @@
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
-  "attachments": "Dateien"
+  "attachments": "Dateien",
+
+  "unknownError": "Unbekannter Fehler",
+  "noInternet": "Keine Internetverbindung",
+  "loginError": "Falscher Nutzername oder Passwort"
 
 }

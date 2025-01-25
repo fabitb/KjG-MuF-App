@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';

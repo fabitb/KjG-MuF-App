@@ -10,8 +10,9 @@ import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/more_screen.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // keep showing splash screen, hide after loading e. g. theme
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -24,6 +25,8 @@ void main() {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     }
   }
+
+  await SharedPreferencesService.instance.init();
 
   runApp(
     ProviderScope(

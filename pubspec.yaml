@@ -72,6 +72,9 @@ dependencies:
   flutter_native_splash: ^2.2.16
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
@@ -88,10 +91,11 @@ dev_dependencies:
     version: ^3.1.0+1
     hosted: https://pub.isar-community.dev/
   build_runner: ^2.4.14
-  json_serializable: ^6.7.1
+  json_serializable: ^6.9.0
   riverpod_generator: ^2.6.3
   custom_lint: ^0.7.0
   riverpod_lint: ^2.6.3
+  freezed: ^2.5.7
 
 flutter_launcher_icons:
   min_sdk_android: 21

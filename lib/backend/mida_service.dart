@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +10,7 @@ import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
 import 'package:kjg_muf_app/utils/csv_helper.dart';
+import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_prefs.dart';
 
 class MidaService {
@@ -24,6 +25,8 @@ class MidaService {
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
+  final Dio _dio = Dio();
+
   Map<String, String> headers = {"content-type": "text/json"};
   Map<String, String> cookies = {};
 
@@ -32,10 +35,47 @@ class MidaService {
     cookies = {};
   }
 
+  Future<(int userId, String name)?> getUserIdAndName(
+    String userName,
+    String password,
+  ) async {
+    final passwordHash = password.hashMD5;
+    final responseUserName = await _dio.post(
+      Strings.midaBaseURL,
+      queryParameters: {
+        "api": "VerifyLogin",
+        "token": "A/$userName/$passwordHash",
+        "user": userName,
+        "password": password,
+      },
+    );
+    final responseUserId = await _dio.post(
+      Strings.midaBaseURL,
+      queryParameters: {
+        "api": "VerifyLogin",
+        "token": "A/$userName/$passwordHash",
+        "user": userName,
+        "password": password,
+        "result": "id",
+      },
+    );
+
+    if (responseUserName.data case {"error": String error}) {
+      debugPrint("Error $error");
+      return null;
+    }
+    if (responseUserName.data case [String name]) {
+      if (responseUserId.data case [String id]) {
+        return (int.parse(id), name);
+      }
+    }
+    return null;
+  }
+
   Future<bool> verifyLoginForUserName(String username, String password) async {
-    final passwordHash = _generateMd5(password);
+    final passwordHash = password.hashMD5;
     final response = await _post(
-      "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password",
+      "${Strings.midaBaseURL}?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password",
     );
 
     if (response.statusCode == 200) {
@@ -60,9 +100,9 @@ class MidaService {
   }
 
   Future<bool> verifyLoginForUserID(String username, String password) async {
-    final passwordHash = _generateMd5(password);
+    final passwordHash = password.hashMD5;
     final response = await _post(
-      "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id",
+      "${Strings.midaBaseURL}?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id",
     );
 
     if (response.statusCode == 200) {
@@ -88,7 +128,7 @@ class MidaService {
   ///
   Future<bool> getEbene() async {
     final response = await _post(
-      "${Strings.midaBaseURL}/?action=start_orga",
+      "${Strings.midaBaseURL}?action=start_orga",
     );
 
     if (response.statusCode == 200) {
@@ -168,7 +208,7 @@ class MidaService {
 
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
     final response = await _get(
-      "${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K",
+      "${Strings.midaBaseURL}?action=events_kalender&print=csv$action&filtermandant=K",
     );
 
     if (response.statusCode != 200) {
@@ -186,7 +226,7 @@ class MidaService {
 
   Future<List<EventModel>> getEvents() async {
     final response = await _get(
-      "${Strings.midaBaseURL}/?api=GetEvents&token=${await SharedPref().getToken()}&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881",
+      "${Strings.midaBaseURL}?api=GetEvents&token=${await SharedPref().getToken()}&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881",
     );
 
     if (response.statusCode == 200) {
@@ -201,7 +241,7 @@ class MidaService {
   }
 
   Future<EventModel> getEvent(String id, {String? baseUrl}) async {
-    final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
+    final response = await _get("${Strings.midaBaseURL}?api=GetEvent&id=$id");
 
     if (response.statusCode == 200) {
       dynamic jsonResponse = json.decode(response.body);
@@ -215,7 +255,7 @@ class MidaService {
 
   Future<List<Registration>> getRegistrationsForEvent(String eventID) async {
     final response = await _get(
-      "${Strings.midaBaseURL}/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID",
+      "${Strings.midaBaseURL}?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID",
     );
 
     if (response.statusCode == 200) {
@@ -307,9 +347,5 @@ class MidaService {
     }
 
     return cookie;
-  }
-
-  String _generateMd5(String input) {
-    return md5.convert(utf8.encode(input)).toString();
   }
 }

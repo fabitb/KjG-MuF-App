@@ -1,8 +1,11 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-extension StringExtension on String? {
+extension StringOptionalExtension on String? {
   bool get isNotNullAndNotEmpty => this != null && this!.isNotEmpty;
 }
 
@@ -40,4 +43,8 @@ extension DateFormatExtension on DateFormat {
       return null;
     }
   }
+}
+
+extension StringExtension on String {
+  String get hashMD5 => md5.convert(utf8.encode(this)).toString();
 }
