@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
+import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
 
 class MoreScreen extends ConsumerWidget {
   const MoreScreen({super.key});
@@ -54,7 +55,19 @@ class MoreScreen extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
           sliver: SliverList(
             delegate: SliverChildListDelegate(
-              [],
+              [
+                ListTile(
+                  title: const Text("Spieledatenbank"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const GameDatabase(),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
