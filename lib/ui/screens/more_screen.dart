@@ -24,7 +24,7 @@ class MoreScreen extends ConsumerWidget {
           actions: [
             if (isLoggedIn) ...[
               IconButton(
-                onPressed: () => ref.read(authProvider.notifier).logout(),
+                onPressed: () => _showLogoutDialog(context, ref),
                 icon: const Icon(
                   Icons.logout,
                   color: Colors.white,
@@ -72,6 +72,31 @@ class MoreScreen extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+
+  _showLogoutDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text("Abmelden"),
+        content: const Text(
+          "Willst du dich wirklich ausloggen?",
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              ref.watch(authProvider.notifier).logout();
+              Navigator.of(context).pop();
+            },
+            child: const Text("Ja"),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Nein"),
+          ),
+        ],
+      ),
     );
   }
 }
