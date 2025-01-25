@@ -47,14 +47,24 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "de.kjg.kjg_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "app_name", "KjG App"
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        base {}
+
+        dev {
+            dimension "default"
+            resValue "string", "app_name", "KjG App Dev"
+            applicationIdSuffix ".dev"
+        }
     }
 
     signingConfigs {
@@ -65,6 +75,7 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
