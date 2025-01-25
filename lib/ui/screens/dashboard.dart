@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/login_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/newsletter_subscribe_button.dart';
@@ -20,7 +21,8 @@ class Dashboard extends ConsumerWidget {
     final news = ref.watch(newsProvider);
     final activities = ref.watch(activitiesProvider);
     final authState = ref.watch(authProvider);
-    
+
+    final isLoggedIn = authState is AuthStateLoggedIn;
     final name = switch (authState) {
       AuthStateLoggedIn(:final userData) => userData.firstName,
       _ => "DU",
@@ -33,7 +35,7 @@ class Dashboard extends ConsumerWidget {
           child: FractionallySizedBox(
             heightFactor: 0.3,
             child: Image.asset(
-              "assets/mausis/mercimausi.png",
+              Strings.dashboardBackground,
               fit: BoxFit.fitHeight,
               opacity: const AlwaysStoppedAnimation(.3),
             ),
@@ -48,14 +50,22 @@ class Dashboard extends ConsumerWidget {
               floating: true,
               expandedHeight: 100.0,
               actions: [
-                IconButton(
-                  onPressed: () => _showMemberCardBottomSheet(context),
-                  icon: const Icon(
-                    Icons.credit_card,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(width: 14),
+                isLoggedIn
+                    ? IconButton(
+                        onPressed: () => _showMemberCardBottomSheet(context),
+                        icon: const Icon(
+                          Icons.credit_card,
+                          color: Colors.white,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () => _showLoginBottomSheet(context),
+                        icon: Icon(
+                          Icons.login,
+                          color: Colors.white,
+                        ),
+                      ),
+                SizedBox(width: 12),
               ],
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.all(16.0),
@@ -82,8 +92,7 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() =>
-                          Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.news,
                             newsList: value,
@@ -107,8 +116,7 @@ class Dashboard extends ConsumerWidget {
                     ),
                     Center(
                       child: switch (activities) {
-                        AsyncError() => Text(AppLocalizations.of(context)!
-                            .noActivitiesAvailable),
+                        AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
                             newsList: value,
@@ -133,7 +141,7 @@ class Dashboard extends ConsumerWidget {
                     NewsletterSubscribeButton(
                       onButtonClicked: () => _showWebsiteBottomSheet(
                         context,
-                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
+                        Strings.newsletterSubscribeURL,
                       ),
                     ),
                   ],
@@ -165,6 +173,27 @@ class Dashboard extends ConsumerWidget {
     );
   }
 
+  _showLoginBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            LoginWidget(),
+          ],
+        );
+      },
+    );
+  }
+
   _showMemberCardBottomSheet(BuildContext context /*, MainViewModel model*/) {
     showModalBottomSheet(
       context: context,
@@ -177,8 +206,7 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding:
-              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
             name: "Fabian", //model.nameCache ?? "",
             memberId: "12345", //model.memberId ?? "",

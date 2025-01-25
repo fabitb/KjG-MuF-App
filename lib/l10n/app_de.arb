@@ -26,7 +26,7 @@
   "username": "Benutzername",
   "password": "Passwort",
   "loginMida": "Login Mida",
-  "loadingUserdata": "Login erfolgreich, lade weitere Nutzerdaten",
+  "loadingUserdata": "Einloggen...",
   "signupText": "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
   "writeEmail": "Schreib uns eine Mail!",
   "loggedInText": "Du bist eingeloggt {name}",
