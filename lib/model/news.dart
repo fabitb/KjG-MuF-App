@@ -1,3 +1,6 @@
+import 'package:kjg_muf_app/database/model/activities_model.dart';
+import 'package:kjg_muf_app/database/model/news_model.dart';
+
 class News {
   final String title;
   final String content;
@@ -23,6 +26,24 @@ class News {
       content: content,
       imageURL: imageURL,
       websiteURL: websiteURL,
+    );
+  }
+
+  factory News.fromNewsModel(NewsModel newsModel) {
+    return News(
+      title: newsModel.title,
+      content: newsModel.content,
+      imageURL: newsModel.imageURL,
+      websiteURL: newsModel.websiteURL,
+    );
+  }
+
+  factory News.fromActivitiesModel(ActivitiesModel activitiesModel) {
+    return News(
+      title: activitiesModel.title,
+      content: activitiesModel.content,
+      imageURL: activitiesModel.imageURL,
+      websiteURL: activitiesModel.websiteURL,
     );
   }
 

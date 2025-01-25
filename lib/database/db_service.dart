@@ -1,6 +1,8 @@
 import 'package:isar/isar.dart';
+import 'package:kjg_muf_app/database/model/activities_model.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DBService {
@@ -23,8 +25,7 @@ class DBService {
 
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
-    return isar.writeTxn<List<int>>(
-        () async => await isar.gameModels.putAll(newGames));
+    return isar.writeTxn<List<int>>(() async => await isar.gameModels.putAll(newGames));
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -48,11 +49,36 @@ class DBService {
     isar.writeTxn(() => isar.eventModels.put(event));
   }
 
+  Future<List<NewsModel>> getCachedNews() async {
+    final isar = await db;
+    return await isar.newsModels.where().findAll();
+  }
+
+  Future<void> cacheNews(List<NewsModel> news) async {
+    final isar = await db;
+    isar.writeTxn(() => isar.newsModels.clear());
+    isar.writeTxn(() => isar.newsModels.putAll(news));
+  }
+
+  Future<List<ActivitiesModel>> getCachedActivities() async {
+    final isar = await db;
+    return await isar.activitiesModels.where().findAll();
+  }
+
+  Future<void> cacheActivities(List<ActivitiesModel> activities) async {
+    final isar = await db;
+    isar.writeTxn(() => isar.activitiesModels.clear());
+    isar.writeTxn(() => isar.activitiesModels.putAll(activities));
+  }
+
   Future<Isar> openDB() async {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
-      return await Isar.open([GameModelSchema, EventModelSchema],
-          directory: dir.path, inspector: true);
+      return await Isar.open(
+        [GameModelSchema, EventModelSchema, NewsModelSchema, ActivitiesModelSchema],
+        directory: dir.path,
+        inspector: true,
+      );
     }
 
     return Future.value(Isar.getInstance());

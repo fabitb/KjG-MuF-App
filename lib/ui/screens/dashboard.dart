@@ -39,7 +39,10 @@ class Dashboard extends ConsumerWidget {
               actions: [
                 IconButton(
                   onPressed: () => _showMemberCardBottomSheet(context),
-                  icon: const Icon(Icons.credit_card, color: Colors.white,),
+                  icon: const Icon(
+                    Icons.credit_card,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(width: 14),
               ],
@@ -62,7 +65,7 @@ class Dashboard extends ConsumerWidget {
               ),
             ),
             SliverPadding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -113,24 +116,6 @@ class Dashboard extends ConsumerWidget {
                     ),
                     const SizedBox(
                       height: 32.0,
-                    ),
-                    NewsletterSubscribeButton(
-                      onButtonClicked: () => _showWebsiteBottomSheet(
-                        context,
-                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
-                      ),
-                    ),
-                    NewsletterSubscribeButton(
-                      onButtonClicked: () => _showWebsiteBottomSheet(
-                        context,
-                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
-                      ),
-                    ),
-                    NewsletterSubscribeButton(
-                      onButtonClicked: () => _showWebsiteBottomSheet(
-                        context,
-                        "https://mida.kjg.de/DVMuenchenundFreising/?subscribe&dialog=1",
-                      ),
                     ),
                     NewsletterSubscribeButton(
                       onButtonClicked: () => _showWebsiteBottomSheet(
