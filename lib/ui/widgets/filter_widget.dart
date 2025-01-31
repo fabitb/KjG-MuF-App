@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/providers/event_list_provider.dart';
+import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
 import 'package:provider/provider.dart';
 
-class FilterWidget extends StatelessWidget {
+class FilterWidget extends ConsumerWidget {
   const FilterWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<EventListViewModel>(
-      builder: (context, model, child) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(_getFilterString(model.filterSettings)),
-              Text(_getResultCountString(model.events?.length ?? 0,
-                  model.eventsUnfiltered?.length ?? 0)),
-            ],
-          ),
-        );
-      },
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filterSettings = ref.watch(filterProvider);
+    final filteredEventsLength =
+        ref.watch(filteredEventsProvider).valueOrNull?.length ?? 0;
+    final eventsLength = ref.watch(eventListProvider).valueOrNull?.length ?? 0;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(_getFilterString(filterSettings)),
+          Text(_getResultCountString(filteredEventsLength, eventsLength)),
+        ],
+      ),
     );
   }
 
