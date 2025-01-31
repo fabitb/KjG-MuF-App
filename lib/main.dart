@@ -7,6 +7,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/more_screen.dart';
@@ -36,11 +37,14 @@ Future<void> main() async {
   FlutterNativeSplash.remove();
 }
 
-class KjGApp extends StatelessWidget {
+class KjGApp extends ConsumerWidget {
   const KjGApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // start event loading once
+    ref.read(eventListProvider.notifier).refresh();
+
     return MaterialApp(
       title: 'KjG MuF',
       theme: ThemeData(

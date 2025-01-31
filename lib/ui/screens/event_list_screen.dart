@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
+import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,48 +22,62 @@ class EventListScreen extends ConsumerWidget {
     final filterSettings = ref.watch(filterProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.events),
-      ),
-      body: switch (events) {
-        AsyncValue(:final value?, error: null) => _body(value, ref),
-        _ => Skeletonizer(
-            enabled: true,
-            child: ListView(
-              children: EventModel.createFakeData()
-                  .map((e) => eventItem(context, 1, e))
-                  .toList(),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          KjgAppBar(title: AppLocalizations.of(context)!.events),
+        ],
+        body: switch (events) {
+          AsyncValue(:final value?, error: null) => _body(value, ref),
+          _ => Skeletonizer(
+              enabled: true,
+              child: ListView(
+                children: EventModel.createFakeData()
+                    .map((e) => eventItem(context, 1, e))
+                    .toList(),
+              ),
             ),
-          ),
-      },
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            useSafeArea: true,
-            builder: (BuildContext context) {
-              return SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FilterBottomSheet(
-                    events: allEvents ?? [],
-                    filterSettings: filterSettings,
-                    onSettingsChanged: (newFilterSettings) {
-                      ref
-                          .read(filterProvider.notifier)
-                          .setFilterSettings(newFilterSettings);
-                    },
-                  ),
-                ),
-              );
-            },
-          );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showFilterSheet(
+          context,
+          allEvents,
+          filterSettings,
+          ref,
+        ),
         child: Icon(
           filterSettings.isActive() ? Icons.filter_list : Icons.filter_list_off,
         ),
       ),
+    );
+  }
+
+  void _showFilterSheet(
+    BuildContext context,
+    List<EventModel>? allEvents,
+    FilterSettings filterSettings,
+    WidgetRef ref,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: FilterBottomSheet(
+              events: allEvents ?? [],
+              filterSettings: filterSettings,
+              onSettingsChanged: (newFilterSettings) {
+                ref
+                    .read(filterProvider.notifier)
+                    .setFilterSettings(newFilterSettings);
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -4,8 +4,6 @@ import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
-import 'package:kjg_muf_app/viewmodels/event.list.viewmodel.dart';
-import 'package:provider/provider.dart';
 
 class FilterWidget extends ConsumerWidget {
   const FilterWidget({super.key});

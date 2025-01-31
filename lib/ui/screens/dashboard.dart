@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
+import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/newsletter_subscribe_button.dart';
@@ -20,7 +20,7 @@ class Dashboard extends ConsumerWidget {
     final news = ref.watch(newsProvider);
     final activities = ref.watch(activitiesProvider);
     final authState = ref.watch(authProvider);
-    
+
     final name = switch (authState) {
       AuthStateLoggedIn(:final userData) => userData.firstName,
       _ => "DU",
@@ -41,12 +41,8 @@ class Dashboard extends ConsumerWidget {
         ),
         CustomScrollView(
           slivers: [
-            SliverAppBar(
-              backgroundColor: KjGColors.kjgLightBlue,
-              pinned: true,
-              snap: false,
-              floating: true,
-              expandedHeight: 100.0,
+            KjgAppBar(
+              title: AppLocalizations.of(context)!.greeting(name),
               actions: [
                 IconButton(
                   onPressed: () => _showMemberCardBottomSheet(context),
@@ -57,23 +53,6 @@ class Dashboard extends ConsumerWidget {
                 ),
                 SizedBox(width: 14),
               ],
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.all(16.0),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.greeting(name),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.0,
-                        color: KjGColors.kjgWhite,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
