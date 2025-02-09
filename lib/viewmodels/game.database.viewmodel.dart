@@ -7,7 +7,7 @@ class GameDatabaseViewModel extends ChangeNotifier {
   List<GameModel>? get games => _games;
 
   GameDatabaseViewModel() {
-    loadGames();
+    //loadGames();
   }
 
   Future<void> updatedPlayedGame(GameModel game, bool played) async {
@@ -18,12 +18,5 @@ class GameDatabaseViewModel extends ChangeNotifier {
   Future<void> resetPlayedGames() async {
     _games = await GameRepository().resetPlayedGames();
     notifyListeners();
-  }
-
-  Future<void> loadGames() async {
-    GameRepository().getGames((games) {
-      _games = games;
-      notifyListeners();
-    });
   }
 }

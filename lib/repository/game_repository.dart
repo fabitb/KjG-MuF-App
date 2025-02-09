@@ -24,21 +24,17 @@ class GameRepository {
     return dbService.getAllGames();
   }
 
-  Future<void> getGames(Function(List<GameModel>) callback) async {
+  Stream<List<GameModel>> getGames() async* {
     var databaseGames = await dbService.getAllGames();
-    callback(databaseGames);
+    yield databaseGames;
 
-    var backendGames = (await backendService.getGames())
-        .map((e) => GameModel.fromGame(e))
-        .toList();
+    var backendGames = (await backendService.getGames()).map((e) => GameModel.fromGame(e)).toList();
 
     for (var dbGame in databaseGames) {
-      backendGames
-          .firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)
-          ?.alreadyPlayed = dbGame.alreadyPlayed;
+      backendGames.firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)?.alreadyPlayed = dbGame.alreadyPlayed;
     }
 
-    dbService.saveGames(backendGames);
-    callback(backendGames);
+    await dbService.saveGames(backendGames);
+    yield backendGames;
   }
 }

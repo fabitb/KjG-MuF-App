@@ -52,6 +52,8 @@
 
   "unknownError": "Unbekannter Fehler",
   "noInternet": "Keine Internetverbindung",
-  "loginError": "Falscher Nutzername oder Passwort"
+  "loginError": "Falscher Nutzername oder Passwort",
+
+  "gameDatabase": "Spieledatenbank"
 
 }
