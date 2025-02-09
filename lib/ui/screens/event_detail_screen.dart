@@ -102,12 +102,7 @@ class EventDetailScreen extends StatelessWidget {
                                           minZoom: 1,
                                           maxZoom: 18,
                                           urlTemplate:
-                                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                          subdomains: const [
-                                            'a',
-                                            'b',
-                                            'c',
-                                          ],
+                                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                                         ),
                                         MarkerLayer(
                                           markers: [
