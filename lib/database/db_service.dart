@@ -6,12 +6,12 @@ import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DBService {
-  static final DBService _instance = DBService._internal();
+  static final DBService instance = DBService._internal();
 
   late Future<Isar> db;
 
   factory DBService() {
-    return _instance;
+    return instance;
   }
 
   DBService._internal() {
@@ -25,7 +25,8 @@ class DBService {
 
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
-    return isar.writeTxn<List<int>>(() async => await isar.gameModels.putAll(newGames));
+    return isar.writeTxn<List<int>>(
+        () async => await isar.gameModels.putAll(newGames));
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -40,8 +41,11 @@ class DBService {
 
   Future<void> cacheEvents(List<EventModel> events) async {
     final isar = await db;
-    isar.writeTxn(() => isar.eventModels.clear());
-    isar.writeTxn(() => isar.eventModels.putAll(events));
+
+    isar.writeTxn(() async {
+      await isar.eventModels.clear();
+      await isar.eventModels.putAll(events);
+    });
   }
 
   Future<void> saveEvent(EventModel event) async {
@@ -75,7 +79,12 @@ class DBService {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [GameModelSchema, EventModelSchema, NewsModelSchema, ActivitiesModelSchema],
+        [
+          GameModelSchema,
+          EventModelSchema,
+          NewsModelSchema,
+          ActivitiesModelSchema
+        ],
         directory: dir.path,
         inspector: true,
       );

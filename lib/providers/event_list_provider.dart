@@ -1,12 +1,16 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
+import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
+import 'package:kjg_muf_app/utils/shared_prefs.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'event_list_provider.g.dart';
@@ -15,6 +19,9 @@ part 'event_list_provider.g.dart';
 class EventList extends _$EventList {
   @override
   Future<List<EventModel>> build() async {
+    // trigger refresh on first start
+    if (!state.hasValue) refresh();
+
     return await DBService().getCachedEvents();
   }
 
@@ -138,3 +145,85 @@ Future<List<EventModel>> filteredEvents(Ref ref) async {
 
   return e;
 }
+
+@riverpod
+class Registered extends _$Registered {
+  @override
+  bool build(EventModel event) {
+    final list = ref.watch(eventListProvider);
+
+    if (list case AsyncData(:final valueOrNull?)) {
+      return valueOrNull
+              .where((e) => e.eventID == event.eventID)
+              .firstOrNull
+              ?.registered ??
+          false;
+    }
+    return false;
+  }
+
+  Future<void> refreshUserRegisteredForEvent() async {
+    final token = SharedPreferencesService.instance.token;
+    if (token == null) return;
+
+    // get events starting from event date for a week (less not possible)
+    List<CSVEvent> events = await MidaService()
+        .getFutureEventsPersonal(weekStartingFrom: event.startDateAndTime);
+
+    bool isUserRegisteredForEvent = false;
+    for (CSVEvent e in events) {
+      if (e.eventID == event.eventID) {
+        isUserRegisteredForEvent = e.registered;
+        break;
+      }
+    }
+
+    if (state != isUserRegisteredForEvent) {
+      event.registered = isUserRegisteredForEvent;
+      await DBService.instance.saveEvent(event);
+      ref.invalidateSelf();
+    }
+  }
+}
+
+/*
+@riverpod
+bool registered(Ref ref, String eventId) {
+  final list = ref.watch(eventListProvider);
+
+  if (list case AsyncData(:final valueOrNull?)) {
+    return valueOrNull
+            .where((e) => e.eventID == eventId)
+            .firstOrNull
+            ?.registered ??
+        false;
+  }
+  return false;
+}
+*/
+
+/*
+Future<void> refreshUserRegisteredForEvent(String eventID) async {
+    if (offline) return;
+    if (await SharedPref().getToken() == null) {
+      return;
+    }
+
+    // get events starting from event date for a week (less not possible)
+    List<CSVEvent> events = await MidaService()
+        .getFutureEventsPersonal(weekStartingFrom: event.startDateAndTime);
+
+    bool isUserRegisteredForEvent = false;
+    for (CSVEvent e in events) {
+      if (e.eventID == eventID) {
+        isUserRegisteredForEvent = e.registered;
+        break;
+      }
+    }
+
+    if (event.registered != isUserRegisteredForEvent) {
+      event.registered = isUserRegisteredForEvent;
+      notifyListeners();
+    }
+  }
+ */

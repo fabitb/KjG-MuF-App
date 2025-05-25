@@ -32,7 +32,7 @@ class EventListScreen extends ConsumerWidget {
               enabled: true,
               child: ListView(
                 children: EventModel.createFakeData()
-                    .map((e) => eventItem(context, 1, e))
+                    .map((e) => EventItem(event: e))
                     .toList(),
               ),
             ),
@@ -90,6 +90,7 @@ class EventListScreen extends ConsumerWidget {
         return ref.read(eventListProvider.notifier).refresh();
       },
       child: ListView.builder(
+        padding: EdgeInsets.zero,
         itemCount: events.length + (filterSettingsActive ? 2 : 1),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
@@ -118,18 +119,12 @@ class EventListScreen extends ConsumerWidget {
             index -= 1;
           }
           return InkWell(
-            child: eventItem(
-              context,
-              index,
-              events[index],
-            ),
+            child: EventItem(event: events[index]),
             onTap: () => Navigator.of(context)
                 .push(
                   MaterialPageRoute(
-                    builder: (context) => EventDetailScreen(
-                      event: events[index],
-                      offline: false,
-                    ),
+                    builder: (context) =>
+                        EventDetailScreen(event: events[index]),
                   ),
                 )
                 .then(

@@ -42,9 +42,6 @@ class KjGApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // start event loading once
-    ref.read(eventListProvider.notifier).refresh();
-
     return MaterialApp(
       title: 'KjG MuF',
       theme: ThemeData(
