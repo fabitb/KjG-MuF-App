@@ -11,10 +11,12 @@ import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
 import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
 class MidaService {
   static final MidaService _midaService = MidaService._internal();
+
+  String? get token => SharedPreferencesService.instance.token;
 
   factory MidaService() {
     return _midaService;
@@ -72,57 +74,7 @@ class MidaService {
     return null;
   }
 
-  Future<bool> verifyLoginForUserName(String username, String password) async {
-    final passwordHash = password.hashMD5;
-    final response = await _post(
-      "${Strings.midaBaseURL}?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        Map<String, dynamic> jsonResponse = json.decode(response.body);
-        if (jsonResponse['error'] != null) {
-          debugPrint(jsonResponse['error']);
-          return false;
-        }
-      } catch (error) {
-        List jsonResponse = json.decode(response.body);
-        if (jsonResponse.isNotEmpty) {
-          await SharedPref().saveName(jsonResponse.first);
-          await SharedPref().saveUserName(username);
-          await SharedPref().savePasswordHash(passwordHash);
-          await SharedPref().savePassword(password);
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  Future<bool> verifyLoginForUserID(String username, String password) async {
-    final passwordHash = password.hashMD5;
-    final response = await _post(
-      "${Strings.midaBaseURL}?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        Map<String, dynamic> jsonResponse = json.decode(response.body);
-        if (jsonResponse['error'] != null) {
-          debugPrint(jsonResponse['error']);
-          return false;
-        }
-      } catch (error) {
-        List jsonResponse = json.decode(response.body);
-        if (jsonResponse.isNotEmpty) {
-          await SharedPref().saveUserID(int.parse(jsonResponse.first));
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
+  /* was used for member card previously
   ///
   /// Gets Ebene, Unterebene and Ebenenlink
   ///
@@ -195,6 +147,8 @@ class MidaService {
     return false;
   }
 
+   */
+
   /// Gets future events for the logged in user.
   ///
   /// All future events if no argument is given.
@@ -208,7 +162,7 @@ class MidaService {
 
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
     final response = await _get(
-      "${Strings.midaBaseURL}?action=events_kalender&print=csv$action&filtermandant=K&token=${await SharedPref().getToken()}",
+      "${Strings.midaBaseURL}?action=events_kalender&print=csv$action&filtermandant=K&token=$token}",
     );
 
     if (response.statusCode != 200) {
@@ -226,7 +180,7 @@ class MidaService {
 
   Future<List<EventModel>> getEvents() async {
     final response = await _get(
-      "${Strings.midaBaseURL}?api=GetEvents&token=${await SharedPref().getToken()}&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881",
+      "${Strings.midaBaseURL}?api=GetEvents&token=$token&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881",
     );
 
     if (response.statusCode == 200) {
@@ -255,7 +209,7 @@ class MidaService {
 
   Future<List<Registration>> getRegistrationsForEvent(String eventID) async {
     final response = await _get(
-      "${Strings.midaBaseURL}?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID",
+      "${Strings.midaBaseURL}?api=GetRegistrations&token=$token&id=$eventID",
     );
 
     if (response.statusCode == 200) {

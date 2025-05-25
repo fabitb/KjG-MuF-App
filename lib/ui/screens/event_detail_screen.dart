@@ -16,7 +16,7 @@ import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -97,8 +97,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
       return;
     }
 
-    final token = await SharedPref().getToken();
-    if (!mounted) return;
+    final token = SharedPreferencesService.instance.token;
 
     await showModalBottomSheet(
       context: context,

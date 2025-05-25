@@ -34,7 +34,7 @@ class Auth extends _$Auth {
         await MidaService().getUserIdAndName(userName, password);
 
     if (userIdAndName == null) {
-      state = AuthState.loggedOut();
+      await logout();
     }
   }
 
@@ -81,7 +81,6 @@ class Auth extends _$Auth {
     SharedPreferencesService.instance.name = null;
     SharedPreferencesService.instance.password = null;
     SharedPreferencesService.instance.passwordHash = null;
-    SharedPreferencesService.instance.name = null;
 
     state = const AuthState.loggedOut();
   }
