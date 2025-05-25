@@ -208,7 +208,7 @@ class MidaService {
 
     // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
     final response = await _get(
-      "${Strings.midaBaseURL}?action=events_kalender&print=csv$action&filtermandant=K",
+      "${Strings.midaBaseURL}?action=events_kalender&print=csv$action&filtermandant=K&token=${await SharedPref().getToken()}",
     );
 
     if (response.statusCode != 200) {
