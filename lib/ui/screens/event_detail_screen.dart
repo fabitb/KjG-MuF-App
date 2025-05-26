@@ -160,29 +160,38 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
         title: Text(event.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 128),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 8,
           children: [
             if (event.locationForMap.isNotNullAndNotEmpty) _map(),
-            EventItem(event: event),
-            if (registered) _registeredCard(),
-            if (event.description case String description)
-              _descriptionCard(description),
-            if (event.organizer case String organizer)
-              _organizerCard(organizer),
-            if (event.imageUrl case String imageUrl) _imageCard(imageUrl),
-            if (event
-                case EventModel(:final contactEmail?, :final contactName?))
-              _contactCard(contactEmail, contactName),
-            if (event
-                case EventModel(
-                  :final attachments?,
-                  :final baseUrl?,
-                  :final cachedTime
-                ) when attachments.isNotEmpty)
-              _attachments(baseUrl, attachments, cachedTime),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 128),
+              child: Column(
+                spacing: 8,
+                children: [
+                  EventItem(event: event),
+                  if (registered) _registeredCard(),
+                  if (event.description case String description)
+                    _descriptionCard(description),
+                  if (event.organizer case String organizer)
+                    _organizerCard(organizer),
+                  if (event.imageUrl case String imageUrl) _imageCard(imageUrl),
+                  if (event
+                      case EventModel(
+                        :final contactEmail?,
+                        :final contactName?
+                      ))
+                    _contactCard(contactEmail, contactName),
+                  if (event
+                      case EventModel(
+                        :final attachments?,
+                        :final baseUrl?,
+                        :final cachedTime
+                      ) when attachments.isNotEmpty)
+                    _attachments(baseUrl, attachments, cachedTime),
+                ],
+              ),
+            ),
           ],
         ),
       ),
