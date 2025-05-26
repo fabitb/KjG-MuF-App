@@ -1,14 +1,13 @@
 import 'dart:convert';
 
 import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-  static const keyName = "key.full.name";
-  static const keyUserName = "key.user.name";
   static const keyPasswordHash = "key.password.hash";
   static const keyPassword = "key.password";
-  static const keyUserID = "key.user.id";
+  static const keyUserData = "key.user.data";
   static const keyFilterSettings = "key.filtersettings";
   static const keyDownloadDialog = "key.download";
 
@@ -24,16 +23,11 @@ class SharedPreferencesService {
     );
   }
 
-  set name(String? value) =>
-      value == null ? _prefs.remove(keyName) : _prefs.setString(keyName, value);
+  set userData(UserData? value) => value == null
+      ? _prefs.remove(keyUserData)
+      : _prefs.setJson(keyUserData, value);
 
-  String? get name => _prefs.getString(keyName);
-
-  set userName(String? value) => value == null
-      ? _prefs.remove(keyUserName)
-      : _prefs.setString(keyUserName, value);
-
-  String? get userName => _prefs.getString(keyUserName);
+  UserData? get userData => _prefs.getJson(keyUserData, UserData.fromJson);
 
   set password(String? value) => value == null
       ? _prefs.remove(keyPassword)
@@ -47,18 +41,13 @@ class SharedPreferencesService {
 
   String? get passwordHash => _prefs.getString(keyPasswordHash);
 
-  set userId(int? value) => value == null
-      ? _prefs.remove(keyUserID)
-      : _prefs.setInt(keyUserID, value);
-
-  int? get userId => _prefs.getInt(keyUserID);
-
-  set downloadDialogShown(bool value) => _prefs.setBool(keyDownloadDialog, value);
+  set downloadDialogShown(bool value) =>
+      _prefs.setBool(keyDownloadDialog, value);
 
   bool get downloadDialogShown => _prefs.getBool(keyDownloadDialog) ?? false;
 
-  String? get token => userName != null && passwordHash != null
-      ? "A/$userName/$passwordHash"
+  String? get token => userData != null && passwordHash != null
+      ? "A/${userData!.username}/$passwordHash"
       : null;
 
   set filterSettings(FilterSettings? value) => value == null
@@ -73,5 +62,48 @@ class SharedPreferencesService {
     } on Exception {
       return null;
     }
+  }
+}
+
+extension SharedPrefJson on SharedPreferencesWithCache {
+  E? getJson<E>(
+    String key,
+    E Function(Map<String, dynamic>) fromJson,
+  ) {
+    final stringValue = getString(key);
+    if (stringValue == null) return null;
+    try {
+      return fromJson(jsonDecode(stringValue));
+    } on Exception {
+      return null;
+    }
+  }
+
+  Future<void> setJson<E extends dynamic>(
+    String key,
+    E value,
+  ) async {
+    return setString(key, jsonEncode(value.toJson()));
+  }
+
+  List<E>? getJsonList<E>(
+    String key,
+    E Function(Map<String, dynamic>) fromJson,
+  ) {
+    final stringValue = getStringList(key);
+    if (stringValue == null) return null;
+    try {
+      return stringValue.map((e) => fromJson(jsonDecode(e))).toList();
+    } on Exception {
+      return null;
+    }
+  }
+
+  Future<void> setJsonList<E extends dynamic>(
+    String key,
+    List<E> value,
+  ) async {
+    final list = value.map((e) => jsonEncode(e.toJson())).toList();
+    return setStringList(key, list);
   }
 }

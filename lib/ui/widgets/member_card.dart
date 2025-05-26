@@ -8,15 +8,15 @@ import 'package:kjg_muf_app/constants/kjg_colors.dart';
 class MemberCard extends StatelessWidget {
   final String name;
   final String memberId;
-  final String ebene;
-  final String unterebene;
+  final String? region;
+  final String? subregion;
 
   const MemberCard({
     super.key,
     required this.name,
     required this.memberId,
-    required this.ebene,
-    required this.unterebene,
+    this.region,
+    this.subregion,
   });
 
   @override
@@ -123,14 +123,16 @@ class MemberCard extends StatelessWidget {
                 text: "$memberId\n",
                 style: textStyleNormal,
                 children: [
-                  TextSpan(
-                    text: "$ebene\n",
-                    style: textStyleNormal,
-                  ),
-                  TextSpan(
-                    text: "$unterebene\n",
-                    style: textStyleNormal,
-                  ),
+                  if (region != null)
+                    TextSpan(
+                      text: "$region\n",
+                      style: textStyleNormal,
+                    ),
+                  if (subregion != null)
+                    TextSpan(
+                      text: "$subregion\n",
+                      style: textStyleNormal,
+                    ),
                 ],
               ),
             ),

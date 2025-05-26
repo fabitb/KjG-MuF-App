@@ -9,6 +9,7 @@ import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
 import 'package:kjg_muf_app/model/registration.dart';
+import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/utils/csv_helper.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
@@ -37,117 +38,24 @@ class MidaService {
     cookies = {};
   }
 
-  Future<(int userId, String name)?> getUserIdAndName(
-    String userName,
-    String password,
-  ) async {
-    final passwordHash = password.hashMD5;
-    final responseUserName = await _dio.post(
+  Future<UserData?> checkLogin(String username, String password) async {
+    final response = await _dio.get(
       Strings.midaBaseURL,
       queryParameters: {
-        "api": "VerifyLogin",
-        "token": "A/$userName/$passwordHash",
-        "user": userName,
+        "api": "CheckLogin",
+        "user": username,
         "password": password,
-      },
-    );
-    final responseUserId = await _dio.post(
-      Strings.midaBaseURL,
-      queryParameters: {
-        "api": "VerifyLogin",
-        "token": "A/$userName/$passwordHash",
-        "user": userName,
-        "password": password,
-        "result": "id",
+        "felder": "key_me,key_og,mitgliedsnummer,userlogin",
+        "token": Strings.midaToken(username, password.hashMD5),
       },
     );
 
-    if (responseUserName.data case {"error": String error}) {
-      debugPrint("Error $error");
+    if (response.data case {"error": String error} when error.isNotEmpty) {
       return null;
     }
-    if (responseUserName.data case [String name]) {
-      if (responseUserId.data case [String id]) {
-        return (int.parse(id), name);
-      }
-    }
-    return null;
+
+    return UserData.fromJson(response.data);
   }
-
-  /* was used for member card previously
-  ///
-  /// Gets Ebene, Unterebene and Ebenenlink
-  ///
-  Future<bool> getEbene() async {
-    final response = await _post(
-      "${Strings.midaBaseURL}?action=start_orga",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        var document = parse(response.body);
-
-        // my ebene is underlined -> a u
-        final ebeneElement = document.querySelector("a u");
-        final ebene = ebeneElement?.text;
-
-        // find visible minus buttons -> expanded options
-        final minusButtons = document
-            .querySelectorAll('div a.minus:not([style="display:none;"])');
-        // choose second open or Bundesebene
-        final highestNotBundes =
-            minusButtons.length > 1 ? minusButtons[1] : minusButtons[0];
-        // find corresponding name
-        final ueberEbene = highestNotBundes.parent?.children[2].text;
-
-        if (ueberEbene != null) SharedPref().saveUeberEbene(ueberEbene);
-        if (ebene != null) SharedPref().saveEbene(ebene);
-
-        // get link to own ebene
-        final onclick = ebeneElement?.parent?.attributes["onclick"];
-        if (onclick != null) {
-          final linkStart = onclick.indexOf("https://mida.kjg.de/");
-          final linkEnd = onclick.indexOf("/?settokenfreund");
-          final link = onclick.substring(linkStart, linkEnd);
-
-          SharedPref().saveEbenenLink(link);
-          return true;
-        }
-      } catch (error) {
-        return false;
-      }
-    }
-    return false;
-  }
-
-  ///
-  /// Gets memberId (and could get more info from profile screen
-  ///
-  /// needs to be run after getEbene
-  ///
-  Future<bool> getMember() async {
-    final response = await _get(
-      "${await SharedPref().getEbenenLink()}?action=profile_edit",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        var document = parse(response.body);
-        final memberId =
-            document.getElementById("mitgliedsnummer")?.attributes["value"];
-        final dekanat =
-            document.getElementById("key_dekanat")?.attributes["value"];
-        if (memberId != null) SharedPref().saveMitgliedsNummer(memberId);
-
-        return true;
-      } catch (error) {
-        return false;
-      }
-    }
-    return false;
-  }
-
-   */
 
   /// Gets future events for the logged in user.
   ///

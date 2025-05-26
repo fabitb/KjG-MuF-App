@@ -46,21 +46,23 @@ class Dashboard extends ConsumerWidget {
             KjgAppBar(
               title: AppLocalizations.of(context)!.greeting(name),
               actions: [
-                isLoggedIn
-                    ? IconButton(
-                        onPressed: () => _showMemberCardBottomSheet(context),
-                        icon: const Icon(
-                          Icons.credit_card,
-                          color: Colors.white,
-                        ),
-                      )
-                    : IconButton(
-                        onPressed: () => _showLoginBottomSheet(context),
-                        icon: Icon(
-                          Icons.login,
-                          color: Colors.white,
-                        ),
-                      ),
+                if (authState case AuthStateLoggedIn(:final userData))
+                  IconButton(
+                    onPressed: () =>
+                        _showMemberCardBottomSheet(context, userData),
+                    icon: const Icon(
+                      Icons.credit_card,
+                      color: Colors.white,
+                    ),
+                  )
+                else
+                  IconButton(
+                    onPressed: () => _showLoginBottomSheet(context),
+                    icon: Icon(
+                      Icons.login,
+                      color: Colors.white,
+                    ),
+                  ),
                 SizedBox(width: 12),
               ],
             ),
@@ -71,7 +73,8 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        AsyncError() =>
+                          Text(AppLocalizations.of(context)!.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.news,
                             newsList: value,
@@ -95,7 +98,8 @@ class Dashboard extends ConsumerWidget {
                     ),
                     Center(
                       child: switch (activities) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
+                        AsyncError() => Text(AppLocalizations.of(context)!
+                            .noActivitiesAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
                             newsList: value,
@@ -173,7 +177,7 @@ class Dashboard extends ConsumerWidget {
     );
   }
 
-  _showMemberCardBottomSheet(BuildContext context /*, MainViewModel model*/) {
+  _showMemberCardBottomSheet(BuildContext context, UserData userData) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -185,12 +189,13 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding:
+              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
-            name: "Fabian", //model.nameCache ?? "",
-            memberId: "12345", //model.memberId ?? "",
-            ebene: "Tolle Ebene", //model.ueberEbene ?? "",
-            unterebene: "Tolle Unterebene", //model.ebene ?? "",
+            name: userData.name,
+            memberId: userData.memberNumber,
+            region: userData.region,
+            subregion: userData.subregion,
           ),
         );
       },

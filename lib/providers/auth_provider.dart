@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
-import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -12,28 +11,23 @@ part 'auth_provider.g.dart';
 class Auth extends _$Auth {
   @override
   AuthState build() {
-    final username = SharedPreferencesService.instance.userName;
-    final userId = SharedPreferencesService.instance.userId;
-    final name = SharedPreferencesService.instance.name;
+    final userData = SharedPreferencesService.instance.userData;
 
     _checkLogin();
 
-    return username != null && name != null && userId != null
-        ? AuthState.loggedIn(
-            userData: UserData(userName: username, userId: userId, name: name),
-          )
+    return userData != null
+        ? AuthState.loggedIn(userData: userData)
         : const AuthState.loggedOut();
   }
 
   Future<void> _checkLogin() async {
-    final userName = SharedPreferencesService.instance.userName;
+    final userName = SharedPreferencesService.instance.userData?.username;
     final password = SharedPreferencesService.instance.password;
     if (userName == null || password == null) return;
 
-    final userIdAndName =
-        await MidaService().getUserIdAndName(userName, password);
+    final userData = await MidaService().checkLogin(userName, password);
 
-    if (userIdAndName == null) {
+    if (userData == null) {
       await logout();
     }
   }
@@ -42,43 +36,26 @@ class Auth extends _$Auth {
     state = const AuthState.loading();
 
     try {
-      final userIdAndName =
-          await MidaService().getUserIdAndName(userName, password);
+      final userData = await MidaService().checkLogin(userName, password);
 
-      if (userIdAndName != null) {
-        SharedPreferencesService.instance.userName = userName;
-        SharedPreferencesService.instance.userId = userIdAndName.$1;
-        SharedPreferencesService.instance.name = userIdAndName.$2;
+      if (userData != null) {
+        SharedPreferencesService.instance.userData = userData;
         SharedPreferencesService.instance.password = password;
         SharedPreferencesService.instance.passwordHash = password.hashMD5;
-        SharedPreferencesService.instance.name = userIdAndName.$2;
-        state = AuthState.loggedIn(
-          userData: UserData(
-            userName: userName,
-            userId: userIdAndName.$1,
-            name: userIdAndName.$2,
-          ),
-        );
+        state = AuthState.loggedIn(userData: userData);
       } else {
-        state = const AuthState.loggedOut(error: AuthStateError.unknown);
+        // backend returns 200 with error if wrong login
+        await logout();
       }
-    } on DioException catch (e) {
-      if (e.response case Response<dynamic> r when r.statusCode == 403) {
-        state = const AuthState.loggedOut(error: AuthStateError.wrongData);
-      } else if (e.type == DioExceptionType.connectionError) {
-        state = const AuthState.loggedOut(error: AuthStateError.noInternet);
-      } else {
-        state = const AuthState.loggedOut(error: AuthStateError.unknown);
-      }
+    } on DioException {
+      // do nothing
     }
   }
 
   Future<void> logout() async {
     state = const AuthState.loading();
 
-    SharedPreferencesService.instance.userName = null;
-    SharedPreferencesService.instance.userId = null;
-    SharedPreferencesService.instance.name = null;
+    SharedPreferencesService.instance.userData = null;
     SharedPreferencesService.instance.password = null;
     SharedPreferencesService.instance.passwordHash = null;
 
