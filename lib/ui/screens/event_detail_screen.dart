@@ -8,8 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
+import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
@@ -24,7 +26,7 @@ import 'package:url_launcher/url_launcher.dart';
 enum GeolocationState { loaded, loading, error }
 
 class EventDetailScreen extends ConsumerStatefulWidget {
-  final EventModel event;
+  final Event event;
 
   const EventDetailScreen({super.key, required this.event});
 
@@ -118,36 +120,30 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
       },
     );
 
-    ref
-        .read(registeredProvider(widget.event).notifier)
-        .refreshUserRegisteredForEvent();
+    ref.read(registeredListProvider.notifier).refresh();
   }
 
   void _addToCalendar() {
     final event = widget.event;
-    if (event.startDateAndTime != null && event.endDate != null) {
-      String? url = event.eventUrl?.replaceAll("&dialog=1", "");
+    String? url = event.eventUrl.replaceAll("&dialog=1", "");
 
-      // Add url to Android description
-      // iOS doesn't support html descriptions -> parse text
-      String description = Platform.isAndroid
-          ? "${event.description}\n\n$url"
-          : parse(event.description).documentElement?.text ?? "";
+    // Add url to Android description
+    // iOS doesn't support html descriptions -> parse text
+    String description = Platform.isAndroid
+        ? "${event.description}\n\n$url"
+        : parse(event.description).documentElement?.text ?? "";
 
-      // Adds event link to the end of the description (not as modal)
-      // duration 1 hour if end time equals start time
-      final calendar.Event calendarEvent = calendar.Event(
-        title: event.title,
-        description: description,
-        location: event.location,
-        startDate: event.startDateAndTime!,
-        endDate: event.endDate!.compareTo(event.startDateAndTime!) == 0
-            ? event.endDate!.add(const Duration(hours: 1))
-            : event.endDate!,
-        iosParams: calendar.IOSParams(url: url),
-      );
-      calendar.Add2Calendar.addEvent2Cal(calendarEvent);
-    }
+    // Adds event link to the end of the description (not as modal)
+    // duration 1 hour if end time equals start time
+    final calendar.Event calendarEvent = calendar.Event(
+      title: event.title,
+      description: description,
+      location: event.location,
+      startDate: event.startDateAndTime,
+      endDate: event.endDateAndTime,
+      iosParams: calendar.IOSParams(url: url),
+    );
+    calendar.Add2Calendar.addEvent2Cal(calendarEvent);
   }
 
   @override
@@ -169,11 +165,11 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
               child: Column(
                 spacing: 8,
                 children: [
-                  EventItem(event: event),
+                  EventItem(event: event, registered: registered),
                   if (registered) _registeredCard(),
                   if (event.description case String description)
                     _descriptionCard(description),
-                  if (event.organizer case String organizer)
+                  if (event.organization case String organizer)
                     _organizerCard(organizer),
                   if (event.imageUrl case String imageUrl) _imageCard(imageUrl),
                   if (event

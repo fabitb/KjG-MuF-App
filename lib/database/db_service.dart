@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
@@ -34,17 +35,17 @@ class DBService {
     return await isar.gameModels.where().findAll();
   }
 
-  Future<List<EventModel>> getCachedEvents() async {
+  Future<List<Event>> getCachedEvents() async {
     final isar = await db;
-    return await isar.eventModels.where().sortByStartDateAndTime().findAll();
+    return await isar.events.where().sortByStartDateAndTime().findAll();
   }
 
-  Future<void> cacheEvents(List<EventModel> events) async {
+  Future<void> cacheEvents(List<Event> events) async {
     final isar = await db;
 
     isar.writeTxn(() async {
-      await isar.eventModels.clear();
-      await isar.eventModels.putAll(events);
+      await isar.events.clear();
+      await isar.events.putAll(events);
     });
   }
 
@@ -82,6 +83,7 @@ class DBService {
         [
           GameModelSchema,
           EventModelSchema,
+          EventSchema,
           NewsModelSchema,
           ActivitiesModelSchema
         ],

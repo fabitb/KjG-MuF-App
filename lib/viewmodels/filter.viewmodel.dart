@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 
@@ -18,9 +19,9 @@ class FilterViewModel extends ChangeNotifier {
 
   bool get hideGremien => _filterSettings.hideGremien;
 
-  FilterViewModel(List<EventModel> events, this._filterSettings)
+  FilterViewModel(List<Event> events, this._filterSettings)
       : _organisers =
-            events.map((e) => e.organizer ?? "Unbekannt").toSet().toList() {
+            events.map((e) => e.organization ?? "Unbekannt").toSet().toList() {
     _organisers.sort();
     for (var element in _organisers) {
       if (!_filterSettings.showOrganizer.containsKey(element)) {

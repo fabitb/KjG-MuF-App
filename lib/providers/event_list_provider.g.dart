@@ -6,12 +6,27 @@ part of 'event_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filteredEventsHash() => r'4d8109e5fb99fdf56d379475b59db4d0fb2525e5';
+String _$cachedEventsHash() => r'd1523c316acf7bdef7923cdc647fa52b40fcf162';
+
+/// See also [cachedEvents].
+@ProviderFor(cachedEvents)
+final cachedEventsProvider = AutoDisposeFutureProvider<List<Event>>.internal(
+  cachedEvents,
+  name: r'cachedEventsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cachedEventsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CachedEventsRef = AutoDisposeFutureProviderRef<List<Event>>;
+String _$filteredEventsHash() => r'3937ab6c236ceaabb91bb883e2608588b37fa644';
 
 /// See also [filteredEvents].
 @ProviderFor(filteredEvents)
-final filteredEventsProvider =
-    AutoDisposeFutureProvider<List<EventModel>>.internal(
+final filteredEventsProvider = AutoDisposeFutureProvider<List<Event>>.internal(
   filteredEvents,
   name: r'filteredEventsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,13 +38,13 @@ final filteredEventsProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<EventModel>>;
-String _$eventListHash() => r'cf18534f645c5a72e642dbe80f1b6541d528ea89';
+typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<Event>>;
+String _$eventListHash() => r'b1d48167da8cff21e28e16838850d74329495172';
 
 /// See also [EventList].
 @ProviderFor(EventList)
 final eventListProvider =
-    AutoDisposeAsyncNotifierProvider<EventList, List<EventModel>>.internal(
+    AutoDisposeAsyncNotifierProvider<EventList, List<Event>>.internal(
   EventList.new,
   name: r'eventListProvider',
   debugGetCreateSourceHash:
@@ -38,8 +53,8 @@ final eventListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$EventList = AutoDisposeAsyncNotifier<List<EventModel>>;
-String _$registeredHash() => r'08587ea0a7b12d2d4908aa073bc29a21d4db0aa4';
+typedef _$EventList = AutoDisposeAsyncNotifier<List<Event>>;
+String _$registeredHash() => r'b202b18cac2bef93c848107edfb5887317ec98ed';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -63,10 +78,10 @@ class _SystemHash {
 }
 
 abstract class _$Registered extends BuildlessAutoDisposeNotifier<bool> {
-  late final EventModel event;
+  late final Event event;
 
   bool build(
-    EventModel event,
+    Event event,
   );
 }
 
@@ -81,7 +96,7 @@ class RegisteredFamily extends Family<bool> {
 
   /// See also [Registered].
   RegisteredProvider call(
-    EventModel event,
+    Event event,
   ) {
     return RegisteredProvider(
       event,
@@ -117,7 +132,7 @@ class RegisteredProvider
     extends AutoDisposeNotifierProviderImpl<Registered, bool> {
   /// See also [Registered].
   RegisteredProvider(
-    EventModel event,
+    Event event,
   ) : this._internal(
           () => Registered()..event = event,
           from: registeredProvider,
@@ -142,7 +157,7 @@ class RegisteredProvider
     required this.event,
   }) : super.internal();
 
-  final EventModel event;
+  final Event event;
 
   @override
   bool runNotifierBuild(
@@ -192,7 +207,7 @@ class RegisteredProvider
 // ignore: unused_element
 mixin RegisteredRef on AutoDisposeNotifierProviderRef<bool> {
   /// The parameter `event` of this provider.
-  EventModel get event;
+  Event get event;
 }
 
 class _RegisteredProviderElement
@@ -201,7 +216,7 @@ class _RegisteredProviderElement
   _RegisteredProviderElement(super.provider);
 
   @override
-  EventModel get event => (origin as RegisteredProvider).event;
+  Event get event => (origin as RegisteredProvider).event;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
+import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
@@ -31,8 +33,8 @@ class EventListScreen extends ConsumerWidget {
           _ => Skeletonizer(
               enabled: true,
               child: ListView(
-                children: EventModel.createFakeData()
-                    .map((e) => EventItem(event: e))
+                children: Event.createFakeData()
+                    .map((e) => EventItem(event: e, registered: false))
                     .toList(),
               ),
             ),
@@ -54,7 +56,7 @@ class EventListScreen extends ConsumerWidget {
 
   void _showFilterSheet(
     BuildContext context,
-    List<EventModel>? allEvents,
+    List<Event>? allEvents,
     FilterSettings filterSettings,
     WidgetRef ref,
   ) {
@@ -81,9 +83,10 @@ class EventListScreen extends ConsumerWidget {
     );
   }
 
-  Widget _body(List<EventModel> events, WidgetRef ref) {
+  Widget _body(List<Event> events, WidgetRef ref) {
     final filterSettingsActive = ref.watch(filterProvider).isActive();
     final searchTextProvider = ref.watch(filterTextProvider.notifier);
+    final registeredList = ref.watch(registeredListProvider).valueOrNull ?? [];
 
     return RefreshIndicator(
       onRefresh: () {
@@ -118,8 +121,11 @@ class EventListScreen extends ConsumerWidget {
             }
             index -= 1;
           }
+
+          final event = events[index];
           return InkWell(
-            child: EventItem(event: events[index]),
+            child: EventItem(
+                event: event, registered: registeredList.contains(event.id)),
             onTap: () => Navigator.of(context)
                 .push(
                   MaterialPageRoute(

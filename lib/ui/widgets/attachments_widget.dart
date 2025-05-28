@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/pdf_screen.dart';
@@ -11,7 +12,7 @@ import 'package:mime/mime.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 
 class AttachmentsWidget extends StatefulWidget {
-  final EventModel event;
+  final Event event;
   final String baseUrl;
   final List<String> attachments;
   final DateTime? cachedTime;
@@ -54,9 +55,6 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
 
     try {
       await Future.wait(futures, eagerError: true);
-
-      event.cachedTime = DateTime.now();
-      DBService().saveEvent(event);
     } on Exception {
       // ignore
     }
