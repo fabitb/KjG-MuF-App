@@ -26,7 +26,7 @@ import 'package:url_launcher/url_launcher.dart';
 enum GeolocationState { loaded, loading, error }
 
 class EventDetailScreen extends ConsumerStatefulWidget {
-  final Event event;
+  final MidaEvent event;
 
   const EventDetailScreen({super.key, required this.event});
 
@@ -179,7 +179,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                       ))
                     _contactCard(contactEmail, contactName),
                   if (event
-                      case Event(
+                      case MidaEvent(
                         :final attachments?,
                         :final baseUrl?,
                       ) when attachments.isNotEmpty)

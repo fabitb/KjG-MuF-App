@@ -33,7 +33,7 @@ class EventListScreen extends ConsumerWidget {
           _ => Skeletonizer(
               enabled: true,
               child: ListView(
-                children: Event.createFakeData()
+                children: MidaEvent.createFakeData()
                     .map((e) => EventItem(event: e, registered: false))
                     .toList(),
               ),
@@ -56,7 +56,7 @@ class EventListScreen extends ConsumerWidget {
 
   void _showFilterSheet(
     BuildContext context,
-    List<Event>? allEvents,
+    List<MidaEvent>? allEvents,
     FilterSettings filterSettings,
     WidgetRef ref,
   ) {
@@ -83,7 +83,7 @@ class EventListScreen extends ConsumerWidget {
     );
   }
 
-  Widget _body(List<Event> events, WidgetRef ref) {
+  Widget _body(List<MidaEvent> events, WidgetRef ref) {
     final filterSettingsActive = ref.watch(filterProvider).isActive();
     final searchTextProvider = ref.watch(filterTextProvider.notifier);
     final registeredList = ref.watch(registeredListProvider).valueOrNull ?? [];

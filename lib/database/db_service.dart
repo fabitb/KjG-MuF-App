@@ -28,7 +28,8 @@ class DBService {
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
     return isar.writeTxn<List<int>>(
-        () async => await isar.gameModels.putAll(newGames));
+      () async => await isar.gameModels.putAll(newGames),
+    );
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -36,17 +37,17 @@ class DBService {
     return await isar.gameModels.where().findAll();
   }
 
-  Future<List<Event>> getCachedEvents() async {
+  Future<List<MidaEvent>> getCachedEvents() async {
     final isar = await db;
-    return await isar.events.where().sortByStartDateAndTime().findAll();
+    return await isar.midaEvents.where().sortByStartDateAndTime().findAll();
   }
 
-  Future<void> cacheEvents(List<Event> events) async {
+  Future<void> cacheEvents(List<MidaEvent> events) async {
     final isar = await db;
 
     isar.writeTxn(() async {
-      await isar.events.clear();
-      await isar.events.putAll(events);
+      await isar.midaEvents.clear();
+      await isar.midaEvents.putAll(events);
     });
   }
 
@@ -98,7 +99,7 @@ class DBService {
         [
           GameModelSchema,
           EventModelSchema,
-          EventSchema,
+          MidaEventSchema,
           RegisteredSchema,
           NewsModelSchema,
           ActivitiesModelSchema,

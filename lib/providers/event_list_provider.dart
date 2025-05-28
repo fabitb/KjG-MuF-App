@@ -11,10 +11,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'event_list_provider.g.dart';
 
 @riverpod
-Future<List<Event>> cachedEvents(Ref ref) async {
+Future<List<MidaEvent>> cachedEvents(Ref ref) async {
   final online = ref.watch(eventListProvider);
 
-  if (online.valueOrNull case List<Event> list) {
+  if (online.valueOrNull case List<MidaEvent> list) {
     return list;
   }
   return await DBService().getCachedEvents();
@@ -23,7 +23,7 @@ Future<List<Event>> cachedEvents(Ref ref) async {
 @riverpod
 class EventList extends _$EventList {
   @override
-  Future<List<Event>> build() async {
+  Future<List<MidaEvent>> build() async {
     ref.watch(authProvider); // reload when auth changes (could have new events)
 
     final events = await MidaService().getEvents();
@@ -40,8 +40,8 @@ class EventList extends _$EventList {
 }
 
 @riverpod
-Future<List<Event>> filteredEvents(Ref ref) async {
-  List<Event> e = await ref.watch(cachedEventsProvider.future);
+Future<List<MidaEvent>> filteredEvents(Ref ref) async {
+  List<MidaEvent> e = await ref.watch(cachedEventsProvider.future);
   final registered = await ref.watch(registeredListProvider.future);
 
   final filterSettings = ref.watch(filterProvider);

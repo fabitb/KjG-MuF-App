@@ -19,7 +19,7 @@ class FilterViewModel extends ChangeNotifier {
 
   bool get hideGremien => _filterSettings.hideGremien;
 
-  FilterViewModel(List<Event> events, this._filterSettings)
+  FilterViewModel(List<MidaEvent> events, this._filterSettings)
       : _organisers =
             events.map((e) => e.organization ?? "Unbekannt").toSet().toList() {
     _organisers.sort();

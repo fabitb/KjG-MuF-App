@@ -9,7 +9,7 @@ DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 DateFormat timeFormat = DateFormat("HH:mm");
 
 class EventItem extends StatelessWidget {
-  final Event event;
+  final MidaEvent event;
   final bool registered;
 
   const EventItem({super.key, required this.event, required this.registered});

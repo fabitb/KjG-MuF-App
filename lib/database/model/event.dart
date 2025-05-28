@@ -8,8 +8,8 @@ part 'event.freezed.dart';
 part 'event.g.dart';
 
 @freezed
-class MidaEvent with _$MidaEvent {
-  const factory MidaEvent({
+class BackendMidaEvent with _$BackendMidaEvent {
+  const factory BackendMidaEvent({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'mandant') String? clientId,
     @JsonKey(name: 'datum') String? date,
@@ -83,20 +83,20 @@ class MidaEvent with _$MidaEvent {
     @JsonKey(name: 'link') String? link,
     @JsonKey(name: 'url') String? url,
     @JsonKey(name: 'idmandant') String? clientEventId,
-  }) = _MidaEvent;
+  }) = _BackendMidaEvent;
 
-  factory MidaEvent.fromJson(Map<String, dynamic> json) =>
-      _$MidaEventFromJson(json);
+  factory BackendMidaEvent.fromJson(Map<String, dynamic> json) =>
+      _$BackendMidaEventFromJson(json);
 }
 
 @freezed
 @Collection(ignore: {'copyWith'})
-class Event with _$Event {
-  const Event._();
+class MidaEvent with _$MidaEvent {
+  const MidaEvent._();
 
   Id get isarId => id;
 
-  const factory Event({
+  const factory MidaEvent({
     required int id,
     int? clientId,
     required DateTime startDateAndTime,
@@ -133,13 +133,14 @@ class Event with _$Event {
     String? link,
     String? baseUrl,
     String? clientEventId,
-  }) = _Event;
+  }) = _MidaEvent;
 
-  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+  factory MidaEvent.fromJson(Map<String, dynamic> json) =>
+      _$MidaEventFromJson(json);
 
   static RegExp regexTime = RegExp(r'\d{2}:\d{2}');
 
-  static Event? fromMidaEvent(MidaEvent e) {
+  static MidaEvent? fromBackendMidaEvent(BackendMidaEvent e) {
     String? nullIfEmpty(String? v) =>
         (v == null || v.trim().isEmpty) ? null : v;
     DateTime? tryParseDate(String? v) =>
@@ -176,7 +177,7 @@ class Event with _$Event {
     final attachments =
         e.attachments?.split("\n").where((e) => e.isNotEmpty).toList();
 
-    return Event(
+    return MidaEvent(
       id: id,
       clientId: tryParseInt(e.clientId),
       startDateAndTime: start,
@@ -242,10 +243,10 @@ class Event with _$Event {
     return null;
   }
 
-  static List<Event> createFakeData() {
+  static List<MidaEvent> createFakeData() {
     return List.generate(
       4,
-      (index) => Event(
+      (index) => MidaEvent(
         id: index,
         startDateAndTime: DateTime.now(),
         endDateAndTime: DateTime.now(),

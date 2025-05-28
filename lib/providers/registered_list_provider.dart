@@ -46,7 +46,7 @@ class RegisteredList extends _$RegisteredList {
 }
 
 @riverpod
-bool eventRegistered(Ref ref, Event event) {
+bool eventRegistered(Ref ref, MidaEvent event) {
   final registered = ref.watch(cachedRegisteredProvider);
 
   if (registered case AsyncData(:final valueOrNull?)) {

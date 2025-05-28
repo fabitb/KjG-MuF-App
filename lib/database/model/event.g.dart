@@ -9,13 +9,13 @@ part of 'event.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetEventCollection on Isar {
-  IsarCollection<Event> get events => this.collection();
+extension GetMidaEventCollection on Isar {
+  IsarCollection<MidaEvent> get midaEvents => this.collection();
 }
 
-const EventSchema = CollectionSchema(
-  name: r'Event',
-  id: 2102939193127251002,
+const MidaEventSchema = CollectionSchema(
+  name: r'MidaEvent',
+  id: -2281719294625486412,
   properties: {
     r'abbreviation': PropertySchema(
       id: 0,
@@ -218,22 +218,22 @@ const EventSchema = CollectionSchema(
       type: IsarType.long,
     )
   },
-  estimateSize: _eventEstimateSize,
-  serialize: _eventSerialize,
-  deserialize: _eventDeserialize,
-  deserializeProp: _eventDeserializeProp,
+  estimateSize: _midaEventEstimateSize,
+  serialize: _midaEventSerialize,
+  deserialize: _midaEventDeserialize,
+  deserializeProp: _midaEventDeserializeProp,
   idName: r'isarId',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _eventGetId,
-  getLinks: _eventGetLinks,
-  attach: _eventAttach,
+  getId: _midaEventGetId,
+  getLinks: _midaEventGetLinks,
+  attach: _midaEventAttach,
   version: '3.1.8',
 );
 
-int _eventEstimateSize(
-  Event object,
+int _midaEventEstimateSize(
+  MidaEvent object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -351,8 +351,8 @@ int _eventEstimateSize(
   return bytesCount;
 }
 
-void _eventSerialize(
-  Event object,
+void _midaEventSerialize(
+  MidaEvent object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -399,13 +399,13 @@ void _eventSerialize(
   writer.writeLong(offsets[39], object.visibilityType);
 }
 
-Event _eventDeserialize(
+MidaEvent _midaEventDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Event(
+  final object = MidaEvent(
     abbreviation: reader.readStringOrNull(offsets[0]),
     attachments: reader.readStringList(offsets[1]),
     baseUrl: reader.readStringOrNull(offsets[2]),
@@ -446,7 +446,7 @@ Event _eventDeserialize(
   return object;
 }
 
-P _eventDeserializeProp<P>(
+P _midaEventDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -538,26 +538,29 @@ P _eventDeserializeProp<P>(
   }
 }
 
-Id _eventGetId(Event object) {
+Id _midaEventGetId(MidaEvent object) {
   return object.isarId;
 }
 
-List<IsarLinkBase<dynamic>> _eventGetLinks(Event object) {
+List<IsarLinkBase<dynamic>> _midaEventGetLinks(MidaEvent object) {
   return [];
 }
 
-void _eventAttach(IsarCollection<dynamic> col, Id id, Event object) {}
+void _midaEventAttach(IsarCollection<dynamic> col, Id id, MidaEvent object) {}
 
-extension EventQueryWhereSort on QueryBuilder<Event, Event, QWhere> {
-  QueryBuilder<Event, Event, QAfterWhere> anyIsarId() {
+extension MidaEventQueryWhereSort
+    on QueryBuilder<MidaEvent, MidaEvent, QWhere> {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhere> anyIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
-  QueryBuilder<Event, Event, QAfterWhereClause> isarIdEqualTo(Id isarId) {
+extension MidaEventQueryWhere
+    on QueryBuilder<MidaEvent, MidaEvent, QWhereClause> {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhereClause> isarIdEqualTo(
+      Id isarId) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: isarId,
@@ -566,7 +569,8 @@ extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterWhereClause> isarIdNotEqualTo(Id isarId) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhereClause> isarIdNotEqualTo(
+      Id isarId) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -588,7 +592,8 @@ extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterWhereClause> isarIdGreaterThan(Id isarId,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhereClause> isarIdGreaterThan(
+      Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -597,7 +602,8 @@ extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterWhereClause> isarIdLessThan(Id isarId,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhereClause> isarIdLessThan(
+      Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -606,7 +612,7 @@ extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterWhereClause> isarIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterWhereClause> isarIdBetween(
     Id lowerIsarId,
     Id upperIsarId, {
     bool includeLower = true,
@@ -623,8 +629,10 @@ extension EventQueryWhere on QueryBuilder<Event, Event, QWhereClause> {
   }
 }
 
-extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationIsNull() {
+extension MidaEventQueryFilter
+    on QueryBuilder<MidaEvent, MidaEvent, QFilterCondition> {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'abbreviation',
@@ -632,7 +640,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'abbreviation',
@@ -640,7 +649,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> abbreviationEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -653,7 +662,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -668,7 +678,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -683,7 +694,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> abbreviationBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -702,7 +713,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -715,7 +727,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -728,9 +741,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'abbreviation',
@@ -740,7 +752,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> abbreviationMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -752,7 +764,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'abbreviation',
@@ -761,7 +774,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> abbreviationIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      abbreviationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'abbreviation',
@@ -770,7 +784,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'attachments',
@@ -778,7 +793,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'attachments',
@@ -786,7 +802,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -799,7 +816,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       attachmentsElementGreaterThan(
     String value, {
     bool include = false,
@@ -815,7 +832,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -830,7 +848,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -849,7 +868,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       attachmentsElementStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -863,7 +882,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -876,9 +896,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'attachments',
@@ -888,9 +907,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsElementMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'attachments',
@@ -900,7 +918,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       attachmentsElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -910,7 +928,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       attachmentsElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -920,8 +938,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsLengthEqualTo(
-      int length) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'attachments',
@@ -933,7 +951,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'attachments',
@@ -945,7 +964,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'attachments',
@@ -957,7 +977,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsLengthLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -972,7 +993,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       attachmentsLengthGreaterThan(
     int length, {
     bool include = false,
@@ -988,7 +1009,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> attachmentsLengthBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      attachmentsLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -1005,7 +1027,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'baseUrl',
@@ -1013,7 +1035,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'baseUrl',
@@ -1021,7 +1043,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1034,7 +1056,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1049,7 +1071,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1064,7 +1086,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1083,7 +1105,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1096,7 +1118,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1109,7 +1131,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1121,7 +1143,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1133,7 +1155,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'baseUrl',
@@ -1142,7 +1164,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> baseUrlIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      baseUrlIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'baseUrl',
@@ -1151,7 +1174,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'clientEventId',
@@ -1159,7 +1183,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'clientEventId',
@@ -1167,7 +1192,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1180,7 +1206,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1195,7 +1222,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1210,7 +1238,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1229,7 +1258,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1242,7 +1272,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1255,9 +1286,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'clientEventId',
@@ -1267,9 +1297,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'clientEventId',
@@ -1279,7 +1308,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'clientEventId',
@@ -1288,7 +1318,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientEventIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'clientEventId',
@@ -1297,7 +1328,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> clientIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'clientId',
@@ -1305,7 +1336,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      clientIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'clientId',
@@ -1313,7 +1345,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> clientIdEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1323,7 +1355,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> clientIdGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -1336,7 +1368,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> clientIdLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -1349,7 +1381,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> clientIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> clientIdBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1366,7 +1398,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'contactEmail',
@@ -1374,7 +1407,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'contactEmail',
@@ -1382,7 +1416,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactEmailEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1395,7 +1429,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1410,7 +1445,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1425,7 +1461,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactEmailBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1444,7 +1480,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1457,7 +1494,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1470,9 +1508,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'contactEmail',
@@ -1482,7 +1519,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactEmailMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1494,7 +1531,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'contactEmail',
@@ -1503,7 +1541,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactEmailIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactEmailIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'contactEmail',
@@ -1512,7 +1551,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'contactName',
@@ -1520,7 +1560,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'contactName',
@@ -1528,7 +1569,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1541,7 +1582,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1556,7 +1598,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1571,7 +1613,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1590,7 +1632,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1603,7 +1646,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1616,7 +1659,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1628,7 +1671,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> contactNameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1640,7 +1683,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'contactName',
@@ -1649,7 +1693,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> contactNameIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      contactNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'contactName',
@@ -1658,7 +1703,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'cost',
@@ -1666,7 +1711,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'cost',
@@ -1674,7 +1719,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1687,7 +1732,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1702,7 +1747,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1717,7 +1762,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1736,7 +1781,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1749,7 +1794,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1762,7 +1807,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costContains(String value,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -1773,7 +1819,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMatches(String pattern,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -1784,7 +1831,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'cost',
@@ -1793,7 +1840,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'cost',
@@ -1802,7 +1849,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'costCompanion',
@@ -1810,7 +1858,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'costCompanion',
@@ -1818,7 +1867,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
@@ -1831,7 +1881,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1846,7 +1897,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1861,7 +1913,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costCompanionBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costCompanionBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -1880,7 +1933,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costGuestIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'costGuest',
@@ -1888,7 +1941,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costGuestIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'costGuest',
@@ -1896,7 +1950,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costGuestEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
@@ -1909,7 +1963,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costGuestGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1924,7 +1979,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costGuestLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1939,7 +1994,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costGuestBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costGuestBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -1958,7 +2013,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costMemberIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'costMember',
@@ -1966,7 +2021,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costMemberIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'costMember',
@@ -1974,7 +2030,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costMemberEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
@@ -1987,7 +2043,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      costMemberGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2002,7 +2059,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costMemberLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2017,7 +2074,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> costMemberBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> costMemberBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -2036,7 +2093,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -2045,7 +2102,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -2054,7 +2111,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -2064,7 +2121,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineGreaterThan(
     DateTime? value, {
     bool include = false,
@@ -2078,7 +2135,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineLessThan(
     DateTime? value, {
     bool include = false,
@@ -2092,7 +2149,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       deregistrationDeadlineBetween(
     DateTime? lower,
     DateTime? upper, {
@@ -2110,7 +2167,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'description',
@@ -2118,7 +2176,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'description',
@@ -2126,7 +2185,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -2139,7 +2198,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2154,7 +2214,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2169,7 +2229,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2188,7 +2248,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2201,7 +2262,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2214,7 +2275,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2226,7 +2287,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> descriptionMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2238,7 +2299,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'description',
@@ -2247,7 +2309,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> descriptionIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      descriptionIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'description',
@@ -2256,8 +2319,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> endDateAndTimeEqualTo(
-      DateTime value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      endDateAndTimeEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'endDateAndTime',
@@ -2266,7 +2329,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> endDateAndTimeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      endDateAndTimeGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -2279,7 +2343,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> endDateAndTimeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      endDateAndTimeLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -2292,7 +2357,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> endDateAndTimeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      endDateAndTimeBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -2309,7 +2375,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2322,7 +2388,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2337,7 +2403,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2352,7 +2418,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -2371,7 +2437,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2384,7 +2450,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2397,7 +2463,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2409,7 +2475,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2421,7 +2487,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'eventUrl',
@@ -2430,7 +2496,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> eventUrlIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      eventUrlIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'eventUrl',
@@ -2439,7 +2506,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'freeSlots',
@@ -2447,7 +2514,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      freeSlotsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'freeSlots',
@@ -2455,7 +2523,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -2468,7 +2536,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      freeSlotsGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2483,7 +2552,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2498,7 +2567,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2517,7 +2586,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2530,7 +2599,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2543,7 +2612,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2555,7 +2624,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2567,7 +2636,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'freeSlots',
@@ -2576,7 +2645,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      freeSlotsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'freeSlots',
@@ -2585,7 +2655,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'groupId',
@@ -2593,7 +2663,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'groupId',
@@ -2601,7 +2671,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdEqualTo(int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdEqualTo(
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'groupId',
@@ -2610,7 +2681,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -2623,7 +2694,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -2636,7 +2707,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> groupIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> groupIdBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2653,7 +2724,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> idEqualTo(int value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> idEqualTo(
+      int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -2662,7 +2734,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> idGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -2675,7 +2747,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> idLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> idLessThan(
     int value, {
     bool include = false,
   }) {
@@ -2688,7 +2760,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> idBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> idBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -2705,7 +2777,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'image',
@@ -2713,7 +2785,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'image',
@@ -2721,7 +2793,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -2734,7 +2806,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2749,7 +2821,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2764,7 +2836,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2783,7 +2855,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2796,7 +2868,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2809,7 +2881,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageContains(String value,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -2820,7 +2893,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageMatches(String pattern,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -2831,7 +2905,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'image',
@@ -2840,7 +2914,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'image',
@@ -2849,7 +2923,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'imageUrl',
@@ -2857,7 +2931,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      imageUrlIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'imageUrl',
@@ -2865,7 +2940,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -2878,7 +2953,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2893,7 +2968,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2908,7 +2983,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2927,7 +3002,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2940,7 +3015,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -2953,7 +3028,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2965,7 +3040,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2977,7 +3052,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'imageUrl',
@@ -2986,7 +3061,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> imageUrlIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      imageUrlIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'imageUrl',
@@ -2995,7 +3071,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> isarIdEqualTo(Id value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> isarIdEqualTo(
+      Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -3004,7 +3081,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> isarIdGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> isarIdGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -3017,7 +3094,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> isarIdLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> isarIdLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -3030,7 +3107,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> isarIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> isarIdBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -3047,7 +3124,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'link',
@@ -3055,7 +3132,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'link',
@@ -3063,7 +3140,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3076,7 +3153,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3091,7 +3168,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3106,7 +3183,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3125,7 +3202,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3138,7 +3215,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3151,7 +3228,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkContains(String value,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -3162,7 +3240,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkMatches(String pattern,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -3173,7 +3252,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'link',
@@ -3182,7 +3261,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> linkIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> linkIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'link',
@@ -3191,7 +3270,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'location',
@@ -3199,7 +3278,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'location',
@@ -3207,7 +3287,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3220,7 +3300,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3235,7 +3315,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3250,7 +3330,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3269,7 +3349,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3282,7 +3362,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3295,7 +3375,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationContains(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3307,7 +3387,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3319,7 +3399,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'location',
@@ -3328,7 +3408,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'location',
@@ -3337,7 +3418,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'locationForMap',
@@ -3345,7 +3427,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'locationForMap',
@@ -3353,7 +3436,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3366,7 +3450,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3381,7 +3466,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3396,7 +3482,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3415,7 +3502,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3428,7 +3516,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3441,9 +3530,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'locationForMap',
@@ -3453,9 +3541,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'locationForMap',
@@ -3465,7 +3552,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'locationForMap',
@@ -3474,7 +3562,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationForMapIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationForMapIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'locationForMap',
@@ -3483,7 +3572,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'locationName',
@@ -3491,7 +3581,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'locationName',
@@ -3499,7 +3590,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3512,7 +3603,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3527,7 +3619,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3542,7 +3635,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3561,7 +3654,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3574,7 +3668,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3587,9 +3682,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'locationName',
@@ -3599,7 +3693,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3611,7 +3705,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'locationName',
@@ -3620,7 +3715,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> locationNameIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      locationNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'locationName',
@@ -3629,7 +3725,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'maxCompanions',
@@ -3637,7 +3734,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'maxCompanions',
@@ -3645,8 +3743,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsEqualTo(
-      int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'maxCompanions',
@@ -3655,7 +3753,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -3668,7 +3767,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -3681,7 +3781,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxCompanionsBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxCompanionsBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -3698,7 +3799,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'maxParticipants',
@@ -3706,7 +3808,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'maxParticipants',
@@ -3714,8 +3817,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsEqualTo(
-      int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'maxParticipants',
@@ -3724,7 +3827,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -3737,7 +3841,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -3750,7 +3855,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> maxParticipantsBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      maxParticipantsBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -3767,7 +3873,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      numberOfDaysIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'numberOfDays',
@@ -3775,7 +3882,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      numberOfDaysIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'numberOfDays',
@@ -3783,7 +3891,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> numberOfDaysEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -3793,7 +3901,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      numberOfDaysGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -3806,7 +3915,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      numberOfDaysLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -3819,7 +3929,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> numberOfDaysBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> numberOfDaysBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -3836,7 +3946,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'organization',
@@ -3844,7 +3955,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'organization',
@@ -3852,7 +3964,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> organizationEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3865,7 +3977,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3880,7 +3993,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3895,7 +4009,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> organizationBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3914,7 +4028,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3927,7 +4042,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3940,9 +4056,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'organization',
@@ -3952,7 +4067,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationMatches(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> organizationMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3964,7 +4079,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'organization',
@@ -3973,7 +4089,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> organizationIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      organizationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'organization',
@@ -3982,7 +4099,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> publicTypeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'publicType',
@@ -3990,7 +4107,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      publicTypeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'publicType',
@@ -3998,7 +4116,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> publicTypeEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -4008,7 +4126,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      publicTypeGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -4021,7 +4140,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> publicTypeLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -4034,7 +4153,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> publicTypeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> publicTypeBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -4051,7 +4170,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationCountIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationCountIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'registrationCount',
@@ -4059,7 +4179,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationCountIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -4068,8 +4188,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationCountEqualTo(
-      int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationCountEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'registrationCount',
@@ -4078,7 +4198,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationCountGreaterThan(
     int? value, {
     bool include = false,
@@ -4092,7 +4212,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationCountLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationCountLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -4105,7 +4226,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationCountBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationCountBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -4122,7 +4244,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationDeadlineIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -4131,7 +4253,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationDeadlineIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -4140,8 +4262,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationDeadlineEqualTo(
-      DateTime? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationDeadlineEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'registrationDeadline',
@@ -4150,7 +4272,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationDeadlineGreaterThan(
     DateTime? value, {
     bool include = false,
@@ -4164,7 +4286,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationDeadlineLessThan(
     DateTime? value, {
     bool include = false,
@@ -4178,7 +4300,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationDeadlineBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationDeadlineBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -4195,7 +4318,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationStartIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationStartIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'registrationStart',
@@ -4203,7 +4327,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationStartIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -4212,8 +4336,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationStartEqualTo(
-      DateTime? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationStartEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'registrationStart',
@@ -4222,7 +4346,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       registrationStartGreaterThan(
     DateTime? value, {
     bool include = false,
@@ -4236,7 +4360,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationStartLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationStartLessThan(
     DateTime? value, {
     bool include = false,
   }) {
@@ -4249,7 +4374,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> registrationStartBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      registrationStartBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -4266,7 +4392,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> rvIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> rvIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'rv',
@@ -4274,7 +4400,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> rvIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> rvIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'rv',
@@ -4282,7 +4408,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> rvEqualTo(bool? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> rvEqualTo(
+      bool? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'rv',
@@ -4291,7 +4418,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'seriesEventId',
@@ -4299,7 +4427,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'seriesEventId',
@@ -4307,8 +4436,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdEqualTo(
-      int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'seriesEventId',
@@ -4317,7 +4446,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -4330,7 +4460,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -4343,7 +4474,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> seriesEventIdBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      seriesEventIdBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -4360,8 +4492,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> startDateAndTimeEqualTo(
-      DateTime value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      startDateAndTimeEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'startDateAndTime',
@@ -4370,7 +4502,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> startDateAndTimeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      startDateAndTimeGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -4383,7 +4516,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> startDateAndTimeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      startDateAndTimeLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -4396,7 +4530,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> startDateAndTimeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      startDateAndTimeBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -4413,7 +4548,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'time',
@@ -4421,7 +4556,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'time',
@@ -4429,7 +4564,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -4442,7 +4577,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -4457,7 +4592,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -4472,7 +4607,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -4491,7 +4626,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -4504,7 +4639,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -4517,7 +4652,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeContains(String value,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -4528,7 +4664,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeMatches(String pattern,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -4539,7 +4676,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'time',
@@ -4548,7 +4685,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> timeIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> timeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'time',
@@ -4557,7 +4694,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleEqualTo(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -4570,7 +4707,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -4585,7 +4722,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -4600,7 +4737,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -4619,7 +4756,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleStartsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -4632,7 +4769,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleEndsWith(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -4645,7 +4782,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleContains(String value,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -4656,7 +4794,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleMatches(String pattern,
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -4667,7 +4806,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleIsEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'title',
@@ -4676,7 +4815,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> titleIsNotEmpty() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> titleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'title',
@@ -4685,7 +4824,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'type',
@@ -4693,7 +4832,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'type',
@@ -4701,7 +4840,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeEqualTo(int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeEqualTo(
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'type',
@@ -4710,7 +4850,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -4723,7 +4863,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -4736,7 +4876,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> typeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> typeBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -4753,7 +4893,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -4762,7 +4902,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -4771,7 +4911,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -4781,7 +4921,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationGreaterThan(
     int? value, {
     bool include = false,
@@ -4795,7 +4935,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationLessThan(
     int? value, {
     bool include = false,
@@ -4809,7 +4949,7 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition>
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
       visibilityAssociationBetween(
     int? lower,
     int? upper, {
@@ -4827,7 +4967,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeIsNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'visibilityType',
@@ -4835,7 +4976,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeIsNotNull() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'visibilityType',
@@ -4843,8 +4985,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeEqualTo(
-      int? value) {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'visibilityType',
@@ -4853,7 +4995,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeGreaterThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -4866,7 +5009,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeLessThan(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -4879,7 +5023,8 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Event, Event, QAfterFilterCondition> visibilityTypeBetween(
+  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
+      visibilityTypeBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -4897,984 +5042,1006 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
   }
 }
 
-extension EventQueryObject on QueryBuilder<Event, Event, QFilterCondition> {}
+extension MidaEventQueryObject
+    on QueryBuilder<MidaEvent, MidaEvent, QFilterCondition> {}
 
-extension EventQueryLinks on QueryBuilder<Event, Event, QFilterCondition> {}
+extension MidaEventQueryLinks
+    on QueryBuilder<MidaEvent, MidaEvent, QFilterCondition> {}
 
-extension EventQuerySortBy on QueryBuilder<Event, Event, QSortBy> {
-  QueryBuilder<Event, Event, QAfterSortBy> sortByAbbreviation() {
+extension MidaEventQuerySortBy on QueryBuilder<MidaEvent, MidaEvent, QSortBy> {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByAbbreviation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'abbreviation', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByAbbreviationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByAbbreviationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'abbreviation', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByBaseUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByBaseUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'baseUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByBaseUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByBaseUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'baseUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByClientEventId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByClientEventId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientEventId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByClientEventIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByClientEventIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientEventId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByClientId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByClientId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByClientIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByClientIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByContactEmail() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByContactEmail() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactEmail', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByContactEmailDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByContactEmailDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactEmail', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByContactName() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByContactName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactName', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByContactNameDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByContactNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactName', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCost() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCost() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cost', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cost', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostCompanion() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostCompanion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costCompanion', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostCompanionDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostCompanionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costCompanion', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostGuest() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostGuest() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costGuest', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostGuestDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostGuestDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costGuest', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostMember() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostMember() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costMember', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByCostMemberDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByCostMemberDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costMember', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByDeregistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByDeregistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'deregistrationDeadline', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByDeregistrationDeadlineDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByDeregistrationDeadlineDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'deregistrationDeadline', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByDescription() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByDescriptionDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByEndDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEndDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'endDateAndTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByEndDateAndTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEndDateAndTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'endDateAndTime', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByEventUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEventUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'eventUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByEventUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEventUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'eventUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByFreeSlots() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByFreeSlots() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByFreeSlotsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByFreeSlotsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByGroupId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByGroupId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'groupId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByGroupIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByGroupIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'groupId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortById() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByImage() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByImageDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByImageUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImageUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'imageUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByImageUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImageUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'imageUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLink() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLink() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLinkDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLinkDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocation() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocationForMap() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationForMap() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationForMap', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocationForMapDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationForMapDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationForMap', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocationName() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationName', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByLocationNameDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationName', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByMaxCompanions() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByMaxCompanions() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxCompanions', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByMaxCompanionsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByMaxCompanionsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxCompanions', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByMaxParticipants() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByMaxParticipants() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxParticipants', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByMaxParticipantsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByMaxParticipantsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxParticipants', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByNumberOfDays() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByNumberOfDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberOfDays', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByNumberOfDaysDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByNumberOfDaysDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberOfDays', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByOrganization() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByOrganization() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'organization', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByOrganizationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByOrganizationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'organization', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByPublicType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByPublicType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'publicType', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByPublicTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByPublicTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'publicType', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationCount() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByRegistrationCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationCount', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationCountDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByRegistrationCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationCount', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByRegistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationDeadline', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationDeadlineDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByRegistrationDeadlineDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationDeadline', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationStart() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByRegistrationStart() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationStart', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRegistrationStartDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByRegistrationStartDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationStart', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRv() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByRv() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rv', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByRvDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByRvDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rv', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortBySeriesEventId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortBySeriesEventId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'seriesEventId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortBySeriesEventIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortBySeriesEventIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'seriesEventId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByStartDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByStartDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'startDateAndTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByStartDateAndTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByStartDateAndTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'startDateAndTime', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'time', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'time', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByTitle() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByTitleDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'type', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'type', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByVisibilityAssociation() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByVisibilityAssociation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityAssociation', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByVisibilityAssociationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      sortByVisibilityAssociationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityAssociation', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByVisibilityType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByVisibilityType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityType', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> sortByVisibilityTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByVisibilityTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityType', Sort.desc);
     });
   }
 }
 
-extension EventQuerySortThenBy on QueryBuilder<Event, Event, QSortThenBy> {
-  QueryBuilder<Event, Event, QAfterSortBy> thenByAbbreviation() {
+extension MidaEventQuerySortThenBy
+    on QueryBuilder<MidaEvent, MidaEvent, QSortThenBy> {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByAbbreviation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'abbreviation', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByAbbreviationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByAbbreviationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'abbreviation', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByBaseUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByBaseUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'baseUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByBaseUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByBaseUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'baseUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByClientEventId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByClientEventId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientEventId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByClientEventIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByClientEventIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientEventId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByClientId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByClientId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByClientIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByClientIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'clientId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByContactEmail() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByContactEmail() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactEmail', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByContactEmailDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByContactEmailDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactEmail', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByContactName() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByContactName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactName', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByContactNameDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByContactNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contactName', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCost() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCost() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cost', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cost', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostCompanion() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostCompanion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costCompanion', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostCompanionDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostCompanionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costCompanion', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostGuest() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostGuest() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costGuest', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostGuestDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostGuestDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costGuest', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostMember() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostMember() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costMember', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByCostMemberDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByCostMemberDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'costMember', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByDeregistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByDeregistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'deregistrationDeadline', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByDeregistrationDeadlineDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByDeregistrationDeadlineDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'deregistrationDeadline', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByDescription() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByDescriptionDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByEndDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEndDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'endDateAndTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByEndDateAndTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEndDateAndTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'endDateAndTime', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByEventUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEventUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'eventUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByEventUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEventUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'eventUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByFreeSlots() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByFreeSlots() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByFreeSlotsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByFreeSlotsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByGroupId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByGroupId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'groupId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByGroupIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByGroupIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'groupId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenById() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByImage() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByImageDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByImageUrl() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImageUrl() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'imageUrl', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByImageUrlDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImageUrlDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'imageUrl', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByIsarId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByIsarIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByIsarIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLink() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLink() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLinkDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLinkDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocation() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocationForMap() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationForMap() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationForMap', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocationForMapDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationForMapDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationForMap', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocationName() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationName', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByLocationNameDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'locationName', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByMaxCompanions() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByMaxCompanions() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxCompanions', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByMaxCompanionsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByMaxCompanionsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxCompanions', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByMaxParticipants() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByMaxParticipants() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxParticipants', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByMaxParticipantsDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByMaxParticipantsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'maxParticipants', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByNumberOfDays() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByNumberOfDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberOfDays', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByNumberOfDaysDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByNumberOfDaysDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberOfDays', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByOrganization() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByOrganization() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'organization', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByOrganizationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByOrganizationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'organization', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByPublicType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByPublicType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'publicType', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByPublicTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByPublicTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'publicType', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationCount() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByRegistrationCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationCount', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationCountDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByRegistrationCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationCount', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByRegistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationDeadline', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationDeadlineDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByRegistrationDeadlineDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationDeadline', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationStart() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByRegistrationStart() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationStart', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRegistrationStartDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByRegistrationStartDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'registrationStart', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRv() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByRv() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rv', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByRvDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByRvDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rv', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenBySeriesEventId() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenBySeriesEventId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'seriesEventId', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenBySeriesEventIdDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenBySeriesEventIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'seriesEventId', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByStartDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByStartDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'startDateAndTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByStartDateAndTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByStartDateAndTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'startDateAndTime', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'time', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByTimeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'time', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByTitle() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByTitleDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'type', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'type', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByVisibilityAssociation() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByVisibilityAssociation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityAssociation', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByVisibilityAssociationDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy>
+      thenByVisibilityAssociationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityAssociation', Sort.desc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByVisibilityType() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByVisibilityType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityType', Sort.asc);
     });
   }
 
-  QueryBuilder<Event, Event, QAfterSortBy> thenByVisibilityTypeDesc() {
+  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByVisibilityTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'visibilityType', Sort.desc);
     });
   }
 }
 
-extension EventQueryWhereDistinct on QueryBuilder<Event, Event, QDistinct> {
-  QueryBuilder<Event, Event, QDistinct> distinctByAbbreviation(
+extension MidaEventQueryWhereDistinct
+    on QueryBuilder<MidaEvent, MidaEvent, QDistinct> {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByAbbreviation(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'abbreviation', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByAttachments() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByAttachments() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'attachments');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByBaseUrl(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByBaseUrl(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'baseUrl', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByClientEventId(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByClientEventId(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'clientEventId',
@@ -5882,125 +6049,126 @@ extension EventQueryWhereDistinct on QueryBuilder<Event, Event, QDistinct> {
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByClientId() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByClientId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'clientId');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByContactEmail(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByContactEmail(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'contactEmail', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByContactName(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByContactName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'contactName', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByCost(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByCost(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cost', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByCostCompanion() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByCostCompanion() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'costCompanion');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByCostGuest() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByCostGuest() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'costGuest');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByCostMember() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByCostMember() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'costMember');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByDeregistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct>
+      distinctByDeregistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'deregistrationDeadline');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByDescription(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByDescription(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'description', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByEndDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByEndDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'endDateAndTime');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByEventUrl(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByEventUrl(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'eventUrl', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByFreeSlots(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByFreeSlots(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'freeSlots', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByGroupId() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByGroupId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'groupId');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctById() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctById() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByImage(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByImage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'image', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByImageUrl(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByImageUrl(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'imageUrl', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByLink(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLink(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'link', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByLocation(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLocation(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'location', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByLocationForMap(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLocationForMap(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'locationForMap',
@@ -6008,357 +6176,364 @@ extension EventQueryWhereDistinct on QueryBuilder<Event, Event, QDistinct> {
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByLocationName(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLocationName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'locationName', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByMaxCompanions() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByMaxCompanions() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'maxCompanions');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByMaxParticipants() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByMaxParticipants() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'maxParticipants');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByNumberOfDays() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByNumberOfDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'numberOfDays');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByOrganization(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByOrganization(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'organization', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByPublicType() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByPublicType() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'publicType');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByRegistrationCount() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByRegistrationCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'registrationCount');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByRegistrationDeadline() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct>
+      distinctByRegistrationDeadline() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'registrationDeadline');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByRegistrationStart() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByRegistrationStart() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'registrationStart');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByRv() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByRv() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'rv');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctBySeriesEventId() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctBySeriesEventId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'seriesEventId');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByStartDateAndTime() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByStartDateAndTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'startDateAndTime');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByTime(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByTime(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'time', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByTitle(
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByType() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByType() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'type');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByVisibilityAssociation() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct>
+      distinctByVisibilityAssociation() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'visibilityAssociation');
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByVisibilityType() {
+  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByVisibilityType() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'visibilityType');
     });
   }
 }
 
-extension EventQueryProperty on QueryBuilder<Event, Event, QQueryProperty> {
-  QueryBuilder<Event, int, QQueryOperations> isarIdProperty() {
+extension MidaEventQueryProperty
+    on QueryBuilder<MidaEvent, MidaEvent, QQueryProperty> {
+  QueryBuilder<MidaEvent, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> abbreviationProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> abbreviationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'abbreviation');
     });
   }
 
-  QueryBuilder<Event, List<String>?, QQueryOperations> attachmentsProperty() {
+  QueryBuilder<MidaEvent, List<String>?, QQueryOperations>
+      attachmentsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'attachments');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> baseUrlProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> baseUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'baseUrl');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> clientEventIdProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> clientEventIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'clientEventId');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> clientIdProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> clientIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'clientId');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> contactEmailProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> contactEmailProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'contactEmail');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> contactNameProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> contactNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'contactName');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> costProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> costProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cost');
     });
   }
 
-  QueryBuilder<Event, double?, QQueryOperations> costCompanionProperty() {
+  QueryBuilder<MidaEvent, double?, QQueryOperations> costCompanionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'costCompanion');
     });
   }
 
-  QueryBuilder<Event, double?, QQueryOperations> costGuestProperty() {
+  QueryBuilder<MidaEvent, double?, QQueryOperations> costGuestProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'costGuest');
     });
   }
 
-  QueryBuilder<Event, double?, QQueryOperations> costMemberProperty() {
+  QueryBuilder<MidaEvent, double?, QQueryOperations> costMemberProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'costMember');
     });
   }
 
-  QueryBuilder<Event, DateTime?, QQueryOperations>
+  QueryBuilder<MidaEvent, DateTime?, QQueryOperations>
       deregistrationDeadlineProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'deregistrationDeadline');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> descriptionProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> descriptionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'description');
     });
   }
 
-  QueryBuilder<Event, DateTime, QQueryOperations> endDateAndTimeProperty() {
+  QueryBuilder<MidaEvent, DateTime, QQueryOperations> endDateAndTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'endDateAndTime');
     });
   }
 
-  QueryBuilder<Event, String, QQueryOperations> eventUrlProperty() {
+  QueryBuilder<MidaEvent, String, QQueryOperations> eventUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'eventUrl');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> freeSlotsProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> freeSlotsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'freeSlots');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> groupIdProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> groupIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'groupId');
     });
   }
 
-  QueryBuilder<Event, int, QQueryOperations> idProperty() {
+  QueryBuilder<MidaEvent, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> imageProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'image');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> imageUrlProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> imageUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'imageUrl');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> linkProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> linkProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'link');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> locationProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> locationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'location');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> locationForMapProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> locationForMapProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'locationForMap');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> locationNameProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> locationNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'locationName');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> maxCompanionsProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> maxCompanionsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'maxCompanions');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> maxParticipantsProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> maxParticipantsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'maxParticipants');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> numberOfDaysProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> numberOfDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'numberOfDays');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> organizationProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> organizationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'organization');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> publicTypeProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> publicTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'publicType');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> registrationCountProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> registrationCountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'registrationCount');
     });
   }
 
-  QueryBuilder<Event, DateTime?, QQueryOperations>
+  QueryBuilder<MidaEvent, DateTime?, QQueryOperations>
       registrationDeadlineProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'registrationDeadline');
     });
   }
 
-  QueryBuilder<Event, DateTime?, QQueryOperations> registrationStartProperty() {
+  QueryBuilder<MidaEvent, DateTime?, QQueryOperations>
+      registrationStartProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'registrationStart');
     });
   }
 
-  QueryBuilder<Event, bool?, QQueryOperations> rvProperty() {
+  QueryBuilder<MidaEvent, bool?, QQueryOperations> rvProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'rv');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> seriesEventIdProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> seriesEventIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'seriesEventId');
     });
   }
 
-  QueryBuilder<Event, DateTime, QQueryOperations> startDateAndTimeProperty() {
+  QueryBuilder<MidaEvent, DateTime, QQueryOperations>
+      startDateAndTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'startDateAndTime');
     });
   }
 
-  QueryBuilder<Event, String?, QQueryOperations> timeProperty() {
+  QueryBuilder<MidaEvent, String?, QQueryOperations> timeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'time');
     });
   }
 
-  QueryBuilder<Event, String, QQueryOperations> titleProperty() {
+  QueryBuilder<MidaEvent, String, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> typeProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> typeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'type');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> visibilityAssociationProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations>
+      visibilityAssociationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'visibilityAssociation');
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> visibilityTypeProperty() {
+  QueryBuilder<MidaEvent, int?, QQueryOperations> visibilityTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'visibilityType');
     });
@@ -6369,8 +6544,9 @@ extension EventQueryProperty on QueryBuilder<Event, Event, QQueryProperty> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MidaEventImpl _$$MidaEventImplFromJson(Map<String, dynamic> json) =>
-    _$MidaEventImpl(
+_$BackendMidaEventImpl _$$BackendMidaEventImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BackendMidaEventImpl(
       id: json['id'] as String?,
       clientId: json['mandant'] as String?,
       date: json['datum'] as String?,
@@ -6446,7 +6622,8 @@ _$MidaEventImpl _$$MidaEventImplFromJson(Map<String, dynamic> json) =>
       clientEventId: json['idmandant'] as String?,
     );
 
-Map<String, dynamic> _$$MidaEventImplToJson(_$MidaEventImpl instance) =>
+Map<String, dynamic> _$$BackendMidaEventImplToJson(
+        _$BackendMidaEventImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'mandant': instance.clientId,
@@ -6522,7 +6699,8 @@ Map<String, dynamic> _$$MidaEventImplToJson(_$MidaEventImpl instance) =>
       'idmandant': instance.clientEventId,
     };
 
-_$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
+_$MidaEventImpl _$$MidaEventImplFromJson(Map<String, dynamic> json) =>
+    _$MidaEventImpl(
       id: (json['id'] as num).toInt(),
       clientId: (json['clientId'] as num?)?.toInt(),
       startDateAndTime: DateTime.parse(json['startDateAndTime'] as String),
@@ -6569,7 +6747,7 @@ _$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
       clientEventId: json['clientEventId'] as String?,
     );
 
-Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) =>
+Map<String, dynamic> _$$MidaEventImplToJson(_$MidaEventImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'clientId': instance.clientId,

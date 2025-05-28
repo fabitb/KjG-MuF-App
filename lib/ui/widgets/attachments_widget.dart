@@ -12,7 +12,7 @@ import 'package:mime/mime.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 
 class AttachmentsWidget extends StatefulWidget {
-  final Event event;
+  final MidaEvent event;
   final String baseUrl;
   final List<String> attachments;
 

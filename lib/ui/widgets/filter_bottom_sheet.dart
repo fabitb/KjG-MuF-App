@@ -9,7 +9,7 @@ import 'package:kjg_muf_app/viewmodels/filter.viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatelessWidget {
-  final List<Event> events;
+  final List<MidaEvent> events;
   final FilterSettings filterSettings;
   final Function(FilterSettings) onSettingsChanged;
 

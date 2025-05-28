@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-MidaEvent _$MidaEventFromJson(Map<String, dynamic> json) {
-  return _MidaEvent.fromJson(json);
+BackendMidaEvent _$BackendMidaEventFromJson(Map<String, dynamic> json) {
+  return _BackendMidaEvent.fromJson(json);
 }
 
 /// @nodoc
-mixin _$MidaEvent {
+mixin _$BackendMidaEvent {
   @JsonKey(name: 'id')
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'mandant')
@@ -167,20 +167,21 @@ mixin _$MidaEvent {
   @JsonKey(name: 'idmandant')
   String? get clientEventId => throw _privateConstructorUsedError;
 
-  /// Serializes this MidaEvent to a JSON map.
+  /// Serializes this BackendMidaEvent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of MidaEvent
+  /// Create a copy of BackendMidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $MidaEventCopyWith<MidaEvent> get copyWith =>
+  $BackendMidaEventCopyWith<BackendMidaEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MidaEventCopyWith<$Res> {
-  factory $MidaEventCopyWith(MidaEvent value, $Res Function(MidaEvent) then) =
-      _$MidaEventCopyWithImpl<$Res, MidaEvent>;
+abstract class $BackendMidaEventCopyWith<$Res> {
+  factory $BackendMidaEventCopyWith(
+          BackendMidaEvent value, $Res Function(BackendMidaEvent) then) =
+      _$BackendMidaEventCopyWithImpl<$Res, BackendMidaEvent>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String? id,
@@ -259,16 +260,16 @@ abstract class $MidaEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MidaEventCopyWithImpl<$Res, $Val extends MidaEvent>
-    implements $MidaEventCopyWith<$Res> {
-  _$MidaEventCopyWithImpl(this._value, this._then);
+class _$BackendMidaEventCopyWithImpl<$Res, $Val extends BackendMidaEvent>
+    implements $BackendMidaEventCopyWith<$Res> {
+  _$BackendMidaEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MidaEvent
+  /// Create a copy of BackendMidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -640,11 +641,11 @@ class _$MidaEventCopyWithImpl<$Res, $Val extends MidaEvent>
 }
 
 /// @nodoc
-abstract class _$$MidaEventImplCopyWith<$Res>
-    implements $MidaEventCopyWith<$Res> {
-  factory _$$MidaEventImplCopyWith(
-          _$MidaEventImpl value, $Res Function(_$MidaEventImpl) then) =
-      __$$MidaEventImplCopyWithImpl<$Res>;
+abstract class _$$BackendMidaEventImplCopyWith<$Res>
+    implements $BackendMidaEventCopyWith<$Res> {
+  factory _$$BackendMidaEventImplCopyWith(_$BackendMidaEventImpl value,
+          $Res Function(_$BackendMidaEventImpl) then) =
+      __$$BackendMidaEventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -724,14 +725,14 @@ abstract class _$$MidaEventImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MidaEventImplCopyWithImpl<$Res>
-    extends _$MidaEventCopyWithImpl<$Res, _$MidaEventImpl>
-    implements _$$MidaEventImplCopyWith<$Res> {
-  __$$MidaEventImplCopyWithImpl(
-      _$MidaEventImpl _value, $Res Function(_$MidaEventImpl) _then)
+class __$$BackendMidaEventImplCopyWithImpl<$Res>
+    extends _$BackendMidaEventCopyWithImpl<$Res, _$BackendMidaEventImpl>
+    implements _$$BackendMidaEventImplCopyWith<$Res> {
+  __$$BackendMidaEventImplCopyWithImpl(_$BackendMidaEventImpl _value,
+      $Res Function(_$BackendMidaEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MidaEvent
+  /// Create a copy of BackendMidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -809,7 +810,7 @@ class __$$MidaEventImplCopyWithImpl<$Res>
     Object? url = freezed,
     Object? clientEventId = freezed,
   }) {
-    return _then(_$MidaEventImpl(
+    return _then(_$BackendMidaEventImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1104,8 +1105,8 @@ class __$$MidaEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MidaEventImpl implements _MidaEvent {
-  const _$MidaEventImpl(
+class _$BackendMidaEventImpl implements _BackendMidaEvent {
+  const _$BackendMidaEventImpl(
       {@JsonKey(name: 'id') this.id,
       @JsonKey(name: 'mandant') this.clientId,
       @JsonKey(name: 'datum') this.date,
@@ -1180,8 +1181,8 @@ class _$MidaEventImpl implements _MidaEvent {
       @JsonKey(name: 'url') this.url,
       @JsonKey(name: 'idmandant') this.clientEventId});
 
-  factory _$MidaEventImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MidaEventImplFromJson(json);
+  factory _$BackendMidaEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BackendMidaEventImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -1403,14 +1404,14 @@ class _$MidaEventImpl implements _MidaEvent {
 
   @override
   String toString() {
-    return 'MidaEvent(id: $id, clientId: $clientId, date: $date, title: $title, description: $description, location: $location, groupId: $groupId, time: $time, numberOfDays: $numberOfDays, overlapping: $overlapping, userId: $userId, contactName: $contactName, contactEmail: $contactEmail, contactPhone: $contactPhone, contactStreet: $contactStreet, contactCity: $contactCity, contactFax: $contactFax, maxParticipants: $maxParticipants, image: $image, attachments: $attachments, reminderDaysBefore: $reminderDaysBefore, reminderTarget: $reminderTarget, costMember: $costMember, costGuest: $costGuest, costCompanion: $costCompanion, cost: $cost, publicType: $publicType, visibleFrom: $visibleFrom, reminderSent: $reminderSent, registrationEmail: $registrationEmail, registrationEmailContent: $registrationEmailContent, registrationUserPublic: $registrationUserPublic, type: $type, registrationStart: $registrationStart, registrationDeadline: $registrationDeadline, colorPrimary: $colorPrimary, colorSecondary: $colorSecondary, specialDate: $specialDate, visibilityType: $visibilityType, deregistrationDeadline: $deregistrationDeadline, maxCompanions: $maxCompanions, workflowStatus: $workflowStatus, workflowUserId: $workflowUserId, groupId2: $groupId2, followUp: $followUp, reminderDaysBefore2: $reminderDaysBefore2, reminderTarget2: $reminderTarget2, waitlist: $waitlist, paymentMethod: $paymentMethod, accessControlList: $accessControlList, registrationConfirmationEmail: $registrationConfirmationEmail, seriesEventId: $seriesEventId, imageCount: $imageCount, notes: $notes, modified: $modified, kvp: $kvp, currency: $currency, visibilityAssociation: $visibilityAssociation, course: $course, assembly: $assembly, rv: $rv, abbreviation: $abbreviation, organization: $organization, registrationCount: $registrationCount, descriptionTeaser: $descriptionTeaser, freeSlots: $freeSlots, weekdayDate: $weekdayDate, trafficLight: $trafficLight, discountInfo: $discountInfo, link: $link, url: $url, clientEventId: $clientEventId)';
+    return 'BackendMidaEvent(id: $id, clientId: $clientId, date: $date, title: $title, description: $description, location: $location, groupId: $groupId, time: $time, numberOfDays: $numberOfDays, overlapping: $overlapping, userId: $userId, contactName: $contactName, contactEmail: $contactEmail, contactPhone: $contactPhone, contactStreet: $contactStreet, contactCity: $contactCity, contactFax: $contactFax, maxParticipants: $maxParticipants, image: $image, attachments: $attachments, reminderDaysBefore: $reminderDaysBefore, reminderTarget: $reminderTarget, costMember: $costMember, costGuest: $costGuest, costCompanion: $costCompanion, cost: $cost, publicType: $publicType, visibleFrom: $visibleFrom, reminderSent: $reminderSent, registrationEmail: $registrationEmail, registrationEmailContent: $registrationEmailContent, registrationUserPublic: $registrationUserPublic, type: $type, registrationStart: $registrationStart, registrationDeadline: $registrationDeadline, colorPrimary: $colorPrimary, colorSecondary: $colorSecondary, specialDate: $specialDate, visibilityType: $visibilityType, deregistrationDeadline: $deregistrationDeadline, maxCompanions: $maxCompanions, workflowStatus: $workflowStatus, workflowUserId: $workflowUserId, groupId2: $groupId2, followUp: $followUp, reminderDaysBefore2: $reminderDaysBefore2, reminderTarget2: $reminderTarget2, waitlist: $waitlist, paymentMethod: $paymentMethod, accessControlList: $accessControlList, registrationConfirmationEmail: $registrationConfirmationEmail, seriesEventId: $seriesEventId, imageCount: $imageCount, notes: $notes, modified: $modified, kvp: $kvp, currency: $currency, visibilityAssociation: $visibilityAssociation, course: $course, assembly: $assembly, rv: $rv, abbreviation: $abbreviation, organization: $organization, registrationCount: $registrationCount, descriptionTeaser: $descriptionTeaser, freeSlots: $freeSlots, weekdayDate: $weekdayDate, trafficLight: $trafficLight, discountInfo: $discountInfo, link: $link, url: $url, clientEventId: $clientEventId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MidaEventImpl &&
+            other is _$BackendMidaEventImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
@@ -1603,24 +1604,25 @@ class _$MidaEventImpl implements _MidaEvent {
         clientEventId
       ]);
 
-  /// Create a copy of MidaEvent
+  /// Create a copy of BackendMidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$MidaEventImplCopyWith<_$MidaEventImpl> get copyWith =>
-      __$$MidaEventImplCopyWithImpl<_$MidaEventImpl>(this, _$identity);
+  _$$BackendMidaEventImplCopyWith<_$BackendMidaEventImpl> get copyWith =>
+      __$$BackendMidaEventImplCopyWithImpl<_$BackendMidaEventImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MidaEventImplToJson(
+    return _$$BackendMidaEventImplToJson(
       this,
     );
   }
 }
 
-abstract class _MidaEvent implements MidaEvent {
-  const factory _MidaEvent(
+abstract class _BackendMidaEvent implements BackendMidaEvent {
+  const factory _BackendMidaEvent(
       {@JsonKey(name: 'id') final String? id,
       @JsonKey(name: 'mandant') final String? clientId,
       @JsonKey(name: 'datum') final String? date,
@@ -1696,10 +1698,10 @@ abstract class _MidaEvent implements MidaEvent {
       @JsonKey(name: 'link') final String? link,
       @JsonKey(name: 'url') final String? url,
       @JsonKey(name: 'idmandant')
-      final String? clientEventId}) = _$MidaEventImpl;
+      final String? clientEventId}) = _$BackendMidaEventImpl;
 
-  factory _MidaEvent.fromJson(Map<String, dynamic> json) =
-      _$MidaEventImpl.fromJson;
+  factory _BackendMidaEvent.fromJson(Map<String, dynamic> json) =
+      _$BackendMidaEventImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')
@@ -1918,20 +1920,20 @@ abstract class _MidaEvent implements MidaEvent {
   @JsonKey(name: 'idmandant')
   String? get clientEventId;
 
-  /// Create a copy of MidaEvent
+  /// Create a copy of BackendMidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MidaEventImplCopyWith<_$MidaEventImpl> get copyWith =>
+  _$$BackendMidaEventImplCopyWith<_$BackendMidaEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Event _$EventFromJson(Map<String, dynamic> json) {
-  return _Event.fromJson(json);
+MidaEvent _$MidaEventFromJson(Map<String, dynamic> json) {
+  return _MidaEvent.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Event {
+mixin _$MidaEvent {
   int get id => throw _privateConstructorUsedError;
   int? get clientId => throw _privateConstructorUsedError;
   DateTime get startDateAndTime => throw _privateConstructorUsedError;
@@ -1969,19 +1971,20 @@ mixin _$Event {
   String? get baseUrl => throw _privateConstructorUsedError;
   String? get clientEventId => throw _privateConstructorUsedError;
 
-  /// Serializes this Event to a JSON map.
+  /// Serializes this MidaEvent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Event
+  /// Create a copy of MidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EventCopyWith<Event> get copyWith => throw _privateConstructorUsedError;
+  $MidaEventCopyWith<MidaEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EventCopyWith<$Res> {
-  factory $EventCopyWith(Event value, $Res Function(Event) then) =
-      _$EventCopyWithImpl<$Res, Event>;
+abstract class $MidaEventCopyWith<$Res> {
+  factory $MidaEventCopyWith(MidaEvent value, $Res Function(MidaEvent) then) =
+      _$MidaEventCopyWithImpl<$Res, MidaEvent>;
   @useResult
   $Res call(
       {int id,
@@ -2023,16 +2026,16 @@ abstract class $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EventCopyWithImpl<$Res, $Val extends Event>
-    implements $EventCopyWith<$Res> {
-  _$EventCopyWithImpl(this._value, this._then);
+class _$MidaEventCopyWithImpl<$Res, $Val extends MidaEvent>
+    implements $MidaEventCopyWith<$Res> {
+  _$MidaEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Event
+  /// Create a copy of MidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -2224,10 +2227,11 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 }
 
 /// @nodoc
-abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
-  factory _$$EventImplCopyWith(
-          _$EventImpl value, $Res Function(_$EventImpl) then) =
-      __$$EventImplCopyWithImpl<$Res>;
+abstract class _$$MidaEventImplCopyWith<$Res>
+    implements $MidaEventCopyWith<$Res> {
+  factory _$$MidaEventImplCopyWith(
+          _$MidaEventImpl value, $Res Function(_$MidaEventImpl) then) =
+      __$$MidaEventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2270,14 +2274,14 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$EventImplCopyWithImpl<$Res>
-    extends _$EventCopyWithImpl<$Res, _$EventImpl>
-    implements _$$EventImplCopyWith<$Res> {
-  __$$EventImplCopyWithImpl(
-      _$EventImpl _value, $Res Function(_$EventImpl) _then)
+class __$$MidaEventImplCopyWithImpl<$Res>
+    extends _$MidaEventCopyWithImpl<$Res, _$MidaEventImpl>
+    implements _$$MidaEventImplCopyWith<$Res> {
+  __$$MidaEventImplCopyWithImpl(
+      _$MidaEventImpl _value, $Res Function(_$MidaEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Event
+  /// Create a copy of MidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -2319,7 +2323,7 @@ class __$$EventImplCopyWithImpl<$Res>
     Object? baseUrl = freezed,
     Object? clientEventId = freezed,
   }) {
-    return _then(_$EventImpl(
+    return _then(_$MidaEventImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -2470,8 +2474,8 @@ class __$$EventImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EventImpl extends _Event {
-  const _$EventImpl(
+class _$MidaEventImpl extends _MidaEvent {
+  const _$MidaEventImpl(
       {required this.id,
       this.clientId,
       required this.startDateAndTime,
@@ -2511,8 +2515,8 @@ class _$EventImpl extends _Event {
       : _attachments = attachments,
         super._();
 
-  factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EventImplFromJson(json);
+  factory _$MidaEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MidaEventImplFromJson(json);
 
   @override
   final int id;
@@ -2597,14 +2601,14 @@ class _$EventImpl extends _Event {
 
   @override
   String toString() {
-    return 'Event(id: $id, clientId: $clientId, startDateAndTime: $startDateAndTime, endDateAndTime: $endDateAndTime, title: $title, description: $description, location: $location, groupId: $groupId, time: $time, numberOfDays: $numberOfDays, contactName: $contactName, contactEmail: $contactEmail, maxParticipants: $maxParticipants, image: $image, attachments: $attachments, costMember: $costMember, costGuest: $costGuest, costCompanion: $costCompanion, cost: $cost, publicType: $publicType, type: $type, registrationStart: $registrationStart, registrationDeadline: $registrationDeadline, visibilityType: $visibilityType, deregistrationDeadline: $deregistrationDeadline, maxCompanions: $maxCompanions, seriesEventId: $seriesEventId, visibilityAssociation: $visibilityAssociation, rv: $rv, abbreviation: $abbreviation, organization: $organization, registrationCount: $registrationCount, freeSlots: $freeSlots, link: $link, baseUrl: $baseUrl, clientEventId: $clientEventId)';
+    return 'MidaEvent(id: $id, clientId: $clientId, startDateAndTime: $startDateAndTime, endDateAndTime: $endDateAndTime, title: $title, description: $description, location: $location, groupId: $groupId, time: $time, numberOfDays: $numberOfDays, contactName: $contactName, contactEmail: $contactEmail, maxParticipants: $maxParticipants, image: $image, attachments: $attachments, costMember: $costMember, costGuest: $costGuest, costCompanion: $costCompanion, cost: $cost, publicType: $publicType, type: $type, registrationStart: $registrationStart, registrationDeadline: $registrationDeadline, visibilityType: $visibilityType, deregistrationDeadline: $deregistrationDeadline, maxCompanions: $maxCompanions, seriesEventId: $seriesEventId, visibilityAssociation: $visibilityAssociation, rv: $rv, abbreviation: $abbreviation, organization: $organization, registrationCount: $registrationCount, freeSlots: $freeSlots, link: $link, baseUrl: $baseUrl, clientEventId: $clientEventId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EventImpl &&
+            other is _$MidaEventImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
@@ -2711,24 +2715,24 @@ class _$EventImpl extends _Event {
         clientEventId
       ]);
 
-  /// Create a copy of Event
+  /// Create a copy of MidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
-      __$$EventImplCopyWithImpl<_$EventImpl>(this, _$identity);
+  _$$MidaEventImplCopyWith<_$MidaEventImpl> get copyWith =>
+      __$$MidaEventImplCopyWithImpl<_$MidaEventImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EventImplToJson(
+    return _$$MidaEventImplToJson(
       this,
     );
   }
 }
 
-abstract class _Event extends Event {
-  const factory _Event(
+abstract class _MidaEvent extends MidaEvent {
+  const factory _MidaEvent(
       {required final int id,
       final int? clientId,
       required final DateTime startDateAndTime,
@@ -2764,10 +2768,11 @@ abstract class _Event extends Event {
       final String? freeSlots,
       final String? link,
       final String? baseUrl,
-      final String? clientEventId}) = _$EventImpl;
-  const _Event._() : super._();
+      final String? clientEventId}) = _$MidaEventImpl;
+  const _MidaEvent._() : super._();
 
-  factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
+  factory _MidaEvent.fromJson(Map<String, dynamic> json) =
+      _$MidaEventImpl.fromJson;
 
   @override
   int get id;
@@ -2842,10 +2847,10 @@ abstract class _Event extends Event {
   @override
   String? get clientEventId;
 
-  /// Create a copy of Event
+  /// Create a copy of MidaEvent
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
+  _$$MidaEventImplCopyWith<_$MidaEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

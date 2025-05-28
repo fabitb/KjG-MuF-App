@@ -23,7 +23,7 @@ final cachedRegisteredProvider = AutoDisposeFutureProvider<List<int>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CachedRegisteredRef = AutoDisposeFutureProviderRef<List<int>>;
-String _$eventRegisteredHash() => r'a9a40ecb3e2b15cb18ddde67e60eac589d87798c';
+String _$eventRegisteredHash() => r'e754e2f67feaedff44563c995212d98b7ea42f4f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -57,7 +57,7 @@ class EventRegisteredFamily extends Family<bool> {
 
   /// See also [eventRegistered].
   EventRegisteredProvider call(
-    Event event,
+    MidaEvent event,
   ) {
     return EventRegisteredProvider(
       event,
@@ -92,7 +92,7 @@ class EventRegisteredFamily extends Family<bool> {
 class EventRegisteredProvider extends AutoDisposeProvider<bool> {
   /// See also [eventRegistered].
   EventRegisteredProvider(
-    Event event,
+    MidaEvent event,
   ) : this._internal(
           (ref) => eventRegistered(
             ref as EventRegisteredRef,
@@ -120,7 +120,7 @@ class EventRegisteredProvider extends AutoDisposeProvider<bool> {
     required this.event,
   }) : super.internal();
 
-  final Event event;
+  final MidaEvent event;
 
   @override
   Override overrideWith(
@@ -163,7 +163,7 @@ class EventRegisteredProvider extends AutoDisposeProvider<bool> {
 // ignore: unused_element
 mixin EventRegisteredRef on AutoDisposeProviderRef<bool> {
   /// The parameter `event` of this provider.
-  Event get event;
+  MidaEvent get event;
 }
 
 class _EventRegisteredProviderElement extends AutoDisposeProviderElement<bool>
@@ -171,7 +171,7 @@ class _EventRegisteredProviderElement extends AutoDisposeProviderElement<bool>
   _EventRegisteredProviderElement(super.provider);
 
   @override
-  Event get event => (origin as EventRegisteredProvider).event;
+  MidaEvent get event => (origin as EventRegisteredProvider).event;
 }
 
 String _$registeredListHash() => r'057973f72c9e8a67a251efcb2ed12099f8d3c3ec';
