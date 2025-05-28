@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
@@ -125,7 +124,9 @@ class EventListScreen extends ConsumerWidget {
           final event = events[index];
           return InkWell(
             child: EventItem(
-                event: event, registered: registeredList.contains(event.id)),
+              event: event,
+              registered: registeredList.contains(event.id),
+            ),
             onTap: () => Navigator.of(context)
                 .push(
                   MaterialPageRoute(
@@ -134,7 +135,8 @@ class EventListScreen extends ConsumerWidget {
                   ),
                 )
                 .then(
-                    (value) => ref.read(eventListProvider.notifier).refresh()),
+                  (value) => ref.read(eventListProvider.notifier).refresh(),
+                ),
           );
         },
       ),

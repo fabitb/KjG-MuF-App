@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 
 DateFormat dateFormat = DateFormat("dd.MM.yyyy");

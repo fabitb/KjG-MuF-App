@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/ui/screens/organizer_filter_screen.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
@@ -13,11 +12,12 @@ class FilterBottomSheet extends StatelessWidget {
   final FilterSettings filterSettings;
   final Function(FilterSettings) onSettingsChanged;
 
-  const FilterBottomSheet(
-      {super.key,
-      required this.events,
-      required this.filterSettings,
-      required this.onSettingsChanged});
+  const FilterBottomSheet({
+    super.key,
+    required this.events,
+    required this.filterSettings,
+    required this.onSettingsChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +58,20 @@ class FilterBottomSheet extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.filterByOrganizer),
-                  subtitle: Text(_getOrganizerFilterString(
-                      model.organisers, model.showOrganizer)),
+                  subtitle: Text(
+                    _getOrganizerFilterString(
+                      model.organisers,
+                      model.showOrganizer,
+                    ),
+                  ),
                   trailing: const Icon(Icons.keyboard_arrow_right),
                   onTap: () async {
                     final result = await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => OrganizerFilterScreen(
-                            organizers: model.organisers,
-                            showOrganizer: model.showOrganizer),
+                          organizers: model.organisers,
+                          showOrganizer: model.showOrganizer,
+                        ),
                       ),
                     );
 
@@ -111,7 +116,9 @@ class FilterBottomSheet extends StatelessWidget {
   }
 
   String _getOrganizerFilterString(
-      List<String> organisers, Map<String, bool> showOrganizer) {
+    List<String> organisers,
+    Map<String, bool> showOrganizer,
+  ) {
     List<String> show = [];
     for (String o in organisers) {
       if (showOrganizer[o] ?? true) show.add(o);

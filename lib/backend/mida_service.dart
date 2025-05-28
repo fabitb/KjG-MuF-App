@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event.dart';

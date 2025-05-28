@@ -1,7 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:kjg_muf_app/database/model/registered.dart';
@@ -65,11 +64,6 @@ class DBService {
     });
   }
 
-  Future<void> saveEvent(EventModel event) async {
-    final isar = await db;
-    isar.writeTxn(() => isar.eventModels.put(event));
-  }
-
   Future<List<NewsModel>> getCachedNews() async {
     final isar = await db;
     return await isar.newsModels.where().findAll();
@@ -98,7 +92,6 @@ class DBService {
       return await Isar.open(
         [
           GameModelSchema,
-          EventModelSchema,
           MidaEventSchema,
           RegisteredSchema,
           NewsModelSchema,

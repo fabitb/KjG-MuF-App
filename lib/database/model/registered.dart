@@ -7,8 +7,7 @@ part 'registered.g.dart';
 
 @freezed
 @Collection(ignore: {'copyWith'})
-class Registered
-    with _$Registered {
+class Registered with _$Registered {
   const Registered._();
 
   Id get isarId => eventId;

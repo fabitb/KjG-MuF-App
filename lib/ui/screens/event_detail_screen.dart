@@ -9,8 +9,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
-import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
@@ -88,7 +86,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Future<void> _onMidaButtonPressed() async {
     final eventUrl = widget.event.eventUrl;
-    if (eventUrl == null || eventUrl.isEmpty) {
+    if (eventUrl.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -173,10 +171,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                     _organizerCard(organizer),
                   if (event.imageUrl case String imageUrl) _imageCard(imageUrl),
                   if (event
-                      case EventModel(
-                        :final contactEmail?,
-                        :final contactName?
-                      ))
+                      case MidaEvent(:final contactEmail?, :final contactName?))
                     _contactCard(contactEmail, contactName),
                   if (event
                       case MidaEvent(

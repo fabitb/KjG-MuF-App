@@ -5,7 +5,6 @@ import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
-import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'event_list_provider.g.dart';

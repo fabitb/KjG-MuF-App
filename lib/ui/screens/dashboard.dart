@@ -98,8 +98,9 @@ class Dashboard extends ConsumerWidget {
                     ),
                     Center(
                       child: switch (activities) {
-                        AsyncError() => Text(AppLocalizations.of(context)!
-                            .noActivitiesAvailable),
+                        AsyncError() => Text(
+                            AppLocalizations.of(context)!.noActivitiesAvailable,
+                          ),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
                             newsList: value,

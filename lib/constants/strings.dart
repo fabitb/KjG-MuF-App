@@ -1,5 +1,3 @@
-import 'package:kjg_muf_app/utils/extensions.dart';
-
 class Strings {
   static const websiteURL = "https://muenchen.kjg.de/";
   static const midaBaseURL = "https://mida.kjg.de/DVMuenchenundFreising/";

@@ -10,7 +10,9 @@ part 'dashboard_provider.g.dart';
 
 @riverpod
 Stream<List<News>?> news(Ref ref) async* {
-  final List<News> cachedNews = (await DBService().getCachedNews()).map((newsModel) => News.fromNewsModel(newsModel)).toList();
+  final List<News> cachedNews = (await DBService().getCachedNews())
+      .map((newsModel) => News.fromNewsModel(newsModel))
+      .toList();
   yield cachedNews.isNotEmpty ? cachedNews : null;
 
   final List<News> networkData = await WordpressService().getNews();
@@ -31,7 +33,9 @@ Stream<List<News>?> news(Ref ref) async* {
 
 @riverpod
 Stream<List<News>?> activities(Ref ref) async* {
-  final List<News> cachedActivities = (await DBService().getCachedActivities()).map((activitiesModel) => News.fromActivitiesModel(activitiesModel)).toList();
+  final List<News> cachedActivities = (await DBService().getCachedActivities())
+      .map((activitiesModel) => News.fromActivitiesModel(activitiesModel))
+      .toList();
   yield cachedActivities.isNotEmpty ? cachedActivities : null;
 
   final List<News> networkData = await WordpressService().getActivities();

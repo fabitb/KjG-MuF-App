@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 
 class FilterViewModel extends ChangeNotifier {

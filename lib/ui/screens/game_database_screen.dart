@@ -55,7 +55,10 @@ class GameDatabase extends ConsumerWidget {
                     ...List.generate(value.length, (index) {
                       return InkWell(
                         child: GameItem(game: value[index]),
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GameDetailScreen(game: value[index]))),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    GameDetailScreen(game: value[index]))),
                         //onLongPress: () => model.updatedPlayedGame(model.games![index], !model.games![index].alreadyPlayed),
                       );
                     }),
@@ -73,9 +76,12 @@ class GameDatabase extends ConsumerWidget {
   showResetGamesPlayedDialog(BuildContext context, Function() onConfirmed) {
     AlertDialog alert = AlertDialog(
       title: const Text("Gespielte Spiele zurücksetzen?"),
-      content: const Text("Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?"),
+      content: const Text(
+          "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?"),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("Nein")),
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Nein")),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
