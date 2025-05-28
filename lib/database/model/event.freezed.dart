@@ -1964,10 +1964,10 @@ mixin _$Event {
   String? get abbreviation => throw _privateConstructorUsedError;
   String? get organization => throw _privateConstructorUsedError;
   int? get registrationCount => throw _privateConstructorUsedError;
-  int? get freeSlots => throw _privateConstructorUsedError;
+  String? get freeSlots => throw _privateConstructorUsedError;
   String? get link => throw _privateConstructorUsedError;
   String? get baseUrl => throw _privateConstructorUsedError;
-  int? get clientEventId => throw _privateConstructorUsedError;
+  String? get clientEventId => throw _privateConstructorUsedError;
 
   /// Serializes this Event to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2016,10 +2016,10 @@ abstract class $EventCopyWith<$Res> {
       String? abbreviation,
       String? organization,
       int? registrationCount,
-      int? freeSlots,
+      String? freeSlots,
       String? link,
       String? baseUrl,
-      int? clientEventId});
+      String? clientEventId});
 }
 
 /// @nodoc
@@ -2206,7 +2206,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
       freeSlots: freezed == freeSlots
           ? _value.freeSlots
           : freeSlots // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       link: freezed == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
@@ -2218,7 +2218,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
       clientEventId: freezed == clientEventId
           ? _value.clientEventId
           : clientEventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -2263,10 +2263,10 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
       String? abbreviation,
       String? organization,
       int? registrationCount,
-      int? freeSlots,
+      String? freeSlots,
       String? link,
       String? baseUrl,
-      int? clientEventId});
+      String? clientEventId});
 }
 
 /// @nodoc
@@ -2451,7 +2451,7 @@ class __$$EventImplCopyWithImpl<$Res>
       freeSlots: freezed == freeSlots
           ? _value.freeSlots
           : freeSlots // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       link: freezed == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
@@ -2463,7 +2463,7 @@ class __$$EventImplCopyWithImpl<$Res>
       clientEventId: freezed == clientEventId
           ? _value.clientEventId
           : clientEventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -2587,13 +2587,13 @@ class _$EventImpl extends _Event {
   @override
   final int? registrationCount;
   @override
-  final int? freeSlots;
+  final String? freeSlots;
   @override
   final String? link;
   @override
   final String? baseUrl;
   @override
-  final int? clientEventId;
+  final String? clientEventId;
 
   @override
   String toString() {
@@ -2761,10 +2761,10 @@ abstract class _Event extends Event {
       final String? abbreviation,
       final String? organization,
       final int? registrationCount,
-      final int? freeSlots,
+      final String? freeSlots,
       final String? link,
       final String? baseUrl,
-      final int? clientEventId}) = _$EventImpl;
+      final String? clientEventId}) = _$EventImpl;
   const _Event._() : super._();
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
@@ -2834,13 +2834,13 @@ abstract class _Event extends Event {
   @override
   int? get registrationCount;
   @override
-  int? get freeSlots;
+  String? get freeSlots;
   @override
   String? get link;
   @override
   String? get baseUrl;
   @override
-  int? get clientEventId;
+  String? get clientEventId;
 
   /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.

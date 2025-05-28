@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
@@ -23,46 +24,24 @@ Future<List<Event>> cachedEvents(Ref ref) async {
 class EventList extends _$EventList {
   @override
   Future<List<Event>> build() async {
-    // trigger refresh on first start
-    if (!state.hasValue) refresh();
+    ref.watch(authProvider); // reload when auth changes (could have new events)
 
-    return await DBService().getCachedEvents();
+    final events = await MidaService().getEvents();
+    await DBService().cacheEvents(events);
+    return events;
   }
 
-  Future<bool> refresh() async {
-    final midaEvents = await MidaService().getEvents();
-    if (midaEvents == null) return false;
-    ref.read(registeredListProvider.notifier).refresh();
-
-    await DBService().cacheEvents(midaEvents);
-
-    final newIds = midaEvents.map((e) => e.id).toList();
-    final toDelete =
-        state.value?.where((e) => !newIds.contains(e.id)).toList() ?? [];
-
-    for (var del in toDelete) {
-      // delete cached attachments for old event
-      del.attachments
-          ?.map((a) => del.attachmentDownloadLink(a))
-          .nonNulls
-          .forEach((element) {
-        KjGCacheManager.instance.removeFile(element);
-      });
-
-      // delete event image
-      if (del.imageUrl case String imageUrl) {
-        KjGCacheManager.instance.removeFile(imageUrl);
-      }
-    }
-
+  Future<void> refresh() async {
     ref.invalidateSelf();
-    return true;
+    ref.invalidate(registeredListProvider);
   }
+
+// TODO: clean cache of old events somewhere
 }
 
 @riverpod
 Future<List<Event>> filteredEvents(Ref ref) async {
-  List<Event> e = await ref.watch(eventListProvider.future);
+  List<Event> e = await ref.watch(cachedEventsProvider.future);
   final registered = await ref.watch(registeredListProvider.future);
 
   final filterSettings = ref.watch(filterProvider);
@@ -106,17 +85,4 @@ Future<List<Event>> filteredEvents(Ref ref) async {
   }
 
   return e;
-}
-
-@riverpod
-class Registered extends _$Registered {
-  @override
-  bool build(Event event) {
-    final registered = ref.watch(registeredListProvider);
-
-    if (registered case AsyncData(:final valueOrNull?)) {
-      return valueOrNull.contains(event.id);
-    }
-    return false;
-  }
 }

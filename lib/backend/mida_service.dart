@@ -58,7 +58,7 @@ class MidaService {
     return csvEvents;
   }
 
-  Future<List<Event>?> getEvents() async {
+  Future<List<Event>> getEvents() async {
     final responseNew = await _dio.get(
       Strings.midaBaseURL,
       queryParameters: {
@@ -70,7 +70,7 @@ class MidaService {
     );
 
     if (responseNew.data case {"error": String error} when error.isNotEmpty) {
-      return null;
+      throw Exception;
     }
 
     if (responseNew.data case List<dynamic> list) {
@@ -78,6 +78,7 @@ class MidaService {
       final mapped = results.map((e) => Event.fromMidaEvent(e));
       return mapped.nonNulls.toList();
     }
-    return null;
+
+    throw Exception();
   }
 }

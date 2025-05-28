@@ -120,7 +120,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
       },
     );
 
-    ref.read(registeredListProvider.notifier).refresh();
+    ref.invalidate(registeredListProvider);
   }
 
   void _addToCalendar() {
@@ -148,8 +148,8 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final registered = ref.watch(registeredProvider(widget.event));
     final event = widget.event;
+    final registered = ref.watch(eventRegisteredProvider(event));
 
     return Scaffold(
       appBar: AppBar(
@@ -179,12 +179,11 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                       ))
                     _contactCard(contactEmail, contactName),
                   if (event
-                      case EventModel(
+                      case Event(
                         :final attachments?,
                         :final baseUrl?,
-                        :final cachedTime
                       ) when attachments.isNotEmpty)
-                    _attachments(baseUrl, attachments, cachedTime),
+                    _attachments(baseUrl, attachments),
                 ],
               ),
             ),
@@ -272,18 +271,16 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
   Widget _attachments(
     String baseUrl,
     List<String> attachments,
-    DateTime? cachedTime,
   ) {
     return AttachmentsWidget(
       event: widget.event,
       baseUrl: baseUrl,
       attachments: attachments,
-      cachedTime: cachedTime,
     );
   }
 
   Widget _fab() {
-    final registered = ref.watch(registeredProvider(widget.event));
+    final registered = ref.watch(eventRegisteredProvider(widget.event));
 
     return FloatingActionButton.extended(
       heroTag: null,

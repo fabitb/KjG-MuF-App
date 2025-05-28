@@ -35,7 +35,7 @@ const EventSchema = CollectionSchema(
     r'clientEventId': PropertySchema(
       id: 3,
       name: r'clientEventId',
-      type: IsarType.long,
+      type: IsarType.string,
     ),
     r'clientId': PropertySchema(
       id: 4,
@@ -95,7 +95,7 @@ const EventSchema = CollectionSchema(
     r'freeSlots': PropertySchema(
       id: 15,
       name: r'freeSlots',
-      type: IsarType.long,
+      type: IsarType.string,
     ),
     r'groupId': PropertySchema(
       id: 16,
@@ -263,6 +263,12 @@ int _eventEstimateSize(
     }
   }
   {
+    final value = object.clientEventId;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.contactEmail;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -287,6 +293,12 @@ int _eventEstimateSize(
     }
   }
   bytesCount += 3 + object.eventUrl.length * 3;
+  {
+    final value = object.freeSlots;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.image;
     if (value != null) {
@@ -348,7 +360,7 @@ void _eventSerialize(
   writer.writeString(offsets[0], object.abbreviation);
   writer.writeStringList(offsets[1], object.attachments);
   writer.writeString(offsets[2], object.baseUrl);
-  writer.writeLong(offsets[3], object.clientEventId);
+  writer.writeString(offsets[3], object.clientEventId);
   writer.writeLong(offsets[4], object.clientId);
   writer.writeString(offsets[5], object.contactEmail);
   writer.writeString(offsets[6], object.contactName);
@@ -360,7 +372,7 @@ void _eventSerialize(
   writer.writeString(offsets[12], object.description);
   writer.writeDateTime(offsets[13], object.endDateAndTime);
   writer.writeString(offsets[14], object.eventUrl);
-  writer.writeLong(offsets[15], object.freeSlots);
+  writer.writeString(offsets[15], object.freeSlots);
   writer.writeLong(offsets[16], object.groupId);
   writer.writeLong(offsets[17], object.id);
   writer.writeString(offsets[18], object.image);
@@ -397,7 +409,7 @@ Event _eventDeserialize(
     abbreviation: reader.readStringOrNull(offsets[0]),
     attachments: reader.readStringList(offsets[1]),
     baseUrl: reader.readStringOrNull(offsets[2]),
-    clientEventId: reader.readLongOrNull(offsets[3]),
+    clientEventId: reader.readStringOrNull(offsets[3]),
     clientId: reader.readLongOrNull(offsets[4]),
     contactEmail: reader.readStringOrNull(offsets[5]),
     contactName: reader.readStringOrNull(offsets[6]),
@@ -408,7 +420,7 @@ Event _eventDeserialize(
     deregistrationDeadline: reader.readDateTimeOrNull(offsets[11]),
     description: reader.readStringOrNull(offsets[12]),
     endDateAndTime: reader.readDateTime(offsets[13]),
-    freeSlots: reader.readLongOrNull(offsets[15]),
+    freeSlots: reader.readStringOrNull(offsets[15]),
     groupId: reader.readLongOrNull(offsets[16]),
     id: reader.readLong(offsets[17]),
     image: reader.readStringOrNull(offsets[18]),
@@ -448,7 +460,7 @@ P _eventDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
       return (reader.readLongOrNull(offset)) as P;
     case 5:
@@ -472,7 +484,7 @@ P _eventDeserializeProp<P>(
     case 14:
       return (reader.readString(offset)) as P;
     case 15:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 16:
       return (reader.readLongOrNull(offset)) as P;
     case 17:
@@ -1156,46 +1168,54 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdEqualTo(
-      int? value) {
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'clientEventId',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdGreaterThan(
-    int? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'clientEventId',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdLessThan(
-    int? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'clientEventId',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdBetween(
-    int? lower,
-    int? upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -1204,6 +1224,75 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'clientEventId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'clientEventId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'clientEventId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'clientEventId',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'clientEventId',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> clientEventIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'clientEventId',
+        value: '',
       ));
     });
   }
@@ -2367,46 +2456,54 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsEqualTo(
-      int? value) {
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'freeSlots',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsGreaterThan(
-    int? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'freeSlots',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsLessThan(
-    int? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'freeSlots',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsBetween(
-    int? lower,
-    int? upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -2415,6 +2512,75 @@ extension EventQueryFilter on QueryBuilder<Event, Event, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'freeSlots',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'freeSlots',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'freeSlots',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'freeSlots',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'freeSlots',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Event, Event, QAfterFilterCondition> freeSlotsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'freeSlots',
+        value: '',
       ));
     });
   }
@@ -5708,9 +5874,11 @@ extension EventQueryWhereDistinct on QueryBuilder<Event, Event, QDistinct> {
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByClientEventId() {
+  QueryBuilder<Event, Event, QDistinct> distinctByClientEventId(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'clientEventId');
+      return query.addDistinctBy(r'clientEventId',
+          caseSensitive: caseSensitive);
     });
   }
 
@@ -5785,9 +5953,10 @@ extension EventQueryWhereDistinct on QueryBuilder<Event, Event, QDistinct> {
     });
   }
 
-  QueryBuilder<Event, Event, QDistinct> distinctByFreeSlots() {
+  QueryBuilder<Event, Event, QDistinct> distinctByFreeSlots(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'freeSlots');
+      return query.addDistinctBy(r'freeSlots', caseSensitive: caseSensitive);
     });
   }
 
@@ -5971,7 +6140,7 @@ extension EventQueryProperty on QueryBuilder<Event, Event, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> clientEventIdProperty() {
+  QueryBuilder<Event, String?, QQueryOperations> clientEventIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'clientEventId');
     });
@@ -6044,7 +6213,7 @@ extension EventQueryProperty on QueryBuilder<Event, Event, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Event, int?, QQueryOperations> freeSlotsProperty() {
+  QueryBuilder<Event, String?, QQueryOperations> freeSlotsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'freeSlots');
     });
@@ -6394,10 +6563,10 @@ _$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
       abbreviation: json['abbreviation'] as String?,
       organization: json['organization'] as String?,
       registrationCount: (json['registrationCount'] as num?)?.toInt(),
-      freeSlots: (json['freeSlots'] as num?)?.toInt(),
+      freeSlots: json['freeSlots'] as String?,
       link: json['link'] as String?,
       baseUrl: json['baseUrl'] as String?,
-      clientEventId: (json['clientEventId'] as num?)?.toInt(),
+      clientEventId: json['clientEventId'] as String?,
     );
 
 Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) =>

@@ -4,6 +4,7 @@ import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
+import 'package:kjg_muf_app/database/model/registered.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DBService {
@@ -49,6 +50,20 @@ class DBService {
     });
   }
 
+  Future<List<Registered>> getCachedRegistered() async {
+    final isar = await db;
+    return await isar.registereds.where().findAll();
+  }
+
+  Future<void> cacheRegistered(List<Registered> registered) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.registereds.clear();
+      await isar.registereds.putAll(registered);
+    });
+  }
+
   Future<void> saveEvent(EventModel event) async {
     final isar = await db;
     isar.writeTxn(() => isar.eventModels.put(event));
@@ -84,8 +99,9 @@ class DBService {
           GameModelSchema,
           EventModelSchema,
           EventSchema,
+          RegisteredSchema,
           NewsModelSchema,
-          ActivitiesModelSchema
+          ActivitiesModelSchema,
         ],
         directory: dir.path,
         inspector: true,

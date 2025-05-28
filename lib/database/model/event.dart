@@ -129,10 +129,10 @@ class Event with _$Event {
     String? abbreviation,
     String? organization,
     int? registrationCount,
-    int? freeSlots,
+    String? freeSlots,
     String? link,
     String? baseUrl,
-    int? clientEventId,
+    String? clientEventId,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
@@ -209,14 +209,14 @@ class Event with _$Event {
       abbreviation: nullIfEmpty(e.abbreviation),
       organization: nullIfEmpty(e.organization),
       registrationCount: tryParseInt(e.registrationCount),
-      freeSlots: tryParseInt(e.freeSlots),
+      freeSlots: nullIfEmpty(e.freeSlots),
       link: nullIfEmpty(e.link),
       baseUrl: nullIfEmpty(e.url),
-      clientEventId: tryParseInt(e.clientEventId),
+      clientEventId: nullIfEmpty(e.clientEventId),
     );
   }
 
-  String get eventUrl => "${Strings.midaBaseURL}/?veranstaltung=$id&dialog=1";
+  String get eventUrl => "${Strings.midaBaseURL}?veranstaltung=$id&dialog=1";
 
   String? get imageUrl =>
       baseUrl != null && image != null ? "$baseUrl/?download=$image" : null;

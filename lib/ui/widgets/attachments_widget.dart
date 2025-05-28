@@ -15,14 +15,12 @@ class AttachmentsWidget extends StatefulWidget {
   final Event event;
   final String baseUrl;
   final List<String> attachments;
-  final DateTime? cachedTime;
 
   const AttachmentsWidget({
     super.key,
     required this.event,
     required this.attachments,
     required this.baseUrl,
-    this.cachedTime,
   });
 
   @override
