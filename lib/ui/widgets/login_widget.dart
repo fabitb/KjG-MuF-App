@@ -6,7 +6,7 @@ import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:kjg_muf_app/utils/url_helper.dart';
 
 class LoginWidget extends ConsumerStatefulWidget {
   const LoginWidget({super.key});
@@ -99,9 +99,7 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => _openUrl(
-                "mailto:${Strings.contactEmailAddress}",
-              ),
+              onPressed: () => URLHelper.sendEmail(Strings.contactEmailAddress),
               child: Text(context.localizations.writeEmail),
             ),
           ],
@@ -132,13 +130,5 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
         ),
       ),
     );
-  }
-
-  _openUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

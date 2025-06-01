@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// temporary, TODO: no synthetic package
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 extension StringOptionalExtension on String? {
   bool get isNotNullAndNotEmpty => this != null && this!.isNotEmpty;
 }

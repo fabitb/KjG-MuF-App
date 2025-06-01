@@ -17,9 +17,9 @@ import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
+import 'package:kjg_muf_app/utils/url_helper.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 enum GeolocationState { loaded, loading, error }
 
@@ -70,10 +70,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
   Future<void> _onLinkTap(String? link) async {
     if (link == null) return;
 
-    final url = Uri.parse(link);
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    }
+    await URLHelper.openUrl(context, link);
   }
 
   void _onImageTap(String imageUrl) {
@@ -196,8 +193,8 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Veranstalter",
+            Text(
+              context.localizations.organizer,
               style: TextStyle(fontSize: 16),
             ),
             Text(organizer),
@@ -222,7 +219,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Widget _contactCard(String email, String name) {
     return InkWell(
-      onTap: () => _onLinkTap("mailto:$email"),
+      onTap: () => URLHelper.sendEmail(email),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -230,7 +227,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Kontakt: $name",
+                context.localizations.contact(name),
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 4),
@@ -261,10 +258,11 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Widget _fab() {
     final registered = ref.watch(eventRegisteredProvider(widget.event));
+    final loc = context.localizations;
 
     return FloatingActionButton.extended(
       heroTag: null,
-      label: Text(registered ? "Abmelden" : "Anmelden"),
+      label: Text(registered ? loc.eventUnregister : loc.eventRegister),
       onPressed: _onMidaButtonPressed,
     );
   }
@@ -291,7 +289,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
         padding: EdgeInsets.symmetric(vertical: 8),
         child: Center(
           child: Text(
-            "Du bist angemeldet",
+            context.localizations.registeredLabel,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -342,7 +340,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
           ] else if (_geoState == GeolocationState.loading)
             const Center(child: CircularProgressIndicator())
           else
-            Center(child: Text("Es konnte kein Ort gefunden werden")),
+            Center(child: Text(context.localizations.noPlaceFound)),
         ],
       ),
     );

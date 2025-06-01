@@ -54,6 +54,12 @@
   "noInternet": "Keine Internetverbindung",
   "loginError": "Falscher Nutzername oder Passwort",
 
-  "gameDatabase": "Spieledatenbank"
+  "gameDatabase": "Spieledatenbank",
 
+  "organizer": "Veranstalter",
+  "contact" : "Kontakt: {name}",
+  "eventRegister": "Anmelden",
+  "eventUnregister": "Abmelden",
+  "registeredLabel": "Du bist angemeldet",
+  "noPlaceFound": "Es konnte kein Ort gefunden werden"
 }

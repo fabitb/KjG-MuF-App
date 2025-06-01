@@ -112,7 +112,7 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
     String attachment,
     String fileTitle,
     FileType fileType,
-  ) {
+  ) async {
     if (fileType.isUnsupported) {
       _showAlertDialog(
         context,
@@ -124,7 +124,7 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
 
     final url = Strings.attachmentDownloadLink(widget.baseUrl, attachment);
 
-    Navigator.of(context).push(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           return switch (fileType) {
@@ -138,6 +138,8 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
         },
       ),
     );
+
+    setState(() {});
   }
 
   _showAlertDialog(
