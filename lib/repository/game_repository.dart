@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 
 import 'package:kjg_muf_app/backend/backend_service.dart';
@@ -34,7 +33,8 @@ class GameRepository {
 
     for (var dbGame in databaseGames) {
       backendGames
-          .firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)
+          .where((backendGame) => backendGame.id == dbGame.id)
+          .firstOrNull
           ?.alreadyPlayed = dbGame.alreadyPlayed;
     }
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/pdf_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/download_dialog.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:mime/mime.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 
 class AttachmentsWidget extends StatefulWidget {
   final MidaEvent event;

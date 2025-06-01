@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/url_helper.dart';
 
 class LoginWidget extends ConsumerStatefulWidget {

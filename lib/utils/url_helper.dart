@@ -59,6 +59,6 @@ abstract class URLHelper {
   }
 
   static Future<void> sendEmail(String email) async {
-    await launchUrl(Uri.parse("mailto:${email}"));
+    await launchUrl(Uri.parse("mailto:$email"));
   }
 }

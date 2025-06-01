@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kjg_muf_app/l10n/generated/app_localizations.dart';
 import 'package:kjg_muf_app/model/user_data.dart';
 
 part 'auth_state.freezed.dart';

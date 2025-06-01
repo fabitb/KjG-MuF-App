@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/ui/screens/organizer_filter_screen.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
@@ -29,8 +29,7 @@ class FilterBottomSheet extends StatelessWidget {
             return Column(
               children: [
                 ListTile(
-                  title:
-                      Text(AppLocalizations.of(context)!.onlyRegisteredEvents),
+                  title: Text(context.localizations.onlyRegisteredEvents),
                   trailing: Checkbox(
                     value: model.onlyRegistered,
                     onChanged: (checked) {
@@ -43,8 +42,7 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title:
-                      Text(AppLocalizations.of(context)!.hideCommitteeMeetings),
+                  title: Text(context.localizations.hideCommitteeMeetings),
                   trailing: Checkbox(
                     value: model.hideGremien,
                     onChanged: (checked) {
@@ -57,7 +55,7 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.filterByOrganizer),
+                  title: Text(context.localizations.filterByOrganizer),
                   subtitle: Text(
                     _getOrganizerFilterString(
                       model.organisers,
@@ -82,7 +80,7 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.filterByDate),
+                  title: Text(context.localizations.filterByDate),
                   subtitle: model.dateTimeRange != null
                       ? Text(model.dateTimeRange!.startEndString())
                       : null,
@@ -105,7 +103,7 @@ class FilterBottomSheet extends StatelessWidget {
                     model.resetFilterSettings();
                     onSettingsChanged(model.filterSettings);
                   },
-                  child: Text(AppLocalizations.of(context)!.resetFilter),
+                  child: Text(context.localizations.resetFilter),
                 ),
               ],
             );

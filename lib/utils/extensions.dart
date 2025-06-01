@@ -3,10 +3,6 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-// temporary, TODO: no synthetic package
-export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension StringOptionalExtension on String? {
   bool get isNotNullAndNotEmpty => this != null && this!.isNotEmpty;
@@ -29,12 +25,6 @@ extension DateTimeRangeExtension on DateTimeRange {
       return dateFormat.format(start);
     }
     return "${dateFormat.format(start)} - ${DateFormat("dd.MM.yyyy").format(end)}";
-  }
-}
-
-extension LocalizationExtension on BuildContext {
-  AppLocalizations get localizations {
-    return AppLocalizations.of(this)!;
   }
 }
 

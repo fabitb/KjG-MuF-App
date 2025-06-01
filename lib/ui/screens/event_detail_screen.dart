@@ -9,6 +9,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';

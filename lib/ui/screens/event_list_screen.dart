@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
@@ -11,7 +12,6 @@ import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventListScreen extends ConsumerWidget {
   const EventListScreen({super.key});
@@ -25,7 +25,7 @@ class EventListScreen extends ConsumerWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          KjgAppBar(title: AppLocalizations.of(context)!.events),
+          KjgAppBar(title: context.localizations.events),
         ],
         body: switch (events) {
           AsyncValue(:final value?, error: null) => _body(value, ref),

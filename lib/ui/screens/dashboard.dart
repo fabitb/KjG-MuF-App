@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
@@ -22,7 +22,6 @@ class Dashboard extends ConsumerWidget {
     final activities = ref.watch(activitiesProvider);
     final authState = ref.watch(authProvider);
 
-    final isLoggedIn = authState is AuthStateLoggedIn;
     final name = switch (authState) {
       AuthStateLoggedIn(:final userData) => userData.firstName,
       _ => "DU",
@@ -44,7 +43,7 @@ class Dashboard extends ConsumerWidget {
         CustomScrollView(
           slivers: [
             KjgAppBar(
-              title: AppLocalizations.of(context)!.greeting(name),
+              title: context.localizations.greeting(name),
               actions: [
                 if (authState case AuthStateLoggedIn(:final userData))
                   IconButton(
@@ -74,9 +73,9 @@ class Dashboard extends ConsumerWidget {
                     Center(
                       child: switch (news) {
                         AsyncError() =>
-                          Text(AppLocalizations.of(context)!.noNewsAvailable),
+                          Text(context.localizations.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
-                            title: AppLocalizations.of(context)!.news,
+                            title: context.localizations.news,
                             newsList: value,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,
@@ -84,7 +83,7 @@ class Dashboard extends ConsumerWidget {
                             ),
                           ),
                         _ => NewsCarouselWidget(
-                            title: AppLocalizations.of(context)!.news,
+                            title: context.localizations.news,
                             newsList: null,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,
@@ -99,10 +98,10 @@ class Dashboard extends ConsumerWidget {
                     Center(
                       child: switch (activities) {
                         AsyncError() => Text(
-                            AppLocalizations.of(context)!.noActivitiesAvailable,
+                            context.localizations.noActivitiesAvailable,
                           ),
                         AsyncData(:final value) => NewsCarouselWidget(
-                            title: AppLocalizations.of(context)!.activities,
+                            title: context.localizations.activities,
                             newsList: value,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,
@@ -110,7 +109,7 @@ class Dashboard extends ConsumerWidget {
                             ),
                           ),
                         _ => NewsCarouselWidget(
-                            title: AppLocalizations.of(context)!.activities,
+                            title: context.localizations.activities,
                             newsList: null,
                             onNewsClicked: (news) => _showWebsiteBottomSheet(
                               context,

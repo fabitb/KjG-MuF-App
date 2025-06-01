@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kjg_muf_app/l10n/generated/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
 import 'package:kjg_muf_app/ui/screens/more_screen.dart';
@@ -85,7 +86,7 @@ class _KjGAppMainState extends State<KjGAppMain> {
           NavigationDestination(
             selectedIcon: Icon(Icons.list),
             icon: Icon(Icons.list_outlined),
-            label: AppLocalizations.of(context)!.events,
+            label: context.localizations.events,
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.more_horiz),

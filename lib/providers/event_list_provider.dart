@@ -53,7 +53,7 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
 
   if (filterSettings.hideGremien) {
     // Natürlich nur in MuF Gremiensitzung = typ 100
-    e = e.where((element) => element.type != "100").toList();
+    e = e.where((element) => element.type != 100).toList();
   }
 
   e = e
@@ -70,7 +70,7 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
       DateTime start = filterSettings.dateTimeRange!.start;
       // Aktionen am Endtag sollen inkludiert sein
       DateTime end = filterDateTimeRange.end.add(const Duration(days: 1));
-      return element.startDateAndTime.isAfter(start) &&
+      return element.endDateAndTime.isAfter(start) &&
           element.startDateAndTime.isBefore(end);
     }).toList();
   }
