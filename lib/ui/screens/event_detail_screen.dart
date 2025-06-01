@@ -86,16 +86,6 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Future<void> _onMidaButtonPressed() async {
     final eventUrl = widget.event.eventUrl;
-    if (eventUrl.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Aktuell kann das Event in der MiDa zum Anmelden nicht aufgerufen werden. Versuche es später noch einmal oder melde dich im Menü mit deinem Konto an",
-          ),
-        ),
-      );
-      return;
-    }
 
     final token = SharedPreferencesService.instance.token;
 
@@ -161,6 +151,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 8, 8, 128),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: 8,
                 children: [
                   EventItem(event: event, registered: registered),
@@ -200,20 +191,17 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Widget _organizerCard(String organizer) {
     return Card(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Veranstalter",
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(organizer),
-            ],
-          ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Veranstalter",
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(organizer),
+          ],
         ),
       ),
     );
@@ -236,27 +224,24 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     return InkWell(
       onTap: () => _onLinkTap("mailto:$email"),
       child: Card(
-        child: SizedBox(
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Kontakt: $name",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.mail),
-                    const SizedBox(width: 16),
-                    Flexible(child: Text(email)),
-                  ],
-                ),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Kontakt: $name",
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Icon(Icons.mail),
+                  const SizedBox(width: 16),
+                  Flexible(child: Text(email)),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -300,17 +285,14 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
   }
 
   Widget _registeredCard() {
-    return const SizedBox(
-      width: double.infinity,
-      child: Card(
-        color: KjGColors.kjgGreen,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: Center(
-            child: Text(
-              "Du bist angemeldet",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+    return Card(
+      color: KjGColors.kjgGreen,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Center(
+          child: Text(
+            "Du bist angemeldet",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),

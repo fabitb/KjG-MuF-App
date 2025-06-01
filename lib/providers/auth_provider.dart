@@ -45,10 +45,15 @@ class Auth extends _$Auth {
         state = AuthState.loggedIn(userData: userData);
       } else {
         // backend returns 200 with error if wrong login
-        await logout();
+        state = AuthState.loggedOut(error: AuthStateError.wrongData);
       }
-    } on DioException {
-      // do nothing
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        state = AuthState.loggedOut(error: AuthStateError.noInternet);
+      } else {
+        state = AuthState.loggedOut(error: AuthStateError.unknown);
+      }
     }
   }
 

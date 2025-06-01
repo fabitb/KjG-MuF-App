@@ -28,6 +28,7 @@ class RegisteredList extends _$RegisteredList {
     final loggedIn = ref.watch(authProvider) is AuthStateLoggedIn;
 
     if (!loggedIn) {
+      await DBService().cacheRegistered([]);
       return [];
     }
 

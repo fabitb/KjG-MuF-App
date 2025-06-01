@@ -174,7 +174,7 @@ class _EventRegisteredProviderElement extends AutoDisposeProviderElement<bool>
   MidaEvent get event => (origin as EventRegisteredProvider).event;
 }
 
-String _$registeredListHash() => r'057973f72c9e8a67a251efcb2ed12099f8d3c3ec';
+String _$registeredListHash() => r'861f20b4ef356e32759f1d74d6af35260aea0f50';
 
 /// See also [RegisteredList].
 @ProviderFor(RegisteredList)

@@ -8,14 +8,27 @@ import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LoginWidget extends ConsumerWidget {
-  LoginWidget({super.key});
-
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+class LoginWidget extends ConsumerStatefulWidget {
+  const LoginWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends ConsumerState<LoginWidget> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _login() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    ref.read(authProvider.notifier).login(
+          _emailController.text,
+          _passwordController.text,
+        );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
 
     if (authState is AuthStateLoggedIn) {
@@ -40,62 +53,41 @@ class LoginWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 50),
-          TextField(
-            controller: emailController,
-            style: const TextStyle(color: Colors.black),
-            autocorrect: false,
-            enableSuggestions: false,
-            decoration: InputDecoration(
-              fillColor: Colors.grey.shade100,
-              filled: true,
-              hintText: context.localizations.username,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+          _textField(
+            controller: _emailController,
+            hintText: context.localizations.username,
+            textInputAction: TextInputAction.next,
+            obscureText: false,
           ),
           const SizedBox(height: 10),
-          TextField(
-            controller: passwordController,
-            style: const TextStyle(color: Colors.black),
-            obscureText: true,
-            decoration: InputDecoration(
-              fillColor: Colors.grey.shade100,
-              filled: true,
-              hintText: context.localizations.password,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+          _textField(
+            controller: _passwordController,
+            hintText: context.localizations.password,
+            textInputAction: TextInputAction.done,
+            obscureText: false,
+            onSubmitted: (_) => _login(),
           ),
           const SizedBox(height: 32),
           if (authState case AuthStateLoggedOut(:final error)) ...[
             ElevatedButton(
-              onPressed: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-                ref.read(authProvider.notifier).login(
-                      emailController.text,
-                      passwordController.text,
-                    );
-              },
+              onPressed: _login,
               style: ElevatedButton.styleFrom(elevation: 5),
               child: Text(context.localizations.login),
             ),
             if (error != null) ...[
               SizedBox(height: 16.0),
-              Text(error.localizedString(context.localizations)),
+              Text(
+                error.localizedString(context.localizations),
+                style: TextStyle(color: Colors.red),
+              ),
             ],
           ] else
             Column(
               children: [
                 const CircularProgressIndicator(),
                 if (authState is AuthStateLoading) ...[
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    context.localizations.loadingUserdata,
-                  ),
+                  const SizedBox(height: 8),
+                  Text(context.localizations.loggingIn),
                 ],
               ],
             ),
@@ -114,6 +106,30 @@ class LoginWidget extends ConsumerWidget {
             ),
           ],
         ],
+      ),
+    );
+  }
+
+  Widget _textField({
+    required TextEditingController controller,
+    required String hintText,
+    required TextInputAction textInputAction,
+    ValueChanged<String>? onSubmitted,
+    required bool obscureText,
+  }) {
+    return TextField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      obscureText: obscureText,
+      textInputAction: textInputAction,
+      onSubmitted: onSubmitted,
+      decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        filled: true,
+        hintText: hintText,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
   }
