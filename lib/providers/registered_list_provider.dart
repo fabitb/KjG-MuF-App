@@ -50,8 +50,8 @@ class RegisteredList extends _$RegisteredList {
 bool eventRegistered(Ref ref, MidaEvent event) {
   final registered = ref.watch(cachedRegisteredProvider);
 
-  if (registered case AsyncData(:final valueOrNull?)) {
-    return valueOrNull.contains(event.id);
+  if (registered.valueOrNull case List<int> value) {
+    return value.contains(event.id);
   }
   return false;
 }
