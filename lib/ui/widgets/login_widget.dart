@@ -64,7 +64,7 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
             controller: _passwordController,
             hintText: context.localizations.password,
             textInputAction: TextInputAction.done,
-            obscureText: false,
+            obscureText: true,
             onSubmitted: (_) => _login(),
           ),
           const SizedBox(height: 32),
