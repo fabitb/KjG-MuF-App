@@ -1,6 +1,6 @@
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-class KjGCacheManager {
+abstract class KjGCacheManager {
   static const key = 'kjgCacheKey';
 
   static CacheManager instance = CacheManager(

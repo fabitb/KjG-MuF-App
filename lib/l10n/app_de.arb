@@ -55,11 +55,27 @@
   "loginError": "Falscher Nutzername oder Passwort",
 
   "gameDatabase": "Spieledatenbank",
+  "website": "Website",
+  "shop": "Shop",
+  "dataPrivacy": "Datenschutz",
+  "kjgMuF": "KjG München und Freising",
 
   "organizer": "Veranstalter",
   "contact" : "Kontakt: {name}",
   "eventRegister": "Anmelden",
   "eventUnregister": "Abmelden",
   "registeredLabel": "Du bist angemeldet",
-  "noPlaceFound": "Es konnte kein Ort gefunden werden"
+  "noPlaceFound": "Es konnte kein Ort gefunden werden",
+
+  "savedAttachments": "Gespeicherte Anhänge",
+  "attachmentsDeleteTitle": "Anhänge löschen",
+  "attachmentsDeleteMessage": "Willst du wirklich alle Anhänge löschen?",
+  "attachmentsDescription": "Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.",
+
+  "notFound": "Nicht gefunden",
+  "yes": "Ja",
+  "no": "Nein",
+
+  "logout": "Abmelden",
+  "logoutConfirmMessage": "Willst du dich wirklich ausloggen?"
 }

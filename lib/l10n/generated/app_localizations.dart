@@ -297,6 +297,30 @@ abstract class AppLocalizations {
   /// **'Spieledatenbank'**
   String get gameDatabase;
 
+  /// No description provided for @website.
+  ///
+  /// In de, this message translates to:
+  /// **'Website'**
+  String get website;
+
+  /// No description provided for @shop.
+  ///
+  /// In de, this message translates to:
+  /// **'Shop'**
+  String get shop;
+
+  /// No description provided for @dataPrivacy.
+  ///
+  /// In de, this message translates to:
+  /// **'Datenschutz'**
+  String get dataPrivacy;
+
+  /// No description provided for @kjgMuF.
+  ///
+  /// In de, this message translates to:
+  /// **'KjG München und Freising'**
+  String get kjgMuF;
+
   /// No description provided for @organizer.
   ///
   /// In de, this message translates to:
@@ -332,6 +356,60 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Es konnte kein Ort gefunden werden'**
   String get noPlaceFound;
+
+  /// No description provided for @savedAttachments.
+  ///
+  /// In de, this message translates to:
+  /// **'Gespeicherte Anhänge'**
+  String get savedAttachments;
+
+  /// No description provided for @attachmentsDeleteTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Anhänge löschen'**
+  String get attachmentsDeleteTitle;
+
+  /// No description provided for @attachmentsDeleteMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du wirklich alle Anhänge löschen?'**
+  String get attachmentsDeleteMessage;
+
+  /// No description provided for @attachmentsDescription.
+  ///
+  /// In de, this message translates to:
+  /// **'Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.'**
+  String get attachmentsDescription;
+
+  /// No description provided for @notFound.
+  ///
+  /// In de, this message translates to:
+  /// **'Nicht gefunden'**
+  String get notFound;
+
+  /// No description provided for @yes.
+  ///
+  /// In de, this message translates to:
+  /// **'Ja'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In de, this message translates to:
+  /// **'Nein'**
+  String get no;
+
+  /// No description provided for @logout.
+  ///
+  /// In de, this message translates to:
+  /// **'Abmelden'**
+  String get logout;
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du dich wirklich ausloggen?'**
+  String get logoutConfirmMessage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

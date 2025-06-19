@@ -22,7 +22,7 @@ class AttachmentScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(attachment.name),
+        title: Text(attachment.displayName),
       ),
       body: fileType != FileType.unsupported
           ? FutureBuilder<File>(

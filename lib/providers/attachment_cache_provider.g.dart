@@ -157,12 +157,12 @@ class _AttachmentCachedProviderElement extends AutoDisposeProviderElement<bool>
   String get key => (origin as AttachmentCachedProvider).key;
 }
 
-String _$attachmentCacheHash() => r'2829c8fb504528b23e7cca841b97b52906753733';
+String _$attachmentCacheHash() => r'3b3ef1e9ca72fad9811c77e705e2bfa650843bb6';
 
 /// See also [AttachmentCache].
 @ProviderFor(AttachmentCache)
-final attachmentCacheProvider = AutoDisposeAsyncNotifierProvider<
-    AttachmentCache, List<EventAttachment>>.internal(
+final attachmentCacheProvider =
+    AsyncNotifierProvider<AttachmentCache, List<EventAttachment>>.internal(
   AttachmentCache.new,
   name: r'attachmentCacheProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -172,6 +172,6 @@ final attachmentCacheProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$AttachmentCache = AutoDisposeAsyncNotifier<List<EventAttachment>>;
+typedef _$AttachmentCache = AsyncNotifier<List<EventAttachment>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

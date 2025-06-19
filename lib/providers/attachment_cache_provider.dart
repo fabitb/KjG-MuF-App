@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'attachment_cache_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AttachmentCache extends _$AttachmentCache {
   CacheManager get _cache => KjGCacheManager.instance;
 
@@ -42,6 +42,11 @@ class AttachmentCache extends _$AttachmentCache {
     ref.invalidateSelf();
   }
 
+  Future<void> deleteAll() async {
+    await _cache.store.emptyCache();
+    ref.invalidateSelf();
+  }
+
   Future<FileInfo> downloadAttachment(
     EventAttachment attachment, {
     bool force = false,
@@ -57,7 +62,8 @@ class AttachmentCache extends _$AttachmentCache {
 
   Future<void> removeAttachment(EventAttachment attachment) async {
     await _cache.removeFile(attachment.key);
-    ref.invalidateSelf();
+    // wait until provider reload is done, otherwise swipe to dismiss exception
+    await ref.refresh(attachmentCacheProvider.future);
   }
 
   Future<File> getSingleFile(EventAttachment attachment) async {

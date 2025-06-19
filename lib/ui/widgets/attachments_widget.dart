@@ -38,9 +38,11 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
       // ignore
     }
 
-    setState(() {
-      _loading = false;
-    });
+    if (mounted) {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
   Future<void> _deleteAttachments() async {
@@ -211,7 +213,11 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     final cached = ref.watch(attachmentCachedProvider(key: attachment.key));
 
     return ListTile(
-      title: Text(attachment.displayName),
+      title: Text(
+        attachment.displayName,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
       leading: Icon(fileType.icon),
       trailing: cached ? Icon(Icons.download_done) : null,
       onTap: () => _openFile(context, attachment),

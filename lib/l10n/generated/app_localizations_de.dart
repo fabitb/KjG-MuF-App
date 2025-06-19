@@ -115,6 +115,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gameDatabase => 'Spieledatenbank';
 
   @override
+  String get website => 'Website';
+
+  @override
+  String get shop => 'Shop';
+
+  @override
+  String get dataPrivacy => 'Datenschutz';
+
+  @override
+  String get kjgMuF => 'KjG München und Freising';
+
+  @override
   String get organizer => 'Veranstalter';
 
   @override
@@ -133,4 +145,31 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get noPlaceFound => 'Es konnte kein Ort gefunden werden';
+
+  @override
+  String get savedAttachments => 'Gespeicherte Anhänge';
+
+  @override
+  String get attachmentsDeleteTitle => 'Anhänge löschen';
+
+  @override
+  String get attachmentsDeleteMessage => 'Willst du wirklich alle Anhänge löschen?';
+
+  @override
+  String get attachmentsDescription => 'Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.';
+
+  @override
+  String get notFound => 'Nicht gefunden';
+
+  @override
+  String get yes => 'Ja';
+
+  @override
+  String get no => 'Nein';
+
+  @override
+  String get logout => 'Abmelden';
+
+  @override
+  String get logoutConfirmMessage => 'Willst du dich wirklich ausloggen?';
 }

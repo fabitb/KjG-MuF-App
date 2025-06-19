@@ -35,6 +35,5 @@ extension EventAttachmentExtension on EventAttachment {
 
   FileType get fileType => FileType.getFileType(name);
 
-  String get displayName =>
-      fileType.isPdf ? name.substring(name.indexOf('_') + 1) : name;
+  String get displayName => name.substring(name.indexOf('_') + 1);
 }
