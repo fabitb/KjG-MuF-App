@@ -7,6 +7,7 @@ import 'package:kjg_muf_app/database/model/event_attachment.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
+import 'package:kjg_muf_app/ui/widgets/audio_widget.dart';
 import 'package:photo_view/photo_view.dart';
 
 class AttachmentScreen extends ConsumerWidget {
@@ -58,6 +59,10 @@ class AttachmentScreen extends ConsumerWidget {
           minScale: PhotoViewComputedScale.contained,
           maxScale: PhotoViewComputedScale.covered * 2,
           imageProvider: FileImage(file.absolute),
+        ),
+      FileType.audio => AudioWidget(
+          file: file,
+          displayName: attachment.displayName,
         ),
       FileType.unsupported => throw UnimplementedError(),
     };

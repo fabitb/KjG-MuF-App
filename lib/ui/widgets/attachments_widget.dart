@@ -228,6 +228,7 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
 enum FileType {
   pdf,
   image,
+  audio,
   unsupported;
 
   static FileType getFileType(String fileName) {
@@ -237,6 +238,7 @@ enum FileType {
 
     if (mimeType.startsWith("image")) return FileType.image;
     if (mimeType == "application/pdf") return FileType.pdf;
+    if (mimeType == "audio/mpeg") return FileType.audio;
 
     return FileType.unsupported;
   }
@@ -251,6 +253,7 @@ enum FileType {
     return switch (this) {
       FileType.pdf => Icons.picture_as_pdf,
       FileType.image => Icons.image,
+      FileType.audio => Icons.audio_file,
       FileType.unsupported => Icons.question_mark,
     };
   }
