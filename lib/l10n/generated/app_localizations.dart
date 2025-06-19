@@ -228,7 +228,7 @@ abstract class AppLocalizations {
   /// No description provided for @downloadDescription.
   ///
   /// In de, this message translates to:
-  /// **'Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen'**
+  /// **'Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge'**
   String get downloadDescription;
 
   /// No description provided for @cancel.
@@ -270,7 +270,7 @@ abstract class AppLocalizations {
   /// No description provided for @attachments.
   ///
   /// In de, this message translates to:
-  /// **'Dateien'**
+  /// **'Anhänge'**
   String get attachments;
 
   /// No description provided for @unknownError.

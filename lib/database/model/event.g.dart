@@ -87,133 +87,113 @@ const MidaEventSchema = CollectionSchema(
       name: r'endDateAndTime',
       type: IsarType.dateTime,
     ),
-    r'eventUrl': PropertySchema(
-      id: 14,
-      name: r'eventUrl',
-      type: IsarType.string,
-    ),
     r'freeSlots': PropertySchema(
-      id: 15,
+      id: 14,
       name: r'freeSlots',
       type: IsarType.string,
     ),
     r'groupId': PropertySchema(
-      id: 16,
+      id: 15,
       name: r'groupId',
       type: IsarType.long,
     ),
     r'id': PropertySchema(
-      id: 17,
+      id: 16,
       name: r'id',
       type: IsarType.long,
     ),
     r'image': PropertySchema(
-      id: 18,
+      id: 17,
       name: r'image',
       type: IsarType.string,
     ),
-    r'imageUrl': PropertySchema(
-      id: 19,
-      name: r'imageUrl',
-      type: IsarType.string,
-    ),
     r'link': PropertySchema(
-      id: 20,
+      id: 18,
       name: r'link',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 21,
+      id: 19,
       name: r'location',
       type: IsarType.string,
     ),
-    r'locationForMap': PropertySchema(
-      id: 22,
-      name: r'locationForMap',
-      type: IsarType.string,
-    ),
-    r'locationName': PropertySchema(
-      id: 23,
-      name: r'locationName',
-      type: IsarType.string,
-    ),
     r'maxCompanions': PropertySchema(
-      id: 24,
+      id: 20,
       name: r'maxCompanions',
       type: IsarType.long,
     ),
     r'maxParticipants': PropertySchema(
-      id: 25,
+      id: 21,
       name: r'maxParticipants',
       type: IsarType.long,
     ),
     r'numberOfDays': PropertySchema(
-      id: 26,
+      id: 22,
       name: r'numberOfDays',
       type: IsarType.long,
     ),
     r'organization': PropertySchema(
-      id: 27,
+      id: 23,
       name: r'organization',
       type: IsarType.string,
     ),
     r'publicType': PropertySchema(
-      id: 28,
+      id: 24,
       name: r'publicType',
       type: IsarType.long,
     ),
     r'registrationCount': PropertySchema(
-      id: 29,
+      id: 25,
       name: r'registrationCount',
       type: IsarType.long,
     ),
     r'registrationDeadline': PropertySchema(
-      id: 30,
+      id: 26,
       name: r'registrationDeadline',
       type: IsarType.dateTime,
     ),
     r'registrationStart': PropertySchema(
-      id: 31,
+      id: 27,
       name: r'registrationStart',
       type: IsarType.dateTime,
     ),
     r'rv': PropertySchema(
-      id: 32,
+      id: 28,
       name: r'rv',
       type: IsarType.bool,
     ),
     r'seriesEventId': PropertySchema(
-      id: 33,
+      id: 29,
       name: r'seriesEventId',
       type: IsarType.long,
     ),
     r'startDateAndTime': PropertySchema(
-      id: 34,
+      id: 30,
       name: r'startDateAndTime',
       type: IsarType.dateTime,
     ),
     r'time': PropertySchema(
-      id: 35,
+      id: 31,
       name: r'time',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 36,
+      id: 32,
       name: r'title',
       type: IsarType.string,
     ),
     r'type': PropertySchema(
-      id: 37,
+      id: 33,
       name: r'type',
       type: IsarType.long,
     ),
     r'visibilityAssociation': PropertySchema(
-      id: 38,
+      id: 34,
       name: r'visibilityAssociation',
       type: IsarType.long,
     ),
     r'visibilityType': PropertySchema(
-      id: 39,
+      id: 35,
       name: r'visibilityType',
       type: IsarType.long,
     )
@@ -256,12 +236,7 @@ int _midaEventEstimateSize(
       }
     }
   }
-  {
-    final value = object.baseUrl;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.baseUrl.length * 3;
   {
     final value = object.clientEventId;
     if (value != null) {
@@ -292,7 +267,6 @@ int _midaEventEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
-  bytesCount += 3 + object.eventUrl.length * 3;
   {
     final value = object.freeSlots;
     if (value != null) {
@@ -306,12 +280,6 @@ int _midaEventEstimateSize(
     }
   }
   {
-    final value = object.imageUrl;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
     final value = object.link;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -319,18 +287,6 @@ int _midaEventEstimateSize(
   }
   {
     final value = object.location;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.locationForMap;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.locationName;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -371,32 +327,28 @@ void _midaEventSerialize(
   writer.writeDateTime(offsets[11], object.deregistrationDeadline);
   writer.writeString(offsets[12], object.description);
   writer.writeDateTime(offsets[13], object.endDateAndTime);
-  writer.writeString(offsets[14], object.eventUrl);
-  writer.writeString(offsets[15], object.freeSlots);
-  writer.writeLong(offsets[16], object.groupId);
-  writer.writeLong(offsets[17], object.id);
-  writer.writeString(offsets[18], object.image);
-  writer.writeString(offsets[19], object.imageUrl);
-  writer.writeString(offsets[20], object.link);
-  writer.writeString(offsets[21], object.location);
-  writer.writeString(offsets[22], object.locationForMap);
-  writer.writeString(offsets[23], object.locationName);
-  writer.writeLong(offsets[24], object.maxCompanions);
-  writer.writeLong(offsets[25], object.maxParticipants);
-  writer.writeLong(offsets[26], object.numberOfDays);
-  writer.writeString(offsets[27], object.organization);
-  writer.writeLong(offsets[28], object.publicType);
-  writer.writeLong(offsets[29], object.registrationCount);
-  writer.writeDateTime(offsets[30], object.registrationDeadline);
-  writer.writeDateTime(offsets[31], object.registrationStart);
-  writer.writeBool(offsets[32], object.rv);
-  writer.writeLong(offsets[33], object.seriesEventId);
-  writer.writeDateTime(offsets[34], object.startDateAndTime);
-  writer.writeString(offsets[35], object.time);
-  writer.writeString(offsets[36], object.title);
-  writer.writeLong(offsets[37], object.type);
-  writer.writeLong(offsets[38], object.visibilityAssociation);
-  writer.writeLong(offsets[39], object.visibilityType);
+  writer.writeString(offsets[14], object.freeSlots);
+  writer.writeLong(offsets[15], object.groupId);
+  writer.writeLong(offsets[16], object.id);
+  writer.writeString(offsets[17], object.image);
+  writer.writeString(offsets[18], object.link);
+  writer.writeString(offsets[19], object.location);
+  writer.writeLong(offsets[20], object.maxCompanions);
+  writer.writeLong(offsets[21], object.maxParticipants);
+  writer.writeLong(offsets[22], object.numberOfDays);
+  writer.writeString(offsets[23], object.organization);
+  writer.writeLong(offsets[24], object.publicType);
+  writer.writeLong(offsets[25], object.registrationCount);
+  writer.writeDateTime(offsets[26], object.registrationDeadline);
+  writer.writeDateTime(offsets[27], object.registrationStart);
+  writer.writeBool(offsets[28], object.rv);
+  writer.writeLong(offsets[29], object.seriesEventId);
+  writer.writeDateTime(offsets[30], object.startDateAndTime);
+  writer.writeString(offsets[31], object.time);
+  writer.writeString(offsets[32], object.title);
+  writer.writeLong(offsets[33], object.type);
+  writer.writeLong(offsets[34], object.visibilityAssociation);
+  writer.writeLong(offsets[35], object.visibilityType);
 }
 
 MidaEvent _midaEventDeserialize(
@@ -408,7 +360,7 @@ MidaEvent _midaEventDeserialize(
   final object = MidaEvent(
     abbreviation: reader.readStringOrNull(offsets[0]),
     attachments: reader.readStringList(offsets[1]),
-    baseUrl: reader.readStringOrNull(offsets[2]),
+    baseUrl: reader.readString(offsets[2]),
     clientEventId: reader.readStringOrNull(offsets[3]),
     clientId: reader.readLongOrNull(offsets[4]),
     contactEmail: reader.readStringOrNull(offsets[5]),
@@ -420,28 +372,28 @@ MidaEvent _midaEventDeserialize(
     deregistrationDeadline: reader.readDateTimeOrNull(offsets[11]),
     description: reader.readStringOrNull(offsets[12]),
     endDateAndTime: reader.readDateTime(offsets[13]),
-    freeSlots: reader.readStringOrNull(offsets[15]),
-    groupId: reader.readLongOrNull(offsets[16]),
-    id: reader.readLong(offsets[17]),
-    image: reader.readStringOrNull(offsets[18]),
-    link: reader.readStringOrNull(offsets[20]),
-    location: reader.readStringOrNull(offsets[21]),
-    maxCompanions: reader.readLongOrNull(offsets[24]),
-    maxParticipants: reader.readLongOrNull(offsets[25]),
-    numberOfDays: reader.readLongOrNull(offsets[26]),
-    organization: reader.readStringOrNull(offsets[27]),
-    publicType: reader.readLongOrNull(offsets[28]),
-    registrationCount: reader.readLongOrNull(offsets[29]),
-    registrationDeadline: reader.readDateTimeOrNull(offsets[30]),
-    registrationStart: reader.readDateTimeOrNull(offsets[31]),
-    rv: reader.readBoolOrNull(offsets[32]),
-    seriesEventId: reader.readLongOrNull(offsets[33]),
-    startDateAndTime: reader.readDateTime(offsets[34]),
-    time: reader.readStringOrNull(offsets[35]),
-    title: reader.readString(offsets[36]),
-    type: reader.readLongOrNull(offsets[37]),
-    visibilityAssociation: reader.readLongOrNull(offsets[38]),
-    visibilityType: reader.readLongOrNull(offsets[39]),
+    freeSlots: reader.readStringOrNull(offsets[14]),
+    groupId: reader.readLongOrNull(offsets[15]),
+    id: reader.readLong(offsets[16]),
+    image: reader.readStringOrNull(offsets[17]),
+    link: reader.readStringOrNull(offsets[18]),
+    location: reader.readStringOrNull(offsets[19]),
+    maxCompanions: reader.readLongOrNull(offsets[20]),
+    maxParticipants: reader.readLongOrNull(offsets[21]),
+    numberOfDays: reader.readLongOrNull(offsets[22]),
+    organization: reader.readStringOrNull(offsets[23]),
+    publicType: reader.readLongOrNull(offsets[24]),
+    registrationCount: reader.readLongOrNull(offsets[25]),
+    registrationDeadline: reader.readDateTimeOrNull(offsets[26]),
+    registrationStart: reader.readDateTimeOrNull(offsets[27]),
+    rv: reader.readBoolOrNull(offsets[28]),
+    seriesEventId: reader.readLongOrNull(offsets[29]),
+    startDateAndTime: reader.readDateTime(offsets[30]),
+    time: reader.readStringOrNull(offsets[31]),
+    title: reader.readString(offsets[32]),
+    type: reader.readLongOrNull(offsets[33]),
+    visibilityAssociation: reader.readLongOrNull(offsets[34]),
+    visibilityType: reader.readLongOrNull(offsets[35]),
   );
   return object;
 }
@@ -458,7 +410,7 @@ P _midaEventDeserializeProp<P>(
     case 1:
       return (reader.readStringList(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
@@ -482,23 +434,23 @@ P _midaEventDeserializeProp<P>(
     case 13:
       return (reader.readDateTime(offset)) as P;
     case 14:
-      return (reader.readString(offset)) as P;
-    case 15:
       return (reader.readStringOrNull(offset)) as P;
-    case 16:
+    case 15:
       return (reader.readLongOrNull(offset)) as P;
-    case 17:
+    case 16:
       return (reader.readLong(offset)) as P;
+    case 17:
+      return (reader.readStringOrNull(offset)) as P;
     case 18:
       return (reader.readStringOrNull(offset)) as P;
     case 19:
       return (reader.readStringOrNull(offset)) as P;
     case 20:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 21:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 22:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 23:
       return (reader.readStringOrNull(offset)) as P;
     case 24:
@@ -506,32 +458,24 @@ P _midaEventDeserializeProp<P>(
     case 25:
       return (reader.readLongOrNull(offset)) as P;
     case 26:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 27:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 28:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 29:
       return (reader.readLongOrNull(offset)) as P;
     case 30:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 31:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 32:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 33:
       return (reader.readLongOrNull(offset)) as P;
     case 34:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 35:
-      return (reader.readStringOrNull(offset)) as P;
-    case 36:
-      return (reader.readString(offset)) as P;
-    case 37:
-      return (reader.readLongOrNull(offset)) as P;
-    case 38:
-      return (reader.readLongOrNull(offset)) as P;
-    case 39:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1027,24 +971,8 @@ extension MidaEventQueryFilter
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'baseUrl',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'baseUrl',
-      ));
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1057,7 +985,7 @@ extension MidaEventQueryFilter
   }
 
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1072,7 +1000,7 @@ extension MidaEventQueryFilter
   }
 
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1087,8 +1015,8 @@ extension MidaEventQueryFilter
   }
 
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> baseUrlBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2375,137 +2303,6 @@ extension MidaEventQueryFilter
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'eventUrl',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'eventUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'eventUrl',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> eventUrlIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'eventUrl',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      eventUrlIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'eventUrl',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> freeSlotsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -2923,154 +2720,6 @@ extension MidaEventQueryFilter
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'imageUrl',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      imageUrlIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'imageUrl',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'imageUrl',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'imageUrl',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'imageUrl',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> imageUrlIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'imageUrl',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      imageUrlIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'imageUrl',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> isarIdEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -3413,313 +3062,6 @@ extension MidaEventQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'location',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'locationForMap',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'locationForMap',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'locationForMap',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'locationForMap',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'locationForMap',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'locationForMap',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationForMapIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'locationForMap',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'locationName',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'locationName',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'locationName',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'locationName',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition> locationNameMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'locationName',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'locationName',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterFilterCondition>
-      locationNameIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'locationName',
         value: '',
       ));
     });
@@ -5207,18 +4549,6 @@ extension MidaEventQuerySortBy on QueryBuilder<MidaEvent, MidaEvent, QSortBy> {
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEventUrl() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'eventUrl', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByEventUrlDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'eventUrl', Sort.desc);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByFreeSlots() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.asc);
@@ -5267,18 +4597,6 @@ extension MidaEventQuerySortBy on QueryBuilder<MidaEvent, MidaEvent, QSortBy> {
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImageUrl() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'imageUrl', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByImageUrlDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'imageUrl', Sort.desc);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLink() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.asc);
@@ -5300,30 +4618,6 @@ extension MidaEventQuerySortBy on QueryBuilder<MidaEvent, MidaEvent, QSortBy> {
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.desc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationForMap() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationForMap', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationForMapDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationForMap', Sort.desc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationName() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationName', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> sortByLocationNameDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationName', Sort.desc);
     });
   }
 
@@ -5687,18 +4981,6 @@ extension MidaEventQuerySortThenBy
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEventUrl() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'eventUrl', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByEventUrlDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'eventUrl', Sort.desc);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByFreeSlots() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'freeSlots', Sort.asc);
@@ -5747,18 +5029,6 @@ extension MidaEventQuerySortThenBy
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImageUrl() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'imageUrl', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByImageUrlDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'imageUrl', Sort.desc);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.asc);
@@ -5792,30 +5062,6 @@ extension MidaEventQuerySortThenBy
   QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'location', Sort.desc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationForMap() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationForMap', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationForMapDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationForMap', Sort.desc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationName() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationName', Sort.asc);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QAfterSortBy> thenByLocationNameDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'locationName', Sort.desc);
     });
   }
 
@@ -6114,13 +5360,6 @@ extension MidaEventQueryWhereDistinct
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByEventUrl(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'eventUrl', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByFreeSlots(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -6147,13 +5386,6 @@ extension MidaEventQueryWhereDistinct
     });
   }
 
-  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByImageUrl(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'imageUrl', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLink(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -6165,21 +5397,6 @@ extension MidaEventQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'location', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLocationForMap(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'locationForMap',
-          caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<MidaEvent, MidaEvent, QDistinct> distinctByLocationName(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'locationName', caseSensitive: caseSensitive);
     });
   }
 
@@ -6306,7 +5523,7 @@ extension MidaEventQueryProperty
     });
   }
 
-  QueryBuilder<MidaEvent, String?, QQueryOperations> baseUrlProperty() {
+  QueryBuilder<MidaEvent, String, QQueryOperations> baseUrlProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'baseUrl');
     });
@@ -6379,12 +5596,6 @@ extension MidaEventQueryProperty
     });
   }
 
-  QueryBuilder<MidaEvent, String, QQueryOperations> eventUrlProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'eventUrl');
-    });
-  }
-
   QueryBuilder<MidaEvent, String?, QQueryOperations> freeSlotsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'freeSlots');
@@ -6409,12 +5620,6 @@ extension MidaEventQueryProperty
     });
   }
 
-  QueryBuilder<MidaEvent, String?, QQueryOperations> imageUrlProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'imageUrl');
-    });
-  }
-
   QueryBuilder<MidaEvent, String?, QQueryOperations> linkProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'link');
@@ -6424,18 +5629,6 @@ extension MidaEventQueryProperty
   QueryBuilder<MidaEvent, String?, QQueryOperations> locationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'location');
-    });
-  }
-
-  QueryBuilder<MidaEvent, String?, QQueryOperations> locationForMapProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'locationForMap');
-    });
-  }
-
-  QueryBuilder<MidaEvent, String?, QQueryOperations> locationNameProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'locationName');
     });
   }
 
@@ -6743,7 +5936,7 @@ _$MidaEventImpl _$$MidaEventImplFromJson(Map<String, dynamic> json) =>
       registrationCount: (json['registrationCount'] as num?)?.toInt(),
       freeSlots: json['freeSlots'] as String?,
       link: json['link'] as String?,
-      baseUrl: json['baseUrl'] as String?,
+      baseUrl: json['baseUrl'] as String,
       clientEventId: json['clientEventId'] as String?,
     );
 

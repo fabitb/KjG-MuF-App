@@ -1968,7 +1968,7 @@ mixin _$MidaEvent {
   int? get registrationCount => throw _privateConstructorUsedError;
   String? get freeSlots => throw _privateConstructorUsedError;
   String? get link => throw _privateConstructorUsedError;
-  String? get baseUrl => throw _privateConstructorUsedError;
+  String get baseUrl => throw _privateConstructorUsedError;
   String? get clientEventId => throw _privateConstructorUsedError;
 
   /// Serializes this MidaEvent to a JSON map.
@@ -2021,7 +2021,7 @@ abstract class $MidaEventCopyWith<$Res> {
       int? registrationCount,
       String? freeSlots,
       String? link,
-      String? baseUrl,
+      String baseUrl,
       String? clientEventId});
 }
 
@@ -2074,7 +2074,7 @@ class _$MidaEventCopyWithImpl<$Res, $Val extends MidaEvent>
     Object? registrationCount = freezed,
     Object? freeSlots = freezed,
     Object? link = freezed,
-    Object? baseUrl = freezed,
+    Object? baseUrl = null,
     Object? clientEventId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2214,10 +2214,10 @@ class _$MidaEventCopyWithImpl<$Res, $Val extends MidaEvent>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String?,
-      baseUrl: freezed == baseUrl
+      baseUrl: null == baseUrl
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       clientEventId: freezed == clientEventId
           ? _value.clientEventId
           : clientEventId // ignore: cast_nullable_to_non_nullable
@@ -2269,7 +2269,7 @@ abstract class _$$MidaEventImplCopyWith<$Res>
       int? registrationCount,
       String? freeSlots,
       String? link,
-      String? baseUrl,
+      String baseUrl,
       String? clientEventId});
 }
 
@@ -2320,7 +2320,7 @@ class __$$MidaEventImplCopyWithImpl<$Res>
     Object? registrationCount = freezed,
     Object? freeSlots = freezed,
     Object? link = freezed,
-    Object? baseUrl = freezed,
+    Object? baseUrl = null,
     Object? clientEventId = freezed,
   }) {
     return _then(_$MidaEventImpl(
@@ -2460,10 +2460,10 @@ class __$$MidaEventImplCopyWithImpl<$Res>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String?,
-      baseUrl: freezed == baseUrl
+      baseUrl: null == baseUrl
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       clientEventId: freezed == clientEventId
           ? _value.clientEventId
           : clientEventId // ignore: cast_nullable_to_non_nullable
@@ -2510,7 +2510,7 @@ class _$MidaEventImpl extends _MidaEvent {
       this.registrationCount,
       this.freeSlots,
       this.link,
-      this.baseUrl,
+      required this.baseUrl,
       this.clientEventId})
       : _attachments = attachments,
         super._();
@@ -2595,7 +2595,7 @@ class _$MidaEventImpl extends _MidaEvent {
   @override
   final String? link;
   @override
-  final String? baseUrl;
+  final String baseUrl;
   @override
   final String? clientEventId;
 
@@ -2767,7 +2767,7 @@ abstract class _MidaEvent extends MidaEvent {
       final int? registrationCount,
       final String? freeSlots,
       final String? link,
-      final String? baseUrl,
+      required final String baseUrl,
       final String? clientEventId}) = _$MidaEventImpl;
   const _MidaEvent._() : super._();
 
@@ -2843,7 +2843,7 @@ abstract class _MidaEvent extends MidaEvent {
   @override
   String? get link;
   @override
-  String? get baseUrl;
+  String get baseUrl;
   @override
   String? get clientEventId;
 

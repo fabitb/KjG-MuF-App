@@ -6,7 +6,7 @@ class KjGCacheManager {
   static CacheManager instance = CacheManager(
     Config(
       key,
-      stalePeriod: const Duration(days: 90),
+      stalePeriod: const Duration(days: 30),
       maxNrOfCacheObjects: 1000,
     ),
   );

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
@@ -27,6 +28,7 @@ class EventList extends _$EventList {
 
     final events = await MidaService().getEvents();
     await DBService().cacheEvents(events);
+    ref.read(attachmentCacheProvider.notifier).cleanUp(events: events);
     return events;
   }
 
@@ -34,8 +36,6 @@ class EventList extends _$EventList {
     ref.invalidateSelf();
     ref.invalidate(registeredListProvider);
   }
-
-// TODO: clean cache of old events somewhere
 }
 
 @riverpod

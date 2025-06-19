@@ -41,14 +41,14 @@
 
   "dontAskAgain": "Nicht erneut nachfragen",
   "download": "Herunterladen",
-  "downloadDescription": "Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen",
+  "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
   "cancel": "Abbrechen",
   "ok": "OK",
   "error": "Fehler",
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
-  "attachments": "Dateien",
+  "attachments": "Anhänge",
 
   "unknownError": "Unbekannter Fehler",
   "noInternet": "Keine Internetverbindung",

@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/database/model/event_attachment.dart';
 
 part 'event.freezed.dart';
 
@@ -130,7 +131,7 @@ class MidaEvent with _$MidaEvent {
     int? registrationCount,
     String? freeSlots,
     String? link,
-    String? baseUrl,
+    required String baseUrl,
     String? clientEventId,
   }) = _MidaEvent;
 
@@ -153,7 +154,10 @@ class MidaEvent with _$MidaEvent {
     final id = tryParseInt(e.id);
     final title = nullIfEmpty(e.title);
     final parsedDate = tryParseDate(e.date);
-    if (id == null || title == null || parsedDate == null) return null;
+    final url = nullIfEmpty(e.url);
+    if (id == null || title == null || parsedDate == null || url == null) {
+      return null;
+    }
 
     Duration toDuration(String input) {
       final parts = input.split(":");
@@ -211,18 +215,38 @@ class MidaEvent with _$MidaEvent {
       registrationCount: tryParseInt(e.registrationCount),
       freeSlots: nullIfEmpty(e.freeSlots),
       link: nullIfEmpty(e.link),
-      baseUrl: nullIfEmpty(e.url),
+      baseUrl: url,
       clientEventId: nullIfEmpty(e.clientEventId),
     );
   }
 
+  static List<MidaEvent> createFakeData() {
+    return List.generate(
+      4,
+      (index) => MidaEvent(
+        id: index,
+        baseUrl: "",
+        startDateAndTime: DateTime.now(),
+        endDateAndTime: DateTime.now(),
+        title: "title",
+      ),
+    );
+  }
+}
+
+extension MidaEventExtension on MidaEvent {
   String get eventUrl => "${Strings.midaBaseURL}?veranstaltung=$id&dialog=1";
 
-  String? get imageUrl =>
-      baseUrl != null && image != null ? "$baseUrl/?download=$image" : null;
+  EventAttachment? get imageAttachment => image != null
+      ? EventAttachment(
+          eventId: id,
+          name: image!,
+          url: "$baseUrl/?download=$image",
+        )
+      : null;
 
-  String? attachmentDownloadLink(String attachment) =>
-      baseUrl != null ? "$baseUrl/?download=$attachment" : null;
+  String attachmentDownloadLink(String attachment) =>
+      "$baseUrl/?download=$attachment";
 
   String? get locationName {
     if (location != null) {
@@ -242,15 +266,18 @@ class MidaEvent with _$MidaEvent {
     return null;
   }
 
-  static List<MidaEvent> createFakeData() {
-    return List.generate(
-      4,
-      (index) => MidaEvent(
-        id: index,
-        startDateAndTime: DateTime.now(),
-        endDateAndTime: DateTime.now(),
-        title: "title",
-      ),
-    );
+  List<EventAttachment>? get eventAttachments {
+    final attachments = this.attachments;
+    if (attachments == null || attachments.isEmpty) return null;
+
+    return attachments
+        .map(
+          (a) => EventAttachment(
+            eventId: id,
+            url: attachmentDownloadLink(a),
+            name: a,
+          ),
+        )
+        .toList();
   }
 }

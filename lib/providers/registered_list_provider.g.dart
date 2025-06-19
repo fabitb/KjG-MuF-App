@@ -23,7 +23,7 @@ final cachedRegisteredProvider = AutoDisposeFutureProvider<List<int>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CachedRegisteredRef = AutoDisposeFutureProviderRef<List<int>>;
-String _$eventRegisteredHash() => r'e754e2f67feaedff44563c995212d98b7ea42f4f';
+String _$eventRegisteredHash() => r'4b0384906bdd73d82d8a1309ca27279cbd1dda9d';
 
 /// Copied from Dart SDK
 class _SystemHash {

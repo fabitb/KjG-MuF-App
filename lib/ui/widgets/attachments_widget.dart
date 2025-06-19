@@ -1,48 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
-import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/database/model/event_attachment.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
-import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
-import 'package:kjg_muf_app/ui/screens/pdf_screen.dart';
+import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
+import 'package:kjg_muf_app/ui/screens/attachment_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/download_dialog.dart';
-import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:mime/mime.dart';
 
-class AttachmentsWidget extends StatefulWidget {
-  final MidaEvent event;
-  final String baseUrl;
-  final List<String> attachments;
+class AttachmentsWidget extends ConsumerStatefulWidget {
+  final List<EventAttachment> attachments;
 
-  const AttachmentsWidget({
-    super.key,
-    required this.event,
-    required this.attachments,
-    required this.baseUrl,
-  });
+  const AttachmentsWidget({super.key, required this.attachments});
 
   @override
-  State<AttachmentsWidget> createState() => _AttachmentsWidgetState();
+  ConsumerState<AttachmentsWidget> createState() => _AttachmentsWidgetState();
 }
 
-class _AttachmentsWidgetState extends State<AttachmentsWidget> {
+class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
   bool _loading = false;
-
-  Map<String, bool> get _attachmentCached => {
-        for (var a in widget.attachments)
-          a: KjGCacheManager.instance.store.memoryCacheContainsKey(
-            Strings.attachmentDownloadLink(widget.baseUrl, a),
-          ),
-      };
 
   Future<void> _cacheAttachments() async {
     List<Future> futures = [];
-    final event = widget.event;
 
+    final attachmentsCache = ref.read(attachmentCacheProvider.notifier);
     for (var attachment in widget.attachments) {
-      final url = Strings.attachmentDownloadLink(widget.baseUrl, attachment);
-
-      futures.add(KjGCacheManager.instance.downloadFile(url));
+      futures.add(attachmentsCache.downloadAttachment(attachment));
     }
 
     setState(() {
@@ -63,10 +46,9 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
   Future<void> _deleteAttachments() async {
     List<Future> futures = [];
 
+    final attachmentsCache = ref.read(attachmentCacheProvider.notifier);
     for (var attachment in widget.attachments) {
-      final url = Strings.attachmentDownloadLink(widget.baseUrl, attachment);
-
-      futures.add(KjGCacheManager.instance.removeFile(url));
+      futures.add(attachmentsCache.removeAttachment(attachment));
     }
 
     await Future.wait(futures);
@@ -107,39 +89,12 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
     );
   }
 
-  _openFile(
-    BuildContext context,
-    String attachment,
-    String fileTitle,
-    FileType fileType,
-  ) async {
-    if (fileType.isUnsupported) {
-      _showAlertDialog(
-        context,
-        context.localizations.error,
-        context.localizations.fileErrorDescription,
-      );
-      return;
-    }
-
-    final url = Strings.attachmentDownloadLink(widget.baseUrl, attachment);
-
+  _openFile(BuildContext context, EventAttachment attachment) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) {
-          return switch (fileType) {
-            FileType.pdf => PDFScreen(
-                pdfLink: url,
-                pageTitle: fileTitle,
-              ),
-            FileType.image => FullscreenImage(url: url),
-            FileType.unsupported => throw UnimplementedError(),
-          };
-        },
+        builder: (context) => AttachmentScreen(attachment: attachment),
       ),
     );
-
-    setState(() {});
   }
 
   _showAlertDialog(
@@ -227,7 +182,11 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
       );
     }
 
-    if (_attachmentCached.containsValue(false)) {
+    final cachedKeys =
+        ref.watch(attachmentCacheProvider).valueOrNull?.map((e) => e.key) ?? [];
+    final allCached =
+        widget.attachments.where((e) => !cachedKeys.contains(e.key)).isEmpty;
+    if (!allCached) {
       return IconButton(
         onPressed: _showDownloadDialog,
         icon: const Icon(Icons.download),
@@ -246,25 +205,16 @@ class _AttachmentsWidgetState extends State<AttachmentsWidget> {
     });
   }
 
-  Widget _attachment(BuildContext context, String attachment) {
-    final fileType = FileType.getFileType(attachment);
+  Widget _attachment(BuildContext context, EventAttachment attachment) {
+    final fileType = attachment.fileType;
 
-    String fileTitle = fileType.isPdf
-        ? attachment.substring(attachment.indexOf('_') + 1)
-        : attachment;
-    final icon = switch (fileType) {
-      FileType.pdf => Icons.picture_as_pdf,
-      FileType.image => Icons.image,
-      FileType.unsupported => Icons.question_mark,
-    };
-
-    final cached = _attachmentCached[attachment] ?? false;
+    final cached = ref.watch(attachmentCachedProvider(key: attachment.key));
 
     return ListTile(
-      title: Text(fileTitle),
-      leading: Icon(icon),
+      title: Text(attachment.displayName),
+      leading: Icon(fileType.icon),
       trailing: cached ? Icon(Icons.download_done) : null,
-      onTap: () => _openFile(context, attachment, fileTitle, fileType),
+      onTap: () => _openFile(context, attachment),
     );
   }
 }
@@ -290,4 +240,12 @@ enum FileType {
   bool get isImage => this == FileType.image;
 
   bool get isUnsupported => this == FileType.unsupported;
+
+  IconData get icon {
+    return switch (this) {
+      FileType.pdf => Icons.picture_as_pdf,
+      FileType.image => Icons.image,
+      FileType.unsupported => Icons.question_mark,
+    };
+  }
 }

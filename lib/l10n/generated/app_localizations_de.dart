@@ -79,7 +79,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get download => 'Herunterladen';
 
   @override
-  String get downloadDescription => 'Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen';
+  String get downloadDescription => 'Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge';
 
   @override
   String get cancel => 'Abbrechen';
@@ -100,7 +100,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get deleteDescription => 'Die Anhänge sind dann nicht mehr offline verfügbar';
 
   @override
-  String get attachments => 'Dateien';
+  String get attachments => 'Anhänge';
 
   @override
   String get unknownError => 'Unbekannter Fehler';

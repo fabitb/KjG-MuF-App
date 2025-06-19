@@ -9,13 +9,14 @@ import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_attachment.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
+import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
 import 'package:kjg_muf_app/providers/registered_list_provider.dart';
-import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
+import 'package:kjg_muf_app/ui/screens/attachment_screen.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
-import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:kjg_muf_app/utils/url_helper.dart';
@@ -74,10 +75,10 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     await URLHelper.openUrl(context, link);
   }
 
-  void _onImageTap(String imageUrl) {
+  void _onImageTap(EventAttachment imageAttachment) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => FullscreenImage(url: imageUrl),
+        builder: (context) => AttachmentScreen(attachment: imageAttachment),
       ),
     );
   }
@@ -158,16 +159,15 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                     _descriptionCard(description),
                   if (event.organization case String organizer)
                     _organizerCard(organizer),
-                  if (event.imageUrl case String imageUrl) _imageCard(imageUrl),
+                  if (event.imageAttachment
+                      case EventAttachment imageAttachment)
+                    _imageCard(imageAttachment),
                   if (event
                       case MidaEvent(:final contactEmail?, :final contactName?))
                     _contactCard(contactEmail, contactName),
-                  if (event
-                      case MidaEvent(
-                        :final attachments?,
-                        :final baseUrl?,
-                      ) when attachments.isNotEmpty)
-                    _attachments(baseUrl, attachments),
+                  if (event case MidaEvent(:final eventAttachments?)
+                      when eventAttachments.isNotEmpty)
+                    _attachments(eventAttachments),
                 ],
               ),
             ),
@@ -205,14 +205,14 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     );
   }
 
-  Widget _imageCard(String imageUrl) {
+  Widget _imageCard(EventAttachment imageAttachment) {
     return InkWell(
-      onTap: () => _onImageTap(imageUrl),
+      onTap: () => _onImageTap(imageAttachment),
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: AspectRatio(
           aspectRatio: 1,
-          child: _getImageCached(imageUrl),
+          child: _getImageCached(imageAttachment),
         ),
       ),
     );
@@ -246,15 +246,8 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     );
   }
 
-  Widget _attachments(
-    String baseUrl,
-    List<String> attachments,
-  ) {
-    return AttachmentsWidget(
-      event: widget.event,
-      baseUrl: baseUrl,
-      attachments: attachments,
-    );
+  Widget _attachments(List<EventAttachment> attachments) {
+    return AttachmentsWidget(attachments: attachments);
   }
 
   Widget _fab() {
@@ -268,9 +261,11 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     );
   }
 
-  Widget _getImageCached(String imageUrl) {
+  Widget _getImageCached(EventAttachment imageAttachment) {
     return FutureBuilder(
-      future: KjGCacheManager.instance.getSingleFile(imageUrl),
+      future: ref
+          .read(attachmentCacheProvider.notifier)
+          .getSingleFile(imageAttachment),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Image(
