@@ -1,8 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 
-import '../backend/backend_service.dart';
-import '../database/db_service.dart';
+import 'package:kjg_muf_app/backend/backend_service.dart';
+import 'package:kjg_muf_app/database/db_service.dart';
 
 class GameRepository {
   DBService dbService = DBService();
@@ -24,9 +23,9 @@ class GameRepository {
     return dbService.getAllGames();
   }
 
-  Future<void> getGames(Function(List<GameModel>) callback) async {
+  Stream<List<GameModel>> getGames() async* {
     var databaseGames = await dbService.getAllGames();
-    callback(databaseGames);
+    yield databaseGames;
 
     var backendGames = (await backendService.getGames())
         .map((e) => GameModel.fromGame(e))
@@ -34,11 +33,12 @@ class GameRepository {
 
     for (var dbGame in databaseGames) {
       backendGames
-          .firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)
+          .where((backendGame) => backendGame.id == dbGame.id)
+          .firstOrNull
           ?.alreadyPlayed = dbGame.alreadyPlayed;
     }
 
-    dbService.saveGames(backendGames);
-    callback(backendGames);
+    await dbService.saveGames(backendGames);
+    yield backendGames;
   }
 }

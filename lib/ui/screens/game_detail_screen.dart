@@ -31,9 +31,11 @@ class GameDetailScreen extends StatelessWidget {
                           const Text("Action:"),
                           const SizedBox(width: 4.0),
                           ...List.generate(
-                              game.actionScore,
-                              (index) => const Icon(
-                                  Icons.local_fire_department_outlined)),
+                            game.actionScore,
+                            (index) => const Icon(
+                              Icons.local_fire_department_outlined,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8.0),
@@ -44,8 +46,10 @@ class GameDetailScreen extends StatelessWidget {
                           const SizedBox(
                             width: 4.0,
                           ),
-                          ...List.generate(game.cognitiveScore,
-                              (index) => const Icon(Icons.cloud_outlined)),
+                          ...List.generate(
+                            game.cognitiveScore,
+                            (index) => const Icon(Icons.cloud_outlined),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8.0),
@@ -61,7 +65,7 @@ class GameDetailScreen extends StatelessWidget {
                       if (game.spaceLimitations.isNotEmpty) ...{
                         const SizedBox(height: 8.0),
                         Text("Raumbeschränkungen: ${game.spaceLimitations}"),
-                      }
+                      },
                     ],
                   ),
                   Column(
@@ -73,7 +77,7 @@ class GameDetailScreen extends StatelessWidget {
                           const SizedBox(
                             width: 4.0,
                           ),
-                          Text(game.numberOfPlayers)
+                          Text(game.numberOfPlayers),
                         ],
                       ),
                       Row(
@@ -82,11 +86,11 @@ class GameDetailScreen extends StatelessWidget {
                           const SizedBox(
                             width: 4.0,
                           ),
-                          Text(game.duration)
+                          Text(game.duration),
                         ],
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -112,7 +116,7 @@ class GameDetailScreen extends StatelessWidget {
                 Text(game.endingInstructions),
               },
               const SizedBox(height: 32.0),
-              Text("Danke an ${game.author} für das Erstellen des Spiels!")
+              Text("Danke an ${game.author} für das Erstellen des Spiels!"),
             ],
           ),
         ),

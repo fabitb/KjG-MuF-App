@@ -2,22 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kjg_muf_app/l10n/generated/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard.dart';
-import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_list_screen.dart';
-import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
-import 'package:kjg_muf_app/ui/screens/login_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/member_card.dart';
-import 'package:kjg_muf_app/viewmodels/main.viewmodel.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:kjg_muf_app/ui/screens/more_screen.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // keep showing splash screen, hide after loading e. g. theme
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -31,15 +27,21 @@ void main() {
     }
   }
 
-  runApp(const KjGApp());
+  await SharedPreferencesService.instance.init();
+
+  runApp(
+    ProviderScope(
+      child: const KjGApp(),
+    ),
+  );
   FlutterNativeSplash.remove();
 }
 
-class KjGApp extends StatelessWidget {
+class KjGApp extends ConsumerWidget {
   const KjGApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'KjG MuF',
       theme: ThemeData(
@@ -53,172 +55,54 @@ class KjGApp extends StatelessWidget {
   }
 }
 
-class KjGAppMain extends StatelessWidget {
-  const KjGAppMain({Key? key, required this.title}) : super(key: key);
+class KjGAppMain extends StatefulWidget {
+  const KjGAppMain({super.key, required this.title});
 
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MainViewModel(),
-      child: Consumer<MainViewModel>(
-        builder: (_, model, __) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-              backgroundColor: KjGColors.kjgLightBlue,
-              actions: [
-                if (model.isLoggedIn)
-                  IconButton(
-                    onPressed: () => _showMemberCardBottomSheet(context, model),
-                    icon: const Icon(Icons.credit_card),
-                  ),
-              ],
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  UserAccountsDrawerHeader(
-                    accountName: Text(
-                      model.nameCache == null
-                          ? "Nicht angemeldet"
-                          : model.nameCache!,
-                    ),
-                    accountEmail: Text(
-                      model.userNameCache == null ? "" : model.userNameCache!,
-                    ),
-                  ),
-                  if (!model.isLoggedIn) ...[
-                    ListTile(
-                      title: const Text("Anmelden"),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context)
-                            .push(
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            )
-                            .then((value) => model.loadUserData());
-                      },
-                    ),
-                    const Divider(),
-                  ],
-                  ListTile(
-                    title: const Text("Veranstaltungen"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const EventListScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    title: const Text("Spieledatenbank"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const GameDatabase(),
-                        ),
-                      );
-                    },
-                  ),
-                  if (!Platform.isIOS)
-                    ListTile(
-                      title: const Text("Website"),
-                      onTap: () async {
-                        await launchUrl(
-                          Uri.parse(Strings.websiteURL),
-                          mode: LaunchMode.externalApplication,
-                        );
-                      },
-                    ),
-                  if (!Platform.isIOS)
-                    ListTile(
-                      title: const Text("Shop"),
-                      onTap: () async {
-                        await launchUrl(
-                          Uri.parse(Strings.shopURL),
-                          mode: LaunchMode.externalApplication,
-                        );
-                      },
-                    ),
-                  ListTile(
-                    title: const Text("Datenschutz"),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DataPrivacyScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  if (model.isLoggedIn)
-                    ListTile(
-                      title: const Text("Abmelden"),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text("Abmelden"),
-                            content: const Text(
-                              "Willst du dich wirklich ausloggen?",
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  model.logoutUser();
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("Ja"),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text("Nein"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                ],
-              ),
-            ),
-            body: const Dashboard(),
-          );
-        },
-      ),
-    );
-  }
+  State<KjGAppMain> createState() => _KjGAppMainState();
+}
 
-  _showMemberCardBottomSheet(BuildContext context, MainViewModel model) {
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-      ),
-      builder: (BuildContext context) {
-        return Padding(
-          padding:
-              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
-          child: MemberCard(
-            name: model.nameCache ?? "",
-            memberId: model.memberId ?? "",
-            ebene: model.ueberEbene ?? "",
-            unterebene: model.ebene ?? "",
+class _KjGAppMainState extends State<KjGAppMain> {
+  int currentPageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: [
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
           ),
-        );
-      },
+          NavigationDestination(
+            selectedIcon: Icon(Icons.list),
+            icon: Icon(Icons.list_outlined),
+            label: context.localizations.events,
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.more_horiz),
+            icon: Icon(Icons.more_horiz_outlined),
+            label: 'Mehr',
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: [
+          const Dashboard(),
+          const EventListScreen(),
+          const MoreScreen(),
+        ],
+      ),
     );
   }
 }

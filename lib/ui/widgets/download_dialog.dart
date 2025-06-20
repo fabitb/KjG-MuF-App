@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 
 class DownloadDialog extends StatefulWidget {
   final Function(bool) downloadAction;

@@ -5,15 +5,16 @@ import 'package:photo_view/photo_view.dart';
 
 class FullscreenImage extends StatelessWidget {
   final String url;
+  final String? cacheKey;
 
-  const FullscreenImage({super.key, required this.url});
+  const FullscreenImage({super.key, required this.url, this.cacheKey});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder<File>(
-        future: KjGCacheManager.instance.getSingleFile(url),
+        future: KjGCacheManager.instance.getSingleFile(url, key: cacheKey),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return PhotoView(

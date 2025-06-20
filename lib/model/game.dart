@@ -15,22 +15,23 @@ class Game {
   final List<String> categories;
   final String author;
 
-  const Game(
-      {required this.id,
-      required this.title,
-      required this.actionScore,
-      required this.cognitiveScore,
-      required this.numberOfPlayer,
-      required this.duration,
-      required this.ageLimitations,
-      required this.spaceLimitations,
-      required this.materials,
-      required this.goalOfGame,
-      required this.preparationsInstructions,
-      required this.gameplayInstructions,
-      required this.endingInstructions,
-      required this.categories,
-      required this.author});
+  const Game({
+    required this.id,
+    required this.title,
+    required this.actionScore,
+    required this.cognitiveScore,
+    required this.numberOfPlayer,
+    required this.duration,
+    required this.ageLimitations,
+    required this.spaceLimitations,
+    required this.materials,
+    required this.goalOfGame,
+    required this.preparationsInstructions,
+    required this.gameplayInstructions,
+    required this.endingInstructions,
+    required this.categories,
+    required this.author,
+  });
 
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(

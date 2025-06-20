@@ -26,7 +26,7 @@
   "username": "Benutzername",
   "password": "Passwort",
   "loginMida": "Login Mida",
-  "loadingUserdata": "Login erfolgreich, lade weitere Nutzerdaten",
+  "loggingIn": "Einloggen...",
   "signupText": "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
   "writeEmail": "Schreib uns eine Mail!",
   "loggedInText": "Du bist eingeloggt {name}",
@@ -41,13 +41,41 @@
 
   "dontAskAgain": "Nicht erneut nachfragen",
   "download": "Herunterladen",
-  "downloadDescription": "Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen",
+  "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
   "cancel": "Abbrechen",
   "ok": "OK",
   "error": "Fehler",
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
-  "attachments": "Dateien"
+  "attachments": "Anhänge",
 
+  "unknownError": "Unbekannter Fehler",
+  "noInternet": "Keine Internetverbindung",
+  "loginError": "Falscher Nutzername oder Passwort",
+
+  "gameDatabase": "Spieledatenbank",
+  "website": "Website",
+  "shop": "Shop",
+  "dataPrivacy": "Datenschutz",
+  "kjgMuF": "KjG München und Freising",
+
+  "organizer": "Veranstalter",
+  "contact" : "Kontakt: {name}",
+  "eventRegister": "Anmelden",
+  "eventUnregister": "Abmelden",
+  "registeredLabel": "Du bist angemeldet",
+  "noPlaceFound": "Es konnte kein Ort gefunden werden",
+
+  "savedAttachments": "Gespeicherte Anhänge",
+  "attachmentsDeleteTitle": "Anhänge löschen",
+  "attachmentsDeleteMessage": "Willst du wirklich alle Anhänge löschen?",
+  "attachmentsDescription": "Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.",
+
+  "notFound": "Nicht gefunden",
+  "yes": "Ja",
+  "no": "Nein",
+
+  "logout": "Abmelden",
+  "logoutConfirmMessage": "Willst du dich wirklich ausloggen?"
 }

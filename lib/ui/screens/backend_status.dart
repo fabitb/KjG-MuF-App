@@ -16,9 +16,9 @@ class BackendStatus extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData &&
                 snapshot.connectionState == ConnectionState.done) {
-              return Text(snapshot.data == true
-                  ? "Backend Online!"
-                  : "Backend Offline!");
+              return Text(
+                snapshot.data == true ? "Backend Online!" : "Backend Offline!",
+              );
             } else {
               return const CircularProgressIndicator();
             }

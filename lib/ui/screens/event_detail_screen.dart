@@ -4,342 +4,268 @@ import 'package:add_2_calendar/add_2_calendar.dart' as calendar;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' hide Marker;
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
-import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/database/model/event_attachment.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
+import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
+import 'package:kjg_muf_app/providers/registered_list_provider.dart';
+import 'package:kjg_muf_app/ui/screens/attachment_screen.dart';
 import 'package:kjg_muf_app/ui/screens/mida_webview_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
-import 'package:kjg_muf_app/utils/cache_manager.dart';
 import 'package:kjg_muf_app/utils/extensions.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
-import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
+import 'package:kjg_muf_app/utils/url_helper.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class EventDetailScreen extends StatelessWidget {
-  final EventModel event;
-  final bool offline;
+enum GeolocationState { loaded, loading, error }
 
-  EventDetailScreen({
-    super.key,
-    required this.event,
-    required this.offline,
-  });
+class EventDetailScreen extends ConsumerStatefulWidget {
+  final MidaEvent event;
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  const EventDetailScreen({super.key, required this.event});
 
-  void _addToCalendar() {
-    final event = this.event;
-    if (event.startDateAndTime != null && event.endDate != null) {
-      String? url = event.eventUrl?.replaceAll("&dialog=1", "");
+  @override
+  ConsumerState<EventDetailScreen> createState() => _EventDetailScreenState();
+}
 
-      // Add url to Android description
-      // iOS doesn't support html descriptions -> parse text
-      String description = Platform.isAndroid
-          ? "${event.description}\n\n$url"
-          : parse(event.description).documentElement?.text ?? "";
+class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
+  Location? _location;
+  GeolocationState _geoState = GeolocationState.loading;
 
-      // Adds event link to the end of the description (not as modal)
-      // duration 1 hour if end time equals start time
-      final calendar.Event calendarEvent = calendar.Event(
-        title: event.title,
-        description: description,
-        location: event.location,
-        startDate: event.startDateAndTime!,
-        endDate: event.endDate!.compareTo(event.startDateAndTime!) == 0
-            ? event.endDate!.add(const Duration(hours: 1))
-            : event.endDate!,
-        iosParams: calendar.IOSParams(url: url),
-      );
-      calendar.Add2Calendar.addEvent2Cal(calendarEvent);
+  @override
+  void initState() {
+    super.initState();
+    _loadLocation();
+  }
+
+  Future<void> _loadLocation() async {
+    final location = widget.event.locationForMap;
+    if (location == null) return;
+
+    try {
+      final locations = await locationFromAddress(location);
+      setState(() {
+        _location = locations.first;
+        _geoState = GeolocationState.loaded;
+      });
+    } on Exception {
+      setState(() {
+        _geoState = GeolocationState.error;
+      });
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => EventDetailViewModel(
-        event,
-        offline,
-      ),
-      child: Builder(
-        builder: (context) {
-          final model =
-              Provider.of<EventDetailViewModel>(context, listen: true);
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(event.title),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (event.locationForMap.isNotNullAndNotEmpty)
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: 200.0,
-                          child:
-                              model.geolocationState == GeolocationState.loaded
-                                  ? FlutterMap(
-                                      options: MapOptions(
-                                        initialCenter: LatLng(
-                                          model.location!.latitude,
-                                          model.location!.longitude,
-                                        ),
-                                        initialZoom: 14.0,
-                                        interactionOptions: InteractionOptions(
-                                          flags: InteractiveFlag.none,
-                                        ),
-                                      ),
-                                      children: [
-                                        TileLayer(
-                                          minZoom: 1,
-                                          maxZoom: 18,
-                                          urlTemplate:
-                                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                          subdomains: const [
-                                            'a',
-                                            'b',
-                                            'c',
-                                          ],
-                                        ),
-                                        MarkerLayer(
-                                          markers: [
-                                            Marker(
-                                              point: LatLng(
-                                                model.location!.latitude,
-                                                model.location!.longitude,
-                                              ),
-                                              child: const Icon(Icons.place),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  : model.geolocationState ==
-                                          GeolocationState.loading
-                                      ? const Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : const Center(
-                                          child: Text(
-                                            "Es konnte kein Ort gefunden werden",
-                                          ),
-                                        ),
-                        ),
-                        Positioned.fill(
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 8, bottom: 8),
-                              child: ElevatedButton(
-                                child: const Icon(Icons.map),
-                                onPressed: () async {
-                                  final availableMaps =
-                                      await MapLauncher.installedMaps;
-                                  await availableMaps.first.showMarker(
-                                    coords: Coords(
-                                      model.latitudeCache!,
-                                      model.longitudeCache!,
-                                    ),
-                                    title: event.locationForMap!,
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 128.0),
-                    child: Column(
-                      children: [
-                        eventItem(
-                          context,
-                          0,
-                          event,
-                        ),
-                        Consumer<EventDetailViewModel>(
-                          builder: (_, viewModel, __) {
-                            return viewModel.event.registered
-                                ? const SizedBox(
-                                    width: double.infinity,
-                                    child: Card(
-                                      color: KjGColors.kjgGreen,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 8),
-                                        child: Center(
-                                          child: Text(
-                                            "Du bist angemeldet",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox();
-                          },
-                        ),
-                        if (event.description.isNotNullAndNotEmpty)
-                          Card(
-                            child: Html(
-                              data: event.description,
-                              onLinkTap: (url, _, __) async {
-                                if (url != null &&
-                                    await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(
-                                    Uri.parse(url),
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                        if (event.organizer.isNotNullAndNotEmpty)
-                          Card(
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Veranstalter",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(event.organizer!),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (event.imageUrl.isNotNullAndNotEmpty)
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      FullscreenImage(url: event.imageUrl!),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: _getImageCached(context),
-                              ),
-                            ),
-                          ),
-                        if (event.contactEmail.isNotNullAndNotEmpty &&
-                            event.contactName.isNotNullAndNotEmpty)
-                          InkWell(
-                            onTap: () {
-                              model.openUrl("mailto:${event.contactEmail}");
-                            },
-                            child: Card(
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Kontakt: ${event.contactName}",
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.mail),
-                                          const SizedBox(width: 16),
-                                          Flexible(
-                                            child: Text(event.contactEmail!),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (event.attachments != null &&
-                            event.attachments!.isNotEmpty &&
-                            event.baseUrl != null)
-                          AttachmentsWidget(
-                            baseUrl: event.baseUrl!,
-                            attachments: event.attachments!,
-                            cachedTime: event.cachedTime,
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            floatingActionButton: FloatingActionButton.extended(
-              heroTag: null,
-              label: Text(model.event.registered ? "Abmelden" : "Anmelden"),
-              onPressed: () async {
-                if (event.eventUrl.isNotNullAndNotEmpty) {
-                  final token = await SharedPref().getToken();
-                  if (context.mounted) {
-                    showModalBottomSheet(
-                      context: context,
-                      useSafeArea: true,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0),
-                        ),
-                      ),
-                      builder: (BuildContext context) {
-                        return MidaWebViewScreen(
-                          url: event.eventUrl!,
-                          token: token,
-                          addToCalendar: _addToCalendar,
-                        );
-                      },
-                    ).whenComplete(
-                      () => model.refreshUserRegisteredForEvent(event.eventID),
-                    );
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "Aktuell kann das Event in der MiDa zum Anmelden nicht aufgerufen werden. Versuche es später noch einmal oder melde dich im Menü mit deinem Konto an",
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
-          );
-        },
+  Future<void> _onMapButtonPressed(Location location) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    await availableMaps.first.showMarker(
+      coords: Coords(location.latitude, location.longitude),
+      title: widget.event.locationForMap ?? widget.event.title,
+    );
+  }
+
+  Future<void> _onLinkTap(String? link) async {
+    if (link == null) return;
+
+    await URLHelper.openUrl(context, link);
+  }
+
+  void _onImageTap(EventAttachment imageAttachment) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AttachmentScreen(attachment: imageAttachment),
       ),
     );
   }
 
-  Widget _getImageCached(BuildContext context) {
+  Future<void> _onMidaButtonPressed() async {
+    final eventUrl = widget.event.eventUrl;
+
+    final token = SharedPreferencesService.instance.token;
+
+    await showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return MidaWebViewScreen(
+          url: eventUrl,
+          token: token,
+          addToCalendar: _addToCalendar,
+        );
+      },
+    );
+
+    ref.invalidate(registeredListProvider);
+  }
+
+  void _addToCalendar() {
+    final event = widget.event;
+    String? url = event.eventUrl.replaceAll("&dialog=1", "");
+
+    // Add url to Android description
+    // iOS doesn't support html descriptions -> parse text
+    String description = Platform.isAndroid
+        ? "${event.description}\n\n$url"
+        : parse(event.description).documentElement?.text ?? "";
+
+    // Adds event link to the end of the description (not as modal)
+    // duration 1 hour if end time equals start time
+    final calendar.Event calendarEvent = calendar.Event(
+      title: event.title,
+      description: description,
+      location: event.location,
+      startDate: event.startDateAndTime,
+      endDate: event.endDateAndTime,
+      iosParams: calendar.IOSParams(url: url),
+    );
+    calendar.Add2Calendar.addEvent2Cal(calendarEvent);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final event = widget.event;
+    final registered = ref.watch(eventRegisteredProvider(event));
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(event.title),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (event.locationForMap.isNotNullAndNotEmpty) _map(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 128),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: 8,
+                children: [
+                  EventItem(event: event, registered: registered),
+                  if (registered) _registeredCard(),
+                  if (event.description case String description)
+                    _descriptionCard(description),
+                  if (event.organization case String organizer)
+                    _organizerCard(organizer),
+                  if (event.imageAttachment
+                      case EventAttachment imageAttachment)
+                    _imageCard(imageAttachment),
+                  if (event
+                      case MidaEvent(:final contactEmail?, :final contactName?))
+                    _contactCard(contactEmail, contactName),
+                  if (event case MidaEvent(:final eventAttachments?)
+                      when eventAttachments.isNotEmpty)
+                    _attachments(eventAttachments),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: _fab(),
+    );
+  }
+
+  Widget _descriptionCard(String description) {
+    return Card(
+      child: Html(
+        data: description,
+        onLinkTap: (url, _, __) => _onLinkTap(url),
+      ),
+    );
+  }
+
+  Widget _organizerCard(String organizer) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              context.localizations.organizer,
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(organizer),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _imageCard(EventAttachment imageAttachment) {
+    return InkWell(
+      onTap: () => _onImageTap(imageAttachment),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: _getImageCached(imageAttachment),
+        ),
+      ),
+    );
+  }
+
+  Widget _contactCard(String email, String name) {
+    return InkWell(
+      onTap: () => URLHelper.sendEmail(email),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                context.localizations.contact(name),
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Icon(Icons.mail),
+                  const SizedBox(width: 16),
+                  Flexible(child: Text(email)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _attachments(List<EventAttachment> attachments) {
+    return AttachmentsWidget(attachments: attachments);
+  }
+
+  Widget _fab() {
+    final registered = ref.watch(eventRegisteredProvider(widget.event));
+    final loc = context.localizations;
+
+    return FloatingActionButton.extended(
+      heroTag: null,
+      label: Text(registered ? loc.eventUnregister : loc.eventRegister),
+      onPressed: _onMidaButtonPressed,
+    );
+  }
+
+  Widget _getImageCached(EventAttachment imageAttachment) {
     return FutureBuilder(
-      future: KjGCacheManager.instance.getSingleFile(event.imageUrl!),
+      future: ref
+          .read(attachmentCacheProvider.notifier)
+          .getSingleFile(imageAttachment),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Image(
@@ -349,6 +275,70 @@ class EventDetailScreen extends StatelessWidget {
 
         return const Center(child: CircularProgressIndicator());
       },
+    );
+  }
+
+  Widget _registeredCard() {
+    return Card(
+      color: KjGColors.kjgGreen,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Center(
+          child: Text(
+            context.localizations.registeredLabel,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _map() {
+    final location = _location;
+
+    return SizedBox(
+      height: 200,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          if (location != null) ...[
+            FlutterMap(
+              options: MapOptions(
+                initialCenter: LatLng(location.latitude, location.longitude),
+                initialZoom: 14.0,
+                interactionOptions: InteractionOptions(
+                  flags: InteractiveFlag.none,
+                ),
+              ),
+              children: [
+                TileLayer(
+                  minZoom: 1,
+                  maxZoom: 18,
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                ),
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: LatLng(location.latitude, location.longitude),
+                      child: const Icon(Icons.place),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 8, bottom: 8),
+              child: ElevatedButton(
+                child: const Icon(Icons.map),
+                onPressed: () => _onMapButtonPressed(location),
+              ),
+            ),
+          ] else if (_geoState == GeolocationState.loading)
+            const Center(child: CircularProgressIndicator())
+          else
+            Center(child: Text(context.localizations.noPlaceFound)),
+        ],
+      ),
     );
   }
 }
