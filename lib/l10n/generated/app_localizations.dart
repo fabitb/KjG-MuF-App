@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameDatabase.
   ///
   /// In de, this message translates to:
-  /// **'Spieledatenbank'**
+  /// **'Spieledatenbank (Kommt demnächst)'**
   String get gameDatabase;
 
   /// No description provided for @website.

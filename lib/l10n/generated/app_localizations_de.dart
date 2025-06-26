@@ -119,7 +119,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loginError => 'Falscher Nutzername oder Passwort';
 
   @override
-  String get gameDatabase => 'Spieledatenbank';
+  String get gameDatabase => 'Spieledatenbank (Kommt demnächst)';
 
   @override
   String get website => 'Website';
