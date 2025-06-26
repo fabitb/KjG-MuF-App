@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
+import 'package:kjg_muf_app/ui/widgets/web_view_pop.dart';
 
 class DataPrivacyScreen extends StatelessWidget {
   const DataPrivacyScreen({super.key});
@@ -11,14 +12,15 @@ class DataPrivacyScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Datenschutz"),
       ),
-      body: InAppWebView(
-        initialSettings: InAppWebViewSettings(
-          useShouldOverrideUrlLoading: true,
-        ),
-        onPageCommitVisible: (controller, url) {
-          controller.addUserScript(
-            userScript: UserScript(
-              source: """
+      body: WebViewPop(
+        child: InAppWebView(
+          initialSettings: InAppWebViewSettings(
+            useShouldOverrideUrlLoading: true,
+          ),
+          onPageCommitVisible: (controller, url) {
+            controller.addUserScript(
+              userScript: UserScript(
+                source: """
                     var header = document.querySelector('div.container.main-container');
                     var menuButton = document.querySelector('.rmp_menu_trigger');
                     var crumbs = document.querySelector('.breadcrumbs');
@@ -30,19 +32,20 @@ class DataPrivacyScreen extends StatelessWidget {
                     crumbs.remove();
                     bottomMenu.remove();
                     """,
-              injectionTime: UserScriptInjectionTime.AT_DOCUMENT_END,
-            ),
-          );
-        },
-        shouldOverrideUrlLoading: (controller, navigationAction) async {
-          if (navigationAction.request.url.toString() ==
-              Strings.dataPrivacyLink) {
-            return NavigationActionPolicy.ALLOW;
-          }
-          return NavigationActionPolicy.CANCEL;
-        },
-        initialUrlRequest:
-            URLRequest(url: WebUri.uri(Uri.parse(Strings.dataPrivacyLink))),
+                injectionTime: UserScriptInjectionTime.AT_DOCUMENT_END,
+              ),
+            );
+          },
+          shouldOverrideUrlLoading: (controller, navigationAction) async {
+            if (navigationAction.request.url.toString() ==
+                Strings.dataPrivacyLink) {
+              return NavigationActionPolicy.ALLOW;
+            }
+            return NavigationActionPolicy.CANCEL;
+          },
+          initialUrlRequest:
+              URLRequest(url: WebUri.uri(Uri.parse(Strings.dataPrivacyLink))),
+        ),
       ),
     );
   }
