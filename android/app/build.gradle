@@ -12,11 +12,11 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = '1020001' //X.XX.XX.XX major, minor, mini, build localProperties.getProperty('flutter.versionCode')
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
 }
-def flutterVersionName = '1.2.0' //localProperties.getProperty('flutter.versionName')
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
@@ -50,7 +50,7 @@ android {
         applicationId "de.kjg.kjg_app"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
+        versionCode flutterVersionCode.toInteger() + 1020001 // add fixed version because Fabi messed up once
         versionName flutterVersionName
         resValue "string", "app_name", "KjG App"
     }
