@@ -35,16 +35,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get news => 'Neuigkeiten';
 
   @override
-  String get noNewsAvailable => 'Wir konnten leider keine Neuigkeiten laden. Versuche es einfach später nochmal!';
+  String get noNewsAvailable =>
+      'Wir konnten leider keine Neuigkeiten laden. Versuche es einfach später nochmal!';
 
   @override
   String get activities => 'Aktionen';
 
   @override
-  String get noActivitiesAvailable => 'Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!';
+  String get noActivitiesAvailable =>
+      'Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!';
 
   @override
-  String get subscribeToNewsletter => 'Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!';
+  String get subscribeToNewsletter =>
+      'Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!';
 
   @override
   String get login => 'Einloggen';
@@ -62,7 +65,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loggingIn => 'Einloggen...';
 
   @override
-  String get signupText => 'Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?';
+  String get signupText =>
+      'Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?';
 
   @override
   String get writeEmail => 'Schreib uns eine Mail!';
@@ -79,7 +83,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get download => 'Herunterladen';
 
   @override
-  String get downloadDescription => 'Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge';
+  String get downloadDescription =>
+      'Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge';
 
   @override
   String get cancel => 'Abbrechen';
@@ -91,13 +96,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get error => 'Fehler';
 
   @override
-  String get fileErrorDescription => 'Es können aktuell nur PDF Dateien oder Bilder geöffnet werden';
+  String get fileErrorDescription =>
+      'Es können aktuell nur PDF Dateien oder Bilder geöffnet werden';
 
   @override
   String get delete => 'Löschen';
 
   @override
-  String get deleteDescription => 'Die Anhänge sind dann nicht mehr offline verfügbar';
+  String get deleteDescription =>
+      'Die Anhänge sind dann nicht mehr offline verfügbar';
 
   @override
   String get attachments => 'Anhänge';
@@ -112,7 +119,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loginError => 'Falscher Nutzername oder Passwort';
 
   @override
-  String get gameDatabase => 'Spieledatenbank';
+  String get gameDatabase => 'Spieledatenbank (Kommt demnächst)';
 
   @override
   String get website => 'Website';
@@ -153,10 +160,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get attachmentsDeleteTitle => 'Anhänge löschen';
 
   @override
-  String get attachmentsDeleteMessage => 'Willst du wirklich alle Anhänge löschen?';
+  String get attachmentsDeleteMessage =>
+      'Willst du wirklich alle Anhänge löschen?';
 
   @override
-  String get attachmentsDescription => 'Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.';
+  String get attachmentsDescription =>
+      'Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.';
 
   @override
   String get notFound => 'Nicht gefunden';

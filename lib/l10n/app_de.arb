@@ -4,9 +4,7 @@
   "filterByOrganizer": "Nach Veranstalter filtern",
   "filterByDate": "Nach Datum filtern",
   "resetFilter": "Filter zurücksetzen",
-
   "events": "Veranstaltungen",
-
   "greeting": "Hallo {name}!",
   "@greeting": {
     "placeholders": {
@@ -21,7 +19,6 @@
   "activities": "Aktionen",
   "noActivitiesAvailable": "Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!",
   "subscribeToNewsletter": "Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!",
-
   "login": "Einloggen",
   "username": "Benutzername",
   "password": "Passwort",
@@ -38,7 +35,6 @@
       }
     }
   },
-
   "dontAskAgain": "Nicht erneut nachfragen",
   "download": "Herunterladen",
   "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
@@ -49,33 +45,27 @@
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
   "attachments": "Anhänge",
-
   "unknownError": "Unbekannter Fehler",
   "noInternet": "Keine Internetverbindung",
   "loginError": "Falscher Nutzername oder Passwort",
-
-  "gameDatabase": "Spieledatenbank",
+  "gameDatabase": "Spieledatenbank (Kommt demnächst)",
   "website": "Website",
   "shop": "Shop",
   "dataPrivacy": "Datenschutz",
   "kjgMuF": "KjG München und Freising",
-
   "organizer": "Veranstalter",
-  "contact" : "Kontakt: {name}",
+  "contact": "Kontakt: {name}",
   "eventRegister": "Anmelden",
   "eventUnregister": "Abmelden",
   "registeredLabel": "Du bist angemeldet",
   "noPlaceFound": "Es konnte kein Ort gefunden werden",
-
   "savedAttachments": "Gespeicherte Anhänge",
   "attachmentsDeleteTitle": "Anhänge löschen",
   "attachmentsDeleteMessage": "Willst du wirklich alle Anhänge löschen?",
   "attachmentsDescription": "Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.",
-
   "notFound": "Nicht gefunden",
   "yes": "Ja",
   "no": "Nein",
-
   "logout": "Abmelden",
   "logoutConfirmMessage": "Willst du dich wirklich ausloggen?"
 }

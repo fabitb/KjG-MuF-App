@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
@@ -108,6 +107,7 @@ class MoreScreen extends ConsumerWidget {
                 _tile(
                   title: loc.gameDatabase,
                   onTap: () => _onGamesDatabaseTap(context),
+                  enabled: false,
                 ),
                 _tile(
                   title: loc.savedAttachments,
@@ -153,7 +153,7 @@ class MoreScreen extends ConsumerWidget {
     );
   }
 
-  Widget _tile({required String title, required VoidCallback onTap}) {
+  Widget _tile({required String title, required VoidCallback onTap, bool enabled = true}) {
     return ListTile(
       title: Text(title),
       trailing: Icon(
@@ -161,6 +161,7 @@ class MoreScreen extends ConsumerWidget {
         size: 16,
       ),
       onTap: onTap,
+      enabled: enabled,
     );
   }
 }
