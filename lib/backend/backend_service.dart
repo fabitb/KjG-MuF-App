@@ -1,17 +1,47 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:kjg_muf_app/model/game.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
-const String backendBaseURL = "https://app.kjg-muenchen.de/api";
+//const String backendBaseURL = "https://app.kjg-muenchen.de/api";
+const String backendBaseURL = "http://192.168.177.97/api";
 
 class BackendService {
   final JsonDecoder _decoder = const JsonDecoder();
   final JsonEncoder _encoder = const JsonEncoder();
 
-  Map<String, String> headers = {"content-type": "text/json"};
+  Map<String, String> headers = {"Content-type": "application/json"};
   Map<String, String> cookies = {};
+
+  final _dio = Dio(
+    BaseOptions(
+      baseUrl: backendBaseURL,
+    ),
+  );
+
+  BackendService() {
+    _dio.interceptors.add(InterceptorsWrapper(
+      // Logging interceptor für Debug-Ausgaben
+      onRequest: (options, handler) {
+        print("Request: ${options.method} ${options.uri}");
+        print("Headers: ${options.headers}");
+        print("Body: ${options.data}");
+        handler.next(options); // Weiter mit der Anfrage
+      },
+      onResponse: (response, handler) {
+        print("Response: ${response.statusCode} ${response.statusMessage}");
+        print("Response Body: ${response.data}");
+        handler.next(response); // Weiter mit der Antwort
+      },
+      onError: (DioError e, handler) {
+        print("Error: ${e.response?.statusCode} ${e.message}");
+        handler.next(e); // Fehler weitergeben
+      },
+    ));
+  }
 
   Future<bool> getBackendStatus() async {
     http.Response response;
@@ -23,8 +53,14 @@ class BackendService {
     return response.statusCode >= 200 && response.statusCode <= 300;
   }
 
-  Future<List<Game>> getGames() async {
-    final response = await _get("$backendBaseURL/games");
+  Future<List<Game>> getGames({bool showReviewedGames = true}) async {
+    String url = "$backendBaseURL/games";
+
+    if (!showReviewedGames && SharedPreferencesService.instance.gamesApiKey != null) {
+      url += "?reviewed=false&apiToken=${SharedPreferencesService.instance.gamesApiKey}";
+    }
+
+    final response = await _get(url);
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -34,10 +70,44 @@ class BackendService {
     }
   }
 
+  Future<Game> createGame(Game game) async {
+    http.Response response;
+    try {
+      response = await _post("$backendBaseURL/game", body: game.toJson());
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
+    return Game.fromJson(json.decode(response.body));
+  }
+
+  Future<Game> updateGame(Game game) async {
+    http.Response response;
+    try {
+      response = await _put("$backendBaseURL/game/${game.id}?apiToken=${SharedPreferencesService.instance.gamesApiKey}", body: game.toJson());
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
+    return Game.fromJson(json.decode(response.body));
+  }
+
+  Future<bool> isAuthorized(String apiToken) async {
+    final response = await _dio.post("/games/isAuthorized", queryParameters: {"apiToken": apiToken});
+    return response.data["success"] as bool;
+  }
+
+  Future<Game> setReviewStatus(String id, bool isReviewed) async {
+    final response = await _dio.post(
+      "/games/$id/reviewed",
+      queryParameters: {
+        "apiToken": SharedPreferencesService.instance.gamesApiKey,
+        "reviewed": isReviewed,
+      },
+    );
+    return Game.fromJson(response.data);
+  }
+
   Future<http.Response> _get(String url) {
-    return http
-        .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
+    return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
@@ -53,13 +123,34 @@ class BackendService {
     return http
         .post(
       Uri.parse(url),
-      body: _encoder.convert(body),
+      body: jsonEncode(body),
       headers: headers,
       encoding: encoding,
     )
         .then((http.Response response) {
       final int statusCode = response.statusCode;
 
+      _updateCookie(response);
+
+      print(response.body);
+      if (statusCode < 200 || statusCode > 400) {
+        throw Exception("Error while fetching data");
+      }
+      return response;
+    });
+  }
+
+  Future<http.Response> _put(String url, {body, encoding}) {
+    return http
+        .put(
+      Uri.parse(url),
+      body: jsonEncode(body),
+      headers: headers,
+      encoding: encoding,
+    )
+        .then((http.Response response) {
+      final int statusCode = response.statusCode;
+      print(response.body);
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400) {

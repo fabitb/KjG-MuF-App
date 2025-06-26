@@ -11,6 +11,7 @@ class SharedPreferencesService {
   static const keyUserID = "key.user.id";
   static const keyFilterSettings = "key.filtersettings";
   static const keyDownloadDialog = "key.download";
+  static const keyGamesApiKey = "key.api.games";
 
   static final instance = SharedPreferencesService._();
 
@@ -24,32 +25,23 @@ class SharedPreferencesService {
     );
   }
 
-  set name(String? value) =>
-      value == null ? _prefs.remove(keyName) : _prefs.setString(keyName, value);
+  set name(String? value) => value == null ? _prefs.remove(keyName) : _prefs.setString(keyName, value);
 
   String? get name => _prefs.getString(keyName);
 
-  set userName(String? value) => value == null
-      ? _prefs.remove(keyUserName)
-      : _prefs.setString(keyUserName, value);
+  set userName(String? value) => value == null ? _prefs.remove(keyUserName) : _prefs.setString(keyUserName, value);
 
   String? get userName => _prefs.getString(keyUserName);
 
-  set password(String? value) => value == null
-      ? _prefs.remove(keyPassword)
-      : _prefs.setString(keyPassword, value);
+  set password(String? value) => value == null ? _prefs.remove(keyPassword) : _prefs.setString(keyPassword, value);
 
   String? get password => _prefs.getString(keyPassword);
 
-  set passwordHash(String? value) => value == null
-      ? _prefs.remove(keyPasswordHash)
-      : _prefs.setString(keyPasswordHash, value);
+  set passwordHash(String? value) => value == null ? _prefs.remove(keyPasswordHash) : _prefs.setString(keyPasswordHash, value);
 
   String? get passwordHash => _prefs.getString(keyPasswordHash);
 
-  set userId(int? value) => value == null
-      ? _prefs.remove(keyUserID)
-      : _prefs.setInt(keyUserID, value);
+  set userId(int? value) => value == null ? _prefs.remove(keyUserID) : _prefs.setInt(keyUserID, value);
 
   int? get userId => _prefs.getInt(keyUserID);
 
@@ -57,13 +49,10 @@ class SharedPreferencesService {
 
   bool get downloadDialogShown => _prefs.getBool(keyDownloadDialog) ?? false;
 
-  String? get token => userName != null && passwordHash != null
-      ? "A/$userName/$passwordHash"
-      : null;
+  String? get token => userName != null && passwordHash != null ? "A/$userName/$passwordHash" : null;
 
-  set filterSettings(FilterSettings? value) => value == null
-      ? _prefs.remove(keyFilterSettings)
-      : _prefs.setString(keyFilterSettings, jsonEncode(value.toJson()));
+  set filterSettings(FilterSettings? value) =>
+      value == null ? _prefs.remove(keyFilterSettings) : _prefs.setString(keyFilterSettings, jsonEncode(value.toJson()));
 
   FilterSettings? get filterSettings {
     final jsonString = _prefs.getString(keyFilterSettings);
@@ -74,4 +63,8 @@ class SharedPreferencesService {
       return null;
     }
   }
+
+  String? get gamesApiKey => _prefs.getString(keyGamesApiKey);
+
+  set gamesApiKey(String? apiKey) => apiKey == null ? _prefs.remove(keyGamesApiKey) : _prefs.setString(keyGamesApiKey, apiKey);
 }

@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'games_provider.dart';
+part of 'games_filter_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesHash() => r'70968b962c7e0f993980054002c66adea76f48cf';
+String _$gamesFilterHash() => r'9d7931dfb5887c4df95095bf498c10b498ee5db0';
 
-/// See also [Games].
-@ProviderFor(Games)
-final gamesProvider =
-    AutoDisposeStreamNotifierProvider<Games, List<GameModel>>.internal(
-  Games.new,
-  name: r'gamesProvider',
+/// See also [GamesFilter].
+@ProviderFor(GamesFilter)
+final gamesFilterProvider =
+    AutoDisposeNotifierProvider<GamesFilter, GamesFilterSettings>.internal(
+  GamesFilter.new,
+  name: r'gamesFilterProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$gamesHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$gamesFilterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Games = AutoDisposeStreamNotifier<List<GameModel>>;
+typedef _$GamesFilter = AutoDisposeNotifier<GamesFilterSettings>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

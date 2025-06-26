@@ -25,7 +25,8 @@ class DBService {
 
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
-    return isar.writeTxn<List<int>>(() async => await isar.gameModels.putAll(newGames));
+    return isar.writeTxn<List<int>>(
+        () async => await isar.gameModels.putAll(newGames));
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -75,7 +76,12 @@ class DBService {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [GameModelSchema, EventModelSchema, NewsModelSchema, ActivitiesModelSchema],
+        [
+          GameModelSchema,
+          EventModelSchema,
+          NewsModelSchema,
+          ActivitiesModelSchema
+        ],
         directory: dir.path,
         inspector: true,
       );

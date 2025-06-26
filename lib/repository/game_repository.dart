@@ -24,11 +24,11 @@ class GameRepository {
     return dbService.getAllGames();
   }
 
-  Stream<List<GameModel>> getGames() async* {
+  Stream<List<GameModel>> getGames({bool showReviewed = true}) async* {
     var databaseGames = await dbService.getAllGames();
     yield databaseGames;
 
-    var backendGames = (await backendService.getGames()).map((e) => GameModel.fromGame(e)).toList();
+    var backendGames = (await backendService.getGames(showReviewedGames: showReviewed)).map((e) => GameModel.fromGame(e)).toList();
 
     for (var dbGame in databaseGames) {
       backendGames.firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)?.alreadyPlayed = dbGame.alreadyPlayed;

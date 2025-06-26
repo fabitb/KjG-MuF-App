@@ -89,7 +89,8 @@ class LoginScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  Text(context.localizations.loadingUserdata,
+                                  Text(
+                                    context.localizations.loadingUserdata,
                                   ),
                                 ],
                               ],
@@ -114,7 +115,8 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ],
                       )
-                    : Text(context.localizations.loggedInText(model.nameCache!)),
+                    : Text(
+                        context.localizations.loggedInText(model.nameCache!)),
               ),
             ),
           );

@@ -9,52 +9,64 @@ class GameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(game.title,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4,
+                children: [
+                  Text(
+                    game.title,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                        decoration: game.alreadyPlayed
-                            ? TextDecoration.lineThrough
-                            : null)),
-                Text(
-                  game.categories.join(', '),
-                  style: TextStyle(
-                      color: Colors.grey,
-                      decoration: game.alreadyPlayed
-                          ? TextDecoration.lineThrough
-                          : null),
-                )
-              ],
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      decoration: game.alreadyPlayed ? TextDecoration.lineThrough : null,
+                    ),
+                  ),
+                  Text(
+                    game.categories.join(', '),
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14.0,
+                      decoration: game.alreadyPlayed ? TextDecoration.lineThrough : null,
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
+                  spacing: 4,
                   children: [
-                    const Icon(Icons.people_alt_outlined),
-                    const SizedBox(
-                      width: 4.0,
+                    const Icon(Icons.people_outline, size: 18),
+                    Text(
+                      game.numberOfPlayers,
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    Text(game.numberOfPlayers)
                   ],
                 ),
+                const SizedBox(height: 8),
                 Row(
+                  spacing: 4,
                   children: [
-                    const Icon(Icons.timelapse_outlined),
-                    const SizedBox(
-                      width: 4.0,
+                    const Icon(Icons.access_time, size: 18),
+                    Text(
+                      game.duration,
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    Text(game.duration)
                   ],
-                )
+                ),
               ],
             ),
           ],

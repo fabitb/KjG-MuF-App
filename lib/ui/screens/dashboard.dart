@@ -71,7 +71,8 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noNewsAvailable),
+                        AsyncError() =>
+                          Text(AppLocalizations.of(context)!.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.news,
                             newsList: value,
@@ -95,7 +96,8 @@ class Dashboard extends ConsumerWidget {
                     ),
                     Center(
                       child: switch (activities) {
-                        AsyncError() => Text(AppLocalizations.of(context)!.noActivitiesAvailable),
+                        AsyncError() => Text(AppLocalizations.of(context)!
+                            .noActivitiesAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: AppLocalizations.of(context)!.activities,
                             newsList: value,
@@ -185,7 +187,8 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding:
+              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
             name: "Fabian", //model.nameCache ?? "",
             memberId: "12345", //model.memberId ?? "",

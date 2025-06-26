@@ -1,0 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'games_filter_settings.freezed.dart';
+
+@freezed
+class GamesFilterSettings with _$GamesFilterSettings {
+  const factory GamesFilterSettings({
+    @Default(true) bool showReviewed,
+    @Default(false) bool showOnlyUnplayed,
+  }) = _GamesFilterSettings;
+
+  const GamesFilterSettings._();
+
+  bool get isActive => showReviewed || showOnlyUnplayed;
+}

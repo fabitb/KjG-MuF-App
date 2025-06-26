@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/event_model.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
@@ -10,7 +11,6 @@ import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventListScreen extends ConsumerWidget {
   const EventListScreen({super.key});
@@ -90,6 +90,7 @@ class EventListScreen extends ConsumerWidget {
         return ref.read(eventListProvider.notifier).refresh();
       },
       child: ListView.builder(
+        padding: EdgeInsets.zero,
         itemCount: events.length + (filterSettingsActive ? 2 : 1),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
