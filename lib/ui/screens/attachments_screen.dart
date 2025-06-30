@@ -8,8 +8,21 @@ import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/attachment_screen.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 
-class AttachmentsScreen extends ConsumerWidget {
+class AttachmentsScreen extends ConsumerStatefulWidget {
   const AttachmentsScreen({super.key});
+
+  @override
+  ConsumerState<AttachmentsScreen> createState() => _AttachmentsScreenState();
+}
+
+class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
+  final SearchController _controller = SearchController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _showDeleteDialog(BuildContext context, WidgetRef ref) {
     final loc = context.localizations;
@@ -65,7 +78,7 @@ class AttachmentsScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final attachments = ref.watch(attachmentCacheProvider);
 
     return Scaffold(
@@ -98,6 +111,9 @@ class AttachmentsScreen extends ConsumerWidget {
     for (var a in attachments) {
       grouped.putIfAbsent(a.eventId, () => []).add(a);
     }
+    for (var key in grouped.keys) {
+      grouped[key]?.sort((a, b) => a.displayName.compareTo(b.displayName));
+    }
 
     final events = ref.watch(eventListProvider).valueOrNull ?? [];
 
@@ -105,6 +121,31 @@ class AttachmentsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SearchAnchor(
+            searchController: _controller,
+            isFullScreen: true,
+            viewOnClose: _controller.clear,
+            builder: (context, controller) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  style: const TextStyle(color: Colors.black),
+                  readOnly: true,
+                  onTap: _controller.openView,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: context.localizations.search,
+                    // fix for text misalignment
+                    prefixIconConstraints: BoxConstraints(minWidth: 48),
+                    prefixIcon: const Icon(Icons.search),
+                  ),
+                ),
+              );
+            },
+            suggestionsBuilder: (context, controller) =>
+                _suggestionsBuilder(controller.text, attachments, events),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(context.localizations.attachmentsDescription),
@@ -117,8 +158,61 @@ class AttachmentsScreen extends ConsumerWidget {
               attachments: group.value,
             ),
           ],
+          SafeArea(child: Container()),
         ],
       ),
+    );
+  }
+
+  Iterable<Widget> _suggestionsBuilder(
+    String query,
+    List<EventAttachment> attachments,
+    List<MidaEvent> events,
+  ) {
+    final searchParts = query.split(" ").map((p) => p.toLowerCase());
+
+    // combine attachment with event
+    final List<(EventAttachment, MidaEvent?)> attachmentsWithEvents = [];
+    for (var attachment in attachments) {
+      final event = events.where((e) => e.id == attachment.eventId).firstOrNull;
+      attachmentsWithEvents.add((attachment, event));
+    }
+
+    // method to check if attachment or event contains all parts of search
+    bool matchesSearch(EventAttachment attachment, MidaEvent? event) {
+      final attachmentName = attachment.displayName.toLowerCase();
+      for (var part in searchParts) {
+        if (!attachmentName.contains(part) &&
+            !(event?.title.toLowerCase().contains(part) ?? false)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // only show attachments that contain every part (in name or event name)
+    final matchingAttachments =
+        attachmentsWithEvents.where((s) => matchesSearch(s.$1, s.$2));
+
+    return matchingAttachments.map(
+      (a) {
+        final attachment = a.$1;
+        final event = a.$2;
+        return ListTile(
+          dense: true,
+          title: Text(
+            attachment.displayName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          subtitle: event != null ? Text(event.title) : null,
+          leading: Icon(a.$1.fileType.icon),
+          onTap: () {
+            _controller.closeView("");
+            _onAttachmentTap(context, attachment);
+          },
+        );
+      },
     );
   }
 
