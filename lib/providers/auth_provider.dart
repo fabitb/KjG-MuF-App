@@ -28,7 +28,11 @@ class Auth extends _$Auth {
     final userData = await MidaService().checkLogin(userName, password);
 
     if (userData == null) {
+      // login incorrect -> logout
       await logout();
+    } else {
+      // login correct -> use new UserData
+      state = AuthState.loggedIn(userData: userData);
     }
   }
 
