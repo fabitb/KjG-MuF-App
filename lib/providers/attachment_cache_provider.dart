@@ -15,6 +15,10 @@ class AttachmentCache extends _$AttachmentCache {
 
   @override
   Future<List<EventAttachment>> build() async {
+    // prevent exception after app install
+    final exists = await _cache.config.repo.exists();
+    if (!exists) return [];
+
     final allCacheObjects = await _cache.config.repo.getAllObjects();
 
     return allCacheObjects

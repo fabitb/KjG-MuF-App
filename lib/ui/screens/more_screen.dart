@@ -84,8 +84,8 @@ class MoreScreen extends ConsumerWidget {
 
     final loc = context.localizations;
 
-    return NestedScrollView(
-      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+    return CustomScrollView(
+      slivers: [
         KjgAppBar(
           title: loc.kjgMuF,
           actions: [
@@ -96,64 +96,70 @@ class MoreScreen extends ConsumerWidget {
               ),
           ],
         ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+            child: Column(
+              spacing: 32,
+              children: [
+                _multiTile(
+                  children: [
+                    _tile(
+                      title: loc.gameDatabase,
+                      onTap: () => _onGamesDatabaseTap(context),
+                      enabled: false,
+                    ),
+                    _tile(
+                      title: loc.savedAttachments,
+                      onTap: () => _onAttachmentsTap(context),
+                    ),
+                  ],
+                ),
+                _multiTile(
+                  children: [
+                    if (!Platform.isIOS) ...[
+                      _tile(
+                        title: loc.website,
+                        onTap: () => _onWebsiteTap(context),
+                      ),
+                      _tile(
+                        title: loc.shop,
+                        onTap: () => _onShopTap(context),
+                      ),
+                    ],
+                    _tile(
+                      title: loc.dataPrivacy,
+                      onTap: () => _onDataPrivacyTap(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        )
       ],
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-        child: Column(
-          spacing: 32,
-          children: [
-            _multiTile(
-              children: [
-                _tile(
-                  title: loc.gameDatabase,
-                  onTap: () => _onGamesDatabaseTap(context),
-                  enabled: false,
-                ),
-                _tile(
-                  title: loc.savedAttachments,
-                  onTap: () => _onAttachmentsTap(context),
-                ),
-              ],
-            ),
-            _multiTile(
-              children: [
-                if (!Platform.isIOS) ...[
-                  _tile(
-                    title: loc.website,
-                    onTap: () => _onWebsiteTap(context),
-                  ),
-                  _tile(
-                    title: loc.shop,
-                    onTap: () => _onShopTap(context),
-                  ),
-                ],
-                _tile(
-                  title: loc.dataPrivacy,
-                  onTap: () => _onDataPrivacyTap(context),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 
   Widget _multiTile({required List<Widget> children}) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      child: ListView.separated(
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        itemBuilder: (context, index) => children[index],
-        separatorBuilder: (context, index) => Divider(height: 0),
-        itemCount: children.length,
+      child: Column(
+        children: [
+          for (int i = 0; i < children.length; i++) ...[
+            children[i],
+            if (i != children.length - 1) Divider(height: 0),
+          ],
+        ],
       ),
     );
   }
 
-  Widget _tile({required String title, required VoidCallback onTap, bool enabled = true}) {
+  Widget _tile({
+    required String title,
+    required VoidCallback onTap,
+    bool enabled = true,
+  }) {
     return ListTile(
       title: Text(title),
       trailing: Icon(

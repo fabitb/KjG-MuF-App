@@ -10,6 +10,7 @@ class SharedPreferencesService {
   static const keyUserData = "key.user.data";
   static const keyFilterSettings = "key.filtersettings";
   static const keyDownloadDialog = "key.download";
+  static const keySharedPrefVersion = "key.sharedpref.version";
 
   static final instance = SharedPreferencesService._();
 
@@ -21,6 +22,43 @@ class SharedPreferencesService {
     _prefs = await SharedPreferencesWithCache.create(
       cacheOptions: const SharedPreferencesWithCacheOptions(),
     );
+
+    await _migrateSharedPreferencesIfNeeded();
+  }
+
+  Future<void> _migrateSharedPreferencesIfNeeded() async {
+    if (_version < 1) {
+      // migrate only user from old shared prefs if not already logged in again
+      final oldPrefs = await SharedPreferences.getInstance();
+      if (userData == null) {
+        final oldUserName = oldPrefs.getString("key.user.name");
+        final oldUserId = oldPrefs.getInt("key.user.id");
+        final oldPassword = oldPrefs.getString(keyPassword);
+        final oldPasswordHash = oldPrefs.getString(keyPasswordHash);
+
+        if (oldUserName != null &&
+            oldUserId != null &&
+            oldPassword != null &&
+            oldPasswordHash != null) {
+          // temporary UserData, instantly gets replaced if internet connected
+          userData = UserData(
+            username: oldUserName,
+            userId: oldUserId.toString(),
+            firstName: "geladen",
+            lastName: "Nicht",
+            me: "",
+            og: "",
+            memberNumber: "",
+          );
+          password = oldPassword;
+          passwordHash = oldPasswordHash;
+        }
+      }
+      // clear all old preferences
+      if (await oldPrefs.clear()) {
+        _version = 1;
+      }
+    }
   }
 
   set userData(UserData? value) => value == null
@@ -63,6 +101,10 @@ class SharedPreferencesService {
       return null;
     }
   }
+
+  int get _version => _prefs.getInt(keySharedPrefVersion) ?? 0;
+
+  set _version(int newValue) => _prefs.setInt(keySharedPrefVersion, newValue);
 }
 
 extension SharedPrefJson on SharedPreferencesWithCache {

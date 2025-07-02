@@ -48,6 +48,7 @@ class KjGApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: KjGColors.kjgLightBlue),
         fontFamily: 'SeccaKjG',
       ),
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const KjGAppMain(title: 'KjG München und Freising'),

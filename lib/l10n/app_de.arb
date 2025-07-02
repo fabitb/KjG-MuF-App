@@ -67,5 +67,7 @@
   "yes": "Ja",
   "no": "Nein",
   "logout": "Abmelden",
-  "logoutConfirmMessage": "Willst du dich wirklich ausloggen?"
+  "logoutConfirmMessage": "Willst du dich wirklich ausloggen?",
+
+  "search": "Suche"
 }

@@ -181,4 +181,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get logoutConfirmMessage => 'Willst du dich wirklich ausloggen?';
+
+  @override
+  String get search => 'Suche';
 }

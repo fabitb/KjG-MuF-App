@@ -411,6 +411,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Willst du dich wirklich ausloggen?'**
   String get logoutConfirmMessage;
+
+  /// No description provided for @search.
+  ///
+  /// In de, this message translates to:
+  /// **'Suche'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate
