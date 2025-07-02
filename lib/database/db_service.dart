@@ -1,17 +1,18 @@
 import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
+import 'package:kjg_muf_app/database/model/registered.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DBService {
-  static final DBService _instance = DBService._internal();
+  static final DBService instance = DBService._internal();
 
   late Future<Isar> db;
 
   factory DBService() {
-    return _instance;
+    return instance;
   }
 
   DBService._internal() {
@@ -26,7 +27,8 @@ class DBService {
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
     return isar.writeTxn<List<int>>(
-        () async => await isar.gameModels.putAll(newGames));
+      () async => await isar.gameModels.putAll(newGames),
+    );
   }
 
   Future<List<GameModel>> getAllGames() async {
@@ -34,20 +36,32 @@ class DBService {
     return await isar.gameModels.where().findAll();
   }
 
-  Future<List<EventModel>> getCachedEvents() async {
+  Future<List<MidaEvent>> getCachedEvents() async {
     final isar = await db;
-    return await isar.eventModels.where().sortByStartDateAndTime().findAll();
+    return await isar.midaEvents.where().sortByStartDateAndTime().findAll();
   }
 
-  Future<void> cacheEvents(List<EventModel> events) async {
+  Future<void> cacheEvents(List<MidaEvent> events) async {
     final isar = await db;
-    isar.writeTxn(() => isar.eventModels.clear());
-    isar.writeTxn(() => isar.eventModels.putAll(events));
+
+    isar.writeTxn(() async {
+      await isar.midaEvents.clear();
+      await isar.midaEvents.putAll(events);
+    });
   }
 
-  Future<void> saveEvent(EventModel event) async {
+  Future<List<Registered>> getCachedRegistered() async {
     final isar = await db;
-    isar.writeTxn(() => isar.eventModels.put(event));
+    return await isar.registereds.where().findAll();
+  }
+
+  Future<void> cacheRegistered(List<Registered> registered) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.registereds.clear();
+      await isar.registereds.putAll(registered);
+    });
   }
 
   Future<List<NewsModel>> getCachedNews() async {
@@ -78,9 +92,10 @@ class DBService {
       return await Isar.open(
         [
           GameModelSchema,
-          EventModelSchema,
+          MidaEventSchema,
+          RegisteredSchema,
           NewsModelSchema,
-          ActivitiesModelSchema
+          ActivitiesModelSchema,
         ],
         directory: dir.path,
         inspector: true,

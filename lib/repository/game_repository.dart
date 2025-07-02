@@ -1,8 +1,6 @@
-import 'package:collection/collection.dart';
+import 'package:kjg_muf_app/backend/backend_service.dart';
+import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
-
-import '../backend/backend_service.dart';
-import '../database/db_service.dart';
 
 class GameRepository {
   DBService dbService = DBService();
@@ -28,10 +26,10 @@ class GameRepository {
     var databaseGames = await dbService.getAllGames();
     yield databaseGames;
 
-    var backendGames = (await backendService.getGames(showReviewedGames: showReviewed)).map((e) => GameModel.fromGame(e)).toList();
+    var backendGames = (await backendService.getGames()).map((e) => GameModel.fromGame(e)).toList();
 
     for (var dbGame in databaseGames) {
-      backendGames.firstWhereOrNull((backendGame) => backendGame.id == dbGame.id)?.alreadyPlayed = dbGame.alreadyPlayed;
+      backendGames.where((backendGame) => backendGame.id == dbGame.id).firstOrNull?.alreadyPlayed = dbGame.alreadyPlayed;
     }
 
     await dbService.saveGames(backendGames);

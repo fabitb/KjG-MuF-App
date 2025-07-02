@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/games_filter_settings.dart';
 import 'package:kjg_muf_app/providers/authorized_games_user_provider.dart';
 import 'package:kjg_muf_app/providers/games_filter_provider.dart';
@@ -11,7 +12,6 @@ import 'package:kjg_muf_app/ui/screens/game_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/GamesFilterBottomSheet.dart';
 import 'package:kjg_muf_app/ui/widgets/five_taps_recognizer.dart';
 import 'package:kjg_muf_app/ui/widgets/game_item.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 
 class GameDatabase extends ConsumerWidget {
   const GameDatabase({super.key});
@@ -118,9 +118,14 @@ class GameDatabase extends ConsumerWidget {
   showResetGamesPlayedDialog(BuildContext context, Function() onConfirmed) {
     AlertDialog alert = AlertDialog(
       title: const Text("Gespielte Spiele zurücksetzen?"),
-      content: const Text("Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?"),
+      content: const Text(
+        "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
+      ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("Nein")),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("Nein"),
+        ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();

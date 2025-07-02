@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/filter_settings.dart';
 import 'package:kjg_muf_app/providers/event_list_provider.dart';
 import 'package:kjg_muf_app/providers/filter_provider.dart';
+import 'package:kjg_muf_app/providers/registered_list_provider.dart';
 import 'package:kjg_muf_app/ui/screens/event_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
@@ -24,16 +25,14 @@ class EventListScreen extends ConsumerWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          KjgAppBar(title: AppLocalizations.of(context)!.events),
+          KjgAppBar(title: context.localizations.events),
         ],
         body: switch (events) {
           AsyncValue(:final value?, error: null) => _body(value, ref),
           _ => Skeletonizer(
               enabled: true,
               child: ListView(
-                children: EventModel.createFakeData()
-                    .map((e) => eventItem(context, 1, e))
-                    .toList(),
+                children: MidaEvent.createFakeData().map((e) => EventItem(event: e, registered: false)).toList(),
               ),
             ),
         },
@@ -54,7 +53,7 @@ class EventListScreen extends ConsumerWidget {
 
   void _showFilterSheet(
     BuildContext context,
-    List<EventModel>? allEvents,
+    List<MidaEvent>? allEvents,
     FilterSettings filterSettings,
     WidgetRef ref,
   ) {
@@ -70,9 +69,7 @@ class EventListScreen extends ConsumerWidget {
               events: allEvents ?? [],
               filterSettings: filterSettings,
               onSettingsChanged: (newFilterSettings) {
-                ref
-                    .read(filterProvider.notifier)
-                    .setFilterSettings(newFilterSettings);
+                ref.read(filterProvider.notifier).setFilterSettings(newFilterSettings);
               },
             ),
           ),
@@ -81,9 +78,10 @@ class EventListScreen extends ConsumerWidget {
     );
   }
 
-  Widget _body(List<EventModel> events, WidgetRef ref) {
+  Widget _body(List<MidaEvent> events, WidgetRef ref) {
     final filterSettingsActive = ref.watch(filterProvider).isActive();
     final searchTextProvider = ref.watch(filterTextProvider.notifier);
+    final registeredList = ref.watch(registeredListProvider).valueOrNull ?? [];
 
     return RefreshIndicator(
       onRefresh: () {
@@ -118,23 +116,22 @@ class EventListScreen extends ConsumerWidget {
             }
             index -= 1;
           }
+
+          final event = events[index];
           return InkWell(
-            child: eventItem(
-              context,
-              index,
-              events[index],
+            child: EventItem(
+              event: event,
+              registered: registeredList.contains(event.id),
             ),
             onTap: () => Navigator.of(context)
                 .push(
                   MaterialPageRoute(
-                    builder: (context) => EventDetailScreen(
-                      event: events[index],
-                      offline: false,
-                    ),
+                    builder: (context) => EventDetailScreen(event: events[index]),
                   ),
                 )
                 .then(
-                    (value) => ref.read(eventListProvider.notifier).refresh()),
+                  (value) => ref.read(eventListProvider.notifier).refresh(),
+                ),
           );
         },
       ),

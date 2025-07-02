@@ -19,6 +19,9 @@ class Strings {
     return "$baseUrl/?download=$attachment";
   }
 
+  static String midaToken(String username, String passwordHash) =>
+      "A/$username/$passwordHash";
+
   // assets
   static const dashboardBackground = "assets/mausis/mercimausi.png";
 }

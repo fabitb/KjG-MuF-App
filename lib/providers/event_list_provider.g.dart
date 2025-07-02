@@ -6,12 +6,29 @@ part of 'event_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filteredEventsHash() => r'4d8109e5fb99fdf56d379475b59db4d0fb2525e5';
+String _$cachedEventsHash() => r'ef05505e3a0a436c541705f64471cc296a9badc3';
+
+/// See also [cachedEvents].
+@ProviderFor(cachedEvents)
+final cachedEventsProvider =
+    AutoDisposeFutureProvider<List<MidaEvent>>.internal(
+  cachedEvents,
+  name: r'cachedEventsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cachedEventsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CachedEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
+String _$filteredEventsHash() => r'28996e1e8255127bb0a85d00e8b2c36c04e9fb10';
 
 /// See also [filteredEvents].
 @ProviderFor(filteredEvents)
 final filteredEventsProvider =
-    AutoDisposeFutureProvider<List<EventModel>>.internal(
+    AutoDisposeFutureProvider<List<MidaEvent>>.internal(
   filteredEvents,
   name: r'filteredEventsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,13 +40,13 @@ final filteredEventsProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<EventModel>>;
-String _$eventListHash() => r'5b54db22f727895b95d810f034ab05c80e59bec8';
+typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
+String _$eventListHash() => r'71f53e15e66e9d814d73c263f72fed7f18eb6414';
 
 /// See also [EventList].
 @ProviderFor(EventList)
 final eventListProvider =
-    AutoDisposeAsyncNotifierProvider<EventList, List<EventModel>>.internal(
+    AutoDisposeAsyncNotifierProvider<EventList, List<MidaEvent>>.internal(
   EventList.new,
   name: r'eventListProvider',
   debugGetCreateSourceHash:
@@ -38,6 +55,6 @@ final eventListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$EventList = AutoDisposeAsyncNotifier<List<EventModel>>;
+typedef _$EventList = AutoDisposeAsyncNotifier<List<MidaEvent>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

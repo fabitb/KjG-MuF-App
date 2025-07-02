@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 
 class NewsletterSubscribeButton extends StatelessWidget {
   final Function onButtonClicked;
@@ -24,7 +24,7 @@ class NewsletterSubscribeButton extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.subscribeToNewsletter,
+                    context.localizations.subscribeToNewsletter,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,

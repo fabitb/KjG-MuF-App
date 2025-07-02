@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 import 'package:kjg_muf_app/model/filter_settings.dart';
+import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-  static const keyName = "key.full.name";
-  static const keyUserName = "key.user.name";
   static const keyPasswordHash = "key.password.hash";
   static const keyPassword = "key.password";
-  static const keyUserID = "key.user.id";
+  static const keyUserData = "key.user.data";
   static const keyFilterSettings = "key.filtersettings";
   static const keyDownloadDialog = "key.download";
   static const keyGamesApiKey = "key.api.games";
+  static const keySharedPrefVersion = "key.sharedpref.version";
 
   static final instance = SharedPreferencesService._();
 
@@ -23,15 +23,45 @@ class SharedPreferencesService {
     _prefs = await SharedPreferencesWithCache.create(
       cacheOptions: const SharedPreferencesWithCacheOptions(),
     );
+
+    await _migrateSharedPreferencesIfNeeded();
   }
 
-  set name(String? value) => value == null ? _prefs.remove(keyName) : _prefs.setString(keyName, value);
+  Future<void> _migrateSharedPreferencesIfNeeded() async {
+    if (_version < 1) {
+      // migrate only user from old shared prefs if not already logged in again
+      final oldPrefs = await SharedPreferences.getInstance();
+      if (userData == null) {
+        final oldUserName = oldPrefs.getString("key.user.name");
+        final oldUserId = oldPrefs.getInt("key.user.id");
+        final oldPassword = oldPrefs.getString(keyPassword);
+        final oldPasswordHash = oldPrefs.getString(keyPasswordHash);
 
-  String? get name => _prefs.getString(keyName);
+        if (oldUserName != null && oldUserId != null && oldPassword != null && oldPasswordHash != null) {
+          // temporary UserData, instantly gets replaced if internet connected
+          userData = UserData(
+            username: oldUserName,
+            userId: oldUserId.toString(),
+            firstName: "geladen",
+            lastName: "Nicht",
+            me: "",
+            og: "",
+            memberNumber: "",
+          );
+          password = oldPassword;
+          passwordHash = oldPasswordHash;
+        }
+      }
+      // clear all old preferences
+      if (await oldPrefs.clear()) {
+        _version = 1;
+      }
+    }
+  }
 
-  set userName(String? value) => value == null ? _prefs.remove(keyUserName) : _prefs.setString(keyUserName, value);
+  set userData(UserData? value) => value == null ? _prefs.remove(keyUserData) : _prefs.setJson(keyUserData, value);
 
-  String? get userName => _prefs.getString(keyUserName);
+  UserData? get userData => _prefs.getJson(keyUserData, UserData.fromJson);
 
   set password(String? value) => value == null ? _prefs.remove(keyPassword) : _prefs.setString(keyPassword, value);
 
@@ -41,15 +71,11 @@ class SharedPreferencesService {
 
   String? get passwordHash => _prefs.getString(keyPasswordHash);
 
-  set userId(int? value) => value == null ? _prefs.remove(keyUserID) : _prefs.setInt(keyUserID, value);
-
-  int? get userId => _prefs.getInt(keyUserID);
-
   set downloadDialogShown(bool value) => _prefs.setBool(keyDownloadDialog, value);
 
   bool get downloadDialogShown => _prefs.getBool(keyDownloadDialog) ?? false;
 
-  String? get token => userName != null && passwordHash != null ? "A/$userName/$passwordHash" : null;
+  String? get token => userData != null && passwordHash != null ? "A/${userData!.username}/$passwordHash" : null;
 
   set filterSettings(FilterSettings? value) =>
       value == null ? _prefs.remove(keyFilterSettings) : _prefs.setString(keyFilterSettings, jsonEncode(value.toJson()));
@@ -67,4 +93,51 @@ class SharedPreferencesService {
   String? get gamesApiKey => _prefs.getString(keyGamesApiKey);
 
   set gamesApiKey(String? apiKey) => apiKey == null ? _prefs.remove(keyGamesApiKey) : _prefs.setString(keyGamesApiKey, apiKey);
+
+  int get _version => _prefs.getInt(keySharedPrefVersion) ?? 0;
+
+  set _version(int newValue) => _prefs.setInt(keySharedPrefVersion, newValue);
+}
+
+extension SharedPrefJson on SharedPreferencesWithCache {
+  E? getJson<E>(
+    String key,
+    E Function(Map<String, dynamic>) fromJson,
+  ) {
+    final stringValue = getString(key);
+    if (stringValue == null) return null;
+    try {
+      return fromJson(jsonDecode(stringValue));
+    } on Exception {
+      return null;
+    }
+  }
+
+  Future<void> setJson<E extends dynamic>(
+    String key,
+    E value,
+  ) async {
+    return setString(key, jsonEncode(value.toJson()));
+  }
+
+  List<E>? getJsonList<E>(
+    String key,
+    E Function(Map<String, dynamic>) fromJson,
+  ) {
+    final stringValue = getStringList(key);
+    if (stringValue == null) return null;
+    try {
+      return stringValue.map((e) => fromJson(jsonDecode(e))).toList();
+    } on Exception {
+      return null;
+    }
+  }
+
+  Future<void> setJsonList<E extends dynamic>(
+    String key,
+    List<E> value,
+  ) async {
+    final list = value.map((e) => jsonEncode(e.toJson())).toList();
+    return setStringList(key, list);
+  }
 }

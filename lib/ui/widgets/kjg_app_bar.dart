@@ -11,6 +11,7 @@ class KjgAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = title;
     return SliverAppBar(
+      foregroundColor: KjGColors.kjgWhite,
       backgroundColor: KjGColors.kjgLightBlue,
       pinned: true,
       snap: false,

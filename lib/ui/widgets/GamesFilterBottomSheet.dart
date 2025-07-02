@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/games_filter_settings.dart';
 import 'package:kjg_muf_app/providers/games_filter_provider.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 
 class GamesFilterBottomSheet extends ConsumerWidget {
   final GamesFilterSettings gamesFilterSettings;
