@@ -42,7 +42,7 @@ class EventList extends _$EventList {
 @riverpod
 Future<List<MidaEvent>> filteredEvents(Ref ref) async {
   List<MidaEvent> events = await ref.watch(cachedEventsProvider.future);
-  final registered = await ref.watch(registeredListProvider.future);
+  final registered = await ref.watch(cachedRegisteredProvider.future);
 
   final filterSettings = ref.watch(filterProvider);
 
