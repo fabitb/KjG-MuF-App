@@ -13,7 +13,8 @@ class FilterWidget extends ConsumerWidget {
     final filterSettings = ref.watch(filterProvider);
     final filteredEventsLength =
         ref.watch(filteredEventsProvider).valueOrNull?.length ?? 0;
-    final eventsLength = ref.watch(eventListProvider).valueOrNull?.length ?? 0;
+    final eventsLength =
+        ref.watch(cachedEventsProvider).valueOrNull?.length ?? 0;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

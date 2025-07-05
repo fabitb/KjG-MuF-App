@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
@@ -58,11 +59,15 @@ class MidaService {
   }
 
   Future<List<MidaEvent>> getEvents() async {
+    // parameter "jahr: zukunft" only shows events that start in the future
+    // -> use "abmonat" to also include currently running events
+    // -> remove events that ended in the past
+    final fromDate = DateTime.now().add(Duration(days: -31));
     final responseNew = await _dio.get(
       Strings.midaBaseURL,
       queryParameters: {
         "api": "GetEvents",
-        "jahr": "zukunft",
+        "abmonat": DateFormat("yyyyMM").format(fromDate),
         "sichtbar": "alle",
         "token": SharedPreferencesService.instance.token,
       },
@@ -74,8 +79,21 @@ class MidaService {
 
     if (responseNew.data case List<dynamic> list) {
       final results = list.map((e) => BackendMidaEvent.fromJson(e));
-      final mapped = results.map((e) => MidaEvent.fromBackendMidaEvent(e));
-      return mapped.nonNulls.toList();
+      final mapped = results
+          .map((e) => MidaEvent.fromBackendMidaEvent(e))
+          .nonNulls
+          .toList();
+
+      final startOfToday = DateTime.now().copyWith(
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        microsecond: 0,
+      );
+      return mapped
+          .where((e) => !e.endDateAndTime.isBefore(startOfToday))
+          .toList();
     }
 
     throw Exception();
