@@ -203,4 +203,39 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get showOnlyReviewedGames => 'Nur reviewed Spiele anzeigen';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get thinking => 'Denken';
+
+  @override
+  String get categories => 'Kategorien';
+
+  @override
+  String get material => 'Material';
+
+  @override
+  String get ageRestrictions => 'Altersbeschränkungen';
+
+  @override
+  String get spaceRestrictions => 'Raumbeschränkungen';
+
+  @override
+  String get goalOfGame => 'Ziel des Spiels';
+
+  @override
+  String get preparationsInstructions => 'Spielaufbau';
+
+  @override
+  String get gameplayInstructions => 'Spielablauf';
+
+  @override
+  String get endingInstructions => 'Spielende';
+
+  @override
+  String thanksToGameAuthor(String name) {
+    return 'Danke an $name für das Erstellen des Spiels!';
+  }
 }

@@ -74,5 +74,24 @@
   "resetPlayedGames": "Gespielte Spiele zurücksetzen?",
   "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
   "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
-  "showOnlyReviewedGames": "Nur reviewed Spiele anzeigen"
+  "showOnlyReviewedGames": "Nur reviewed Spiele anzeigen",
+  "action": "Action",
+  "thinking": "Denken",
+  "categories": "Kategorien",
+  "material": "Material",
+  "ageRestrictions": "Altersbeschränkungen",
+  "spaceRestrictions": "Raumbeschränkungen",
+  "goalOfGame": "Ziel des Spiels",
+  "preparationsInstructions": "Spielaufbau",
+  "gameplayInstructions": "Spielablauf",
+  "endingInstructions": "Spielende",
+  "thanksToGameAuthor": "Danke an {name} für das Erstellen des Spiels!",
+  "@thanksToGameAuthor": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Cosmas"
+      }
+    }
+  }
 }

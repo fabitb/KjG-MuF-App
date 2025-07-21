@@ -453,6 +453,72 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Nur reviewed Spiele anzeigen'**
   String get showOnlyReviewedGames;
+
+  /// No description provided for @action.
+  ///
+  /// In de, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @thinking.
+  ///
+  /// In de, this message translates to:
+  /// **'Denken'**
+  String get thinking;
+
+  /// No description provided for @categories.
+  ///
+  /// In de, this message translates to:
+  /// **'Kategorien'**
+  String get categories;
+
+  /// No description provided for @material.
+  ///
+  /// In de, this message translates to:
+  /// **'Material'**
+  String get material;
+
+  /// No description provided for @ageRestrictions.
+  ///
+  /// In de, this message translates to:
+  /// **'Altersbeschränkungen'**
+  String get ageRestrictions;
+
+  /// No description provided for @spaceRestrictions.
+  ///
+  /// In de, this message translates to:
+  /// **'Raumbeschränkungen'**
+  String get spaceRestrictions;
+
+  /// No description provided for @goalOfGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Ziel des Spiels'**
+  String get goalOfGame;
+
+  /// No description provided for @preparationsInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielaufbau'**
+  String get preparationsInstructions;
+
+  /// No description provided for @gameplayInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielablauf'**
+  String get gameplayInstructions;
+
+  /// No description provided for @endingInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielende'**
+  String get endingInstructions;
+
+  /// No description provided for @thanksToGameAuthor.
+  ///
+  /// In de, this message translates to:
+  /// **'Danke an {name} für das Erstellen des Spiels!'**
+  String thanksToGameAuthor(String name);
 }
 
 class _AppLocalizationsDelegate
