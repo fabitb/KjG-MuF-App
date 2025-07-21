@@ -40,16 +40,23 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     final g = widget.initialGame;
 
     titleController = TextEditingController(text: g?.title ?? '');
-    numberOfPlayersController = TextEditingController(text: g?.numberOfPlayers ?? '');
+    numberOfPlayersController =
+        TextEditingController(text: g?.numberOfPlayers ?? '');
     durationController = TextEditingController(text: g?.duration ?? '');
-    categoriesController = TextEditingController(text: g?.categories.join(', ') ?? '');
+    categoriesController =
+        TextEditingController(text: g?.categories.join(', ') ?? '');
     materialsController = TextEditingController(text: g?.materials ?? '');
-    ageLimitationsController = TextEditingController(text: g?.ageLimitations ?? '');
-    spaceLimitationsController = TextEditingController(text: g?.spaceLimitations ?? '');
+    ageLimitationsController =
+        TextEditingController(text: g?.ageLimitations ?? '');
+    spaceLimitationsController =
+        TextEditingController(text: g?.spaceLimitations ?? '');
     goalOfGameController = TextEditingController(text: g?.goalOfGame ?? '');
-    preparationsInstructionsController = TextEditingController(text: g?.preparationsInstructions ?? '');
-    gameplayInstructionsController = TextEditingController(text: g?.gameplayInstructions ?? '');
-    endingInstructionsController = TextEditingController(text: g?.endingInstructions ?? '');
+    preparationsInstructionsController =
+        TextEditingController(text: g?.preparationsInstructions ?? '');
+    gameplayInstructionsController =
+        TextEditingController(text: g?.gameplayInstructions ?? '');
+    endingInstructionsController =
+        TextEditingController(text: g?.endingInstructions ?? '');
     authorController = TextEditingController(text: g?.author ?? '');
 
     actionScore = g?.actionScore ?? 0;
@@ -84,7 +91,9 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
         Scaffold(
           appBar: AppBar(
             title: Text(
-              widget.initialGame == null ? context.localizations.createGame : context.localizations.editGame,
+              widget.initialGame == null
+                  ? context.localizations.createGame
+                  : context.localizations.editGame,
             ),
             actions: [
               if (widget.initialGame != null)
@@ -248,7 +257,8 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     }
 
     if (missingFields.isNotEmpty) {
-      final message = context.localizations.pleaseFillOutMandatoryFields(missingFields.join(', '));
+      final message = context.localizations
+          .pleaseFillOutMandatoryFields(missingFields.join(', '));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
       );
@@ -260,7 +270,11 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       title: title,
       numberOfPlayer: numberOfPlayers,
       duration: duration,
-      categories: categoriesController.text.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList(),
+      categories: categoriesController.text
+          .split(',')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList(),
       materials: materialsController.text.trim(),
       ageLimitations: ageLimitationsController.text.trim(),
       spaceLimitations: spaceLimitationsController.text.trim(),
@@ -270,6 +284,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       preparationsInstructions: preparationsInstructionsController.text.trim(),
       gameplayInstructions: gameplayInstructionsController.text.trim(),
       endingInstructions: endingInstructionsController.text.trim(),
+      reviewed: widget.initialGame?.reviewed ?? false,
       author: author,
     );
 
@@ -340,7 +355,8 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     await ref.read(gamesProvider.notifier).deleteGame(widget.initialGame!.id);
 
     if (context.mounted) {
-      Navigator.of(context).popUntil((route) => route.settings.name == '/gameList');
+      Navigator.of(context)
+          .popUntil((route) => route.settings.name == '/gameList');
     }
   }
 }

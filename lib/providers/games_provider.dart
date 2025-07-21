@@ -37,6 +37,7 @@ class Games extends _$Games {
 
   Future<void> setReviewStatus(String gameID, bool reviewed) async {
     await BackendService().setReviewStatus(gameID, reviewed);
+    ref.invalidateSelf();
   }
 
   Future<void> deleteGame(String gameID) async {

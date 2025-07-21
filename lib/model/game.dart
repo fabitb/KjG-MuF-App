@@ -20,6 +20,7 @@ class Game with _$Game {
     required String gameplayInstructions,
     required String endingInstructions,
     required List<String> categories,
+    required bool reviewed,
     required String author,
   }) = _Game;
 

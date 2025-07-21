@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/providers/authorized_games_user_provider.dart';
+import 'package:kjg_muf_app/providers/games_provider.dart';
 import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 
@@ -18,7 +19,21 @@ class GameDetailScreen extends ConsumerWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) => [
-          KjgAppBar(title: game.title),
+          KjgAppBar(
+            title: game.title,
+            actions: [
+              if (isAuthorized.hasValue && isAuthorized.value == true)
+                game.reviewed
+                    ? IconButton(
+                        onPressed: () => _showSetReviewedDialog(context, ref, false),
+                        icon: const Icon(Icons.close),
+                      )
+                    : IconButton(
+                        onPressed: () => _showSetReviewedDialog(context, ref, true),
+                        icon: const Icon(Icons.check),
+                      ),
+            ],
+          ),
         ],
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -179,6 +194,42 @@ class GameDetailScreen extends ConsumerWidget {
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           Text(content, style: const TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
+  void _showSetReviewedDialog(
+    BuildContext context,
+    WidgetRef ref,
+    bool setReviewed,
+  ) {
+    final loc = context.localizations;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          setReviewed ? loc.gameSetReviewedTitle : loc.gameSetUnreviewedTitle,
+        ),
+        content: Text(
+          setReviewed ? loc.gameSetReviewedMessage : loc.gameSetUnreviewedMessage,
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () async {
+              await ref.read(gamesProvider.notifier).setReviewStatus(game.id, setReviewed);
+
+              if (context.mounted) {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              }
+            },
+            child: Text(loc.yes),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(loc.no),
+          ),
         ],
       ),
     );

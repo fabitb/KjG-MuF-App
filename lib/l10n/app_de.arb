@@ -122,5 +122,9 @@
   "gameSaveSuccess": "Spiel gespeichert",
   "gameSaveSuccessMessage": "Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste",
   "gameDeleteTitle": "Spiel löschen",
-  "gameDeleteMessage": "Willst du das Spiel wirklich löschen?"
+  "gameDeleteMessage": "Willst du das Spiel wirklich löschen?",
+  "gameSetReviewedTitle": "Spiel freigeben",
+  "gameSetReviewedMessage": "Hast du das Spiel vollständig geprüft und willst es freigeben?",
+  "gameSetUnreviewedTitle": "Spiel wieder zurücknehmen",
+  "gameSetUnreviewedMessage": "Willst du das Spiel wieder runternehmen?"
 }

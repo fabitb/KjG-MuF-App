@@ -597,6 +597,30 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Willst du das Spiel wirklich löschen?'**
   String get gameDeleteMessage;
+
+  /// No description provided for @gameSetReviewedTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel freigeben'**
+  String get gameSetReviewedTitle;
+
+  /// No description provided for @gameSetReviewedMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Hast du das Spiel vollständig geprüft und willst es freigeben?'**
+  String get gameSetReviewedMessage;
+
+  /// No description provided for @gameSetUnreviewedTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel wieder zurücknehmen'**
+  String get gameSetUnreviewedTitle;
+
+  /// No description provided for @gameSetUnreviewedMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du das Spiel wieder runternehmen?'**
+  String get gameSetUnreviewedMessage;
 }
 
 class _AppLocalizationsDelegate

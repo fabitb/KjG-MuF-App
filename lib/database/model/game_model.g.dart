@@ -87,13 +87,18 @@ const GameModelSchema = CollectionSchema(
       name: r'preparationsInstructions',
       type: IsarType.string,
     ),
-    r'spaceLimitations': PropertySchema(
+    r'reviewed': PropertySchema(
       id: 14,
+      name: r'reviewed',
+      type: IsarType.bool,
+    ),
+    r'spaceLimitations': PropertySchema(
+      id: 15,
       name: r'spaceLimitations',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'title',
       type: IsarType.string,
     )
@@ -160,8 +165,9 @@ void _gameModelSerialize(
   writer.writeString(offsets[11], object.materials);
   writer.writeString(offsets[12], object.numberOfPlayers);
   writer.writeString(offsets[13], object.preparationsInstructions);
-  writer.writeString(offsets[14], object.spaceLimitations);
-  writer.writeString(offsets[15], object.title);
+  writer.writeBool(offsets[14], object.reviewed);
+  writer.writeString(offsets[15], object.spaceLimitations);
+  writer.writeString(offsets[16], object.title);
 }
 
 GameModel _gameModelDeserialize(
@@ -185,8 +191,9 @@ GameModel _gameModelDeserialize(
     materials: reader.readString(offsets[11]),
     numberOfPlayers: reader.readString(offsets[12]),
     preparationsInstructions: reader.readString(offsets[13]),
-    spaceLimitations: reader.readString(offsets[14]),
-    title: reader.readString(offsets[15]),
+    reviewed: reader.readBool(offsets[14]),
+    spaceLimitations: reader.readString(offsets[15]),
+    title: reader.readString(offsets[16]),
   );
   return object;
 }
@@ -227,8 +234,10 @@ P _gameModelDeserializeProp<P>(
     case 13:
       return (reader.readString(offset)) as P;
     case 14:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 15:
+      return (reader.readString(offset)) as P;
+    case 16:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2065,6 +2074,16 @@ extension GameModelQueryFilter
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> reviewedEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'reviewed',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition>
       spaceLimitationsEqualTo(
     String value, {
@@ -2500,6 +2519,18 @@ extension GameModelQuerySortBy on QueryBuilder<GameModel, GameModel, QSortBy> {
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> sortBySpaceLimitations() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'spaceLimitations', Sort.asc);
@@ -2701,6 +2732,18 @@ extension GameModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> thenBySpaceLimitations() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'spaceLimitations', Sort.asc);
@@ -2828,6 +2871,12 @@ extension GameModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QDistinct> distinctByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'reviewed');
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QDistinct> distinctBySpaceLimitations(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2936,6 +2985,12 @@ extension GameModelQueryProperty
       preparationsInstructionsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'preparationsInstructions');
+    });
+  }
+
+  QueryBuilder<GameModel, bool, QQueryOperations> reviewedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'reviewed');
     });
   }
 

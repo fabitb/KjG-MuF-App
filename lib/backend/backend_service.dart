@@ -105,7 +105,7 @@ class BackendService {
 
   Future<Game> setReviewStatus(String id, bool isReviewed) async {
     final response = await _dio.post(
-      "/games/$id/reviewed",
+      "/game/$id/reviewed",
       queryParameters: {
         "apiToken": SharedPreferencesService.instance.gamesApiKey,
         "reviewed": isReviewed,

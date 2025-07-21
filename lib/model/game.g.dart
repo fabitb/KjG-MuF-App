@@ -23,6 +23,7 @@ _$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
       categories: (json['categories'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      reviewed: json['reviewed'] as bool,
       author: json['author'] as String,
     );
 
@@ -42,5 +43,6 @@ Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
       'gameplayInstructions': instance.gameplayInstructions,
       'endingInstructions': instance.endingInstructions,
       'categories': instance.categories,
+      'reviewed': instance.reviewed,
       'author': instance.author,
     };

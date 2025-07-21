@@ -35,6 +35,7 @@ mixin _$Game {
   String get gameplayInstructions => throw _privateConstructorUsedError;
   String get endingInstructions => throw _privateConstructorUsedError;
   List<String> get categories => throw _privateConstructorUsedError;
+  bool get reviewed => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
 
   /// Serializes this Game to a JSON map.
@@ -66,6 +67,7 @@ abstract class $GameCopyWith<$Res> {
       String gameplayInstructions,
       String endingInstructions,
       List<String> categories,
+      bool reviewed,
       String author});
 }
 
@@ -98,6 +100,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? gameplayInstructions = null,
     Object? endingInstructions = null,
     Object? categories = null,
+    Object? reviewed = null,
     Object? author = null,
   }) {
     return _then(_value.copyWith(
@@ -157,6 +160,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      reviewed: null == reviewed
+          ? _value.reviewed
+          : reviewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
@@ -187,6 +194,7 @@ abstract class _$$GameImplCopyWith<$Res> implements $GameCopyWith<$Res> {
       String gameplayInstructions,
       String endingInstructions,
       List<String> categories,
+      bool reviewed,
       String author});
 }
 
@@ -216,6 +224,7 @@ class __$$GameImplCopyWithImpl<$Res>
     Object? gameplayInstructions = null,
     Object? endingInstructions = null,
     Object? categories = null,
+    Object? reviewed = null,
     Object? author = null,
   }) {
     return _then(_$GameImpl(
@@ -275,6 +284,10 @@ class __$$GameImplCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      reviewed: null == reviewed
+          ? _value.reviewed
+          : reviewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
@@ -301,6 +314,7 @@ class _$GameImpl implements _Game {
       required this.gameplayInstructions,
       required this.endingInstructions,
       required final List<String> categories,
+      required this.reviewed,
       required this.author})
       : _categories = categories;
 
@@ -343,11 +357,13 @@ class _$GameImpl implements _Game {
   }
 
   @override
+  final bool reviewed;
+  @override
   final String author;
 
   @override
   String toString() {
-    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, author: $author)';
+    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author)';
   }
 
   @override
@@ -382,6 +398,8 @@ class _$GameImpl implements _Game {
                 other.endingInstructions == endingInstructions) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
+            (identical(other.reviewed, reviewed) ||
+                other.reviewed == reviewed) &&
             (identical(other.author, author) || other.author == author));
   }
 
@@ -403,6 +421,7 @@ class _$GameImpl implements _Game {
       gameplayInstructions,
       endingInstructions,
       const DeepCollectionEquality().hash(_categories),
+      reviewed,
       author);
 
   /// Create a copy of Game
@@ -437,6 +456,7 @@ abstract class _Game implements Game {
       required final String gameplayInstructions,
       required final String endingInstructions,
       required final List<String> categories,
+      required final bool reviewed,
       required final String author}) = _$GameImpl;
 
   factory _Game.fromJson(Map<String, dynamic> json) = _$GameImpl.fromJson;
@@ -470,6 +490,8 @@ abstract class _Game implements Game {
   String get endingInstructions;
   @override
   List<String> get categories;
+  @override
+  bool get reviewed;
   @override
   String get author;
 

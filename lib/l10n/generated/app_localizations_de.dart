@@ -282,4 +282,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gameDeleteMessage => 'Willst du das Spiel wirklich löschen?';
+
+  @override
+  String get gameSetReviewedTitle => 'Spiel freigeben';
+
+  @override
+  String get gameSetReviewedMessage =>
+      'Hast du das Spiel vollständig geprüft und willst es freigeben?';
+
+  @override
+  String get gameSetUnreviewedTitle => 'Spiel wieder zurücknehmen';
+
+  @override
+  String get gameSetUnreviewedMessage =>
+      'Willst du das Spiel wieder runternehmen?';
 }
