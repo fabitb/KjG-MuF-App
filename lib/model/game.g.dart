@@ -13,7 +13,7 @@ _$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
       cognitiveScore: (json['cognitiveScore'] as num).toInt(),
       numberOfPlayer: json['numberOfPlayer'] as String,
       duration: json['duration'] as String,
-      ageLimitations: json['ageLimitations'] as String,
+      ageLimitations: json['ageLimitations'] as String?,
       spaceLimitations: json['spaceLimitations'] as String,
       materials: json['materials'] as String,
       goalOfGame: json['goalOfGame'] as String,

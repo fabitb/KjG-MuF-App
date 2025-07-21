@@ -48,7 +48,7 @@
   "unknownError": "Unbekannter Fehler",
   "noInternet": "Keine Internetverbindung",
   "loginError": "Falscher Nutzername oder Passwort",
-  "gameDatabase": "Spieledatenbank (Kommt demnächst)",
+  "gameDatabase": "Spieledatenbank",
   "website": "Website",
   "shop": "Shop",
   "dataPrivacy": "Datenschutz",
@@ -68,6 +68,11 @@
   "no": "Nein",
   "logout": "Abmelden",
   "logoutConfirmMessage": "Willst du dich wirklich ausloggen?",
-
-  "search": "Suche"
+  "search": "Suche",
+  "apiToken": "API-Token",
+  "typeInAPIToken": "Gib deinen API-Token ein",
+  "resetPlayedGames": "Gespielte Spiele zurücksetzen?",
+  "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
+  "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
+  "showOnlyReviewedGames": "Nur reviewed Spiele anzeigen"
 }

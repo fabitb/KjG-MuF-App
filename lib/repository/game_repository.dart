@@ -22,17 +22,25 @@ class GameRepository {
     return dbService.getAllGames();
   }
 
-  Stream<List<GameModel>> getGames({bool showReviewed = true}) async* {
-    var databaseGames = await dbService.getAllGames();
-    yield databaseGames;
+  Future<List<GameModel>> getGames({bool showReviewed = true}) async {
+    var backendGames =
+        (await backendService.getGames(showReviewedGames: showReviewed))
+            .map((e) => GameModel.fromGame(e))
+            .toList();
+    return backendGames;
+  }
 
-    var backendGames = (await backendService.getGames()).map((e) => GameModel.fromGame(e)).toList();
+/*Stream<List<GameModel>> getGames({bool showReviewed = true}) async* {
+    */ /*var databaseGames = await dbService.getAllGames();
+    yield databaseGames;*/ /*
 
+    var backendGames = (await backendService.getGames(showReviewedGames: showReviewed)).map((e) => GameModel.fromGame(e)).toList();
+    */ /*
     for (var dbGame in databaseGames) {
       backendGames.where((backendGame) => backendGame.id == dbGame.id).firstOrNull?.alreadyPlayed = dbGame.alreadyPlayed;
-    }
+    }*/ /*
 
-    await dbService.saveGames(backendGames);
+    //var backendGames = await backendService.getGames(showReviewedGames: showReviewed);//dbService.saveGames(backendGames);
     yield backendGames;
-  }
+  }*/
 }

@@ -12,7 +12,7 @@ class Game with _$Game {
     required int cognitiveScore,
     required String numberOfPlayer,
     required String duration,
-    required String ageLimitations,
+    required String? ageLimitations,
     required String spaceLimitations,
     required String materials,
     required String goalOfGame,

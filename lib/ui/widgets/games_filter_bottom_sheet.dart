@@ -6,11 +6,13 @@ import 'package:kjg_muf_app/providers/games_filter_provider.dart';
 
 class GamesFilterBottomSheet extends ConsumerWidget {
   final GamesFilterSettings gamesFilterSettings;
+  final bool isAuthorized;
   final Function(GamesFilterSettings) onSettingsChanged;
 
   const GamesFilterBottomSheet({
     super.key,
     required this.gamesFilterSettings,
+    required this.isAuthorized,
     required this.onSettingsChanged,
   });
 
@@ -21,29 +23,32 @@ class GamesFilterBottomSheet extends ConsumerWidget {
     return Column(
       children: [
         ListTile(
-          title: Text("Nur ungespielte Spiele anzeigen"),
+          title: Text(context.localizations.showOnlyUnplayedGames),
           trailing: Checkbox(
             value: gamesFilter.showOnlyUnplayed,
             onChanged: (checked) {
-              onSettingsChanged(gamesFilterSettings.copyWith(showOnlyUnplayed: checked ?? false));
+              onSettingsChanged(
+                gamesFilterSettings.copyWith(
+                  showOnlyUnplayed: checked ?? false,
+                ),
+              );
             },
           ),
-          onTap: () {
-            //model.setOnlyRegistered(!model.onlyRegistered);
-          },
         ),
-        ListTile(
-          title: Text("Nur reviewed Spiele anzeigen"),
-          trailing: Checkbox(
-            value: gamesFilter.showReviewed,
-            onChanged: (checked) {
-              onSettingsChanged(gamesFilterSettings.copyWith(showReviewed: checked ?? true));
-            },
+        if (isAuthorized)
+          ListTile(
+            title: Text(context.localizations.showOnlyReviewedGames),
+            trailing: Checkbox(
+              value: gamesFilter.showReviewed,
+              onChanged: (checked) {
+                onSettingsChanged(
+                  gamesFilterSettings.copyWith(
+                    showReviewed: checked ?? true,
+                  ),
+                );
+              },
+            ),
           ),
-          onTap: () {
-            //model.setOnlyRegistered(!model.onlyRegistered);
-          },
-        ),
         ElevatedButton(
           onPressed: () {
             onSettingsChanged(GamesFilterSettings());

@@ -15,3 +15,15 @@ class GamesFilter extends _$GamesFilter {
     ref.notifyListeners();
   }
 }
+
+@riverpod
+class GamesFilterText extends _$GamesFilterText {
+  @override
+  String build() {
+    return "";
+  }
+
+  setFilterText(String newValue) {
+    state = newValue;
+  }
+}

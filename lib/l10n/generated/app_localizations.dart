@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameDatabase.
   ///
   /// In de, this message translates to:
-  /// **'Spieledatenbank (Kommt demnächst)'**
+  /// **'Spieledatenbank'**
   String get gameDatabase;
 
   /// No description provided for @website.
@@ -417,6 +417,42 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Suche'**
   String get search;
+
+  /// No description provided for @apiToken.
+  ///
+  /// In de, this message translates to:
+  /// **'API-Token'**
+  String get apiToken;
+
+  /// No description provided for @typeInAPIToken.
+  ///
+  /// In de, this message translates to:
+  /// **'Gib deinen API-Token ein'**
+  String get typeInAPIToken;
+
+  /// No description provided for @resetPlayedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Gespielte Spiele zurücksetzen?'**
+  String get resetPlayedGames;
+
+  /// No description provided for @resetPlayedGamesDescription.
+  ///
+  /// In de, this message translates to:
+  /// **'Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?'**
+  String get resetPlayedGamesDescription;
+
+  /// No description provided for @showOnlyUnplayedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur ungespielte Spiele anzeigen'**
+  String get showOnlyUnplayedGames;
+
+  /// No description provided for @showOnlyReviewedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur reviewed Spiele anzeigen'**
+  String get showOnlyReviewedGames;
 }
 
 class _AppLocalizationsDelegate

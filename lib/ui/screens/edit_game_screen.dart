@@ -38,16 +38,23 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     final g = widget.initialGame;
 
     titleController = TextEditingController(text: g?.title ?? '');
-    numberOfPlayersController = TextEditingController(text: g?.numberOfPlayers ?? '');
+    numberOfPlayersController =
+        TextEditingController(text: g?.numberOfPlayers ?? '');
     durationController = TextEditingController(text: g?.duration ?? '');
-    categoriesController = TextEditingController(text: g?.categories.join(', ') ?? '');
+    categoriesController =
+        TextEditingController(text: g?.categories.join(', ') ?? '');
     materialsController = TextEditingController(text: g?.materials ?? '');
-    ageLimitationsController = TextEditingController(text: g?.ageLimitations ?? '');
-    spaceLimitationsController = TextEditingController(text: g?.spaceLimitations ?? '');
+    ageLimitationsController =
+        TextEditingController(text: g?.ageLimitations ?? '');
+    spaceLimitationsController =
+        TextEditingController(text: g?.spaceLimitations ?? '');
     goalOfGameController = TextEditingController(text: g?.goalOfGame ?? '');
-    preparationsInstructionsController = TextEditingController(text: g?.preparationsInstructions ?? '');
-    gameplayInstructionsController = TextEditingController(text: g?.gameplayInstructions ?? '');
-    endingInstructionsController = TextEditingController(text: g?.endingInstructions ?? '');
+    preparationsInstructionsController =
+        TextEditingController(text: g?.preparationsInstructions ?? '');
+    gameplayInstructionsController =
+        TextEditingController(text: g?.gameplayInstructions ?? '');
+    endingInstructionsController =
+        TextEditingController(text: g?.endingInstructions ?? '');
     authorController = TextEditingController(text: g?.author ?? '');
 
     actionScore = g?.actionScore ?? 0;
@@ -79,7 +86,9 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.initialGame == null ? "Spiel erstellen" : "Spiel bearbeiten"),
+        title: Text(
+          widget.initialGame == null ? "Spiel erstellen" : "Spiel bearbeiten",
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -92,13 +101,33 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
           _buildTextField("Altersbeschränkungen", ageLimitationsController),
           _buildTextField("Raumbeschränkungen", spaceLimitationsController),
           const SizedBox(height: 16),
-          _buildScoreSlider("Action", actionScore, (v) => setState(() => actionScore = v)),
-          _buildScoreSlider("Denken", cognitiveScore, (v) => setState(() => cognitiveScore = v)),
+          _buildScoreSlider(
+            "Action",
+            actionScore,
+            (v) => setState(() => actionScore = v),
+          ),
+          _buildScoreSlider(
+            "Denken",
+            cognitiveScore,
+            (v) => setState(() => cognitiveScore = v),
+          ),
           const SizedBox(height: 16),
           _buildTextField("Ziel des Spiels", goalOfGameController, maxLines: 3),
-          _buildTextField("Spielaufbau", preparationsInstructionsController, maxLines: 3),
-          _buildTextField("Spielablauf", gameplayInstructionsController, maxLines: 4),
-          _buildTextField("Spielende", endingInstructionsController, maxLines: 3),
+          _buildTextField(
+            "Spielaufbau",
+            preparationsInstructionsController,
+            maxLines: 3,
+          ),
+          _buildTextField(
+            "Spielablauf",
+            gameplayInstructionsController,
+            maxLines: 4,
+          ),
+          _buildTextField(
+            "Spielende",
+            endingInstructionsController,
+            maxLines: 3,
+          ),
           _buildTextField("Autor", authorController),
           const SizedBox(height: 24),
           ElevatedButton.icon(
@@ -111,7 +140,11 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {int maxLines = 1}) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController controller, {
+    int maxLines = 1,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
@@ -125,11 +158,18 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     );
   }
 
-  Widget _buildScoreSlider(String label, int value, ValueChanged<int> onChanged) {
+  Widget _buildScoreSlider(
+    String label,
+    int value,
+    ValueChanged<int> onChanged,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("$label: $value", style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          "$label: $value",
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         Slider(
           value: value.toDouble(),
           min: 0,
@@ -148,7 +188,11 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       title: titleController.text.trim(),
       numberOfPlayer: numberOfPlayersController.text.trim(),
       duration: durationController.text.trim(),
-      categories: categoriesController.text.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList(),
+      categories: categoriesController.text
+          .split(',')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList(),
       materials: materialsController.text.trim(),
       ageLimitations: ageLimitationsController.text.trim(),
       spaceLimitations: spaceLimitationsController.text.trim(),

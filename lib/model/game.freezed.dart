@@ -27,7 +27,7 @@ mixin _$Game {
   int get cognitiveScore => throw _privateConstructorUsedError;
   String get numberOfPlayer => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
-  String get ageLimitations => throw _privateConstructorUsedError;
+  String? get ageLimitations => throw _privateConstructorUsedError;
   String get spaceLimitations => throw _privateConstructorUsedError;
   String get materials => throw _privateConstructorUsedError;
   String get goalOfGame => throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ abstract class $GameCopyWith<$Res> {
       int cognitiveScore,
       String numberOfPlayer,
       String duration,
-      String ageLimitations,
+      String? ageLimitations,
       String spaceLimitations,
       String materials,
       String goalOfGame,
@@ -90,7 +90,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? cognitiveScore = null,
     Object? numberOfPlayer = null,
     Object? duration = null,
-    Object? ageLimitations = null,
+    Object? ageLimitations = freezed,
     Object? spaceLimitations = null,
     Object? materials = null,
     Object? goalOfGame = null,
@@ -125,10 +125,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String,
-      ageLimitations: null == ageLimitations
+      ageLimitations: freezed == ageLimitations
           ? _value.ageLimitations
           : ageLimitations // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       spaceLimitations: null == spaceLimitations
           ? _value.spaceLimitations
           : spaceLimitations // ignore: cast_nullable_to_non_nullable
@@ -179,7 +179,7 @@ abstract class _$$GameImplCopyWith<$Res> implements $GameCopyWith<$Res> {
       int cognitiveScore,
       String numberOfPlayer,
       String duration,
-      String ageLimitations,
+      String? ageLimitations,
       String spaceLimitations,
       String materials,
       String goalOfGame,
@@ -208,7 +208,7 @@ class __$$GameImplCopyWithImpl<$Res>
     Object? cognitiveScore = null,
     Object? numberOfPlayer = null,
     Object? duration = null,
-    Object? ageLimitations = null,
+    Object? ageLimitations = freezed,
     Object? spaceLimitations = null,
     Object? materials = null,
     Object? goalOfGame = null,
@@ -243,10 +243,10 @@ class __$$GameImplCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String,
-      ageLimitations: null == ageLimitations
+      ageLimitations: freezed == ageLimitations
           ? _value.ageLimitations
           : ageLimitations // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       spaceLimitations: null == spaceLimitations
           ? _value.spaceLimitations
           : spaceLimitations // ignore: cast_nullable_to_non_nullable
@@ -321,7 +321,7 @@ class _$GameImpl implements _Game {
   @override
   final String duration;
   @override
-  final String ageLimitations;
+  final String? ageLimitations;
   @override
   final String spaceLimitations;
   @override
@@ -429,7 +429,7 @@ abstract class _Game implements Game {
       required final int cognitiveScore,
       required final String numberOfPlayer,
       required final String duration,
-      required final String ageLimitations,
+      required final String? ageLimitations,
       required final String spaceLimitations,
       required final String materials,
       required final String goalOfGame,
@@ -455,7 +455,7 @@ abstract class _Game implements Game {
   @override
   String get duration;
   @override
-  String get ageLimitations;
+  String? get ageLimitations;
   @override
   String get spaceLimitations;
   @override

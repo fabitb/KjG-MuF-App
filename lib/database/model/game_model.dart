@@ -51,7 +51,7 @@ class GameModel {
       cognitiveScore: game.cognitiveScore,
       numberOfPlayers: game.numberOfPlayer,
       duration: game.duration,
-      ageLimitations: game.ageLimitations,
+      ageLimitations: game.ageLimitations ?? "",
       spaceLimitations: game.spaceLimitations,
       materials: game.materials,
       goalOfGame: game.goalOfGame,

@@ -11,6 +11,7 @@ import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
+import 'package:kjg_muf_app/ui/widgets/searchbar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class EventListScreen extends ConsumerWidget {
@@ -32,7 +33,9 @@ class EventListScreen extends ConsumerWidget {
           _ => Skeletonizer(
               enabled: true,
               child: ListView(
-                children: MidaEvent.createFakeData().map((e) => EventItem(event: e, registered: false)).toList(),
+                children: MidaEvent.createFakeData()
+                    .map((e) => EventItem(event: e, registered: false))
+                    .toList(),
               ),
             ),
         },
@@ -69,7 +72,9 @@ class EventListScreen extends ConsumerWidget {
               events: allEvents ?? [],
               filterSettings: filterSettings,
               onSettingsChanged: (newFilterSettings) {
-                ref.read(filterProvider.notifier).setFilterSettings(newFilterSettings);
+                ref
+                    .read(filterProvider.notifier)
+                    .setFilterSettings(newFilterSettings);
               },
             ),
           ),
@@ -92,21 +97,7 @@ class EventListScreen extends ConsumerWidget {
         itemCount: events.length + (filterSettingsActive ? 2 : 1),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) => searchTextProvider.setFilterText(value),
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: "Suche",
-                  // fix for text misalignment
-                  prefixIconConstraints: BoxConstraints(minWidth: 48),
-                  prefixIcon: const Icon(Icons.search),
-                ),
-              ),
-            );
+            return Searchbar(onSearchString: searchTextProvider.setFilterText);
           }
           index--;
 
@@ -126,7 +117,8 @@ class EventListScreen extends ConsumerWidget {
             onTap: () => Navigator.of(context)
                 .push(
                   MaterialPageRoute(
-                    builder: (context) => EventDetailScreen(event: events[index]),
+                    builder: (context) =>
+                        EventDetailScreen(event: events[index]),
                   ),
                 )
                 .then(

@@ -119,7 +119,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loginError => 'Falscher Nutzername oder Passwort';
 
   @override
-  String get gameDatabase => 'Spieledatenbank (Kommt demnächst)';
+  String get gameDatabase => 'Spieledatenbank';
 
   @override
   String get website => 'Website';
@@ -184,4 +184,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get search => 'Suche';
+
+  @override
+  String get apiToken => 'API-Token';
+
+  @override
+  String get typeInAPIToken => 'Gib deinen API-Token ein';
+
+  @override
+  String get resetPlayedGames => 'Gespielte Spiele zurücksetzen?';
+
+  @override
+  String get resetPlayedGamesDescription =>
+      'Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?';
+
+  @override
+  String get showOnlyUnplayedGames => 'Nur ungespielte Spiele anzeigen';
+
+  @override
+  String get showOnlyReviewedGames => 'Nur reviewed Spiele anzeigen';
 }

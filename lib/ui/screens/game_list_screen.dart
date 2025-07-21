@@ -9,28 +9,41 @@ import 'package:kjg_muf_app/providers/games_filter_provider.dart';
 import 'package:kjg_muf_app/providers/games_provider.dart';
 import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_detail_screen.dart';
-import 'package:kjg_muf_app/ui/widgets/GamesFilterBottomSheet.dart';
 import 'package:kjg_muf_app/ui/widgets/five_taps_recognizer.dart';
 import 'package:kjg_muf_app/ui/widgets/game_item.dart';
+import 'package:kjg_muf_app/ui/widgets/games_filter_bottom_sheet.dart';
+import 'package:kjg_muf_app/ui/widgets/searchbar.dart';
 
-class GameDatabase extends ConsumerWidget {
-  const GameDatabase({super.key});
+class GameListScreen extends ConsumerWidget {
+  const GameListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final games = ref.watch(gamesProvider);
     final isAuthorized = ref.watch(authorizedGamesUserProviderProvider);
     final gamesFilter = ref.watch(gamesFilterProvider);
+    final searchText = ref.watch(gamesFilterTextProvider);
 
     List<GameModel> filteredGames() {
-      final list = games.valueOrNull;
+      var list = games.valueOrNull;
       if (list == null) return [];
-      return gamesFilter.showOnlyUnplayed ? list.where((g) => !g.alreadyPlayed).toList() : list;
+
+      if (gamesFilter.showOnlyUnplayed) {
+        list = list.where((g) => !g.alreadyPlayed).toList();
+      }
+
+      if (searchText.isNotEmpty) {
+        list = list.where((element) {
+          return element.title.toLowerCase().contains(searchText);
+        }).toList();
+      }
+
+      return list;
     }
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -45,7 +58,7 @@ class GameDatabase extends ConsumerWidget {
             floating: true,
             expandedHeight: 100.0,
             flexibleSpace: FiveTapsRecognizer(
-              onFiveTaps: () => showApiTokenDialog(context).then((value) {
+              onFiveTaps: () => _showApiTokenDialog(context).then((value) {
                 ref.read(authorizedGamesUserProviderProvider.notifier).setApiKey(value as String);
               }),
               child: FlexibleSpaceBar(
@@ -67,24 +80,18 @@ class GameDatabase extends ConsumerWidget {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              switch (games) {
-                AsyncError() => [Text(context.localizations.noNewsAvailable)],
-                AsyncData() => [
-                    ...List.generate(filteredGames().length, (index) {
-                      return InkWell(
-                        child: GameItem(game: filteredGames()[index]),
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GameDetailScreen(game: filteredGames()[index]))),
-                        onLongPress: () => ref.read(gamesProvider.notifier).updatedPlayedGame(filteredGames()[index], !filteredGames()[index].alreadyPlayed),
-                      );
-                    }),
-                  ],
-                _ => [CircularProgressIndicator()],
-              },
-            ),
-          ),
         ],
+        body: switch (games) {
+          AsyncError(:final stackTrace) => Text(stackTrace.toString()),
+          AsyncData() => _body(filteredGames(), ref),
+          _ => Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        },
       ),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
@@ -95,7 +102,11 @@ class GameDatabase extends ConsumerWidget {
             AsyncData(:final value) => value
                 ? FloatingActionButton(
                     heroTag: 'fab1',
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGameScreen())),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EditGameScreen(),
+                      ),
+                    ),
                     child: Icon(
                       Icons.add,
                     ),
@@ -105,7 +116,12 @@ class GameDatabase extends ConsumerWidget {
           },
           FloatingActionButton(
             heroTag: 'fab2',
-            onPressed: () => _showFilterSheet(context, gamesFilter, ref),
+            onPressed: () => _showFilterSheet(
+              context,
+              gamesFilter,
+              isAuthorized.value == true,
+              ref,
+            ),
             child: Icon(
               gamesFilter.isActive ? Icons.filter_list : Icons.filter_list_off,
             ),
@@ -115,23 +131,49 @@ class GameDatabase extends ConsumerWidget {
     );
   }
 
-  showResetGamesPlayedDialog(BuildContext context, Function() onConfirmed) {
-    AlertDialog alert = AlertDialog(
-      title: const Text("Gespielte Spiele zurücksetzen?"),
-      content: const Text(
-        "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
+  Widget _body(List<GameModel> games, WidgetRef ref) {
+    final searchTextProvider = ref.watch(gamesFilterTextProvider.notifier);
+
+    return RefreshIndicator(
+      onRefresh: () => ref.read(gamesProvider.notifier).refresh(),
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        itemCount: games.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return Searchbar(onSearchString: searchTextProvider.setFilterText);
+          }
+          index--;
+
+          return InkWell(
+            child: GameItem(game: games[index]),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => GameDetailScreen(game: games[index]),
+              ),
+            ),
+            onLongPress: () => ref.read(gamesProvider.notifier).updatedPlayedGame(games[index], !games[index].alreadyPlayed),
+          );
+        },
       ),
+    );
+  }
+
+  _showResetGamesPlayedDialog(BuildContext context, Function() onConfirmed) {
+    AlertDialog alert = AlertDialog(
+      title: Text(context.localizations.resetPlayedGames),
+      content: Text(context.localizations.resetPlayedGamesDescription),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Nein"),
+          child: Text(context.localizations.no),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
             onConfirmed();
           },
-          child: const Text("Ja"),
+          child: Text(context.localizations.yes),
         ),
       ],
     );
@@ -144,29 +186,29 @@ class GameDatabase extends ConsumerWidget {
     );
   }
 
-  Future<String?> showApiTokenDialog(BuildContext context) async {
+  Future<String?> _showApiTokenDialog(BuildContext context) async {
     final TextEditingController controller = TextEditingController();
 
     return await showDialog<String?>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('API-Token eingeben'),
+          title: Text(context.localizations.apiToken),
           content: TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: 'API-Token',
-              hintText: 'Gib deinen API-Token ein',
+              labelText: context.localizations.apiToken,
+              hintText: context.localizations.typeInAPIToken,
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(null),
-              child: Text('Abbrechen'),
+              child: Text(context.localizations.cancel),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(controller.text.trim()),
-              child: Text('OK'),
+              child: Text(context.localizations.ok),
             ),
           ],
         );
@@ -177,6 +219,7 @@ class GameDatabase extends ConsumerWidget {
   void _showFilterSheet(
     BuildContext context,
     GamesFilterSettings gamesFilterSettings,
+    bool isAuthorized,
     WidgetRef ref,
   ) {
     showModalBottomSheet(
@@ -189,6 +232,7 @@ class GameDatabase extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: GamesFilterBottomSheet(
               gamesFilterSettings: gamesFilterSettings,
+              isAuthorized: isAuthorized,
               onSettingsChanged: (newFilterSettings) {
                 if (gamesFilterSettings.showReviewed != newFilterSettings.showReviewed) {
                   ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
@@ -196,10 +240,6 @@ class GameDatabase extends ConsumerWidget {
                 } else {
                   ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
                 }
-                /*ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
-                if (gamesFilterSettings.showReviewed != newFilterSettings.showReviewed) {
-                  ref.invalidate(gamesProvider);
-                }*/
               },
             ),
           ),

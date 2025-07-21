@@ -28,7 +28,9 @@ class GameItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
-                      decoration: game.alreadyPlayed ? TextDecoration.lineThrough : null,
+                      decoration: game.alreadyPlayed
+                          ? TextDecoration.lineThrough
+                          : null,
                     ),
                   ),
                   Text(
@@ -36,7 +38,9 @@ class GameItem extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 14.0,
-                      decoration: game.alreadyPlayed ? TextDecoration.lineThrough : null,
+                      decoration: game.alreadyPlayed
+                          ? TextDecoration.lineThrough
+                          : null,
                     ),
                   ),
                 ],

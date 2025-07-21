@@ -47,7 +47,8 @@ class Dashboard extends ConsumerWidget {
               actions: [
                 if (authState case AuthStateLoggedIn(:final userData))
                   IconButton(
-                    onPressed: () => _showMemberCardBottomSheet(context, userData),
+                    onPressed: () =>
+                        _showMemberCardBottomSheet(context, userData),
                     icon: const Icon(
                       Icons.credit_card,
                       color: Colors.white,
@@ -71,7 +72,8 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() => Text(context.localizations.noNewsAvailable),
+                        AsyncError() =>
+                          Text(context.localizations.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: context.localizations.news,
                             newsList: value,
@@ -187,7 +189,8 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding:
+              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
             name: userData.name,
             memberId: userData.memberNumber,

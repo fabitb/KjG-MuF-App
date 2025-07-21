@@ -15,7 +15,8 @@ class UserData with _$UserData {
     @JsonKey(name: "mitgliedsnummer") required String memberNumber,
   }) = _UserData;
 
-  factory UserData.fromJson(Map<String, Object?> json) => _$UserDataFromJson(json);
+  factory UserData.fromJson(Map<String, Object?> json) =>
+      _$UserDataFromJson(json);
 }
 
 extension UserDataExtension on UserData {

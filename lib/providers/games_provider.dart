@@ -9,8 +9,14 @@ part 'games_provider.g.dart';
 
 @riverpod
 class Games extends _$Games {
-  @override
+  /*@override
   Stream<List<GameModel>> build() {
+    final gamesFilter = ref.watch(gamesFilterProvider);
+    return GameRepository().getGames(showReviewed: gamesFilter.showReviewed);
+  }*/
+
+  @override
+  Future<List<GameModel>> build() {
     final gamesFilter = ref.watch(gamesFilterProvider);
     return GameRepository().getGames(showReviewed: gamesFilter.showReviewed);
   }
@@ -31,5 +37,9 @@ class Games extends _$Games {
 
   Future<void> setReviewStatus(String gameID, bool reviewed) async {
     await BackendService().setReviewStatus(gameID, reviewed);
+  }
+
+  Future<void> refresh() async {
+    ref.invalidateSelf();
   }
 }

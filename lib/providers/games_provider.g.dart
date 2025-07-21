@@ -6,12 +6,12 @@ part of 'games_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesHash() => r'70968b962c7e0f993980054002c66adea76f48cf';
+String _$gamesHash() => r'80dc0d2a989a05061f3951c7a11b3be19e3599b8';
 
 /// See also [Games].
 @ProviderFor(Games)
 final gamesProvider =
-    AutoDisposeStreamNotifierProvider<Games, List<GameModel>>.internal(
+    AutoDisposeAsyncNotifierProvider<Games, List<GameModel>>.internal(
   Games.new,
   name: r'gamesProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final gamesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Games = AutoDisposeStreamNotifier<List<GameModel>>;
+typedef _$Games = AutoDisposeAsyncNotifier<List<GameModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
