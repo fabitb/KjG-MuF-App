@@ -33,8 +33,16 @@ class GameListScreen extends ConsumerWidget {
       }
 
       if (searchText.isNotEmpty) {
+        final lowerSearch = searchText.toLowerCase();
+
         list = list.where((element) {
-          return element.title.toLowerCase().contains(searchText.toLowerCase());
+          final titleMatch = element.title.toLowerCase().contains(lowerSearch);
+
+          final categoryMatch = element.categories.any(
+            (category) => category.toLowerCase().contains(lowerSearch),
+          );
+
+          return titleMatch || categoryMatch;
         }).toList();
       }
 

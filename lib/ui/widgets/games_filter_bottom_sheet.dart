@@ -49,6 +49,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
               },
             ),
           ),
+        SizedBox(
+          height: 32,
+        ),
         ElevatedButton(
           onPressed: () {
             onSettingsChanged(GamesFilterSettings());

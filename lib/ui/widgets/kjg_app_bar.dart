@@ -4,8 +4,14 @@ import 'package:kjg_muf_app/constants/kjg_colors.dart';
 class KjgAppBar extends StatelessWidget {
   final List<Widget>? actions;
   final String? title;
+  final bool centerTitle;
 
-  const KjgAppBar({super.key, this.actions, this.title});
+  const KjgAppBar({
+    super.key,
+    this.actions,
+    this.title,
+    this.centerTitle = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,7 @@ class KjgAppBar extends StatelessWidget {
       actions: actions,
       flexibleSpace: text != null
           ? FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: centerTitle,
               titlePadding: EdgeInsets.all(16.0),
               title: Text(
                 text,

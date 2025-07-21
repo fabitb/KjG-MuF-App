@@ -451,7 +451,7 @@ abstract class AppLocalizations {
   /// No description provided for @showOnlyReviewedGames.
   ///
   /// In de, this message translates to:
-  /// **'Nur reviewed Spiele anzeigen'**
+  /// **'Nur veröffentlichte Spiele anzeigen'**
   String get showOnlyReviewedGames;
 
   /// No description provided for @title.
@@ -595,8 +595,8 @@ abstract class AppLocalizations {
   /// No description provided for @gameDeleteMessage.
   ///
   /// In de, this message translates to:
-  /// **'Willst du das Spiel wirklich löschen?'**
-  String get gameDeleteMessage;
+  /// **'Willst du das Spiel \"{game}\" wirklich löschen?'**
+  String gameDeleteMessage(String game);
 
   /// No description provided for @gameSetReviewedTitle.
   ///
@@ -607,8 +607,8 @@ abstract class AppLocalizations {
   /// No description provided for @gameSetReviewedMessage.
   ///
   /// In de, this message translates to:
-  /// **'Hast du das Spiel vollständig geprüft und willst es freigeben?'**
-  String get gameSetReviewedMessage;
+  /// **'Hast du das Spiel \"{game}\" vollständig geprüft und willst es freigeben?'**
+  String gameSetReviewedMessage(String game);
 
   /// No description provided for @gameSetUnreviewedTitle.
   ///
@@ -619,8 +619,8 @@ abstract class AppLocalizations {
   /// No description provided for @gameSetUnreviewedMessage.
   ///
   /// In de, this message translates to:
-  /// **'Willst du das Spiel wieder runternehmen?'**
-  String get gameSetUnreviewedMessage;
+  /// **'Willst du das Spiel \"{game}\" wieder runternehmen?'**
+  String gameSetUnreviewedMessage(String game);
 }
 
 class _AppLocalizationsDelegate

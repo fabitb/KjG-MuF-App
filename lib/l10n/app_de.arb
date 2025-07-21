@@ -82,7 +82,7 @@
   "resetPlayedGames": "Gespielte Spiele zurücksetzen?",
   "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
   "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
-  "showOnlyReviewedGames": "Nur reviewed Spiele anzeigen",
+  "showOnlyReviewedGames": "Nur veröffentlichte Spiele anzeigen",
   "title": "Titel",
   "playerNumber": "Spieleranzahl",
   "duration": "Dauer",
@@ -122,9 +122,33 @@
   "gameSaveSuccess": "Spiel gespeichert",
   "gameSaveSuccessMessage": "Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste",
   "gameDeleteTitle": "Spiel löschen",
-  "gameDeleteMessage": "Willst du das Spiel wirklich löschen?",
+  "gameDeleteMessage": "Willst du das Spiel \"{game}\" wirklich löschen?",
+  "@gameDeleteMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
   "gameSetReviewedTitle": "Spiel freigeben",
-  "gameSetReviewedMessage": "Hast du das Spiel vollständig geprüft und willst es freigeben?",
+  "gameSetReviewedMessage": "Hast du das Spiel \"{game}\" vollständig geprüft und willst es freigeben?",
+  "@gameSetReviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
   "gameSetUnreviewedTitle": "Spiel wieder zurücknehmen",
-  "gameSetUnreviewedMessage": "Willst du das Spiel wieder runternehmen?"
+  "gameSetUnreviewedMessage": "Willst du das Spiel \"{game}\" wieder runternehmen?",
+  "@gameSetUnreviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  }
 }

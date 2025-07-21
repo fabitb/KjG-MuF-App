@@ -204,7 +204,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showOnlyUnplayedGames => 'Nur ungespielte Spiele anzeigen';
 
   @override
-  String get showOnlyReviewedGames => 'Nur reviewed Spiele anzeigen';
+  String get showOnlyReviewedGames => 'Nur veröffentlichte Spiele anzeigen';
 
   @override
   String get title => 'Titel';
@@ -281,19 +281,23 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gameDeleteTitle => 'Spiel löschen';
 
   @override
-  String get gameDeleteMessage => 'Willst du das Spiel wirklich löschen?';
+  String gameDeleteMessage(String game) {
+    return 'Willst du das Spiel \"$game\" wirklich löschen?';
+  }
 
   @override
   String get gameSetReviewedTitle => 'Spiel freigeben';
 
   @override
-  String get gameSetReviewedMessage =>
-      'Hast du das Spiel vollständig geprüft und willst es freigeben?';
+  String gameSetReviewedMessage(String game) {
+    return 'Hast du das Spiel \"$game\" vollständig geprüft und willst es freigeben?';
+  }
 
   @override
   String get gameSetUnreviewedTitle => 'Spiel wieder zurücknehmen';
 
   @override
-  String get gameSetUnreviewedMessage =>
-      'Willst du das Spiel wieder runternehmen?';
+  String gameSetUnreviewedMessage(String game) {
+    return 'Willst du das Spiel \"$game\" wieder runternehmen?';
+  }
 }

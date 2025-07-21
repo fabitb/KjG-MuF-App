@@ -333,7 +333,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: Text(loc.gameDeleteTitle),
-        content: Text(loc.gameDeleteMessage),
+        content: Text(loc.gameDeleteMessage(widget.initialGame!.title)),
         actions: [
           ElevatedButton(
             onPressed: () {

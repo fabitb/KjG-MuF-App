@@ -21,22 +21,25 @@ class GameDetailScreen extends ConsumerWidget {
         headerSliverBuilder: (context, _) => [
           KjgAppBar(
             title: game.title,
+            centerTitle: true,
             actions: [
               if (isAuthorized.hasValue && isAuthorized.value == true)
                 game.reviewed
                     ? IconButton(
-                        onPressed: () => _showSetReviewedDialog(context, ref, false),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, false),
                         icon: const Icon(Icons.close),
                       )
                     : IconButton(
-                        onPressed: () => _showSetReviewedDialog(context, ref, true),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, true),
                         icon: const Icon(Icons.check),
                       ),
             ],
           ),
         ],
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: EdgeInsets.all(16),
           children: [
             Card(
               elevation: 2,
@@ -212,12 +215,16 @@ class GameDetailScreen extends ConsumerWidget {
           setReviewed ? loc.gameSetReviewedTitle : loc.gameSetUnreviewedTitle,
         ),
         content: Text(
-          setReviewed ? loc.gameSetReviewedMessage : loc.gameSetUnreviewedMessage,
+          setReviewed
+              ? loc.gameSetReviewedMessage(game.title)
+              : loc.gameSetUnreviewedMessage(game.title),
         ),
         actions: [
           ElevatedButton(
             onPressed: () async {
-              await ref.read(gamesProvider.notifier).setReviewStatus(game.id, setReviewed);
+              await ref
+                  .read(gamesProvider.notifier)
+                  .setReviewStatus(game.id, setReviewed);
 
               if (context.mounted) {
                 Navigator.of(context).pop();
