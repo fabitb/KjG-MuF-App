@@ -93,7 +93,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get error => 'Fehler';
+  String error(String error) {
+    return 'Fehler: $error';
+  }
 
   @override
   String get fileErrorDescription =>
@@ -205,6 +207,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showOnlyReviewedGames => 'Nur reviewed Spiele anzeigen';
 
   @override
+  String get title => 'Titel';
+
+  @override
+  String get playerNumber => 'Spieleranzahl';
+
+  @override
+  String get duration => 'Dauer';
+
+  @override
   String get action => 'Action';
 
   @override
@@ -212,6 +223,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get categories => 'Kategorien';
+
+  @override
+  String get categoriesSeparateWithComma => 'Kategorien (mit , trennen)';
 
   @override
   String get material => 'Material';
@@ -235,7 +249,37 @@ class AppLocalizationsDe extends AppLocalizations {
   String get endingInstructions => 'Spielende';
 
   @override
+  String get author => 'Autor';
+
+  @override
   String thanksToGameAuthor(String name) {
     return 'Danke an $name für das Erstellen des Spiels!';
   }
+
+  @override
+  String get createGame => 'Spiel erstellen';
+
+  @override
+  String get editGame => 'Spiel bearbeiten';
+
+  @override
+  String get saveGame => 'Spiel speichern';
+
+  @override
+  String pleaseFillOutMandatoryFields(String fields) {
+    return 'Bitte fülle mindestens folgende Felder aus: $fields';
+  }
+
+  @override
+  String get gameSaveSuccess => 'Spiel gespeichert';
+
+  @override
+  String get gameSaveSuccessMessage =>
+      'Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste';
+
+  @override
+  String get gameDeleteTitle => 'Spiel löschen';
+
+  @override
+  String get gameDeleteMessage => 'Willst du das Spiel wirklich löschen?';
 }

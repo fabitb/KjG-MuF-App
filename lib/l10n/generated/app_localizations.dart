@@ -247,8 +247,8 @@ abstract class AppLocalizations {
   /// No description provided for @error.
   ///
   /// In de, this message translates to:
-  /// **'Fehler'**
-  String get error;
+  /// **'Fehler: {error}'**
+  String error(String error);
 
   /// No description provided for @fileErrorDescription.
   ///
@@ -454,6 +454,24 @@ abstract class AppLocalizations {
   /// **'Nur reviewed Spiele anzeigen'**
   String get showOnlyReviewedGames;
 
+  /// No description provided for @title.
+  ///
+  /// In de, this message translates to:
+  /// **'Titel'**
+  String get title;
+
+  /// No description provided for @playerNumber.
+  ///
+  /// In de, this message translates to:
+  /// **'Spieleranzahl'**
+  String get playerNumber;
+
+  /// No description provided for @duration.
+  ///
+  /// In de, this message translates to:
+  /// **'Dauer'**
+  String get duration;
+
   /// No description provided for @action.
   ///
   /// In de, this message translates to:
@@ -471,6 +489,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Kategorien'**
   String get categories;
+
+  /// No description provided for @categoriesSeparateWithComma.
+  ///
+  /// In de, this message translates to:
+  /// **'Kategorien (mit , trennen)'**
+  String get categoriesSeparateWithComma;
 
   /// No description provided for @material.
   ///
@@ -514,11 +538,65 @@ abstract class AppLocalizations {
   /// **'Spielende'**
   String get endingInstructions;
 
+  /// No description provided for @author.
+  ///
+  /// In de, this message translates to:
+  /// **'Autor'**
+  String get author;
+
   /// No description provided for @thanksToGameAuthor.
   ///
   /// In de, this message translates to:
   /// **'Danke an {name} für das Erstellen des Spiels!'**
   String thanksToGameAuthor(String name);
+
+  /// No description provided for @createGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel erstellen'**
+  String get createGame;
+
+  /// No description provided for @editGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel bearbeiten'**
+  String get editGame;
+
+  /// No description provided for @saveGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel speichern'**
+  String get saveGame;
+
+  /// No description provided for @pleaseFillOutMandatoryFields.
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte fülle mindestens folgende Felder aus: {fields}'**
+  String pleaseFillOutMandatoryFields(String fields);
+
+  /// No description provided for @gameSaveSuccess.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel gespeichert'**
+  String get gameSaveSuccess;
+
+  /// No description provided for @gameSaveSuccessMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste'**
+  String get gameSaveSuccessMessage;
+
+  /// No description provided for @gameDeleteTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel löschen'**
+  String get gameDeleteTitle;
+
+  /// No description provided for @gameDeleteMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du das Spiel wirklich löschen?'**
+  String get gameDeleteMessage;
 }
 
 class _AppLocalizationsDelegate

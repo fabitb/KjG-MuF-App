@@ -40,7 +40,15 @@
   "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
   "cancel": "Abbrechen",
   "ok": "OK",
-  "error": "Fehler",
+  "error": "Fehler: {error}",
+  "@error": {
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Dieser Fehler ist passiert"
+      }
+    }
+  },
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
@@ -75,9 +83,13 @@
   "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
   "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
   "showOnlyReviewedGames": "Nur reviewed Spiele anzeigen",
+  "title": "Titel",
+  "playerNumber": "Spieleranzahl",
+  "duration": "Dauer",
   "action": "Action",
   "thinking": "Denken",
   "categories": "Kategorien",
+  "categoriesSeparateWithComma": "Kategorien (mit , trennen)",
   "material": "Material",
   "ageRestrictions": "Altersbeschränkungen",
   "spaceRestrictions": "Raumbeschränkungen",
@@ -85,6 +97,7 @@
   "preparationsInstructions": "Spielaufbau",
   "gameplayInstructions": "Spielablauf",
   "endingInstructions": "Spielende",
+  "author": "Autor",
   "thanksToGameAuthor": "Danke an {name} für das Erstellen des Spiels!",
   "@thanksToGameAuthor": {
     "placeholders": {
@@ -93,5 +106,21 @@
         "example": "Cosmas"
       }
     }
-  }
+  },
+  "createGame": "Spiel erstellen",
+  "editGame": "Spiel bearbeiten",
+  "saveGame": "Spiel speichern",
+  "pleaseFillOutMandatoryFields": "Bitte fülle mindestens folgende Felder aus: {fields}",
+  "@pleaseFillOutMandatoryFields": {
+    "placeholders": {
+      "fields": {
+        "type": "String",
+        "example": "Titel, Spieldauer"
+      }
+    }
+  },
+  "gameSaveSuccess": "Spiel gespeichert",
+  "gameSaveSuccessMessage": "Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste",
+  "gameDeleteTitle": "Spiel löschen",
+  "gameDeleteMessage": "Willst du das Spiel wirklich löschen?"
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/providers/games_provider.dart';
 
@@ -38,23 +40,16 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     final g = widget.initialGame;
 
     titleController = TextEditingController(text: g?.title ?? '');
-    numberOfPlayersController =
-        TextEditingController(text: g?.numberOfPlayers ?? '');
+    numberOfPlayersController = TextEditingController(text: g?.numberOfPlayers ?? '');
     durationController = TextEditingController(text: g?.duration ?? '');
-    categoriesController =
-        TextEditingController(text: g?.categories.join(', ') ?? '');
+    categoriesController = TextEditingController(text: g?.categories.join(', ') ?? '');
     materialsController = TextEditingController(text: g?.materials ?? '');
-    ageLimitationsController =
-        TextEditingController(text: g?.ageLimitations ?? '');
-    spaceLimitationsController =
-        TextEditingController(text: g?.spaceLimitations ?? '');
+    ageLimitationsController = TextEditingController(text: g?.ageLimitations ?? '');
+    spaceLimitationsController = TextEditingController(text: g?.spaceLimitations ?? '');
     goalOfGameController = TextEditingController(text: g?.goalOfGame ?? '');
-    preparationsInstructionsController =
-        TextEditingController(text: g?.preparationsInstructions ?? '');
-    gameplayInstructionsController =
-        TextEditingController(text: g?.gameplayInstructions ?? '');
-    endingInstructionsController =
-        TextEditingController(text: g?.endingInstructions ?? '');
+    preparationsInstructionsController = TextEditingController(text: g?.preparationsInstructions ?? '');
+    gameplayInstructionsController = TextEditingController(text: g?.gameplayInstructions ?? '');
+    endingInstructionsController = TextEditingController(text: g?.endingInstructions ?? '');
     authorController = TextEditingController(text: g?.author ?? '');
 
     actionScore = g?.actionScore ?? 0;
@@ -84,59 +79,108 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.initialGame == null ? "Spiel erstellen" : "Spiel bearbeiten",
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.initialGame == null ? context.localizations.createGame : context.localizations.editGame,
+            ),
+            actions: [
+              if (widget.initialGame != null)
+                IconButton(
+                  onPressed: () => _showDeleteDialog(context, ref),
+                  icon: const Icon(Icons.delete),
+                ),
+            ],
+          ),
+          body: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                _buildTextField(context.localizations.title, titleController),
+                _buildTextField(
+                  context.localizations.playerNumber,
+                  numberOfPlayersController,
+                ),
+                _buildTextField(
+                  context.localizations.duration,
+                  durationController,
+                ),
+                _buildTextField(
+                  context.localizations.categoriesSeparateWithComma,
+                  categoriesController,
+                ),
+                _buildTextField(
+                  context.localizations.material,
+                  materialsController,
+                ),
+                _buildTextField(
+                  context.localizations.ageRestrictions,
+                  ageLimitationsController,
+                ),
+                _buildTextField(
+                  context.localizations.spaceRestrictions,
+                  spaceLimitationsController,
+                ),
+                const SizedBox(height: 16),
+                _buildScoreSlider(
+                  context.localizations.action,
+                  actionScore,
+                  (v) => setState(() => actionScore = v),
+                ),
+                _buildScoreSlider(
+                  context.localizations.thinking,
+                  cognitiveScore,
+                  (v) => setState(() => cognitiveScore = v),
+                ),
+                const SizedBox(height: 16),
+                _buildTextField(
+                  context.localizations.goalOfGame,
+                  goalOfGameController,
+                  maxLines: 3,
+                ),
+                _buildTextField(
+                  context.localizations.preparationsInstructions,
+                  preparationsInstructionsController,
+                  maxLines: 3,
+                ),
+                _buildTextField(
+                  context.localizations.gameplayInstructions,
+                  gameplayInstructionsController,
+                  maxLines: 4,
+                ),
+                _buildTextField(
+                  context.localizations.endingInstructions,
+                  endingInstructionsController,
+                  maxLines: 3,
+                ),
+                _buildTextField(context.localizations.author, authorController),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: _saveGame,
+                  label: Text(
+                    context.localizations.saveGame,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: KjGColors.kjgLightBlue,
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildTextField("Titel", titleController),
-          _buildTextField("Spieleranzahl", numberOfPlayersController),
-          _buildTextField("Dauer", durationController),
-          _buildTextField("Kategorien (mit , trennen)", categoriesController),
-          _buildTextField("Materialien", materialsController),
-          _buildTextField("Altersbeschränkungen", ageLimitationsController),
-          _buildTextField("Raumbeschränkungen", spaceLimitationsController),
-          const SizedBox(height: 16),
-          _buildScoreSlider(
-            "Action",
-            actionScore,
-            (v) => setState(() => actionScore = v),
+        if (isLoading)
+          Container(
+            color: Colors.black54,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
-          _buildScoreSlider(
-            "Denken",
-            cognitiveScore,
-            (v) => setState(() => cognitiveScore = v),
-          ),
-          const SizedBox(height: 16),
-          _buildTextField("Ziel des Spiels", goalOfGameController, maxLines: 3),
-          _buildTextField(
-            "Spielaufbau",
-            preparationsInstructionsController,
-            maxLines: 3,
-          ),
-          _buildTextField(
-            "Spielablauf",
-            gameplayInstructionsController,
-            maxLines: 4,
-          ),
-          _buildTextField(
-            "Spielende",
-            endingInstructionsController,
-            maxLines: 3,
-          ),
-          _buildTextField("Autor", authorController),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: _saveGame,
-            icon: const Icon(Icons.save),
-            label: const Text("Spiel speichern"),
-          ),
-        ],
-      ),
+      ],
     );
   }
 
@@ -183,16 +227,40 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
   }
 
   void _saveGame() async {
+    final title = titleController.text.trim();
+    final numberOfPlayers = numberOfPlayersController.text.trim();
+    final duration = durationController.text.trim();
+    final author = authorController.text.trim();
+
+    final missingFields = <String>[];
+
+    if (title.isEmpty) missingFields.add(context.localizations.title);
+    if (numberOfPlayers.isEmpty) {
+      missingFields.add(context.localizations.playerNumber);
+    }
+    if (duration.isEmpty) missingFields.add(context.localizations.duration);
+    if (author.isEmpty) missingFields.add(context.localizations.author);
+    if (actionScore == 0) {
+      missingFields.add('${context.localizations.action} > 0');
+    }
+    if (cognitiveScore == 0) {
+      missingFields.add('${context.localizations.thinking} > 0');
+    }
+
+    if (missingFields.isNotEmpty) {
+      final message = context.localizations.pleaseFillOutMandatoryFields(missingFields.join(', '));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+      return;
+    }
+
     final newGame = Game(
       id: widget.initialGame?.id ?? '',
-      title: titleController.text.trim(),
-      numberOfPlayer: numberOfPlayersController.text.trim(),
-      duration: durationController.text.trim(),
-      categories: categoriesController.text
-          .split(',')
-          .map((e) => e.trim())
-          .where((e) => e.isNotEmpty)
-          .toList(),
+      title: title,
+      numberOfPlayer: numberOfPlayers,
+      duration: duration,
+      categories: categoriesController.text.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList(),
       materials: materialsController.text.trim(),
       ageLimitations: ageLimitationsController.text.trim(),
       spaceLimitations: spaceLimitationsController.text.trim(),
@@ -202,17 +270,77 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       preparationsInstructions: preparationsInstructionsController.text.trim(),
       gameplayInstructions: gameplayInstructionsController.text.trim(),
       endingInstructions: endingInstructionsController.text.trim(),
-      author: authorController.text.trim(),
+      author: author,
     );
 
     setState(() => isLoading = true);
 
-    if (widget.initialGame != null) {
-      await ref.read(gamesProvider.notifier).updateGame(newGame);
-    } else {
-      await ref.read(gamesProvider.notifier).createGame(newGame);
-    }
+    try {
+      if (widget.initialGame != null) {
+        await ref.read(gamesProvider.notifier).updateGame(newGame);
+      } else {
+        await ref.read(gamesProvider.notifier).createGame(newGame);
+      }
 
-    setState(() => isLoading = false);
+      if (mounted) {
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(context.localizations.gameSaveSuccess),
+            content: Text(context.localizations.gameSaveSuccessMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(context.localizations.ok),
+              ),
+            ],
+          ),
+        );
+
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.localizations.error(e.toString()))),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
+  }
+
+  void _showDeleteDialog(BuildContext context, WidgetRef ref) {
+    final loc = context.localizations;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(loc.gameDeleteTitle),
+        content: Text(loc.gameDeleteMessage),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              _onDeleteTap(context, ref);
+              Navigator.of(context).pop();
+            },
+            child: Text(loc.yes),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(loc.no),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onDeleteTap(BuildContext context, WidgetRef ref) async {
+    await ref.read(gamesProvider.notifier).deleteGame(widget.initialGame!.id);
+
+    if (context.mounted) {
+      Navigator.of(context).popUntil((route) => route.settings.name == '/gameList');
+    }
   }
 }

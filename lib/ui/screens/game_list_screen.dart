@@ -34,7 +34,7 @@ class GameListScreen extends ConsumerWidget {
 
       if (searchText.isNotEmpty) {
         list = list.where((element) {
-          return element.title.toLowerCase().contains(searchText);
+          return element.title.toLowerCase().contains(searchText.toLowerCase());
         }).toList();
       }
 
@@ -100,22 +100,17 @@ class GameListScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         spacing: 12,
         children: [
-          switch (isAuthorized) {
-            AsyncData(:final value) => value
-                ? FloatingActionButton(
-                    heroTag: 'fab1',
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => EditGameScreen(),
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.add,
-                    ),
-                  )
-                : SizedBox(),
-            _ => SizedBox(),
-          },
+          FloatingActionButton(
+            heroTag: 'fab1',
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EditGameScreen(),
+              ),
+            ),
+            child: Icon(
+              Icons.add,
+            ),
+          ),
           FloatingActionButton(
             heroTag: 'fab2',
             onPressed: () => _showFilterSheet(
@@ -234,7 +229,8 @@ class GameListScreen extends ConsumerWidget {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
             child: GamesFilterBottomSheet(
               gamesFilterSettings: gamesFilterSettings,
               isAuthorized: isAuthorized,

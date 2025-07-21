@@ -51,6 +51,7 @@ class MoreScreen extends ConsumerWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const GameListScreen(),
+        settings: const RouteSettings(name: '/gameList'),
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
 //const String backendBaseURL = "https://app.kjg-muenchen.de/api";
-const String backendBaseURL = "http://192.168.178.29:3000/api";
+const String backendBaseURL = "http://192.168.177.153:3000/api";
 
 class BackendService {
   Map<String, String> headers = {"Content-type": "application/json"};
@@ -112,6 +112,13 @@ class BackendService {
       },
     );
     return Game.fromJson(response.data);
+  }
+
+  Future<void> deleteGame(String id) async {
+    await _dio.delete(
+      "/game/$id?apiToken=${SharedPreferencesService.instance.gamesApiKey}",
+    );
+    return;
   }
 
   Future<http.Response> _get(String url) {

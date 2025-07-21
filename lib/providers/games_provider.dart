@@ -39,6 +39,11 @@ class Games extends _$Games {
     await BackendService().setReviewStatus(gameID, reviewed);
   }
 
+  Future<void> deleteGame(String gameID) async {
+    await BackendService().deleteGame(gameID);
+    ref.invalidateSelf();
+  }
+
   Future<void> refresh() async {
     ref.invalidateSelf();
   }
