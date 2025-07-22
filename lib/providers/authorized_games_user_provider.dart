@@ -11,7 +11,11 @@ class AuthorizedGamesUserProvider extends _$AuthorizedGamesUserProvider {
     final apiKey = SharedPreferencesService.instance.gamesApiKey;
 
     if (apiKey != null) {
-      return await BackendService().isAuthorized(apiKey);
+      try {
+        return await BackendService().isAuthorized(apiKey);
+      } catch (e) {
+        return false;
+      }
     }
 
     return false;

@@ -6,7 +6,41 @@ part of 'games_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesHash() => r'1ba1546fa4b9363ae2c67568cf3dabdd6306b456';
+String _$cachedGamesHash() => r'64bf1dc035b5e348276aac30d36d51ab515d0691';
+
+/// See also [cachedGames].
+@ProviderFor(cachedGames)
+final cachedGamesProvider = AutoDisposeFutureProvider<List<GameModel>>.internal(
+  cachedGames,
+  name: r'cachedGamesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cachedGamesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CachedGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
+String _$filteredGamesHash() => r'5c69e49e2366c77d48ab516a8792c28d773f7ce1';
+
+/// See also [filteredGames].
+@ProviderFor(filteredGames)
+final filteredGamesProvider =
+    AutoDisposeFutureProvider<List<GameModel>>.internal(
+  filteredGames,
+  name: r'filteredGamesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$filteredGamesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef FilteredGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
+String _$gamesHash() => r'7e9dcc28e705ba208284b090bc53460e8bd53826';
 
 /// See also [Games].
 @ProviderFor(Games)

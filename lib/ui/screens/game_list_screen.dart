@@ -19,35 +19,9 @@ class GameListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final games = ref.watch(gamesProvider);
+    final games = ref.watch(filteredGamesProvider);
     final isAuthorized = ref.watch(authorizedGamesUserProviderProvider);
     final gamesFilter = ref.watch(gamesFilterProvider);
-    final searchText = ref.watch(gamesFilterTextProvider);
-
-    List<GameModel> filteredGames() {
-      var list = games.valueOrNull;
-      if (list == null) return [];
-
-      if (gamesFilter.showOnlyUnplayed) {
-        list = list.where((g) => !g.alreadyPlayed).toList();
-      }
-
-      if (searchText.isNotEmpty) {
-        final lowerSearch = searchText.toLowerCase();
-
-        list = list.where((element) {
-          final titleMatch = element.title.toLowerCase().contains(lowerSearch);
-
-          final categoryMatch = element.categories.any(
-            (category) => category.toLowerCase().contains(lowerSearch),
-          );
-
-          return titleMatch || categoryMatch;
-        }).toList();
-      }
-
-      return list;
-    }
 
     return Scaffold(
       body: NestedScrollView(
@@ -60,6 +34,16 @@ class GameListScreen extends ConsumerWidget {
                 color: Colors.white,
               ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () => _showResetGamesPlayedDialog(
+                  context,
+                  () => ref.read(gamesProvider.notifier).resetPlayedGames(),
+                ),
+                icon: const Icon(Icons.settings_backup_restore_rounded),
+              ),
+            ],
+            foregroundColor: KjGColors.kjgWhite,
             backgroundColor: KjGColors.kjgLightBlue,
             pinned: true,
             snap: false,
@@ -67,9 +51,7 @@ class GameListScreen extends ConsumerWidget {
             expandedHeight: 100.0,
             flexibleSpace: FiveTapsRecognizer(
               onFiveTaps: () => _showApiTokenDialog(context).then((value) {
-                ref
-                    .read(authorizedGamesUserProviderProvider.notifier)
-                    .setApiKey(value as String);
+                ref.read(authorizedGamesUserProviderProvider.notifier).setApiKey(value as String);
               }),
               child: FlexibleSpaceBar(
                 centerTitle: true,
@@ -92,8 +74,7 @@ class GameListScreen extends ConsumerWidget {
           ),
         ],
         body: switch (games) {
-          AsyncError(:final stackTrace) => Text(stackTrace.toString()),
-          AsyncData() => _body(filteredGames(), ref),
+          AsyncValue(:final value?, error: null) => _body(value, ref),
           _ => Center(
               child: SizedBox(
                 width: 50,
@@ -157,9 +138,7 @@ class GameListScreen extends ConsumerWidget {
                 builder: (context) => GameDetailScreen(game: games[index]),
               ),
             ),
-            onLongPress: () => ref
-                .read(gamesProvider.notifier)
-                .updatedPlayedGame(games[index], !games[index].alreadyPlayed),
+            onLongPress: () => ref.read(gamesProvider.notifier).updatedPlayedGame(games[index], !games[index].alreadyPlayed),
           );
         },
       ),
@@ -214,8 +193,7 @@ class GameListScreen extends ConsumerWidget {
               child: Text(context.localizations.cancel),
             ),
             ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).pop(controller.text.trim()),
+              onPressed: () => Navigator.of(context).pop(controller.text.trim()),
               child: Text(context.localizations.ok),
             ),
           ],
@@ -237,22 +215,16 @@ class GameListScreen extends ConsumerWidget {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
             child: GamesFilterBottomSheet(
               gamesFilterSettings: gamesFilterSettings,
               isAuthorized: isAuthorized,
               onSettingsChanged: (newFilterSettings) {
-                if (gamesFilterSettings.showReviewed !=
-                    newFilterSettings.showReviewed) {
-                  ref
-                      .read(gamesFilterProvider.notifier)
-                      .setGamesFilterSettings(newFilterSettings);
+                if (gamesFilterSettings.showReviewed != newFilterSettings.showReviewed) {
+                  ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
                   ref.invalidate(gamesProvider);
                 } else {
-                  ref
-                      .read(gamesFilterProvider.notifier)
-                      .setGamesFilterSettings(newFilterSettings);
+                  ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
                 }
               },
             ),

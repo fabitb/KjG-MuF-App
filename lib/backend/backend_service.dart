@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
@@ -55,23 +56,26 @@ class BackendService {
     return response.statusCode >= 200 && response.statusCode <= 300;
   }
 
-  Future<List<Game>> getGames({bool showReviewedGames = true}) async {
-    String url = "$backendBaseURL/games";
+  Future<List<GameModel>> getGames({bool showReviewedGames = true}) async {
+    final responseNew = await _dio.get(
+      "$backendBaseURL/games",
+      queryParameters: {
+        "reviewed": showReviewedGames,
+        "apiToken": SharedPreferencesService.instance.gamesApiKey,
+      },
+    );
 
-    if (!showReviewedGames &&
-        SharedPreferencesService.instance.gamesApiKey != null) {
-      url +=
-          "?reviewed=false&apiToken=${SharedPreferencesService.instance.gamesApiKey}";
+    if (responseNew.data case {"error": String error} when error.isNotEmpty) {
+      throw Exception;
     }
 
-    final response = await _get(url);
-
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((e) => Game.fromJson(e)).toList();
-    } else {
-      throw Exception('Unexpected error occurred!');
+    if (responseNew.data case List<dynamic> list) {
+      final results = list.map((e) => Game.fromJson(e));
+      final mapped = results.map((e) => GameModel.fromGame(e));
+      return mapped.nonNulls.toList();
     }
+
+    throw Exception();
   }
 
   Future<Game> createGame(Game game) async {

@@ -7,7 +7,7 @@ part of 'authorized_games_user_provider.dart';
 // **************************************************************************
 
 String _$authorizedGamesUserProviderHash() =>
-    r'8a0690fe08605da8ae079f0ef0853863ec02ba39';
+    r'aee2dfded4c03555a950330586fedb63b056587f';
 
 /// See also [AuthorizedGamesUserProvider].
 @ProviderFor(AuthorizedGamesUserProvider)

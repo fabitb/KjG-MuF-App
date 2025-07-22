@@ -26,14 +26,54 @@ class DBService {
 
   Future<List<int>> saveGames(List<GameModel> newGames) async {
     final isar = await db;
-    return isar.writeTxn<List<int>>(
-      () async => await isar.gameModels.putAll(newGames),
-    );
+
+    return isar.writeTxn<List<int>>(() async {
+      // Step 1: Fetch all existing games
+      final existingGames = await isar.gameModels.where().findAll();
+
+      // Step 2: Keep track of IDs of already played games
+      final alreadyPlayedIds = existingGames
+          .where((game) => game.alreadyPlayed)
+          .map((game) => game.id)
+          .toSet();
+
+      // Step 3: Clear all existing games
+      await isar.gameModels.clear();
+
+      // Step 4: Prepare new games (only those that are reviewed)
+      final filteredNewGames = newGames
+          .where((game) => game.reviewed) // Keep only reviewed games
+          .map((game) {
+        // Restore the alreadyPlayed status if it was previously marked
+        if (alreadyPlayedIds.contains(game.id)) {
+          game.alreadyPlayed = true;
+        }
+        return game;
+      }).toList();
+
+      // Step 5: Save the new games to the database
+      return await isar.gameModels.putAll(filteredNewGames);
+    });
   }
 
   Future<List<GameModel>> getAllGames() async {
     final isar = await db;
     return await isar.gameModels.where().findAll();
+  }
+
+  Future<void> resetPlayedGames() async {
+    final isar = await db;
+
+    await isar.writeTxn(() async {
+      final playedGames =
+          await isar.gameModels.filter().alreadyPlayedEqualTo(true).findAll();
+
+      for (final game in playedGames) {
+        game.alreadyPlayed = false;
+      }
+
+      await isar.gameModels.putAll(playedGames);
+    });
   }
 
   Future<List<MidaEvent>> getCachedEvents() async {
