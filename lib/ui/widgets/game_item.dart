@@ -25,6 +25,8 @@ class GameItem extends StatelessWidget {
                 children: [
                   Text(
                     game.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
@@ -35,6 +37,8 @@ class GameItem extends StatelessWidget {
                   ),
                   Text(
                     game.categories.join(', '),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 14.0,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
@@ -31,7 +33,7 @@ class GameDetailScreen extends ConsumerWidget {
           body: NestedScrollView(
             headerSliverBuilder: (context, _) => [
               KjgAppBar(
-                title: game.title,
+                title: game.title.substring(0, min(game.title.length, 30)),
                 centerTitle: true,
                 actions: [
                   if (isAuthorized.hasValue && isAuthorized.value == true)
