@@ -115,7 +115,7 @@ class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
       grouped[key]?.sort((a, b) => a.displayName.compareTo(b.displayName));
     }
 
-    final events = ref.watch(eventListProvider).valueOrNull ?? [];
+    final events = ref.watch(cachedEventsProvider).valueOrNull ?? [];
 
     return SingleChildScrollView(
       child: Column(

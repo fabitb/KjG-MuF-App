@@ -23,7 +23,7 @@ final cachedEventsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CachedEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
-String _$filteredEventsHash() => r'28996e1e8255127bb0a85d00e8b2c36c04e9fb10';
+String _$filteredEventsHash() => r'b70251ae6f9d1c0e4b942b7874667ff02a4c30c6';
 
 /// See also [filteredEvents].
 @ProviderFor(filteredEvents)
@@ -41,7 +41,7 @@ final filteredEventsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
-String _$eventListHash() => r'71f53e15e66e9d814d73c263f72fed7f18eb6414';
+String _$eventListHash() => r'9b73290545e19e74924a93171269b0e23816ea8f';
 
 /// See also [EventList].
 @ProviderFor(EventList)

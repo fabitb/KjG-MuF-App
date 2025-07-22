@@ -15,20 +15,24 @@ Stream<List<News>?> news(Ref ref) async* {
       .toList();
   yield cachedNews.isNotEmpty ? cachedNews : null;
 
-  final List<News> networkData = await WordpressService().getNews();
-  await DBService().cacheNews(
-    networkData
-        .map(
-          (news) => NewsModel()
-            ..title = news.title
-            ..content = news.content
-            ..imageURL = news.imageURL
-            ..websiteURL = news.websiteURL
-            ..orderNumber = news.orderNumber,
-        )
-        .toList(),
-  );
-  yield networkData;
+  try {
+    final List<News> networkData = await WordpressService().getNews();
+    await DBService().cacheNews(
+      networkData
+          .map(
+            (news) => NewsModel()
+              ..title = news.title
+              ..content = news.content
+              ..imageURL = news.imageURL
+              ..websiteURL = news.websiteURL
+              ..orderNumber = news.orderNumber,
+          )
+          .toList(),
+    );
+    yield networkData;
+  } on Exception {
+    // ignore, just show cache
+  }
 }
 
 @riverpod
@@ -38,18 +42,22 @@ Stream<List<News>?> activities(Ref ref) async* {
       .toList();
   yield cachedActivities.isNotEmpty ? cachedActivities : null;
 
-  final List<News> networkData = await WordpressService().getActivities();
-  await DBService().cacheActivities(
-    networkData
-        .map(
-          (news) => ActivitiesModel()
-            ..title = news.title
-            ..content = news.content
-            ..imageURL = news.imageURL
-            ..websiteURL = news.websiteURL
-            ..orderNumber = news.orderNumber,
-        )
-        .toList(),
-  );
-  yield networkData;
+  try {
+    final List<News> networkData = await WordpressService().getActivities();
+    await DBService().cacheActivities(
+      networkData
+          .map(
+            (news) => ActivitiesModel()
+              ..title = news.title
+              ..content = news.content
+              ..imageURL = news.imageURL
+              ..websiteURL = news.websiteURL
+              ..orderNumber = news.orderNumber,
+          )
+          .toList(),
+    );
+    yield networkData;
+  } on Exception {
+    // ignore, just show cache
+  }
 }

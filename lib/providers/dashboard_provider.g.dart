@@ -6,7 +6,7 @@ part of 'dashboard_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$newsHash() => r'834d0b983d91cc9f33aad5fa48994e3f0d20be9b';
+String _$newsHash() => r'7d40dc5f4bdb6cd7614b6b83de34c45398ff585b';
 
 /// See also [news].
 @ProviderFor(news)
@@ -22,7 +22,7 @@ final newsProvider = AutoDisposeStreamProvider<List<News>?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef NewsRef = AutoDisposeStreamProviderRef<List<News>?>;
-String _$activitiesHash() => r'310fdef9699c72019ed6fc42b9469a867d17c5d5';
+String _$activitiesHash() => r'0c82ef7a7d831d7c343f4e8ea3830c01d01ebba7';
 
 /// See also [activities].
 @ProviderFor(activities)
