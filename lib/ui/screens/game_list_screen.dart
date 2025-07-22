@@ -24,72 +24,20 @@ class GameListScreen extends ConsumerWidget {
     final gamesFilter = ref.watch(gamesFilterProvider);
 
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
-            leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () => _showResetGamesPlayedDialog(
-                  context,
-                  () => ref.read(gamesProvider.notifier).resetPlayedGames(),
-                ),
-                icon: const Icon(Icons.settings_backup_restore_rounded),
-              ),
-            ],
-            foregroundColor: KjGColors.kjgWhite,
-            backgroundColor: KjGColors.kjgLightBlue,
-            pinned: true,
-            snap: false,
-            floating: true,
-            expandedHeight: 100.0,
-            flexibleSpace: FiveTapsRecognizer(
-              onFiveTaps: () => _showApiTokenDialog(context).then((value) {
-                ref
-                    .read(authorizedGamesUserProviderProvider.notifier)
-                    .setApiKey(value as String);
-              }),
-              child: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      context.localizations.gameDatabase,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.0,
-                        color: KjGColors.kjgWhite,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+      resizeToAvoidBottomInset: true,
+      body: switch (games) {
+        AsyncValue(:final value?, error: null) => _body(context, ref, value),
+        _ => const Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(),
             ),
           ),
-        ],
-        body: switch (games) {
-          AsyncValue(:final value?, error: null) => _body(value, ref),
-          _ => Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: CircularProgressIndicator(),
-              ),
-            ),
-        },
-      ),
+      },
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
-        spacing: 12,
         children: [
           FloatingActionButton(
             heroTag: 'addGameButton',
@@ -98,10 +46,9 @@ class GameListScreen extends ConsumerWidget {
                 builder: (context) => EditGameScreen(),
               ),
             ),
-            child: Icon(
-              Icons.add,
-            ),
+            child: const Icon(Icons.add),
           ),
+          const SizedBox(height: 12),
           FloatingActionButton(
             heroTag: 'showFilterButton',
             onPressed: () => _showFilterSheet(
@@ -119,38 +66,85 @@ class GameListScreen extends ConsumerWidget {
     );
   }
 
-  Widget _body(List<GameModel> games, WidgetRef ref) {
+  Widget _body(BuildContext context, WidgetRef ref, List<GameModel> games) {
     final searchTextProvider = ref.watch(gamesFilterTextProvider.notifier);
 
     return RefreshIndicator(
       onRefresh: () => ref.read(gamesProvider.notifier).refresh(),
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: games.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Searchbar(onSearchString: searchTextProvider.setFilterText);
-          }
-          index--;
-
-          return InkWell(
-            child: GameItem(game: games[index]),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => GameDetailScreen(gameId: games[index].id),
+      child: CustomScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        slivers: [
+          SliverAppBar(
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () => _showResetGamesPlayedDialog(
+                  context,
+                  () => ref.read(gamesProvider.notifier).resetPlayedGames(),
+                ),
+                icon: const Icon(Icons.settings_backup_restore_rounded),
+              ),
+            ],
+            foregroundColor: KjGColors.kjgWhite,
+            backgroundColor: KjGColors.kjgLightBlue,
+            pinned: true,
+            floating: true,
+            expandedHeight: 100.0,
+            flexibleSpace: FiveTapsRecognizer(
+              onFiveTaps: () => _showApiTokenDialog(context).then((value) {
+                ref
+                    .read(authorizedGamesUserProviderProvider.notifier)
+                    .setApiKey(value as String);
+              }),
+              child: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text(
+                  context.localizations.gameDatabase,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20.0,
+                    color: KjGColors.kjgWhite,
+                  ),
+                ),
               ),
             ),
-            onLongPress: () => ref
-                .read(gamesProvider.notifier)
-                .updatedPlayedGame(games[index], !games[index].alreadyPlayed),
-          );
-        },
+          ),
+          SliverToBoxAdapter(
+            child: Searchbar(onSearchString: searchTextProvider.setFilterText),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final game = games[index];
+                return InkWell(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => GameDetailScreen(gameId: game.id),
+                    ),
+                  ),
+                  onLongPress: () => ref
+                      .read(gamesProvider.notifier)
+                      .updatedPlayedGame(game, !game.alreadyPlayed),
+                  child: GameItem(game: game),
+                );
+              },
+              childCount: games.length,
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 80)),
+        ],
       ),
     );
   }
 
-  _showResetGamesPlayedDialog(BuildContext context, Function() onConfirmed) {
-    AlertDialog alert = AlertDialog(
+  void _showResetGamesPlayedDialog(
+    BuildContext context,
+    Function() onConfirmed,
+  ) {
+    final alert = AlertDialog(
       title: Text(context.localizations.resetPlayedGames),
       content: Text(context.localizations.resetPlayedGamesDescription),
       actions: [
@@ -170,18 +164,15 @@ class GameListScreen extends ConsumerWidget {
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
+      builder: (context) => alert,
     );
   }
 
   Future<String?> _showApiTokenDialog(BuildContext context) async {
-    final TextEditingController controller = TextEditingController();
-
+    final controller = TextEditingController();
     return await showDialog<String?>(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: Text(context.localizations.apiToken),
           content: TextField(
@@ -191,7 +182,7 @@ class GameListScreen extends ConsumerWidget {
               hintText: context.localizations.typeInAPIToken,
             ),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(null),
               child: Text(context.localizations.cancel),
@@ -216,15 +207,13 @@ class GameListScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
-      builder: (BuildContext context) {
+      builder: (context) {
         return SizedBox(
           width: double.infinity,
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
-            child: GamesFilterBottomSheet(
-              isAuthorized: isAuthorized,
-            ),
+            child: GamesFilterBottomSheet(isAuthorized: isAuthorized),
           ),
         );
       },
