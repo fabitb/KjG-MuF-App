@@ -157,7 +157,7 @@ class _AttachmentCachedProviderElement extends AutoDisposeProviderElement<bool>
   String get key => (origin as AttachmentCachedProvider).key;
 }
 
-String _$attachmentCacheHash() => r'3b3ef1e9ca72fad9811c77e705e2bfa650843bb6';
+String _$attachmentCacheHash() => r'4b21a3151cc3c5c2da8e41197d763bb125530c69';
 
 /// See also [AttachmentCache].
 @ProviderFor(AttachmentCache)

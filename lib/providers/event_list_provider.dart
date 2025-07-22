@@ -33,30 +33,32 @@ class EventList extends _$EventList {
   }
 
   Future<void> refresh() async {
-    ref.invalidateSelf();
-    ref.invalidate(registeredListProvider);
+    // use refresh to await new value for refresh loading indicator
+    await ref.refresh(eventListProvider.future);
+    await ref.refresh(registeredListProvider.future);
   }
 }
 
 @riverpod
 Future<List<MidaEvent>> filteredEvents(Ref ref) async {
-  List<MidaEvent> e = await ref.watch(cachedEventsProvider.future);
-  final registered = await ref.watch(registeredListProvider.future);
+  List<MidaEvent> events = await ref.watch(cachedEventsProvider.future);
+  final registered = await ref.watch(cachedRegisteredProvider.future);
 
   final filterSettings = ref.watch(filterProvider);
 
   final searchText = ref.watch(filterTextProvider);
 
   if (filterSettings.onlyRegistered) {
-    e = e.where((element) => registered.contains(element.id)).toList();
+    events =
+        events.where((element) => registered.contains(element.id)).toList();
   }
 
   if (filterSettings.hideGremien) {
     // Natürlich nur in MuF Gremiensitzung = typ 100
-    e = e.where((element) => element.type != 100).toList();
+    events = events.where((element) => element.type != 100).toList();
   }
 
-  e = e
+  events = events
       .where(
         (element) =>
             filterSettings.showOrganizer[element.organization ?? "Unbekannt"] ??
@@ -66,7 +68,7 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
 
   final filterDateTimeRange = filterSettings.dateTimeRange;
   if (filterDateTimeRange != null) {
-    e = e.where((element) {
+    events = events.where((element) {
       DateTime start = filterSettings.dateTimeRange!.start;
       // Aktionen am Endtag sollen inkludiert sein
       DateTime end = filterDateTimeRange.end.add(const Duration(days: 1));
@@ -76,12 +78,12 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
   }
 
   if (searchText.isNotEmpty) {
-    e = e.where((element) {
+    events = events.where((element) {
       return element.title.toLowerCase().contains(searchText) ||
           (element.location?.toLowerCase().contains(searchText) ?? false) ||
           (element.organization?.toLowerCase().contains(searchText) ?? false);
     }).toList();
   }
 
-  return e;
+  return events;
 }

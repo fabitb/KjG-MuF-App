@@ -19,7 +19,7 @@ class EventListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final events = ref.watch(filteredEventsProvider);
-    final allEvents = ref.watch(eventListProvider).valueOrNull;
+    final allEvents = ref.watch(cachedEventsProvider).valueOrNull;
     final filterSettings = ref.watch(filterProvider);
 
     return Scaffold(
@@ -85,7 +85,7 @@ class EventListScreen extends ConsumerWidget {
   Widget _body(List<MidaEvent> events, WidgetRef ref) {
     final filterSettingsActive = ref.watch(filterProvider).isActive();
     final searchTextProvider = ref.watch(filterTextProvider.notifier);
-    final registeredList = ref.watch(registeredListProvider).valueOrNull ?? [];
+    final registeredList = ref.watch(cachedRegisteredProvider).valueOrNull ?? [];
 
     return RefreshIndicator(
       onRefresh: () {
