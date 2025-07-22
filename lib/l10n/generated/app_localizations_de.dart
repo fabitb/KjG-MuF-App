@@ -300,4 +300,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String gameSetUnreviewedMessage(String game) {
     return 'Willst du das Spiel \"$game\" wieder runternehmen?';
   }
+
+  @override
+  String get gameNotFound => 'Spiel nicht gefunden';
+
+  @override
+  String get gameCouldNotLoad => 'Spiel konnte nicht geladen werden.';
 }

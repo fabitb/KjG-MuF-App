@@ -621,6 +621,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Willst du das Spiel \"{game}\" wieder runternehmen?'**
   String gameSetUnreviewedMessage(String game);
+
+  /// No description provided for @gameNotFound.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel nicht gefunden'**
+  String get gameNotFound;
+
+  /// No description provided for @gameCouldNotLoad.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel konnte nicht geladen werden.'**
+  String get gameCouldNotLoad;
 }
 
 class _AppLocalizationsDelegate

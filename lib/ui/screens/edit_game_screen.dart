@@ -37,35 +37,35 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
   @override
   void initState() {
     super.initState();
-    final g = widget.initialGame;
+    final game = widget.initialGame;
 
-    titleController = TextEditingController(text: g?.title ?? '');
+    titleController = TextEditingController(text: game?.title ?? '');
     numberOfPlayersController =
-        TextEditingController(text: g?.numberOfPlayers ?? '');
-    durationController = TextEditingController(text: g?.duration ?? '');
+        TextEditingController(text: game?.numberOfPlayers ?? '');
+    durationController = TextEditingController(text: game?.duration ?? '');
     categoriesController =
-        TextEditingController(text: g?.categories.join(', ') ?? '');
-    materialsController = TextEditingController(text: g?.materials ?? '');
+        TextEditingController(text: game?.categories.join(', ') ?? '');
+    materialsController = TextEditingController(text: game?.materials ?? '');
     ageLimitationsController =
-        TextEditingController(text: g?.ageLimitations ?? '');
+        TextEditingController(text: game?.ageLimitations ?? '');
     spaceLimitationsController =
-        TextEditingController(text: g?.spaceLimitations ?? '');
-    goalOfGameController = TextEditingController(text: g?.goalOfGame ?? '');
+        TextEditingController(text: game?.spaceLimitations ?? '');
+    goalOfGameController = TextEditingController(text: game?.goalOfGame ?? '');
     preparationsInstructionsController =
-        TextEditingController(text: g?.preparationsInstructions ?? '');
+        TextEditingController(text: game?.preparationsInstructions ?? '');
     gameplayInstructionsController =
-        TextEditingController(text: g?.gameplayInstructions ?? '');
+        TextEditingController(text: game?.gameplayInstructions ?? '');
     endingInstructionsController =
-        TextEditingController(text: g?.endingInstructions ?? '');
-    authorController = TextEditingController(text: g?.author ?? '');
+        TextEditingController(text: game?.endingInstructions ?? '');
+    authorController = TextEditingController(text: game?.author ?? '');
 
-    actionScore = g?.actionScore ?? 0;
-    cognitiveScore = g?.cognitiveScore ?? 0;
+    actionScore = game?.actionScore ?? 0;
+    cognitiveScore = game?.cognitiveScore ?? 0;
   }
 
   @override
   void dispose() {
-    for (final c in [
+    for (final controller in [
       titleController,
       numberOfPlayersController,
       durationController,
@@ -79,7 +79,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       endingInstructionsController,
       authorController,
     ]) {
-      c.dispose();
+      controller.dispose();
     }
     super.dispose();
   }
@@ -298,19 +298,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       }
 
       if (mounted) {
-        await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(context.localizations.gameSaveSuccess),
-            content: Text(context.localizations.gameSaveSuccessMessage),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(context.localizations.ok),
-              ),
-            ],
-          ),
-        );
+        await _showSuccessDialog(context);
 
         if (mounted) {
           Navigator.of(context).pop();
@@ -325,6 +313,22 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
+  }
+
+  Future<void> _showSuccessDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.localizations.gameSaveSuccess),
+        content: Text(context.localizations.gameSaveSuccessMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.localizations.ok),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showDeleteDialog(BuildContext context, WidgetRef ref) {

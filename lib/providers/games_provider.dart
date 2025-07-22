@@ -95,3 +95,11 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
 
   return games;
 }
+
+@riverpod
+Future<GameModel?> gameById(Ref ref, String id) async {
+  final games = await ref.watch(cachedGamesProvider.future);
+  return games.firstWhere(
+    (game) => game.id == id,
+  );
+}

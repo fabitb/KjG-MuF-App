@@ -92,7 +92,7 @@ class GameListScreen extends ConsumerWidget {
         spacing: 12,
         children: [
           FloatingActionButton(
-            heroTag: 'fab1',
+            heroTag: 'addGameButton',
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => EditGameScreen(),
@@ -103,7 +103,7 @@ class GameListScreen extends ConsumerWidget {
             ),
           ),
           FloatingActionButton(
-            heroTag: 'fab2',
+            heroTag: 'showFilterButton',
             onPressed: () => _showFilterSheet(
               context,
               gamesFilter,
@@ -137,7 +137,7 @@ class GameListScreen extends ConsumerWidget {
             child: GameItem(game: games[index]),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => GameDetailScreen(game: games[index]),
+                builder: (context) => GameDetailScreen(gameId: games[index].id),
               ),
             ),
             onLongPress: () => ref

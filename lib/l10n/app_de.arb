@@ -150,5 +150,7 @@
         "example": "Ninja"
       }
     }
-  }
+  },
+  "gameNotFound": "Spiel nicht gefunden",
+  "gameCouldNotLoad": "Spiel konnte nicht geladen werden."
 }
