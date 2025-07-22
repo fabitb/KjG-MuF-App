@@ -40,7 +40,7 @@ final filteredGamesProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FilteredGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
-String _$gamesHash() => r'7e9dcc28e705ba208284b090bc53460e8bd53826';
+String _$gamesHash() => r'1a63aa63f5fde8538f67e2cd16c067cfeae40bd1';
 
 /// See also [Games].
 @ProviderFor(Games)

@@ -51,7 +51,9 @@ class GameListScreen extends ConsumerWidget {
             expandedHeight: 100.0,
             flexibleSpace: FiveTapsRecognizer(
               onFiveTaps: () => _showApiTokenDialog(context).then((value) {
-                ref.read(authorizedGamesUserProviderProvider.notifier).setApiKey(value as String);
+                ref
+                    .read(authorizedGamesUserProviderProvider.notifier)
+                    .setApiKey(value as String);
               }),
               child: FlexibleSpaceBar(
                 centerTitle: true,
@@ -138,7 +140,9 @@ class GameListScreen extends ConsumerWidget {
                 builder: (context) => GameDetailScreen(game: games[index]),
               ),
             ),
-            onLongPress: () => ref.read(gamesProvider.notifier).updatedPlayedGame(games[index], !games[index].alreadyPlayed),
+            onLongPress: () => ref
+                .read(gamesProvider.notifier)
+                .updatedPlayedGame(games[index], !games[index].alreadyPlayed),
           );
         },
       ),
@@ -193,7 +197,8 @@ class GameListScreen extends ConsumerWidget {
               child: Text(context.localizations.cancel),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(controller.text.trim()),
+              onPressed: () =>
+                  Navigator.of(context).pop(controller.text.trim()),
               child: Text(context.localizations.ok),
             ),
           ],
@@ -215,18 +220,10 @@ class GameListScreen extends ConsumerWidget {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
             child: GamesFilterBottomSheet(
-              gamesFilterSettings: gamesFilterSettings,
               isAuthorized: isAuthorized,
-              onSettingsChanged: (newFilterSettings) {
-                if (gamesFilterSettings.showReviewed != newFilterSettings.showReviewed) {
-                  ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
-                  ref.invalidate(gamesProvider);
-                } else {
-                  ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(newFilterSettings);
-                }
-              },
             ),
           ),
         );

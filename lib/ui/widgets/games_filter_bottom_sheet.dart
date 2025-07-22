@@ -5,15 +5,11 @@ import 'package:kjg_muf_app/model/games_filter_settings.dart';
 import 'package:kjg_muf_app/providers/games_filter_provider.dart';
 
 class GamesFilterBottomSheet extends ConsumerWidget {
-  final GamesFilterSettings gamesFilterSettings;
   final bool isAuthorized;
-  final Function(GamesFilterSettings) onSettingsChanged;
 
   const GamesFilterBottomSheet({
     super.key,
-    required this.gamesFilterSettings,
     required this.isAuthorized,
-    required this.onSettingsChanged,
   });
 
   @override
@@ -27,11 +23,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
           trailing: Checkbox(
             value: gamesFilter.showOnlyUnplayed,
             onChanged: (checked) {
-              onSettingsChanged(
-                gamesFilterSettings.copyWith(
-                  showOnlyUnplayed: checked ?? false,
-                ),
-              );
+              ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+                    gamesFilter.copyWith(showOnlyUnplayed: checked ?? false),
+                  );
             },
           ),
         ),
@@ -41,11 +35,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
             trailing: Checkbox(
               value: gamesFilter.showReviewed,
               onChanged: (checked) {
-                onSettingsChanged(
-                  gamesFilterSettings.copyWith(
-                    showReviewed: checked ?? true,
-                  ),
-                );
+                ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+                      gamesFilter.copyWith(showReviewed: checked ?? true),
+                    );
               },
             ),
           ),
@@ -54,7 +46,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            onSettingsChanged(GamesFilterSettings());
+            ref
+                .read(gamesFilterProvider.notifier)
+                .setGamesFilterSettings(GamesFilterSettings());
           },
           child: Text(context.localizations.resetFilter),
         ),

@@ -16,7 +16,11 @@ class Games extends _$Games {
 
     final games = await BackendService()
         .getGames(showReviewedGames: gamesFilter.showReviewed);
-    await DBService().saveGames(games);
+
+    if (gamesFilter.showReviewed) {
+      await DBService().saveGames(games);
+    }
+
     return games;
   }
 
