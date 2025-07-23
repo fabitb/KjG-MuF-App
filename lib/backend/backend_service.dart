@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
@@ -19,28 +19,11 @@ class BackendService {
   );
 
   BackendService() {
-    _dio.interceptors.add(
-      InterceptorsWrapper(
-        // Logging interceptor für Debug-Prints
-        onRequest: (options, handler) {
-          debugPrint("Request: ${options.method} ${options.uri}");
-          debugPrint("Headers: ${options.headers}");
-          debugPrint("Body: ${options.data}");
-          handler.next(options);
-        },
-        onResponse: (response, handler) {
-          debugPrint(
-            "Response: ${response.statusCode} ${response.statusMessage}",
-          );
-          debugPrint("Response Body: ${response.data}");
-          handler.next(response);
-        },
-        onError: (DioException e, handler) {
-          debugPrint("Error: ${e.response?.statusCode} ${e.message}");
-          handler.next(e);
-        },
-      ),
-    );
+    if (kDebugMode) {
+      _dio.interceptors.add(
+        LogInterceptor(),
+      );
+    }
   }
 
   Future<List<GameModel>> getGames({bool showReviewedGames = true}) async {
