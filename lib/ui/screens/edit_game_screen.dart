@@ -107,14 +107,20 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                _buildTextField(context.localizations.title, titleController),
+                _buildTextField(
+                  context.localizations.title,
+                  titleController,
+                  isMandatory: true,
+                ),
                 _buildTextField(
                   context.localizations.playerNumber,
                   numberOfPlayersController,
+                  isMandatory: true,
                 ),
                 _buildTextField(
                   context.localizations.duration,
                   durationController,
+                  isMandatory: true,
                 ),
                 _buildTextField(
                   context.localizations.categoriesSeparateWithComma,
@@ -164,7 +170,11 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
                   endingInstructionsController,
                   maxLines: 3,
                 ),
-                _buildTextField(context.localizations.author, authorController),
+                _buildTextField(
+                  context.localizations.author,
+                  authorController,
+                  isMandatory: true,
+                ),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: _saveGame,
@@ -197,6 +207,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     String label,
     TextEditingController controller, {
     int maxLines = 1,
+    bool isMandatory = false,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -204,7 +215,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
         controller: controller,
         maxLines: maxLines,
         decoration: InputDecoration(
-          labelText: label,
+          labelText: "$label${isMandatory ? '*' : ''}",
           border: const OutlineInputBorder(),
         ),
       ),
@@ -220,7 +231,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "$label: $value",
+          "$label*: $value",
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Slider(
