@@ -26,7 +26,8 @@ class GameListScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: switch (games) {
-        AsyncValue(:final value?, error: null) => _body(context, ref, value),
+        AsyncValue(:final valueOrNull?, error: null) =>
+          _body(context, ref, valueOrNull),
         _ => const Center(
             child: SizedBox(
               width: 50,
@@ -70,7 +71,7 @@ class GameListScreen extends ConsumerWidget {
     final searchTextProvider = ref.watch(gamesFilterTextProvider.notifier);
 
     return RefreshIndicator(
-      onRefresh: () => ref.read(gamesProvider.notifier).refresh(),
+      onRefresh: () async => await ref.refresh(gamesProvider),
       child: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [

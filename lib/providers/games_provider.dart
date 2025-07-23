@@ -61,9 +61,12 @@ class Games extends _$Games {
 @riverpod
 Future<List<GameModel>> cachedGames(Ref ref) async {
   final online = ref.watch(gamesProvider);
+  final filterSettings = ref.read(gamesFilterProvider);
 
   if (online.valueOrNull case List<GameModel> gamesList) {
-    return gamesList;
+    if (!filterSettings.showReviewed) {
+      return gamesList;
+    }
   }
 
   return await DBService().getAllGames();
