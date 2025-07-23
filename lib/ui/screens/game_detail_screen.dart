@@ -36,26 +36,27 @@ class GameDetailScreen extends ConsumerWidget {
                 title: game.title.substring(0, min(game.title.length, 30)),
                 centerTitle: true,
                 actions: [
-                  if (isAuthorized.hasValue && isAuthorized.value == true)
-                    game.reviewed
-                        ? IconButton(
-                            onPressed: () => _showSetReviewedDialog(
-                              context,
-                              ref,
-                              game,
-                              false,
-                            ),
-                            icon: const Icon(Icons.close),
-                          )
-                        : IconButton(
-                            onPressed: () => _showSetReviewedDialog(
-                              context,
-                              ref,
-                              game,
-                              true,
-                            ),
-                            icon: const Icon(Icons.check),
-                          ),
+                  if (isAuthorized.valueOrNull == true)
+                    if (game.reviewed)
+                      IconButton(
+                        onPressed: () => _showSetReviewedDialog(
+                          context,
+                          ref,
+                          game,
+                          false,
+                        ),
+                        icon: const Icon(Icons.close),
+                      )
+                    else
+                      IconButton(
+                        onPressed: () => _showSetReviewedDialog(
+                          context,
+                          ref,
+                          game,
+                          true,
+                        ),
+                        icon: const Icon(Icons.check),
+                      ),
                 ],
               ),
             ],
@@ -94,8 +95,7 @@ class GameDetailScreen extends ConsumerWidget {
               ],
             ),
           ),
-          floatingActionButton: isAuthorized.hasValue &&
-                  isAuthorized.value == true
+          floatingActionButton: isAuthorized.valueOrNull == true
               ? FloatingActionButton(
                   heroTag: null,
                   onPressed: () {
