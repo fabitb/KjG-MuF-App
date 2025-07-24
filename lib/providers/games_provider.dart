@@ -96,6 +96,8 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
     }).toList();
   }
 
+  games.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+
   return games;
 }
 
