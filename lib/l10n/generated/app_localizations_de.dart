@@ -93,7 +93,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get error => 'Fehler';
+  String error(String error) {
+    return 'Fehler: $error';
+  }
 
   @override
   String get fileErrorDescription =>
@@ -119,7 +121,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loginError => 'Falscher Nutzername oder Passwort';
 
   @override
-  String get gameDatabase => 'Spieledatenbank (Kommt demnächst)';
+  String get gameDatabase => 'Spieledatenbank';
 
   @override
   String get website => 'Website';
@@ -184,4 +186,124 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get search => 'Suche';
+
+  @override
+  String get apiToken => 'API-Token';
+
+  @override
+  String get typeInAPIToken => 'Gib deinen API-Token ein';
+
+  @override
+  String get resetPlayedGames => 'Gespielte Spiele zurücksetzen?';
+
+  @override
+  String get resetPlayedGamesDescription =>
+      'Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?';
+
+  @override
+  String get showOnlyUnplayedGames => 'Nur ungespielte Spiele anzeigen';
+
+  @override
+  String get showOnlyReviewedGames => 'Nur veröffentlichte Spiele anzeigen';
+
+  @override
+  String get title => 'Titel';
+
+  @override
+  String get playerNumber => 'Spieleranzahl';
+
+  @override
+  String get duration => 'Dauer';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get thinking => 'Denken';
+
+  @override
+  String get categories => 'Kategorien';
+
+  @override
+  String get categoriesSeparateWithComma => 'Kategorien (mit , trennen)';
+
+  @override
+  String get material => 'Material';
+
+  @override
+  String get ageRestrictions => 'Altersbeschränkungen';
+
+  @override
+  String get spaceRestrictions => 'Raumbeschränkungen';
+
+  @override
+  String get goalOfGame => 'Ziel des Spiels';
+
+  @override
+  String get preparationsInstructions => 'Spielaufbau';
+
+  @override
+  String get gameplayInstructions => 'Spielablauf';
+
+  @override
+  String get endingInstructions => 'Spielende';
+
+  @override
+  String get author => 'Autor';
+
+  @override
+  String thanksToGameAuthor(String name) {
+    return 'Danke an $name für das Erstellen des Spiels!';
+  }
+
+  @override
+  String get createGame => 'Spiel erstellen';
+
+  @override
+  String get editGame => 'Spiel bearbeiten';
+
+  @override
+  String get saveGame => 'Spiel speichern';
+
+  @override
+  String pleaseFillOutMandatoryFields(String fields) {
+    return 'Bitte fülle mindestens folgende Felder aus: $fields';
+  }
+
+  @override
+  String get gameSaveSuccess => 'Spiel gespeichert';
+
+  @override
+  String get gameSaveSuccessMessage =>
+      'Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste';
+
+  @override
+  String get gameDeleteTitle => 'Spiel löschen';
+
+  @override
+  String gameDeleteMessage(String game) {
+    return 'Willst du das Spiel \"$game\" wirklich löschen?';
+  }
+
+  @override
+  String get gameSetReviewedTitle => 'Spiel freigeben';
+
+  @override
+  String gameSetReviewedMessage(String game) {
+    return 'Hast du das Spiel \"$game\" vollständig geprüft und willst es freigeben?';
+  }
+
+  @override
+  String get gameSetUnreviewedTitle => 'Spiel wieder zurücknehmen';
+
+  @override
+  String gameSetUnreviewedMessage(String game) {
+    return 'Willst du das Spiel \"$game\" wieder runternehmen?';
+  }
+
+  @override
+  String get gameNotFound => 'Spiel nicht gefunden';
+
+  @override
+  String get gameCouldNotLoad => 'Spiel konnte nicht geladen werden.';
 }

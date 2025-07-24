@@ -8,7 +8,7 @@ import 'package:kjg_muf_app/model/auth_state.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/ui/screens/attachments_screen.dart';
 import 'package:kjg_muf_app/ui/screens/data_privacy_screen.dart';
-import 'package:kjg_muf_app/ui/screens/game_database_screen.dart';
+import 'package:kjg_muf_app/ui/screens/game_list_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,7 +50,8 @@ class MoreScreen extends ConsumerWidget {
   void _onGamesDatabaseTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const GameDatabase(),
+        builder: (context) => const GameListScreen(),
+        settings: const RouteSettings(name: '/gameList'),
       ),
     );
   }
@@ -107,7 +108,6 @@ class MoreScreen extends ConsumerWidget {
                     _tile(
                       title: loc.gameDatabase,
                       onTap: () => _onGamesDatabaseTap(context),
-                      enabled: false,
                     ),
                     _tile(
                       title: loc.savedAttachments,
@@ -136,7 +136,7 @@ class MoreScreen extends ConsumerWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

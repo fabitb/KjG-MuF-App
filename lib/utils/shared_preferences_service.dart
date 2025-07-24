@@ -10,6 +10,7 @@ class SharedPreferencesService {
   static const keyUserData = "key.user.data";
   static const keyFilterSettings = "key.filtersettings";
   static const keyDownloadDialog = "key.download";
+  static const keyGamesApiKey = "key.api.games";
   static const keySharedPrefVersion = "key.sharedpref.version";
 
   static final instance = SharedPreferencesService._();
@@ -101,6 +102,12 @@ class SharedPreferencesService {
       return null;
     }
   }
+
+  String? get gamesApiKey => _prefs.getString(keyGamesApiKey);
+
+  set gamesApiKey(String? apiKey) => apiKey == null
+      ? _prefs.remove(keyGamesApiKey)
+      : _prefs.setString(keyGamesApiKey, apiKey);
 
   int get _version => _prefs.getInt(keySharedPrefVersion) ?? 0;
 

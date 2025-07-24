@@ -11,6 +11,7 @@ import 'package:kjg_muf_app/ui/widgets/event_item.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/filter_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
+import 'package:kjg_muf_app/ui/widgets/searchbar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class EventListScreen extends ConsumerWidget {
@@ -85,7 +86,8 @@ class EventListScreen extends ConsumerWidget {
   Widget _body(List<MidaEvent> events, WidgetRef ref) {
     final filterSettingsActive = ref.watch(filterProvider).isActive();
     final searchTextProvider = ref.watch(filterTextProvider.notifier);
-    final registeredList = ref.watch(cachedRegisteredProvider).valueOrNull ?? [];
+    final registeredList =
+        ref.watch(cachedRegisteredProvider).valueOrNull ?? [];
 
     return RefreshIndicator(
       onRefresh: () {
@@ -96,21 +98,7 @@ class EventListScreen extends ConsumerWidget {
         itemCount: events.length + (filterSettingsActive ? 2 : 1),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) => searchTextProvider.setFilterText(value),
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: "Suche",
-                  // fix for text misalignment
-                  prefixIconConstraints: BoxConstraints(minWidth: 48),
-                  prefixIcon: const Icon(Icons.search),
-                ),
-              ),
-            );
+            return Searchbar(onSearchString: searchTextProvider.setFilterText);
           }
           index--;
 

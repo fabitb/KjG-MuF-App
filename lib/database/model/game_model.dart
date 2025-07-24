@@ -5,7 +5,9 @@ part 'game_model.g.dart';
 
 @collection
 class GameModel {
-  late Id id;
+  late String id;
+
+  Id get isarId => fastHash(id);
   late String title;
   late int actionScore;
   late int cognitiveScore;
@@ -20,6 +22,7 @@ class GameModel {
   late String endingInstructions;
   late List<String> categories;
   late String author;
+  late bool reviewed;
   late bool alreadyPlayed;
 
   GameModel({
@@ -38,6 +41,7 @@ class GameModel {
     required this.endingInstructions,
     required this.categories,
     required this.author,
+    required this.reviewed,
     required this.alreadyPlayed,
   });
 
@@ -49,7 +53,7 @@ class GameModel {
       cognitiveScore: game.cognitiveScore,
       numberOfPlayers: game.numberOfPlayer,
       duration: game.duration,
-      ageLimitations: game.ageLimitations,
+      ageLimitations: game.ageLimitations ?? "",
       spaceLimitations: game.spaceLimitations,
       materials: game.materials,
       goalOfGame: game.goalOfGame,
@@ -58,7 +62,23 @@ class GameModel {
       endingInstructions: game.endingInstructions,
       categories: game.categories,
       author: game.author,
+      reviewed: game.reviewed,
       alreadyPlayed: false,
     );
   }
+}
+
+int fastHash(String string) {
+  var hash = 0xcbf29ce484222325;
+
+  var i = 0;
+  while (i < string.length) {
+    final codeUnit = string.codeUnitAt(i++);
+    hash ^= codeUnit >> 8;
+    hash *= 0x100000001b3;
+    hash ^= codeUnit & 0xFF;
+    hash *= 0x100000001b3;
+  }
+
+  return hash;
 }

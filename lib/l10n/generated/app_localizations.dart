@@ -247,8 +247,8 @@ abstract class AppLocalizations {
   /// No description provided for @error.
   ///
   /// In de, this message translates to:
-  /// **'Fehler'**
-  String get error;
+  /// **'Fehler: {error}'**
+  String error(String error);
 
   /// No description provided for @fileErrorDescription.
   ///
@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameDatabase.
   ///
   /// In de, this message translates to:
-  /// **'Spieledatenbank (Kommt demnächst)'**
+  /// **'Spieledatenbank'**
   String get gameDatabase;
 
   /// No description provided for @website.
@@ -417,6 +417,222 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Suche'**
   String get search;
+
+  /// No description provided for @apiToken.
+  ///
+  /// In de, this message translates to:
+  /// **'API-Token'**
+  String get apiToken;
+
+  /// No description provided for @typeInAPIToken.
+  ///
+  /// In de, this message translates to:
+  /// **'Gib deinen API-Token ein'**
+  String get typeInAPIToken;
+
+  /// No description provided for @resetPlayedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Gespielte Spiele zurücksetzen?'**
+  String get resetPlayedGames;
+
+  /// No description provided for @resetPlayedGamesDescription.
+  ///
+  /// In de, this message translates to:
+  /// **'Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?'**
+  String get resetPlayedGamesDescription;
+
+  /// No description provided for @showOnlyUnplayedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur ungespielte Spiele anzeigen'**
+  String get showOnlyUnplayedGames;
+
+  /// No description provided for @showOnlyReviewedGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur veröffentlichte Spiele anzeigen'**
+  String get showOnlyReviewedGames;
+
+  /// No description provided for @title.
+  ///
+  /// In de, this message translates to:
+  /// **'Titel'**
+  String get title;
+
+  /// No description provided for @playerNumber.
+  ///
+  /// In de, this message translates to:
+  /// **'Spieleranzahl'**
+  String get playerNumber;
+
+  /// No description provided for @duration.
+  ///
+  /// In de, this message translates to:
+  /// **'Dauer'**
+  String get duration;
+
+  /// No description provided for @action.
+  ///
+  /// In de, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @thinking.
+  ///
+  /// In de, this message translates to:
+  /// **'Denken'**
+  String get thinking;
+
+  /// No description provided for @categories.
+  ///
+  /// In de, this message translates to:
+  /// **'Kategorien'**
+  String get categories;
+
+  /// No description provided for @categoriesSeparateWithComma.
+  ///
+  /// In de, this message translates to:
+  /// **'Kategorien (mit , trennen)'**
+  String get categoriesSeparateWithComma;
+
+  /// No description provided for @material.
+  ///
+  /// In de, this message translates to:
+  /// **'Material'**
+  String get material;
+
+  /// No description provided for @ageRestrictions.
+  ///
+  /// In de, this message translates to:
+  /// **'Altersbeschränkungen'**
+  String get ageRestrictions;
+
+  /// No description provided for @spaceRestrictions.
+  ///
+  /// In de, this message translates to:
+  /// **'Raumbeschränkungen'**
+  String get spaceRestrictions;
+
+  /// No description provided for @goalOfGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Ziel des Spiels'**
+  String get goalOfGame;
+
+  /// No description provided for @preparationsInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielaufbau'**
+  String get preparationsInstructions;
+
+  /// No description provided for @gameplayInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielablauf'**
+  String get gameplayInstructions;
+
+  /// No description provided for @endingInstructions.
+  ///
+  /// In de, this message translates to:
+  /// **'Spielende'**
+  String get endingInstructions;
+
+  /// No description provided for @author.
+  ///
+  /// In de, this message translates to:
+  /// **'Autor'**
+  String get author;
+
+  /// No description provided for @thanksToGameAuthor.
+  ///
+  /// In de, this message translates to:
+  /// **'Danke an {name} für das Erstellen des Spiels!'**
+  String thanksToGameAuthor(String name);
+
+  /// No description provided for @createGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel erstellen'**
+  String get createGame;
+
+  /// No description provided for @editGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel bearbeiten'**
+  String get editGame;
+
+  /// No description provided for @saveGame.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel speichern'**
+  String get saveGame;
+
+  /// No description provided for @pleaseFillOutMandatoryFields.
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte fülle mindestens folgende Felder aus: {fields}'**
+  String pleaseFillOutMandatoryFields(String fields);
+
+  /// No description provided for @gameSaveSuccess.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel gespeichert'**
+  String get gameSaveSuccess;
+
+  /// No description provided for @gameSaveSuccessMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste'**
+  String get gameSaveSuccessMessage;
+
+  /// No description provided for @gameDeleteTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel löschen'**
+  String get gameDeleteTitle;
+
+  /// No description provided for @gameDeleteMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du das Spiel \"{game}\" wirklich löschen?'**
+  String gameDeleteMessage(String game);
+
+  /// No description provided for @gameSetReviewedTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel freigeben'**
+  String get gameSetReviewedTitle;
+
+  /// No description provided for @gameSetReviewedMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Hast du das Spiel \"{game}\" vollständig geprüft und willst es freigeben?'**
+  String gameSetReviewedMessage(String game);
+
+  /// No description provided for @gameSetUnreviewedTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel wieder zurücknehmen'**
+  String get gameSetUnreviewedTitle;
+
+  /// No description provided for @gameSetUnreviewedMessage.
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du das Spiel \"{game}\" wieder runternehmen?'**
+  String gameSetUnreviewedMessage(String game);
+
+  /// No description provided for @gameNotFound.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel nicht gefunden'**
+  String get gameNotFound;
+
+  /// No description provided for @gameCouldNotLoad.
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel konnte nicht geladen werden.'**
+  String get gameCouldNotLoad;
 }
 
 class _AppLocalizationsDelegate

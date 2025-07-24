@@ -67,28 +67,38 @@ const GameModelSchema = CollectionSchema(
       name: r'goalOfGame',
       type: IsarType.string,
     ),
-    r'materials': PropertySchema(
+    r'id': PropertySchema(
       id: 10,
+      name: r'id',
+      type: IsarType.string,
+    ),
+    r'materials': PropertySchema(
+      id: 11,
       name: r'materials',
       type: IsarType.string,
     ),
     r'numberOfPlayers': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'numberOfPlayers',
       type: IsarType.string,
     ),
     r'preparationsInstructions': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'preparationsInstructions',
       type: IsarType.string,
     ),
+    r'reviewed': PropertySchema(
+      id: 14,
+      name: r'reviewed',
+      type: IsarType.bool,
+    ),
     r'spaceLimitations': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'spaceLimitations',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 14,
+      id: 16,
       name: r'title',
       type: IsarType.string,
     )
@@ -97,7 +107,7 @@ const GameModelSchema = CollectionSchema(
   serialize: _gameModelSerialize,
   deserialize: _gameModelDeserialize,
   deserializeProp: _gameModelDeserializeProp,
-  idName: r'id',
+  idName: r'isarId',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -126,6 +136,7 @@ int _gameModelEstimateSize(
   bytesCount += 3 + object.endingInstructions.length * 3;
   bytesCount += 3 + object.gameplayInstructions.length * 3;
   bytesCount += 3 + object.goalOfGame.length * 3;
+  bytesCount += 3 + object.id.length * 3;
   bytesCount += 3 + object.materials.length * 3;
   bytesCount += 3 + object.numberOfPlayers.length * 3;
   bytesCount += 3 + object.preparationsInstructions.length * 3;
@@ -150,11 +161,13 @@ void _gameModelSerialize(
   writer.writeString(offsets[7], object.endingInstructions);
   writer.writeString(offsets[8], object.gameplayInstructions);
   writer.writeString(offsets[9], object.goalOfGame);
-  writer.writeString(offsets[10], object.materials);
-  writer.writeString(offsets[11], object.numberOfPlayers);
-  writer.writeString(offsets[12], object.preparationsInstructions);
-  writer.writeString(offsets[13], object.spaceLimitations);
-  writer.writeString(offsets[14], object.title);
+  writer.writeString(offsets[10], object.id);
+  writer.writeString(offsets[11], object.materials);
+  writer.writeString(offsets[12], object.numberOfPlayers);
+  writer.writeString(offsets[13], object.preparationsInstructions);
+  writer.writeBool(offsets[14], object.reviewed);
+  writer.writeString(offsets[15], object.spaceLimitations);
+  writer.writeString(offsets[16], object.title);
 }
 
 GameModel _gameModelDeserialize(
@@ -174,12 +187,13 @@ GameModel _gameModelDeserialize(
     endingInstructions: reader.readString(offsets[7]),
     gameplayInstructions: reader.readString(offsets[8]),
     goalOfGame: reader.readString(offsets[9]),
-    id: id,
-    materials: reader.readString(offsets[10]),
-    numberOfPlayers: reader.readString(offsets[11]),
-    preparationsInstructions: reader.readString(offsets[12]),
-    spaceLimitations: reader.readString(offsets[13]),
-    title: reader.readString(offsets[14]),
+    id: reader.readString(offsets[10]),
+    materials: reader.readString(offsets[11]),
+    numberOfPlayers: reader.readString(offsets[12]),
+    preparationsInstructions: reader.readString(offsets[13]),
+    reviewed: reader.readBool(offsets[14]),
+    spaceLimitations: reader.readString(offsets[15]),
+    title: reader.readString(offsets[16]),
   );
   return object;
 }
@@ -220,6 +234,10 @@ P _gameModelDeserializeProp<P>(
     case 13:
       return (reader.readString(offset)) as P;
     case 14:
+      return (reader.readBool(offset)) as P;
+    case 15:
+      return (reader.readString(offset)) as P;
+    case 16:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -227,20 +245,18 @@ P _gameModelDeserializeProp<P>(
 }
 
 Id _gameModelGetId(GameModel object) {
-  return object.id;
+  return object.isarId;
 }
 
 List<IsarLinkBase<dynamic>> _gameModelGetLinks(GameModel object) {
   return [];
 }
 
-void _gameModelAttach(IsarCollection<dynamic> col, Id id, GameModel object) {
-  object.id = id;
-}
+void _gameModelAttach(IsarCollection<dynamic> col, Id id, GameModel object) {}
 
 extension GameModelQueryWhereSort
     on QueryBuilder<GameModel, GameModel, QWhere> {
-  QueryBuilder<GameModel, GameModel, QAfterWhere> anyId() {
+  QueryBuilder<GameModel, GameModel, QAfterWhere> anyIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -249,66 +265,70 @@ extension GameModelQueryWhereSort
 
 extension GameModelQueryWhere
     on QueryBuilder<GameModel, GameModel, QWhereClause> {
-  QueryBuilder<GameModel, GameModel, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<GameModel, GameModel, QAfterWhereClause> isarIdEqualTo(
+      Id isarId) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: isarId,
+        upper: isarId,
       ));
     });
   }
 
-  QueryBuilder<GameModel, GameModel, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<GameModel, GameModel, QAfterWhereClause> isarIdNotEqualTo(
+      Id isarId) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: isarId, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: isarId, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: isarId, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: isarId, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<GameModel, GameModel, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<GameModel, GameModel, QAfterWhereClause> isarIdGreaterThan(
+      Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(lower: isarId, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<GameModel, GameModel, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<GameModel, GameModel, QAfterWhereClause> isarIdLessThan(
+      Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: isarId, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<GameModel, GameModel, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<GameModel, GameModel, QAfterWhereClause> isarIdBetween(
+    Id lowerIsarId,
+    Id upperIsarId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerIsarId,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperIsarId,
         includeUpper: includeUpper,
       ));
     });
@@ -1466,42 +1486,172 @@ extension GameModelQueryFilter
   }
 
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idEqualTo(
-      Id value) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idGreaterThan(
-    Id value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'id',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idLessThan(
-    Id value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'id',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'id',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> idIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'id',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> isarIdEqualTo(
+      Id value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isarId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> isarIdGreaterThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'isarId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> isarIdLessThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'isarId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> isarIdBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -1509,7 +1659,7 @@ extension GameModelQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'isarId',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1924,6 +2074,16 @@ extension GameModelQueryFilter
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterFilterCondition> reviewedEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'reviewed',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterFilterCondition>
       spaceLimitationsEqualTo(
     String value, {
@@ -2309,6 +2469,18 @@ extension GameModelQuerySortBy on QueryBuilder<GameModel, GameModel, QSortBy> {
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByMaterials() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'materials', Sort.asc);
@@ -2344,6 +2516,18 @@ extension GameModelQuerySortBy on QueryBuilder<GameModel, GameModel, QSortBy> {
       sortByPreparationsInstructionsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'preparationsInstructions', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> sortByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
     });
   }
 
@@ -2498,6 +2682,18 @@ extension GameModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByIsarId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isarId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByIsarIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isarId', Sort.desc);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByMaterials() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'materials', Sort.asc);
@@ -2533,6 +2729,18 @@ extension GameModelQuerySortThenBy
       thenByPreparationsInstructionsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'preparationsInstructions', Sort.desc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.asc);
+    });
+  }
+
+  QueryBuilder<GameModel, GameModel, QAfterSortBy> thenByReviewedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reviewed', Sort.desc);
     });
   }
 
@@ -2633,6 +2841,13 @@ extension GameModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QDistinct> distinctById(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QDistinct> distinctByMaterials(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2656,6 +2871,12 @@ extension GameModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<GameModel, GameModel, QDistinct> distinctByReviewed() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'reviewed');
+    });
+  }
+
   QueryBuilder<GameModel, GameModel, QDistinct> distinctBySpaceLimitations(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2674,9 +2895,9 @@ extension GameModelQueryWhereDistinct
 
 extension GameModelQueryProperty
     on QueryBuilder<GameModel, GameModel, QQueryProperty> {
-  QueryBuilder<GameModel, int, QQueryOperations> idProperty() {
+  QueryBuilder<GameModel, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'isarId');
     });
   }
 
@@ -2742,6 +2963,12 @@ extension GameModelQueryProperty
     });
   }
 
+  QueryBuilder<GameModel, String, QQueryOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id');
+    });
+  }
+
   QueryBuilder<GameModel, String, QQueryOperations> materialsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'materials');
@@ -2758,6 +2985,12 @@ extension GameModelQueryProperty
       preparationsInstructionsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'preparationsInstructions');
+    });
+  }
+
+  QueryBuilder<GameModel, bool, QQueryOperations> reviewedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'reviewed');
     });
   }
 

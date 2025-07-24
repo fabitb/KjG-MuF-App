@@ -40,7 +40,15 @@
   "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
   "cancel": "Abbrechen",
   "ok": "OK",
-  "error": "Fehler",
+  "error": "Fehler: {error}",
+  "@error": {
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Dieser Fehler ist passiert"
+      }
+    }
+  },
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
@@ -48,7 +56,7 @@
   "unknownError": "Unbekannter Fehler",
   "noInternet": "Keine Internetverbindung",
   "loginError": "Falscher Nutzername oder Passwort",
-  "gameDatabase": "Spieledatenbank (Kommt demnächst)",
+  "gameDatabase": "Spieledatenbank",
   "website": "Website",
   "shop": "Shop",
   "dataPrivacy": "Datenschutz",
@@ -68,6 +76,81 @@
   "no": "Nein",
   "logout": "Abmelden",
   "logoutConfirmMessage": "Willst du dich wirklich ausloggen?",
-
-  "search": "Suche"
+  "search": "Suche",
+  "apiToken": "API-Token",
+  "typeInAPIToken": "Gib deinen API-Token ein",
+  "resetPlayedGames": "Gespielte Spiele zurücksetzen?",
+  "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
+  "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
+  "showOnlyReviewedGames": "Nur veröffentlichte Spiele anzeigen",
+  "title": "Titel",
+  "playerNumber": "Spieleranzahl",
+  "duration": "Dauer",
+  "action": "Action",
+  "thinking": "Denken",
+  "categories": "Kategorien",
+  "categoriesSeparateWithComma": "Kategorien (mit , trennen)",
+  "material": "Material",
+  "ageRestrictions": "Altersbeschränkungen",
+  "spaceRestrictions": "Raumbeschränkungen",
+  "goalOfGame": "Ziel des Spiels",
+  "preparationsInstructions": "Spielaufbau",
+  "gameplayInstructions": "Spielablauf",
+  "endingInstructions": "Spielende",
+  "author": "Autor",
+  "thanksToGameAuthor": "Danke an {name} für das Erstellen des Spiels!",
+  "@thanksToGameAuthor": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Cosmas"
+      }
+    }
+  },
+  "createGame": "Spiel erstellen",
+  "editGame": "Spiel bearbeiten",
+  "saveGame": "Spiel speichern",
+  "pleaseFillOutMandatoryFields": "Bitte fülle mindestens folgende Felder aus: {fields}",
+  "@pleaseFillOutMandatoryFields": {
+    "placeholders": {
+      "fields": {
+        "type": "String",
+        "example": "Titel, Spieldauer"
+      }
+    }
+  },
+  "gameSaveSuccess": "Spiel gespeichert",
+  "gameSaveSuccessMessage": "Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste",
+  "gameDeleteTitle": "Spiel löschen",
+  "gameDeleteMessage": "Willst du das Spiel \"{game}\" wirklich löschen?",
+  "@gameDeleteMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameSetReviewedTitle": "Spiel freigeben",
+  "gameSetReviewedMessage": "Hast du das Spiel \"{game}\" vollständig geprüft und willst es freigeben?",
+  "@gameSetReviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameSetUnreviewedTitle": "Spiel wieder zurücknehmen",
+  "gameSetUnreviewedMessage": "Willst du das Spiel \"{game}\" wieder runternehmen?",
+  "@gameSetUnreviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameNotFound": "Spiel nicht gefunden",
+  "gameCouldNotLoad": "Spiel konnte nicht geladen werden."
 }
