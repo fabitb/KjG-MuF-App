@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/backend_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
@@ -14,8 +15,7 @@ class Games extends _$Games {
   Future<List<GameModel>> build() async {
     final gamesFilter = ref.watch(gamesFilterProvider);
 
-    final games = await BackendService()
-        .getGames(showReviewedGames: gamesFilter.showReviewed);
+    final games = await BackendService().getGames(showReviewedGames: gamesFilter.showReviewed);
 
     if (gamesFilter.showReviewed) {
       await DBService().saveGames(games);
@@ -82,22 +82,20 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
     games = games.where((g) => !g.alreadyPlayed).toList();
   }
 
-  if (gamesFilterSettings.actionRange != null) {
+  RangeValues? actionRange = gamesFilterSettings.actionRange;
+  if (actionRange != null) {
     games = games
         .where(
-          (g) =>
-              g.actionScore >= gamesFilterSettings.actionRange!.start &&
-              g.actionScore <= gamesFilterSettings.actionRange!.end,
+          (g) => g.actionScore >= actionRange.start && g.actionScore <= actionRange.end,
         )
         .toList();
   }
 
-  if (gamesFilterSettings.thinkingRange != null) {
+  RangeValues? thinkingRange = gamesFilterSettings.thinkingRange;
+  if (thinkingRange != null) {
     games = games
         .where(
-          (g) =>
-              g.cognitiveScore >= gamesFilterSettings.thinkingRange!.start &&
-              g.cognitiveScore <= gamesFilterSettings.thinkingRange!.end,
+          (g) => g.cognitiveScore >= thinkingRange.start && g.cognitiveScore <= thinkingRange.end,
         )
         .toList();
   }
