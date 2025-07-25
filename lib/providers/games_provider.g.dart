@@ -22,7 +22,7 @@ final cachedGamesProvider = AutoDisposeFutureProvider<List<GameModel>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CachedGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
-String _$filteredGamesHash() => r'5c69e49e2366c77d48ab516a8792c28d773f7ce1';
+String _$filteredGamesHash() => r'a2d52fe613020361a6e3213d78dbf51a440caf55';
 
 /// See also [filteredGames].
 @ProviderFor(filteredGames)

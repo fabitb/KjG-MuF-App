@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GamesFilterSettings {
   bool get showReviewed => throw _privateConstructorUsedError;
   bool get showOnlyUnplayed => throw _privateConstructorUsedError;
+  RangeValues? get actionRange => throw _privateConstructorUsedError;
+  RangeValues? get thinkingRange => throw _privateConstructorUsedError;
 
   /// Create a copy of GamesFilterSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +34,11 @@ abstract class $GamesFilterSettingsCopyWith<$Res> {
           GamesFilterSettings value, $Res Function(GamesFilterSettings) then) =
       _$GamesFilterSettingsCopyWithImpl<$Res, GamesFilterSettings>;
   @useResult
-  $Res call({bool showReviewed, bool showOnlyUnplayed});
+  $Res call(
+      {bool showReviewed,
+      bool showOnlyUnplayed,
+      RangeValues? actionRange,
+      RangeValues? thinkingRange});
 }
 
 /// @nodoc
@@ -52,6 +58,8 @@ class _$GamesFilterSettingsCopyWithImpl<$Res, $Val extends GamesFilterSettings>
   $Res call({
     Object? showReviewed = null,
     Object? showOnlyUnplayed = null,
+    Object? actionRange = freezed,
+    Object? thinkingRange = freezed,
   }) {
     return _then(_value.copyWith(
       showReviewed: null == showReviewed
@@ -62,6 +70,14 @@ class _$GamesFilterSettingsCopyWithImpl<$Res, $Val extends GamesFilterSettings>
           ? _value.showOnlyUnplayed
           : showOnlyUnplayed // ignore: cast_nullable_to_non_nullable
               as bool,
+      actionRange: freezed == actionRange
+          ? _value.actionRange
+          : actionRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
+      thinkingRange: freezed == thinkingRange
+          ? _value.thinkingRange
+          : thinkingRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
     ) as $Val);
   }
 }
@@ -74,7 +90,11 @@ abstract class _$$GamesFilterSettingsImplCopyWith<$Res>
       __$$GamesFilterSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showReviewed, bool showOnlyUnplayed});
+  $Res call(
+      {bool showReviewed,
+      bool showOnlyUnplayed,
+      RangeValues? actionRange,
+      RangeValues? thinkingRange});
 }
 
 /// @nodoc
@@ -92,6 +112,8 @@ class __$$GamesFilterSettingsImplCopyWithImpl<$Res>
   $Res call({
     Object? showReviewed = null,
     Object? showOnlyUnplayed = null,
+    Object? actionRange = freezed,
+    Object? thinkingRange = freezed,
   }) {
     return _then(_$GamesFilterSettingsImpl(
       showReviewed: null == showReviewed
@@ -102,6 +124,14 @@ class __$$GamesFilterSettingsImplCopyWithImpl<$Res>
           ? _value.showOnlyUnplayed
           : showOnlyUnplayed // ignore: cast_nullable_to_non_nullable
               as bool,
+      actionRange: freezed == actionRange
+          ? _value.actionRange
+          : actionRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
+      thinkingRange: freezed == thinkingRange
+          ? _value.thinkingRange
+          : thinkingRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
     ));
   }
 }
@@ -110,7 +140,10 @@ class __$$GamesFilterSettingsImplCopyWithImpl<$Res>
 
 class _$GamesFilterSettingsImpl extends _GamesFilterSettings {
   const _$GamesFilterSettingsImpl(
-      {this.showReviewed = true, this.showOnlyUnplayed = false})
+      {this.showReviewed = true,
+      this.showOnlyUnplayed = false,
+      this.actionRange,
+      this.thinkingRange})
       : super._();
 
   @override
@@ -119,10 +152,14 @@ class _$GamesFilterSettingsImpl extends _GamesFilterSettings {
   @override
   @JsonKey()
   final bool showOnlyUnplayed;
+  @override
+  final RangeValues? actionRange;
+  @override
+  final RangeValues? thinkingRange;
 
   @override
   String toString() {
-    return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed)';
+    return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, actionRange: $actionRange, thinkingRange: $thinkingRange)';
   }
 
   @override
@@ -133,11 +170,16 @@ class _$GamesFilterSettingsImpl extends _GamesFilterSettings {
             (identical(other.showReviewed, showReviewed) ||
                 other.showReviewed == showReviewed) &&
             (identical(other.showOnlyUnplayed, showOnlyUnplayed) ||
-                other.showOnlyUnplayed == showOnlyUnplayed));
+                other.showOnlyUnplayed == showOnlyUnplayed) &&
+            (identical(other.actionRange, actionRange) ||
+                other.actionRange == actionRange) &&
+            (identical(other.thinkingRange, thinkingRange) ||
+                other.thinkingRange == thinkingRange));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, showReviewed, showOnlyUnplayed);
+  int get hashCode => Object.hash(
+      runtimeType, showReviewed, showOnlyUnplayed, actionRange, thinkingRange);
 
   /// Create a copy of GamesFilterSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -152,13 +194,19 @@ class _$GamesFilterSettingsImpl extends _GamesFilterSettings {
 abstract class _GamesFilterSettings extends GamesFilterSettings {
   const factory _GamesFilterSettings(
       {final bool showReviewed,
-      final bool showOnlyUnplayed}) = _$GamesFilterSettingsImpl;
+      final bool showOnlyUnplayed,
+      final RangeValues? actionRange,
+      final RangeValues? thinkingRange}) = _$GamesFilterSettingsImpl;
   const _GamesFilterSettings._() : super._();
 
   @override
   bool get showReviewed;
   @override
   bool get showOnlyUnplayed;
+  @override
+  RangeValues? get actionRange;
+  @override
+  RangeValues? get thinkingRange;
 
   /// Create a copy of GamesFilterSettings
   /// with the given fields replaced by the non-null parameter values.
