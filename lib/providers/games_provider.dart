@@ -82,6 +82,26 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
     games = games.where((g) => !g.alreadyPlayed).toList();
   }
 
+  if (gamesFilterSettings.actionRange != null) {
+    games = games
+        .where(
+          (g) =>
+              g.actionScore >= gamesFilterSettings.actionRange!.start &&
+              g.actionScore <= gamesFilterSettings.actionRange!.end,
+        )
+        .toList();
+  }
+
+  if (gamesFilterSettings.thinkingRange != null) {
+    games = games
+        .where(
+          (g) =>
+              g.cognitiveScore >= gamesFilterSettings.thinkingRange!.start &&
+              g.cognitiveScore <= gamesFilterSettings.thinkingRange!.end,
+        )
+        .toList();
+  }
+
   if (searchText.isNotEmpty) {
     final lowerSearch = searchText.toLowerCase();
 
