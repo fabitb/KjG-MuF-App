@@ -15,7 +15,8 @@ class Games extends _$Games {
   Future<List<GameModel>> build() async {
     final gamesFilter = ref.watch(gamesFilterProvider);
 
-    final games = await BackendService().getGames(showReviewedGames: gamesFilter.showReviewed);
+    final games = await BackendService()
+        .getGames(showReviewedGames: gamesFilter.showReviewed);
 
     if (gamesFilter.showReviewed) {
       await DBService().saveGames(games);
@@ -86,7 +87,9 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
   if (actionRange != null) {
     games = games
         .where(
-          (g) => g.actionScore >= actionRange.start && g.actionScore <= actionRange.end,
+          (g) =>
+              g.actionScore >= actionRange.start &&
+              g.actionScore <= actionRange.end,
         )
         .toList();
   }
@@ -95,7 +98,9 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
   if (thinkingRange != null) {
     games = games
         .where(
-          (g) => g.cognitiveScore >= thinkingRange.start && g.cognitiveScore <= thinkingRange.end,
+          (g) =>
+              g.cognitiveScore >= thinkingRange.start &&
+              g.cognitiveScore <= thinkingRange.end,
         )
         .toList();
   }

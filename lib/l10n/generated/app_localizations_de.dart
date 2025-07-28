@@ -306,4 +306,34 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gameCouldNotLoad => 'Spiel konnte nicht geladen werden.';
+
+  @override
+  String get continueText => 'Weiter';
+
+  @override
+  String get back => 'Zurück';
+
+  @override
+  String get letsGo => 'Los gehts\'s';
+
+  @override
+  String get gameTutorialHeader1 => 'Willkommen in der Spieledatenbank!';
+
+  @override
+  String get gameTutorialHeader2 => 'Füge neue Spiele für Alle hinzu!';
+
+  @override
+  String get gameTutorialHeader3 => 'Markiere was du schon gespielt hast!';
+
+  @override
+  String get gameTutorialText1 =>
+      'Du suchst Gruppenspiele für deine Gruppenstunde, euer Zeltlager oder eine Freizeit? Dann bist du hier genau richtig!\n\nDu kannst einfach frei nach Spielen stöbern, die Textsuche benutzen oder auch nach bestimmten Kriterien filtern.';
+
+  @override
+  String get gameTutorialText2 =>
+      'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!';
+
+  @override
+  String get gameTutorialText3 =>
+      'Wenn du lange auf ein Spiel in der Liste klickst wird es als \'bereits gespielt\' markierst. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf \'ungespielt\' stellen.';
 }
