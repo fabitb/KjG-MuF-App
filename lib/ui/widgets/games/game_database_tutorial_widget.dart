@@ -105,12 +105,6 @@ class _GameDatabaseTutorialWidgetState
       2 => context.localizations.gameTutorialText3,
       _ => "",
     };
-    String asset = switch (pageIndex) {
-      0 => Strings.dashboardBackground,
-      1 => Strings.dashboardBackground,
-      2 => Strings.dashboardBackground,
-      _ => Strings.dashboardBackground,
-    };
 
     return Column(
       spacing: 12,
@@ -119,7 +113,7 @@ class _GameDatabaseTutorialWidgetState
           child: SizedBox(
             width: double.infinity,
             child: Image.asset(
-              asset,
+              Strings.dashboardBackground,
               fit: BoxFit.fitWidth,
               alignment: Alignment.topCenter,
             ),
