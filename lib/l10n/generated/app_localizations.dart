@@ -679,7 +679,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameTutorialText2.
   ///
   /// In de, this message translates to:
-  /// **'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!'**
+  /// **'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\n\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!'**
   String get gameTutorialText2;
 
   /// No description provided for @gameTutorialText3.

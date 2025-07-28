@@ -127,7 +127,7 @@ class _GameDatabaseTutorialWidgetState
           textAlign: TextAlign.center,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             tutorialText,
             textAlign: TextAlign.center,

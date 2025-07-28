@@ -331,7 +331,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gameTutorialText2 =>
-      'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!';
+      'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\n\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!';
 
   @override
   String get gameTutorialText3 =>
