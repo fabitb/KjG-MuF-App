@@ -10,8 +10,8 @@ import 'package:kjg_muf_app/providers/games_provider.dart';
 import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/five_taps_recognizer.dart';
-import 'package:kjg_muf_app/ui/widgets/game_item.dart';
-import 'package:kjg_muf_app/ui/widgets/games_filter_bottom_sheet.dart';
+import 'package:kjg_muf_app/ui/widgets/games/game_item.dart';
+import 'package:kjg_muf_app/ui/widgets/games/games_filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/searchbar.dart';
 
 class GameListScreen extends ConsumerWidget {
