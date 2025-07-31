@@ -10,15 +10,30 @@ import 'package:kjg_muf_app/providers/games_provider.dart';
 import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 import 'package:kjg_muf_app/ui/screens/game_detail_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/five_taps_recognizer.dart';
+import 'package:kjg_muf_app/ui/widgets/games/game_database_tutorial_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/games/game_item.dart';
 import 'package:kjg_muf_app/ui/widgets/games/games_filter_bottom_sheet.dart';
 import 'package:kjg_muf_app/ui/widgets/searchbar.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
-class GameListScreen extends ConsumerWidget {
+class GameListScreen extends ConsumerStatefulWidget {
   const GameListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<GameListScreen> createState() => _GameListScreenState();
+}
+
+class _GameListScreenState extends ConsumerState<GameListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _showGameTutorialDialog(context),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final games = ref.watch(filteredGamesProvider);
     final isAuthorized = ref.watch(authorizedGamesUserProviderProvider);
     final gamesFilter = ref.watch(gamesFilterProvider);
@@ -81,6 +96,10 @@ class GameListScreen extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back, color: Colors.white),
             ),
             actions: [
+              IconButton(
+                onPressed: () => _showGameTutorialDialog(context, force: true),
+                icon: const Icon(Icons.question_mark),
+              ),
               IconButton(
                 onPressed: () => _showResetGamesPlayedDialog(
                   context,
@@ -219,5 +238,18 @@ class GameListScreen extends ConsumerWidget {
         );
       },
     );
+  }
+
+  void _showGameTutorialDialog(BuildContext context, {bool force = false}) {
+    if (!SharedPreferencesService.instance.gameTutorialShown || force) {
+      SharedPreferencesService.instance.gameTutorialShown = true;
+      showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          backgroundColor: Colors.white,
+          child: GameDatabaseTutorialWidget(),
+        ),
+      );
+    }
   }
 }

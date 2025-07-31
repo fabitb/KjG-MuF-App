@@ -633,6 +633,60 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Spiel konnte nicht geladen werden.'**
   String get gameCouldNotLoad;
+
+  /// No description provided for @continueText.
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter'**
+  String get continueText;
+
+  /// No description provided for @back.
+  ///
+  /// In de, this message translates to:
+  /// **'Zurück'**
+  String get back;
+
+  /// No description provided for @letsGo.
+  ///
+  /// In de, this message translates to:
+  /// **'Los gehts\'s'**
+  String get letsGo;
+
+  /// No description provided for @gameTutorialHeader1.
+  ///
+  /// In de, this message translates to:
+  /// **'Willkommen in der Spieledatenbank!'**
+  String get gameTutorialHeader1;
+
+  /// No description provided for @gameTutorialHeader2.
+  ///
+  /// In de, this message translates to:
+  /// **'Füge neue Spiele für Alle hinzu!'**
+  String get gameTutorialHeader2;
+
+  /// No description provided for @gameTutorialHeader3.
+  ///
+  /// In de, this message translates to:
+  /// **'Markiere was du schon gespielt hast!'**
+  String get gameTutorialHeader3;
+
+  /// No description provided for @gameTutorialText1.
+  ///
+  /// In de, this message translates to:
+  /// **'Du suchst Gruppenspiele für deine Gruppenstunde, euer Zeltlager oder eine Freizeit? Dann bist du hier genau richtig!\n\nDu kannst einfach frei nach Spielen stöbern, die Textsuche benutzen oder auch nach bestimmten Kriterien filtern.'**
+  String get gameTutorialText1;
+
+  /// No description provided for @gameTutorialText2.
+  ///
+  /// In de, this message translates to:
+  /// **'Mit dem \'Plus-Knopf\' kannst du neue Spiele hinzufügen.\n\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!'**
+  String get gameTutorialText2;
+
+  /// No description provided for @gameTutorialText3.
+  ///
+  /// In de, this message translates to:
+  /// **'Wenn du lange auf ein Spiel in der Liste klickst wird es als \'bereits gespielt\' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf \'ungespielt\' stellen.'**
+  String get gameTutorialText3;
 }
 
 class _AppLocalizationsDelegate

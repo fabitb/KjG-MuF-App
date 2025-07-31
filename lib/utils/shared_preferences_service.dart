@@ -12,6 +12,7 @@ class SharedPreferencesService {
   static const keyDownloadDialog = "key.download";
   static const keyGamesApiKey = "key.api.games";
   static const keySharedPrefVersion = "key.sharedpref.version";
+  static const keyGameTutorialShown = "key.game.tutorial.shown";
 
   static final instance = SharedPreferencesService._();
 
@@ -112,6 +113,11 @@ class SharedPreferencesService {
   int get _version => _prefs.getInt(keySharedPrefVersion) ?? 0;
 
   set _version(int newValue) => _prefs.setInt(keySharedPrefVersion, newValue);
+
+  bool get gameTutorialShown => _prefs.getBool(keyGameTutorialShown) ?? false;
+
+  set gameTutorialShown(bool gameTutorialShown) =>
+      _prefs.setBool(keyGameTutorialShown, gameTutorialShown);
 }
 
 extension SharedPrefJson on SharedPreferencesWithCache {
