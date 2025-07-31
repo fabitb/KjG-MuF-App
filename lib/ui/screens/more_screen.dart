@@ -50,7 +50,7 @@ class MoreScreen extends ConsumerWidget {
   void _onGamesDatabaseTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => GameListScreen(),
+        builder: (context) => const GameListScreen(),
         settings: const RouteSettings(name: '/gameList'),
       ),
     );

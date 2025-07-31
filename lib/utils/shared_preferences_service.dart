@@ -116,9 +116,8 @@ class SharedPreferencesService {
 
   bool get gameTutorialShown => _prefs.getBool(keyGameTutorialShown) ?? false;
 
-  set gameTutorialShown(bool? gameTutorialShown) => gameTutorialShown == null
-      ? _prefs.remove(keyGameTutorialShown)
-      : _prefs.setBool(keyGameTutorialShown, gameTutorialShown);
+  set gameTutorialShown(bool gameTutorialShown) =>
+      _prefs.setBool(keyGameTutorialShown, gameTutorialShown);
 }
 
 extension SharedPrefJson on SharedPreferencesWithCache {
