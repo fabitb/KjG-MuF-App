@@ -68,7 +68,7 @@ class Dashboard extends ConsumerWidget {
               ],
             ),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -123,20 +123,26 @@ class Dashboard extends ConsumerWidget {
                     const SizedBox(
                       height: 32.0,
                     ),
-                    PromoButton(
-                      title: context.localizations.gameDatabase,
-                      description:
-                          context.localizations.gamesDatabaseDescription,
-                      icon: Icons.groups,
-                      onTap: () => _onGamesDatabaseTap(context),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: PromoButton(
+                        title: context.localizations.gameDatabase,
+                        description:
+                            context.localizations.gamesDatabaseDescription,
+                        icon: Icons.groups,
+                        onTap: () => _onGamesDatabaseTap(context),
+                      ),
                     ),
                     const SizedBox(
                       height: 32.0,
                     ),
-                    NewsletterSubscribeButton(
-                      onButtonClicked: () => _showWebsiteBottomSheet(
-                        context,
-                        Strings.newsletterSubscribeURL,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: NewsletterSubscribeButton(
+                        onButtonClicked: () => _showWebsiteBottomSheet(
+                          context,
+                          Strings.newsletterSubscribeURL,
+                        ),
                       ),
                     ),
                   ],

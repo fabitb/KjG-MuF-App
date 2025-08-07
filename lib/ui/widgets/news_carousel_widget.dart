@@ -55,7 +55,7 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
                 return GestureDetector(
                   onTap: () => widget.onNewsClicked?.call(news[pagePosition]),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: NewsItem(news: news[pagePosition]),
                   ),
                 );
