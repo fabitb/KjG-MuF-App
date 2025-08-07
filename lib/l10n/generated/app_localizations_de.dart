@@ -50,6 +50,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!';
 
   @override
+  String get gamesDatabaseDescription =>
+      'Entdecke neue Spielen für deine Freizeit, Gruppenstunde oder Zeltlager';
+
+  @override
+  String get newBadge => 'NEU!';
+
+  @override
   String get login => 'Einloggen';
 
   @override

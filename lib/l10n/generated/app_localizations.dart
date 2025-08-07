@@ -166,6 +166,18 @@ abstract class AppLocalizations {
   /// **'Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!'**
   String get subscribeToNewsletter;
 
+  /// No description provided for @gamesDatabaseDescription.
+  ///
+  /// In de, this message translates to:
+  /// **'Entdecke neue Spielen für deine Freizeit, Gruppenstunde oder Zeltlager'**
+  String get gamesDatabaseDescription;
+
+  /// No description provided for @newBadge.
+  ///
+  /// In de, this message translates to:
+  /// **'NEU!'**
+  String get newBadge;
+
   /// No description provided for @login.
   ///
   /// In de, this message translates to:

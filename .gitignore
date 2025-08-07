@@ -447,3 +447,6 @@ fabric.properties
 
 # End of 
 https://www.toptal.com/developers/gitignore/api/android,androidstudio,windows,linux,xcode,flutter,dart,kotlin,swift,java
+
+# Claude Code configuration
+CLAUDE.md

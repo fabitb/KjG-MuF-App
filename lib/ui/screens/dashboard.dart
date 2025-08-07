@@ -7,11 +7,13 @@ import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
 import 'package:kjg_muf_app/providers/dashboard_provider.dart';
 import 'package:kjg_muf_app/ui/screens/dashboard_webview_screen.dart';
+import 'package:kjg_muf_app/ui/screens/game_list_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
 import 'package:kjg_muf_app/ui/widgets/login_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/member_card.dart';
 import 'package:kjg_muf_app/ui/widgets/news_carousel_widget.dart';
 import 'package:kjg_muf_app/ui/widgets/newsletter_subscribe_button.dart';
+import 'package:kjg_muf_app/ui/widgets/promo_button.dart';
 
 class Dashboard extends ConsumerWidget {
   const Dashboard({super.key});
@@ -66,7 +68,7 @@ class Dashboard extends ConsumerWidget {
               ],
             ),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -117,6 +119,16 @@ class Dashboard extends ConsumerWidget {
                             ),
                           ),
                       },
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    PromoButton(
+                      title: context.localizations.gameDatabase,
+                      description:
+                          context.localizations.gamesDatabaseDescription,
+                      icon: Icons.groups,
+                      onTap: () => _onGamesDatabaseTap(context),
                     ),
                     const SizedBox(
                       height: 32.0,
@@ -199,6 +211,15 @@ class Dashboard extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+
+  void _onGamesDatabaseTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const GameListScreen(),
+        settings: const RouteSettings(name: '/gameList'),
+      ),
     );
   }
 }
