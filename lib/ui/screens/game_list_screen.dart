@@ -41,8 +41,7 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: switch (games) {
-        AsyncValue(:final valueOrNull?, error: null) =>
-          _body(context, ref, valueOrNull),
+        AsyncValue(:final value?, error: null) => _body(context, ref, value),
         _ => const Center(
             child: SizedBox(
               width: 50,

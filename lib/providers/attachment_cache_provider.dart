@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_attachment.dart';
 import 'package:kjg_muf_app/utils/cache_manager.dart';
@@ -84,7 +83,7 @@ class AttachmentCache extends _$AttachmentCache {
 bool attachmentCached(Ref ref, {required String key}) {
   final allCached = ref.watch(attachmentCacheProvider);
 
-  if (allCached.valueOrNull case List<EventAttachment> list) {
+  if (allCached.value case List<EventAttachment> list) {
     return list.map((e) => e.key).contains(key);
   }
   return false;

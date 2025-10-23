@@ -36,7 +36,7 @@ class GameDetailScreen extends ConsumerWidget {
                 title: game.title.substring(0, min(game.title.length, 30)),
                 centerTitle: true,
                 actions: [
-                  if (isAuthorized.valueOrNull == true)
+                  if (isAuthorized.value == true)
                     if (game.reviewed)
                       IconButton(
                         onPressed: () => _showSetReviewedDialog(
@@ -95,7 +95,7 @@ class GameDetailScreen extends ConsumerWidget {
               ],
             ),
           ),
-          floatingActionButton: isAuthorized.valueOrNull == true
+          floatingActionButton: isAuthorized.value == true
               ? FloatingActionButton(
                   heroTag: null,
                   onPressed: () {

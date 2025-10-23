@@ -12,9 +12,8 @@ class FilterWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filterSettings = ref.watch(filterProvider);
     final filteredEventsLength =
-        ref.watch(filteredEventsProvider).valueOrNull?.length ?? 0;
-    final eventsLength =
-        ref.watch(cachedEventsProvider).valueOrNull?.length ?? 0;
+        ref.watch(filteredEventsProvider).value?.length ?? 0;
+    final eventsLength = ref.watch(cachedEventsProvider).value?.length ?? 0;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

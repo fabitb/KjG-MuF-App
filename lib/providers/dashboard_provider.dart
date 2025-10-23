@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/wordpress_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';

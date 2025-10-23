@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
@@ -14,7 +13,7 @@ part 'event_list_provider.g.dart';
 Future<List<MidaEvent>> cachedEvents(Ref ref) async {
   final online = ref.watch(eventListProvider);
 
-  if (online.valueOrNull case List<MidaEvent> list) {
+  if (online.value case List<MidaEvent> list) {
     return list;
   }
   return await DBService().getCachedEvents();

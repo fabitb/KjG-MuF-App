@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/backend_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/game_model.dart';
@@ -64,7 +63,7 @@ Future<List<GameModel>> cachedGames(Ref ref) async {
   final online = ref.watch(gamesProvider);
   final filterSettings = ref.read(gamesFilterProvider);
 
-  if (online.valueOrNull case List<GameModel> gamesList) {
+  if (online.value case List<GameModel> gamesList) {
     if (!filterSettings.showReviewed) {
       return gamesList;
     }

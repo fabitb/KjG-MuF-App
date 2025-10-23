@@ -1,14 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event_attachment.dart';
 
 part 'event.freezed.dart';
-
 part 'event.g.dart';
 
 @freezed
-class BackendMidaEvent with _$BackendMidaEvent {
+sealed class BackendMidaEvent with _$BackendMidaEvent {
   const factory BackendMidaEvent({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'mandant') String? clientId,
@@ -90,11 +88,8 @@ class BackendMidaEvent with _$BackendMidaEvent {
 }
 
 @freezed
-@Collection(ignore: {'copyWith'})
-class MidaEvent with _$MidaEvent {
+abstract class MidaEvent with _$MidaEvent {
   const MidaEvent._();
-
-  Id get isarId => id;
 
   const factory MidaEvent({
     required int id,
@@ -222,15 +217,13 @@ class MidaEvent with _$MidaEvent {
 
   static List<MidaEvent> createFakeData() {
     return List.generate(
-      4,
-      (index) => MidaEvent(
-        id: index,
-        baseUrl: "",
-        startDateAndTime: DateTime.now(),
-        endDateAndTime: DateTime.now(),
-        title: "title",
-      ),
-    );
+        4,
+        (index) => MidaEvent(
+            id: index,
+            baseUrl: "",
+            startDateAndTime: DateTime.now(),
+            endDateAndTime: DateTime.now(),
+            title: "title"));
   }
 }
 
@@ -239,10 +232,7 @@ extension MidaEventExtension on MidaEvent {
 
   EventAttachment? get imageAttachment => image != null
       ? EventAttachment(
-          eventId: id,
-          name: image!,
-          url: "$baseUrl/?download=$image",
-        )
+          eventId: id, name: image!, url: "$baseUrl/?download=$image")
       : null;
 
   String attachmentDownloadLink(String attachment) =>
@@ -271,13 +261,8 @@ extension MidaEventExtension on MidaEvent {
     if (attachments == null || attachments.isEmpty) return null;
 
     return attachments
-        .map(
-          (a) => EventAttachment(
-            eventId: id,
-            url: attachmentDownloadLink(a),
-            name: a,
-          ),
-        )
+        .map((a) => EventAttachment(
+            eventId: id, url: attachmentDownloadLink(a), name: a))
         .toList();
   }
 }

@@ -185,7 +185,7 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     }
 
     final cachedKeys =
-        ref.watch(attachmentCacheProvider).valueOrNull?.map((e) => e.key) ?? [];
+        ref.watch(attachmentCacheProvider).value?.map((e) => e.key) ?? [];
     final allCached =
         widget.attachments.where((e) => !cachedKeys.contains(e.key)).isEmpty;
     if (!allCached) {

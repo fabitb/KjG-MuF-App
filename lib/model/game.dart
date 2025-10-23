@@ -4,7 +4,7 @@ part 'game.freezed.dart';
 part 'game.g.dart';
 
 @freezed
-class Game with _$Game {
+sealed class Game with _$Game {
   const factory Game({
     @JsonKey(name: '_id') required String id,
     required String title,

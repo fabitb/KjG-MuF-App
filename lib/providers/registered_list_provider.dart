@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/mida_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
@@ -13,7 +12,7 @@ part 'registered_list_provider.g.dart';
 Future<List<int>> cachedRegistered(Ref ref) async {
   final online = ref.watch(registeredListProvider);
 
-  if (online.valueOrNull case List<int> list) {
+  if (online.value case List<int> list) {
     return list;
   }
   return (await DBService().getCachedRegistered())
@@ -50,7 +49,7 @@ class RegisteredList extends _$RegisteredList {
 bool eventRegistered(Ref ref, MidaEvent event) {
   final registered = ref.watch(cachedRegisteredProvider);
 
-  if (registered.valueOrNull case List<int> value) {
+  if (registered.value case List<int> value) {
     return value.contains(event.id);
   }
   return false;
