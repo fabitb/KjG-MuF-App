@@ -41,7 +41,7 @@ final class CachedEventsProvider extends $FunctionalProvider<
   }
 }
 
-String _$cachedEventsHash() => r'ef05505e3a0a436c541705f64471cc296a9badc3';
+String _$cachedEventsHash() => r'48bdf74eb08ee70c159d2b565d87b3dd8673de59';
 
 @ProviderFor(EventList)
 const eventListProvider = EventListProvider._();

@@ -83,7 +83,7 @@ final class CachedGamesProvider extends $FunctionalProvider<
   }
 }
 
-String _$cachedGamesHash() => r'08e80fbf7c67c2597b53623e876dc73c4b2a6930';
+String _$cachedGamesHash() => r'987d7b1bc6c052fca8d7436f8e3cc216885f717b';
 
 @ProviderFor(filteredGames)
 const filteredGamesProvider = FilteredGamesProvider._();

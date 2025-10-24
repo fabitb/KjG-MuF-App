@@ -40,7 +40,7 @@ final class CachedRegisteredProvider extends $FunctionalProvider<
   }
 }
 
-String _$cachedRegisteredHash() => r'510bc94000e1aa2a3451f1e9f8345ce186428080';
+String _$cachedRegisteredHash() => r'8dbaeeb9dc735462db05aa4cdcda8cf04cbc71f8';
 
 @ProviderFor(RegisteredList)
 const registeredListProvider = RegisteredListProvider._();
@@ -143,7 +143,7 @@ final class EventRegisteredProvider
   }
 }
 
-String _$eventRegisteredHash() => r'4b0384906bdd73d82d8a1309ca27279cbd1dda9d';
+String _$eventRegisteredHash() => r'0aa7dd34777cb81e359029b0a9a6d82e5951939a';
 
 final class EventRegisteredFamily extends $Family
     with $FunctionalFamilyOverride<bool, MidaEvent> {

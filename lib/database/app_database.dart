@@ -141,9 +141,8 @@ class AppDatabase extends _$AppDatabase {
     // Clear all games
     await delete(games).go();
 
-    // Filter and prepare new games
-    final filteredNewGames =
-        newGames.where((game) => game.reviewed).map((gameModel) {
+    // Prepare new games
+    final filteredNewGames = newGames.map((gameModel) {
       return GamesCompanion.insert(
         id: gameModel.id,
         title: gameModel.title,
