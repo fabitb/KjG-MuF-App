@@ -138,9 +138,6 @@ class AppDatabase extends _$AppDatabase {
         .map((game) => game.id)
         .toSet();
 
-    // Clear all games
-    await delete(games).go();
-
     // Prepare new games
     final filteredNewGames = newGames.map((gameModel) {
       return GamesCompanion.insert(
@@ -164,8 +161,9 @@ class AppDatabase extends _$AppDatabase {
       );
     }).toList();
 
-    // Insert all games
+    // Clear and insert all games atomically
     await batch((batch) {
+      batch.deleteAll(games);
       batch.insertAll(games, filteredNewGames);
     });
 
@@ -193,8 +191,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<void> cacheEvents(List<MidaEvent> eventsList) async {
-    await delete(events).go();
     await batch((batch) {
+      batch.deleteAll(events);
       batch.insertAll(
         events,
         eventsList.map((e) => _eventModelToCompanion(e)).toList(),
@@ -209,8 +207,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<void> cacheRegistered(List<Registered> registeredList) async {
-    await delete(registeredTable).go();
     await batch((batch) {
+      batch.deleteAll(registeredTable);
       batch.insertAll(
         registeredTable,
         registeredList
@@ -228,8 +226,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<void> cacheNews(List<NewsModel> newsList) async {
-    await delete(newsTable).go();
     await batch((batch) {
+      batch.deleteAll(newsTable);
       batch.insertAll(
         newsTable,
         newsList.map((n) => _newsModelToCompanion(n)).toList(),
@@ -244,8 +242,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<void> cacheActivities(List<ActivitiesModel> activitiesList) async {
-    await delete(activitiesTable).go();
     await batch((batch) {
+      batch.deleteAll(activitiesTable);
       batch.insertAll(
         activitiesTable,
         activitiesList.map((a) => _activitiesModelToCompanion(a)).toList(),
