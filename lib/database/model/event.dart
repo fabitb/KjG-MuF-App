@@ -1,14 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:isar/isar.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
 import 'package:kjg_muf_app/database/model/event_attachment.dart';
 
 part 'event.freezed.dart';
-
 part 'event.g.dart';
 
 @freezed
-class BackendMidaEvent with _$BackendMidaEvent {
+sealed class BackendMidaEvent with _$BackendMidaEvent {
   const factory BackendMidaEvent({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'mandant') String? clientId,
@@ -90,11 +88,8 @@ class BackendMidaEvent with _$BackendMidaEvent {
 }
 
 @freezed
-@Collection(ignore: {'copyWith'})
-class MidaEvent with _$MidaEvent {
+abstract class MidaEvent with _$MidaEvent {
   const MidaEvent._();
-
-  Id get isarId => id;
 
   const factory MidaEvent({
     required int id,

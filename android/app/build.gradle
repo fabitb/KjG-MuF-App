@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         applicationId "de.kjg.kjg_app"
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger() + 1020001 // add fixed version because Fabi messed up once
         versionName flutterVersionName

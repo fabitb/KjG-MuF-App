@@ -4,7 +4,7 @@ part 'game.freezed.dart';
 part 'game.g.dart';
 
 @freezed
-class Game with _$Game {
+sealed class Game with _$Game {
   const factory Game({
     @JsonKey(name: '_id') required String id,
     required String title,
@@ -22,6 +22,7 @@ class Game with _$Game {
     required List<String> categories,
     required bool reviewed,
     required String author,
+    @Default(false) bool alreadyPlayed,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);

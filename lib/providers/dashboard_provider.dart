@@ -1,6 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/backend/wordpress_service.dart';
-import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/app_database.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:kjg_muf_app/model/news.dart';
@@ -10,14 +9,14 @@ part 'dashboard_provider.g.dart';
 
 @riverpod
 Stream<List<News>?> news(Ref ref) async* {
-  final List<News> cachedNews = (await DBService().getCachedNews())
+  final List<News> cachedNews = (await AppDatabase().getCachedNews())
       .map((newsModel) => News.fromNewsModel(newsModel))
       .toList();
   yield cachedNews.isNotEmpty ? cachedNews : null;
 
   try {
     final List<News> networkData = await WordpressService().getNews();
-    await DBService().cacheNews(
+    await AppDatabase().cacheNews(
       networkData
           .map(
             (news) => NewsModel()
@@ -37,14 +36,15 @@ Stream<List<News>?> news(Ref ref) async* {
 
 @riverpod
 Stream<List<News>?> activities(Ref ref) async* {
-  final List<News> cachedActivities = (await DBService().getCachedActivities())
-      .map((activitiesModel) => News.fromActivitiesModel(activitiesModel))
-      .toList();
+  final List<News> cachedActivities =
+      (await AppDatabase().getCachedActivities())
+          .map((activitiesModel) => News.fromActivitiesModel(activitiesModel))
+          .toList();
   yield cachedActivities.isNotEmpty ? cachedActivities : null;
 
   try {
     final List<News> networkData = await WordpressService().getActivities();
-    await DBService().cacheActivities(
+    await AppDatabase().cacheActivities(
       networkData
           .map(
             (news) => ActivitiesModel()

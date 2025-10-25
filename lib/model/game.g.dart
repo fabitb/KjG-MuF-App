@@ -6,7 +6,7 @@ part of 'game.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
+_Game _$GameFromJson(Map<String, dynamic> json) => _Game(
       id: json['_id'] as String,
       title: json['title'] as String,
       actionScore: (json['actionScore'] as num).toInt(),
@@ -25,10 +25,10 @@ _$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
           .toList(),
       reviewed: json['reviewed'] as bool,
       author: json['author'] as String,
+      alreadyPlayed: json['alreadyPlayed'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$GameToJson(_Game instance) => <String, dynamic>{
       '_id': instance.id,
       'title': instance.title,
       'actionScore': instance.actionScore,
@@ -45,4 +45,5 @@ Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
       'categories': instance.categories,
       'reviewed': instance.reviewed,
       'author': instance.author,
+      'alreadyPlayed': instance.alreadyPlayed,
     };

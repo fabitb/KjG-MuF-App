@@ -6,55 +6,115 @@ part of 'event_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cachedEventsHash() => r'ef05505e3a0a436c541705f64471cc296a9badc3';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [cachedEvents].
 @ProviderFor(cachedEvents)
-final cachedEventsProvider =
-    AutoDisposeFutureProvider<List<MidaEvent>>.internal(
-  cachedEvents,
-  name: r'cachedEventsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cachedEventsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const cachedEventsProvider = CachedEventsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CachedEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
-String _$filteredEventsHash() => r'b70251ae6f9d1c0e4b942b7874667ff02a4c30c6';
+final class CachedEventsProvider extends $FunctionalProvider<
+        AsyncValue<List<MidaEvent>>, List<MidaEvent>, FutureOr<List<MidaEvent>>>
+    with $FutureModifier<List<MidaEvent>>, $FutureProvider<List<MidaEvent>> {
+  const CachedEventsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'cachedEventsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-/// See also [filteredEvents].
-@ProviderFor(filteredEvents)
-final filteredEventsProvider =
-    AutoDisposeFutureProvider<List<MidaEvent>>.internal(
-  filteredEvents,
-  name: r'filteredEventsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$filteredEventsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+  @override
+  String debugGetCreateSourceHash() => _$cachedEventsHash();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FilteredEventsRef = AutoDisposeFutureProviderRef<List<MidaEvent>>;
-String _$eventListHash() => r'9b73290545e19e74924a93171269b0e23816ea8f';
+  @$internal
+  @override
+  $FutureProviderElement<List<MidaEvent>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
-/// See also [EventList].
+  @override
+  FutureOr<List<MidaEvent>> create(Ref ref) {
+    return cachedEvents(ref);
+  }
+}
+
+String _$cachedEventsHash() => r'46c6139312dfbc8058ae08133e6f3dfb56daf800';
+
 @ProviderFor(EventList)
-final eventListProvider =
-    AutoDisposeAsyncNotifierProvider<EventList, List<MidaEvent>>.internal(
-  EventList.new,
-  name: r'eventListProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$eventListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const eventListProvider = EventListProvider._();
 
-typedef _$EventList = AutoDisposeAsyncNotifier<List<MidaEvent>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class EventListProvider
+    extends $AsyncNotifierProvider<EventList, List<MidaEvent>> {
+  const EventListProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'eventListProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$eventListHash();
+
+  @$internal
+  @override
+  EventList create() => EventList();
+}
+
+String _$eventListHash() => r'e8edb879de7850777a9a59626371abc6fb7cf857';
+
+abstract class _$EventList extends $AsyncNotifier<List<MidaEvent>> {
+  FutureOr<List<MidaEvent>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<MidaEvent>>, List<MidaEvent>>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<List<MidaEvent>>, List<MidaEvent>>,
+        AsyncValue<List<MidaEvent>>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(filteredEvents)
+const filteredEventsProvider = FilteredEventsProvider._();
+
+final class FilteredEventsProvider extends $FunctionalProvider<
+        AsyncValue<List<MidaEvent>>, List<MidaEvent>, FutureOr<List<MidaEvent>>>
+    with $FutureModifier<List<MidaEvent>>, $FutureProvider<List<MidaEvent>> {
+  const FilteredEventsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'filteredEventsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredEventsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<MidaEvent>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<MidaEvent>> create(Ref ref) {
+    return filteredEvents(ref);
+  }
+}
+
+String _$filteredEventsHash() => r'b70251ae6f9d1c0e4b942b7874667ff02a4c30c6';

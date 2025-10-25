@@ -6,37 +6,73 @@ part of 'dashboard_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$newsHash() => r'7d40dc5f4bdb6cd7614b6b83de34c45398ff585b';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [news].
 @ProviderFor(news)
-final newsProvider = AutoDisposeStreamProvider<List<News>?>.internal(
-  news,
-  name: r'newsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$newsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const newsProvider = NewsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef NewsRef = AutoDisposeStreamProviderRef<List<News>?>;
-String _$activitiesHash() => r'0c82ef7a7d831d7c343f4e8ea3830c01d01ebba7';
+final class NewsProvider extends $FunctionalProvider<AsyncValue<List<News>?>,
+        List<News>?, Stream<List<News>?>>
+    with $FutureModifier<List<News>?>, $StreamProvider<List<News>?> {
+  const NewsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'newsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-/// See also [activities].
+  @override
+  String debugGetCreateSourceHash() => _$newsHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<News>?> $createElement(
+          $ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<News>?> create(Ref ref) {
+    return news(ref);
+  }
+}
+
+String _$newsHash() => r'80e379d2ed59fe812a543fb7a0b56cfcbb3d6af3';
+
 @ProviderFor(activities)
-final activitiesProvider = AutoDisposeStreamProvider<List<News>?>.internal(
-  activities,
-  name: r'activitiesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$activitiesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const activitiesProvider = ActivitiesProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ActivitiesRef = AutoDisposeStreamProviderRef<List<News>?>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ActivitiesProvider extends $FunctionalProvider<
+        AsyncValue<List<News>?>, List<News>?, Stream<List<News>?>>
+    with $FutureModifier<List<News>?>, $StreamProvider<List<News>?> {
+  const ActivitiesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'activitiesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$activitiesHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<News>?> $createElement(
+          $ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<News>?> create(Ref ref) {
+    return activities(ref);
+  }
+}
+
+String _$activitiesHash() => r'1b219c93a411d052207bedb934b8bc92b51978cc';

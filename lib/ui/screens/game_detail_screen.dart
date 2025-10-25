@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/providers/authorized_games_user_provider.dart';
 import 'package:kjg_muf_app/providers/games_provider.dart';
@@ -36,7 +36,7 @@ class GameDetailScreen extends ConsumerWidget {
                 title: game.title.substring(0, min(game.title.length, 30)),
                 centerTitle: true,
                 actions: [
-                  if (isAuthorized.valueOrNull == true)
+                  if (isAuthorized.value == true)
                     if (game.reviewed)
                       IconButton(
                         onPressed: () => _showSetReviewedDialog(
@@ -95,7 +95,7 @@ class GameDetailScreen extends ConsumerWidget {
               ],
             ),
           ),
-          floatingActionButton: isAuthorized.valueOrNull == true
+          floatingActionButton: isAuthorized.value == true
               ? FloatingActionButton(
                   heroTag: null,
                   onPressed: () {
@@ -123,7 +123,7 @@ class GameDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildGameInfoCard(BuildContext context, GameModel game) {
+  Widget _buildGameInfoCard(BuildContext context, Game game) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -157,10 +157,10 @@ class GameDetailScreen extends ConsumerWidget {
                       context.localizations.material,
                       game.materials,
                     ),
-                  if (game.ageLimitations.isNotEmpty)
+                  if (game.ageLimitations?.isNotEmpty ?? false)
                     _buildInfoText(
                       context.localizations.ageRestrictions,
-                      game.ageLimitations,
+                      game.ageLimitations!,
                     ),
                   if (game.spaceLimitations.isNotEmpty)
                     _buildInfoText(
@@ -179,7 +179,7 @@ class GameDetailScreen extends ConsumerWidget {
                   children: [
                     const Icon(Icons.people_alt_outlined),
                     const SizedBox(width: 4),
-                    Text(game.numberOfPlayers),
+                    Text(game.numberOfPlayer),
                   ],
                 ),
                 Row(
@@ -244,7 +244,7 @@ class GameDetailScreen extends ConsumerWidget {
   void _showSetReviewedDialog(
     BuildContext context,
     WidgetRef ref,
-    GameModel game,
+    Game game,
     bool setReviewed,
   ) {
     final loc = context.localizations;

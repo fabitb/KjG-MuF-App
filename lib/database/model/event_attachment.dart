@@ -5,7 +5,7 @@ import 'package:kjg_muf_app/ui/widgets/attachments_widget.dart';
 part 'event_attachment.freezed.dart';
 
 @freezed
-class EventAttachment with _$EventAttachment {
+sealed class EventAttachment with _$EventAttachment {
   static const eventIdSeparator = ":eventId:";
 
   const factory EventAttachment({

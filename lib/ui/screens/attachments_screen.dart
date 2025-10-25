@@ -92,7 +92,7 @@ class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
         ],
       ),
       body: switch (attachments) {
-        AsyncValue(:final valueOrNull?) => _data(context, valueOrNull, ref),
+        AsyncValue(:final value?) => _data(context, value, ref),
         _ => _loading(),
       },
     );
@@ -115,7 +115,7 @@ class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
       grouped[key]?.sort((a, b) => a.displayName.compareTo(b.displayName));
     }
 
-    final events = ref.watch(cachedEventsProvider).valueOrNull ?? [];
+    final events = ref.watch(cachedEventsProvider).value ?? [];
 
     return SingleChildScrollView(
       child: Column(

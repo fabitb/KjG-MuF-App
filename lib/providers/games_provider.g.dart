@@ -6,204 +6,185 @@ part of 'games_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cachedGamesHash() => r'08e80fbf7c67c2597b53623e876dc73c4b2a6930';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [cachedGames].
-@ProviderFor(cachedGames)
-final cachedGamesProvider = AutoDisposeFutureProvider<List<GameModel>>.internal(
-  cachedGames,
-  name: r'cachedGamesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cachedGamesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+@ProviderFor(Games)
+const gamesProvider = GamesProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CachedGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
-String _$filteredGamesHash() => r'a2d52fe613020361a6e3213d78dbf51a440caf55';
-
-/// See also [filteredGames].
-@ProviderFor(filteredGames)
-final filteredGamesProvider =
-    AutoDisposeFutureProvider<List<GameModel>>.internal(
-  filteredGames,
-  name: r'filteredGamesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$filteredGamesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FilteredGamesRef = AutoDisposeFutureProviderRef<List<GameModel>>;
-String _$gameByIdHash() => r'00ead54465794dadc6ccfc6186f37f3ec318b7d8';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [gameById].
-@ProviderFor(gameById)
-const gameByIdProvider = GameByIdFamily();
-
-/// See also [gameById].
-class GameByIdFamily extends Family<AsyncValue<GameModel?>> {
-  /// See also [gameById].
-  const GameByIdFamily();
-
-  /// See also [gameById].
-  GameByIdProvider call(
-    String id,
-  ) {
-    return GameByIdProvider(
-      id,
-    );
-  }
-
-  @override
-  GameByIdProvider getProviderOverride(
-    covariant GameByIdProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'gameByIdProvider';
-}
-
-/// See also [gameById].
-class GameByIdProvider extends AutoDisposeFutureProvider<GameModel?> {
-  /// See also [gameById].
-  GameByIdProvider(
-    String id,
-  ) : this._internal(
-          (ref) => gameById(
-            ref as GameByIdRef,
-            id,
-          ),
-          from: gameByIdProvider,
-          name: r'gameByIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$gameByIdHash,
-          dependencies: GameByIdFamily._dependencies,
-          allTransitiveDependencies: GameByIdFamily._allTransitiveDependencies,
-          id: id,
+final class GamesProvider extends $AsyncNotifierProvider<Games, List<Game>> {
+  const GamesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'gamesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  GameByIdProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
+  @override
+  String debugGetCreateSourceHash() => _$gamesHash();
 
-  final String id;
+  @$internal
+  @override
+  Games create() => Games();
+}
+
+String _$gamesHash() => r'30a21280c8bf386d260cc7f69076e69e91efcb84';
+
+abstract class _$Games extends $AsyncNotifier<List<Game>> {
+  FutureOr<List<Game>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<Game>>, List<Game>>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<List<Game>>, List<Game>>,
+        AsyncValue<List<Game>>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(cachedGames)
+const cachedGamesProvider = CachedGamesProvider._();
+
+final class CachedGamesProvider extends $FunctionalProvider<
+        AsyncValue<List<Game>>, List<Game>, FutureOr<List<Game>>>
+    with $FutureModifier<List<Game>>, $FutureProvider<List<Game>> {
+  const CachedGamesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'cachedGamesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
-  Override overrideWith(
-    FutureOr<GameModel?> Function(GameByIdRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GameByIdProvider._internal(
-        (ref) => create(ref as GameByIdRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$cachedGamesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Game>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Game>> create(Ref ref) {
+    return cachedGames(ref);
+  }
+}
+
+String _$cachedGamesHash() => r'c7a9ee30d30a4c19e25c96755f11e382ac750c6d';
+
+@ProviderFor(filteredGames)
+const filteredGamesProvider = FilteredGamesProvider._();
+
+final class FilteredGamesProvider extends $FunctionalProvider<
+        AsyncValue<List<Game>>, List<Game>, FutureOr<List<Game>>>
+    with $FutureModifier<List<Game>>, $FutureProvider<List<Game>> {
+  const FilteredGamesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'filteredGamesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredGamesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Game>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Game>> create(Ref ref) {
+    return filteredGames(ref);
+  }
+}
+
+String _$filteredGamesHash() => r'e7b9841634ea9365f674414dbf6294b6ee9da3fd';
+
+@ProviderFor(gameById)
+const gameByIdProvider = GameByIdFamily._();
+
+final class GameByIdProvider
+    extends $FunctionalProvider<AsyncValue<Game?>, Game?, FutureOr<Game?>>
+    with $FutureModifier<Game?>, $FutureProvider<Game?> {
+  const GameByIdProvider._(
+      {required GameByIdFamily super.from, required String super.argument})
+      : super(
+          retry: null,
+          name: r'gameByIdProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$gameByIdHash();
+
+  @override
+  String toString() {
+    return r'gameByIdProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<GameModel?> createElement() {
-    return _GameByIdProviderElement(this);
+  $FutureProviderElement<Game?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Game?> create(Ref ref) {
+    final argument = this.argument as String;
+    return gameById(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GameByIdProvider && other.id == id;
+    return other is GameByIdProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GameByIdRef on AutoDisposeFutureProviderRef<GameModel?> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
+String _$gameByIdHash() => r'9d94c9a1623a30747de2facd51f6a2f5ba280cf8';
 
-class _GameByIdProviderElement
-    extends AutoDisposeFutureProviderElement<GameModel?> with GameByIdRef {
-  _GameByIdProviderElement(super.provider);
+final class GameByIdFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Game?>, String> {
+  const GameByIdFamily._()
+      : super(
+          retry: null,
+          name: r'gameByIdProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
+
+  GameByIdProvider call(
+    String id,
+  ) =>
+      GameByIdProvider._(argument: id, from: this);
 
   @override
-  String get id => (origin as GameByIdProvider).id;
+  String toString() => r'gameByIdProvider';
 }
-
-String _$gamesHash() => r'1a63aa63f5fde8538f67e2cd16c067cfeae40bd1';
-
-/// See also [Games].
-@ProviderFor(Games)
-final gamesProvider =
-    AutoDisposeAsyncNotifierProvider<Games, List<GameModel>>.internal(
-  Games.new,
-  name: r'gamesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$gamesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$Games = AutoDisposeAsyncNotifier<List<GameModel>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

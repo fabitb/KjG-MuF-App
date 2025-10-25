@@ -5,10 +5,9 @@ import 'package:kjg_muf_app/model/user_data.dart';
 part 'auth_state.freezed.dart';
 
 @freezed
-class AuthState with _$AuthState {
-  const factory AuthState.loggedIn({
-    required UserData userData,
-  }) = AuthStateLoggedIn;
+sealed class AuthState with _$AuthState {
+  const factory AuthState.loggedIn({required UserData userData}) =
+      AuthStateLoggedIn;
 
   const factory AuthState.loading() = AuthStateLoading;
 

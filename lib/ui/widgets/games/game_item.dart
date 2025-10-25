@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/model/game.dart';
 
 class GameItem extends StatelessWidget {
-  final GameModel game;
+  final Game game;
 
   const GameItem({super.key, required this.game});
 
@@ -59,7 +59,7 @@ class GameItem extends StatelessWidget {
                   children: [
                     const Icon(Icons.people_outline, size: 18),
                     Text(
-                      game.numberOfPlayers,
+                      game.numberOfPlayer,
                       style: const TextStyle(fontSize: 14),
                     ),
                   ],
