@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/backend_service.dart';
-import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/app_database.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/providers/games_filter_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,14 +17,14 @@ class Games extends _$Games {
         .getGames(showReviewedGames: gamesFilter.showReviewed);
 
     if (gamesFilter.showReviewed) {
-      await DBService().saveGames(games);
+      await AppDatabase().saveGames(games);
     }
 
     return games;
   }
 
   void updatedPlayedGame(Game game, bool played) async {
-    await DBService().saveGame(game.copyWith(alreadyPlayed: played));
+    await AppDatabase().saveGameModel(game.copyWith(alreadyPlayed: played));
     ref.notifyListeners();
   }
 
@@ -52,7 +52,7 @@ class Games extends _$Games {
   }
 
   Future<void> resetPlayedGames() async {
-    await DBService().resetPlayedGames();
+    await AppDatabase().resetPlayedGames();
     ref.invalidateSelf();
   }
 }
@@ -68,7 +68,7 @@ Future<List<Game>> cachedGames(Ref ref) async {
     }
   }
 
-  return await DBService().getAllGames();
+  return await AppDatabase().getAllGames();
 }
 
 @riverpod

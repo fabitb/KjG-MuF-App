@@ -177,7 +177,11 @@ class ActivitiesTable extends Table {
   tables: [Games, Events, RegisteredTable, NewsTable, ActivitiesTable],
 )
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  static final AppDatabase instance = AppDatabase._internal();
+
+  factory AppDatabase() => instance;
+
+  AppDatabase._internal() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
@@ -189,6 +193,30 @@ class AppDatabase extends _$AppDatabase {
   // Games operations
   Future<void> saveGame(GamesCompanion game) {
     return into(games).insert(game, mode: InsertMode.insertOrReplace);
+  }
+
+  Future<void> saveGameModel(Game game) {
+    return saveGame(
+      GamesCompanion.insert(
+        id: game.id,
+        title: game.title,
+        actionScore: game.actionScore,
+        cognitiveScore: game.cognitiveScore,
+        numberOfPlayers: game.numberOfPlayer,
+        duration: game.duration,
+        ageLimitations: game.ageLimitations ?? '',
+        spaceLimitations: game.spaceLimitations,
+        materials: game.materials,
+        goalOfGame: game.goalOfGame,
+        preparationsInstructions: game.preparationsInstructions,
+        gameplayInstructions: game.gameplayInstructions,
+        endingInstructions: game.endingInstructions,
+        categories: game.categories.join(','),
+        author: game.author,
+        reviewed: game.reviewed,
+        alreadyPlayed: game.alreadyPlayed,
+      ),
+    );
   }
 
   Future<List<int>> saveGames(List<Game> newGames) async {

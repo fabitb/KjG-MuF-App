@@ -41,7 +41,7 @@ final class NewsProvider extends $FunctionalProvider<AsyncValue<List<News>?>,
   }
 }
 
-String _$newsHash() => r'7d40dc5f4bdb6cd7614b6b83de34c45398ff585b';
+String _$newsHash() => r'80e379d2ed59fe812a543fb7a0b56cfcbb3d6af3';
 
 @ProviderFor(activities)
 const activitiesProvider = ActivitiesProvider._();
@@ -75,4 +75,4 @@ final class ActivitiesProvider extends $FunctionalProvider<
   }
 }
 
-String _$activitiesHash() => r'0c82ef7a7d831d7c343f4e8ea3830c01d01ebba7';
+String _$activitiesHash() => r'1b219c93a411d052207bedb934b8bc92b51978cc';

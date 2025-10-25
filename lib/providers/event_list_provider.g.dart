@@ -41,7 +41,7 @@ final class CachedEventsProvider extends $FunctionalProvider<
   }
 }
 
-String _$cachedEventsHash() => r'48bdf74eb08ee70c159d2b565d87b3dd8673de59';
+String _$cachedEventsHash() => r'46c6139312dfbc8058ae08133e6f3dfb56daf800';
 
 @ProviderFor(EventList)
 const eventListProvider = EventListProvider._();
@@ -67,7 +67,7 @@ final class EventListProvider
   EventList create() => EventList();
 }
 
-String _$eventListHash() => r'9b73290545e19e74924a93171269b0e23816ea8f';
+String _$eventListHash() => r'e8edb879de7850777a9a59626371abc6fb7cf857';
 
 abstract class _$EventList extends $AsyncNotifier<List<MidaEvent>> {
   FutureOr<List<MidaEvent>> build();

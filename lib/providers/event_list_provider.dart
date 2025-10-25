@@ -1,5 +1,5 @@
 import 'package:kjg_muf_app/backend/mida_service.dart';
-import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/app_database.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
 import 'package:kjg_muf_app/providers/auth_provider.dart';
@@ -16,7 +16,7 @@ Future<List<MidaEvent>> cachedEvents(Ref ref) async {
   if (online.value case List<MidaEvent> list) {
     return list;
   }
-  return await DBService().getCachedEvents();
+  return await AppDatabase().getCachedEvents();
 }
 
 @riverpod
@@ -26,7 +26,7 @@ class EventList extends _$EventList {
     ref.watch(authProvider); // reload when auth changes (could have new events)
 
     final events = await MidaService().getEvents();
-    await DBService().cacheEvents(events);
+    await AppDatabase().cacheEvents(events);
     ref.read(attachmentCacheProvider.notifier).cleanUp(events: events);
     return events;
   }

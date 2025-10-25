@@ -40,7 +40,7 @@ final class CachedRegisteredProvider extends $FunctionalProvider<
   }
 }
 
-String _$cachedRegisteredHash() => r'8dbaeeb9dc735462db05aa4cdcda8cf04cbc71f8';
+String _$cachedRegisteredHash() => r'bf7e866f9204d2ca4900b6ff7c064ab73b8a4b4e';
 
 @ProviderFor(RegisteredList)
 const registeredListProvider = RegisteredListProvider._();
@@ -66,7 +66,7 @@ final class RegisteredListProvider
   RegisteredList create() => RegisteredList();
 }
 
-String _$registeredListHash() => r'861f20b4ef356e32759f1d74d6af35260aea0f50';
+String _$registeredListHash() => r'8dbd553594cef23f41de3e40a61bcc8a4f973997';
 
 abstract class _$RegisteredList extends $AsyncNotifier<List<int>> {
   FutureOr<List<int>> build();

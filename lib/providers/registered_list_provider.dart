@@ -1,5 +1,5 @@
 import 'package:kjg_muf_app/backend/mida_service.dart';
-import 'package:kjg_muf_app/database/db_service.dart';
+import 'package:kjg_muf_app/database/app_database.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/registered.dart';
 import 'package:kjg_muf_app/model/auth_state.dart';
@@ -15,7 +15,7 @@ Future<List<int>> cachedRegistered(Ref ref) async {
   if (online.value case List<int> list) {
     return list;
   }
-  return (await DBService().getCachedRegistered())
+  return (await AppDatabase().getCachedRegistered())
       .map((r) => r.eventId)
       .toList();
 }
@@ -27,7 +27,7 @@ class RegisteredList extends _$RegisteredList {
     final loggedIn = ref.watch(authProvider) is AuthStateLoggedIn;
 
     if (!loggedIn) {
-      await DBService().cacheRegistered([]);
+      await AppDatabase().cacheRegistered([]);
       return [];
     }
 
@@ -37,7 +37,7 @@ class RegisteredList extends _$RegisteredList {
         .map((e) => int.tryParse(e.eventID))
         .nonNulls
         .toList();
-    await DBService().cacheRegistered(
+    await AppDatabase().cacheRegistered(
       registeredIds.map((r) => Registered(eventId: r)).toList(),
     );
 
