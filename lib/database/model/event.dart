@@ -217,13 +217,15 @@ abstract class MidaEvent with _$MidaEvent {
 
   static List<MidaEvent> createFakeData() {
     return List.generate(
-        4,
-        (index) => MidaEvent(
-            id: index,
-            baseUrl: "",
-            startDateAndTime: DateTime.now(),
-            endDateAndTime: DateTime.now(),
-            title: "title"));
+      4,
+      (index) => MidaEvent(
+        id: index,
+        baseUrl: "",
+        startDateAndTime: DateTime.now(),
+        endDateAndTime: DateTime.now(),
+        title: "title",
+      ),
+    );
   }
 }
 
@@ -232,7 +234,10 @@ extension MidaEventExtension on MidaEvent {
 
   EventAttachment? get imageAttachment => image != null
       ? EventAttachment(
-          eventId: id, name: image!, url: "$baseUrl/?download=$image")
+          eventId: id,
+          name: image!,
+          url: "$baseUrl/?download=$image",
+        )
       : null;
 
   String attachmentDownloadLink(String attachment) =>
@@ -261,8 +266,13 @@ extension MidaEventExtension on MidaEvent {
     if (attachments == null || attachments.isEmpty) return null;
 
     return attachments
-        .map((a) => EventAttachment(
-            eventId: id, url: attachmentDownloadLink(a), name: a))
+        .map(
+          (a) => EventAttachment(
+            eventId: id,
+            url: attachmentDownloadLink(a),
+            name: a,
+          ),
+        )
         .toList();
   }
 }

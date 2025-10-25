@@ -8,21 +8,23 @@ part 'event_attachment.freezed.dart';
 sealed class EventAttachment with _$EventAttachment {
   static const eventIdSeparator = ":eventId:";
 
-  const factory EventAttachment(
-      {required int eventId,
-      required String name,
-      required String url,
-      CacheObject? cacheObject}) = _EventAttachment;
+  const factory EventAttachment({
+    required int eventId,
+    required String name,
+    required String url,
+    CacheObject? cacheObject,
+  }) = _EventAttachment;
 
   static EventAttachment? fromCacheObject(CacheObject cacheObject) {
     final parts = cacheObject.key.split(eventIdSeparator);
     if (parts.length == 2) {
       final eventId = int.tryParse(parts[0]) ?? 0;
       return EventAttachment(
-          eventId: eventId,
-          name: parts[1],
-          url: cacheObject.url,
-          cacheObject: cacheObject);
+        eventId: eventId,
+        name: parts[1],
+        url: cacheObject.url,
+        cacheObject: cacheObject,
+      );
     }
     return null;
   }

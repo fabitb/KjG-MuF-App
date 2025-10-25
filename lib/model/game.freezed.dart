@@ -31,6 +31,7 @@ mixin _$Game {
   List<String> get categories;
   bool get reviewed;
   String get author;
+  bool get alreadyPlayed;
 
   /// Create a copy of Game
   /// with the given fields replaced by the non-null parameter values.
@@ -76,7 +77,9 @@ mixin _$Game {
                 .equals(other.categories, categories) &&
             (identical(other.reviewed, reviewed) ||
                 other.reviewed == reviewed) &&
-            (identical(other.author, author) || other.author == author));
+            (identical(other.author, author) || other.author == author) &&
+            (identical(other.alreadyPlayed, alreadyPlayed) ||
+                other.alreadyPlayed == alreadyPlayed));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -98,11 +101,12 @@ mixin _$Game {
       endingInstructions,
       const DeepCollectionEquality().hash(categories),
       reviewed,
-      author);
+      author,
+      alreadyPlayed);
 
   @override
   String toString() {
-    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author)';
+    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
   }
 }
 
@@ -127,7 +131,8 @@ abstract mixin class $GameCopyWith<$Res> {
       String endingInstructions,
       List<String> categories,
       bool reviewed,
-      String author});
+      String author,
+      bool alreadyPlayed});
 }
 
 /// @nodoc
@@ -158,6 +163,7 @@ class _$GameCopyWithImpl<$Res> implements $GameCopyWith<$Res> {
     Object? categories = null,
     Object? reviewed = null,
     Object? author = null,
+    Object? alreadyPlayed = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -224,6 +230,10 @@ class _$GameCopyWithImpl<$Res> implements $GameCopyWith<$Res> {
           ? _self.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
+      alreadyPlayed: null == alreadyPlayed
+          ? _self.alreadyPlayed
+          : alreadyPlayed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -335,7 +345,8 @@ extension GamePatterns on Game {
             String endingInstructions,
             List<String> categories,
             bool reviewed,
-            String author)?
+            String author,
+            bool alreadyPlayed)?
         $default, {
     required TResult orElse(),
   }) {
@@ -358,7 +369,8 @@ extension GamePatterns on Game {
             _that.endingInstructions,
             _that.categories,
             _that.reviewed,
-            _that.author);
+            _that.author,
+            _that.alreadyPlayed);
       case _:
         return orElse();
     }
@@ -395,7 +407,8 @@ extension GamePatterns on Game {
             String endingInstructions,
             List<String> categories,
             bool reviewed,
-            String author)
+            String author,
+            bool alreadyPlayed)
         $default,
   ) {
     final _that = this;
@@ -417,7 +430,8 @@ extension GamePatterns on Game {
             _that.endingInstructions,
             _that.categories,
             _that.reviewed,
-            _that.author);
+            _that.author,
+            _that.alreadyPlayed);
     }
   }
 
@@ -451,7 +465,8 @@ extension GamePatterns on Game {
             String endingInstructions,
             List<String> categories,
             bool reviewed,
-            String author)?
+            String author,
+            bool alreadyPlayed)?
         $default,
   ) {
     final _that = this;
@@ -473,7 +488,8 @@ extension GamePatterns on Game {
             _that.endingInstructions,
             _that.categories,
             _that.reviewed,
-            _that.author);
+            _that.author,
+            _that.alreadyPlayed);
       case _:
         return null;
     }
@@ -499,7 +515,8 @@ class _Game implements Game {
       required this.endingInstructions,
       required final List<String> categories,
       required this.reviewed,
-      required this.author})
+      required this.author,
+      this.alreadyPlayed = false})
       : _categories = categories;
   factory _Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 
@@ -542,6 +559,9 @@ class _Game implements Game {
   final bool reviewed;
   @override
   final String author;
+  @override
+  @JsonKey()
+  final bool alreadyPlayed;
 
   /// Create a copy of Game
   /// with the given fields replaced by the non-null parameter values.
@@ -592,7 +612,9 @@ class _Game implements Game {
                 .equals(other._categories, _categories) &&
             (identical(other.reviewed, reviewed) ||
                 other.reviewed == reviewed) &&
-            (identical(other.author, author) || other.author == author));
+            (identical(other.author, author) || other.author == author) &&
+            (identical(other.alreadyPlayed, alreadyPlayed) ||
+                other.alreadyPlayed == alreadyPlayed));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -614,11 +636,12 @@ class _Game implements Game {
       endingInstructions,
       const DeepCollectionEquality().hash(_categories),
       reviewed,
-      author);
+      author,
+      alreadyPlayed);
 
   @override
   String toString() {
-    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author)';
+    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
   }
 }
 
@@ -644,7 +667,8 @@ abstract mixin class _$GameCopyWith<$Res> implements $GameCopyWith<$Res> {
       String endingInstructions,
       List<String> categories,
       bool reviewed,
-      String author});
+      String author,
+      bool alreadyPlayed});
 }
 
 /// @nodoc
@@ -675,6 +699,7 @@ class __$GameCopyWithImpl<$Res> implements _$GameCopyWith<$Res> {
     Object? categories = null,
     Object? reviewed = null,
     Object? author = null,
+    Object? alreadyPlayed = null,
   }) {
     return _then(_Game(
       id: null == id
@@ -741,6 +766,10 @@ class __$GameCopyWithImpl<$Res> implements _$GameCopyWith<$Res> {
           ? _self.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
+      alreadyPlayed: null == alreadyPlayed
+          ? _self.alreadyPlayed
+          : alreadyPlayed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

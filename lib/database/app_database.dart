@@ -1,31 +1,47 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
-import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/registered.dart';
-import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
+import 'package:kjg_muf_app/database/model/news_model.dart';
+import 'package:kjg_muf_app/database/model/registered.dart';
+import 'package:kjg_muf_app/model/game.dart';
 
 part 'app_database.g.dart';
 
 // Games table
+@DataClassName('GameRow')
 class Games extends Table {
   TextColumn get id => text()();
+
   TextColumn get title => text()();
+
   IntColumn get actionScore => integer()();
+
   IntColumn get cognitiveScore => integer()();
+
   TextColumn get numberOfPlayers => text()();
+
   TextColumn get duration => text()();
+
   TextColumn get ageLimitations => text()();
+
   TextColumn get spaceLimitations => text()();
+
   TextColumn get materials => text()();
+
   TextColumn get goalOfGame => text()();
+
   TextColumn get preparationsInstructions => text()();
+
   TextColumn get gameplayInstructions => text()();
+
   TextColumn get endingInstructions => text()();
+
   TextColumn get categories => text()(); // JSON string of List<String>
   TextColumn get author => text()();
+
   BoolColumn get reviewed => boolean()();
+
   BoolColumn get alreadyPlayed => boolean()();
 
   @override
@@ -35,41 +51,75 @@ class Games extends Table {
 // Events table
 class Events extends Table {
   IntColumn get id => integer()();
+
   IntColumn get clientId => integer().nullable()();
+
   DateTimeColumn get startDateAndTime => dateTime()();
+
   DateTimeColumn get endDateAndTime => dateTime()();
+
   TextColumn get title => text()();
+
   TextColumn get description => text().nullable()();
+
   TextColumn get location => text().nullable()();
+
   IntColumn get groupId => integer().nullable()();
+
   TextColumn get time => text().nullable()();
+
   IntColumn get numberOfDays => integer().nullable()();
+
   TextColumn get contactName => text().nullable()();
+
   TextColumn get contactEmail => text().nullable()();
+
   IntColumn get maxParticipants => integer().nullable()();
+
   TextColumn get image => text().nullable()();
+
   TextColumn get attachments =>
       text().nullable()(); // JSON string of List<String>
   RealColumn get costMember => real().nullable()();
+
   RealColumn get costGuest => real().nullable()();
+
   RealColumn get costCompanion => real().nullable()();
+
   TextColumn get cost => text().nullable()();
+
   IntColumn get publicType => integer().nullable()();
+
   IntColumn get type => integer().nullable()();
+
   DateTimeColumn get registrationStart => dateTime().nullable()();
+
   DateTimeColumn get registrationDeadline => dateTime().nullable()();
+
   IntColumn get visibilityType => integer().nullable()();
+
   DateTimeColumn get deregistrationDeadline => dateTime().nullable()();
+
   IntColumn get maxCompanions => integer().nullable()();
+
   IntColumn get seriesEventId => integer().nullable()();
+
   IntColumn get visibilityAssociation => integer().nullable()();
+
   BoolColumn get rv => boolean().nullable()();
+
   TextColumn get abbreviation => text().nullable()();
+
   TextColumn get organization => text().nullable()();
+
   IntColumn get registrationCount => integer().nullable()();
+
   TextColumn get freeSlots => text().nullable()();
+
   TextColumn get link => text().nullable()();
+
   TextColumn get baseUrl => text()();
+
   TextColumn get clientEventId => text().nullable()();
 
   @override
@@ -90,10 +140,15 @@ class RegisteredTable extends Table {
 // News table
 class NewsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get title => text()();
+
   TextColumn get content => text()();
+
   TextColumn get imageURL => text()();
+
   TextColumn get websiteURL => text()();
+
   IntColumn get orderNumber => integer()();
 
   @override
@@ -103,10 +158,15 @@ class NewsTable extends Table {
 // Activities table
 class ActivitiesTable extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get title => text()();
+
   TextColumn get content => text()();
+
   TextColumn get imageURL => text()();
+
   TextColumn get websiteURL => text()();
+
   IntColumn get orderNumber => integer()();
 
   @override
@@ -114,7 +174,8 @@ class ActivitiesTable extends Table {
 }
 
 @DriftDatabase(
-    tables: [Games, Events, RegisteredTable, NewsTable, ActivitiesTable])
+  tables: [Games, Events, RegisteredTable, NewsTable, ActivitiesTable],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -130,7 +191,7 @@ class AppDatabase extends _$AppDatabase {
     return into(games).insert(game, mode: InsertMode.insertOrReplace);
   }
 
-  Future<List<int>> saveGames(List<GameModel> newGames) async {
+  Future<List<int>> saveGames(List<Game> newGames) async {
     // Get existing games
     final existingGames = await select(games).get();
     final alreadyPlayedIds = existingGames
@@ -145,9 +206,9 @@ class AppDatabase extends _$AppDatabase {
         title: gameModel.title,
         actionScore: gameModel.actionScore,
         cognitiveScore: gameModel.cognitiveScore,
-        numberOfPlayers: gameModel.numberOfPlayers,
+        numberOfPlayers: gameModel.numberOfPlayer,
         duration: gameModel.duration,
-        ageLimitations: gameModel.ageLimitations,
+        ageLimitations: gameModel.ageLimitations ?? '',
         spaceLimitations: gameModel.spaceLimitations,
         materials: gameModel.materials,
         goalOfGame: gameModel.goalOfGame,
@@ -172,7 +233,7 @@ class AppDatabase extends _$AppDatabase {
         .toList(); // Return dummy list for compatibility
   }
 
-  Future<List<GameModel>> getAllGames() async {
+  Future<List<Game>> getAllGames() async {
     final results = await select(games).get();
     return results.map(_gameRowToModel).toList();
   }
@@ -212,8 +273,9 @@ class AppDatabase extends _$AppDatabase {
       batch.insertAll(
         registeredTable,
         registeredList
-            .map((r) =>
-                RegisteredTableCompanion.insert(eventId: Value(r.eventId)))
+            .map(
+              (r) => RegisteredTableCompanion.insert(eventId: Value(r.eventId)),
+            )
             .toList(),
       );
     });
@@ -252,15 +314,15 @@ class AppDatabase extends _$AppDatabase {
   }
 
   // Helper converters
-  GameModel _gameRowToModel(Game game) {
-    return GameModel(
+  Game _gameRowToModel(GameRow game) {
+    return Game(
       id: game.id,
       title: game.title,
       actionScore: game.actionScore,
       cognitiveScore: game.cognitiveScore,
-      numberOfPlayers: game.numberOfPlayers,
+      numberOfPlayer: game.numberOfPlayers,
       duration: game.duration,
-      ageLimitations: game.ageLimitations,
+      ageLimitations: game.ageLimitations.isEmpty ? null : game.ageLimitations,
       spaceLimitations: game.spaceLimitations,
       materials: game.materials,
       goalOfGame: game.goalOfGame,
@@ -387,7 +449,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   ActivitiesTableCompanion _activitiesModelToCompanion(
-      ActivitiesModel activity) {
+    ActivitiesModel activity,
+  ) {
     return ActivitiesTableCompanion.insert(
       title: activity.title,
       content: activity.content,

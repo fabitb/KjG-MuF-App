@@ -1,7 +1,7 @@
 import 'package:kjg_muf_app/database/app_database.dart';
 import 'package:kjg_muf_app/database/model/activities_model.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/database/model/news_model.dart';
 import 'package:kjg_muf_app/database/model/registered.dart';
 
@@ -18,16 +18,16 @@ class DBService {
     db = AppDatabase();
   }
 
-  Future<void> saveGame(GameModel newGame) async {
+  Future<void> saveGame(Game newGame) async {
     return db.saveGame(
       GamesCompanion.insert(
         id: newGame.id,
         title: newGame.title,
         actionScore: newGame.actionScore,
         cognitiveScore: newGame.cognitiveScore,
-        numberOfPlayers: newGame.numberOfPlayers,
+        numberOfPlayers: newGame.numberOfPlayer,
         duration: newGame.duration,
-        ageLimitations: newGame.ageLimitations,
+        ageLimitations: newGame.ageLimitations ?? '',
         spaceLimitations: newGame.spaceLimitations,
         materials: newGame.materials,
         goalOfGame: newGame.goalOfGame,
@@ -42,11 +42,11 @@ class DBService {
     );
   }
 
-  Future<List<int>> saveGames(List<GameModel> newGames) async {
+  Future<List<int>> saveGames(List<Game> newGames) async {
     return db.saveGames(newGames);
   }
 
-  Future<List<GameModel>> getAllGames() async {
+  Future<List<Game>> getAllGames() async {
     return db.getAllGames();
   }
 

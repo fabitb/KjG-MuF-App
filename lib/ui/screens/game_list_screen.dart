@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
+import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/games_filter_settings.dart';
 import 'package:kjg_muf_app/providers/authorized_games_user_provider.dart';
@@ -81,7 +81,7 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
     );
   }
 
-  Widget _body(BuildContext context, WidgetRef ref, List<GameModel> games) {
+  Widget _body(BuildContext context, WidgetRef ref, List<Game> games) {
     final searchTextProvider = ref.watch(gamesFilterTextProvider.notifier);
 
     return RefreshIndicator(

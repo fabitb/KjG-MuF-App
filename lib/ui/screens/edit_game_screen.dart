@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/providers/games_provider.dart';
 
 class EditGameScreen extends ConsumerStatefulWidget {
-  final GameModel? initialGame;
+  final Game? initialGame;
 
   const EditGameScreen({super.key, this.initialGame});
 
@@ -41,7 +40,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
 
     titleController = TextEditingController(text: game?.title ?? '');
     numberOfPlayersController =
-        TextEditingController(text: game?.numberOfPlayers ?? '');
+        TextEditingController(text: game?.numberOfPlayer ?? '');
     durationController = TextEditingController(text: game?.duration ?? '');
     categoriesController =
         TextEditingController(text: game?.categories.join(', ') ?? '');

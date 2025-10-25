@@ -25,6 +25,7 @@ _Game _$GameFromJson(Map<String, dynamic> json) => _Game(
           .toList(),
       reviewed: json['reviewed'] as bool,
       author: json['author'] as String,
+      alreadyPlayed: json['alreadyPlayed'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$GameToJson(_Game instance) => <String, dynamic>{
@@ -44,4 +45,5 @@ Map<String, dynamic> _$GameToJson(_Game instance) => <String, dynamic>{
       'categories': instance.categories,
       'reviewed': instance.reviewed,
       'author': instance.author,
+      'alreadyPlayed': instance.alreadyPlayed,
     };

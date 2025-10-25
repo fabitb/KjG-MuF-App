@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
@@ -26,7 +25,7 @@ class BackendService {
     }
   }
 
-  Future<List<GameModel>> getGames({bool showReviewedGames = true}) async {
+  Future<List<Game>> getGames({bool showReviewedGames = true}) async {
     final responseNew = await _dio.get(
       "$backendBaseURL/games",
       queryParameters: {
@@ -41,8 +40,7 @@ class BackendService {
 
     if (responseNew.data case List<dynamic> list) {
       final results = list.map((e) => Game.fromJson(e));
-      final mapped = results.map((e) => GameModel.fromGame(e));
-      return mapped.nonNulls.toList();
+      return results.nonNulls.toList();
     }
 
     throw Exception();

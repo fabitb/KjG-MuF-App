@@ -3,7 +3,7 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
-class $GamesTable extends Games with TableInfo<$GamesTable, Game> {
+class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -139,7 +139,7 @@ class $GamesTable extends Games with TableInfo<$GamesTable, Game> {
   String get actualTableName => $name;
   static const String $name = 'games';
   @override
-  VerificationContext validateIntegrity(Insertable<Game> instance,
+  VerificationContext validateIntegrity(Insertable<GameRow> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -273,9 +273,9 @@ class $GamesTable extends Games with TableInfo<$GamesTable, Game> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Game map(Map<String, dynamic> data, {String? tablePrefix}) {
+  GameRow map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Game(
+    return GameRow(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       title: attachedDatabase.typeMapping
@@ -321,7 +321,7 @@ class $GamesTable extends Games with TableInfo<$GamesTable, Game> {
   }
 }
 
-class Game extends DataClass implements Insertable<Game> {
+class GameRow extends DataClass implements Insertable<GameRow> {
   final String id;
   final String title;
   final int actionScore;
@@ -339,7 +339,7 @@ class Game extends DataClass implements Insertable<Game> {
   final String author;
   final bool reviewed;
   final bool alreadyPlayed;
-  const Game(
+  const GameRow(
       {required this.id,
       required this.title,
       required this.actionScore,
@@ -403,10 +403,10 @@ class Game extends DataClass implements Insertable<Game> {
     );
   }
 
-  factory Game.fromJson(Map<String, dynamic> json,
+  factory GameRow.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Game(
+    return GameRow(
       id: serializer.fromJson<String>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       actionScore: serializer.fromJson<int>(json['actionScore']),
@@ -454,7 +454,7 @@ class Game extends DataClass implements Insertable<Game> {
     };
   }
 
-  Game copyWith(
+  GameRow copyWith(
           {String? id,
           String? title,
           int? actionScore,
@@ -472,7 +472,7 @@ class Game extends DataClass implements Insertable<Game> {
           String? author,
           bool? reviewed,
           bool? alreadyPlayed}) =>
-      Game(
+      GameRow(
         id: id ?? this.id,
         title: title ?? this.title,
         actionScore: actionScore ?? this.actionScore,
@@ -492,8 +492,8 @@ class Game extends DataClass implements Insertable<Game> {
         reviewed: reviewed ?? this.reviewed,
         alreadyPlayed: alreadyPlayed ?? this.alreadyPlayed,
       );
-  Game copyWithCompanion(GamesCompanion data) {
-    return Game(
+  GameRow copyWithCompanion(GamesCompanion data) {
+    return GameRow(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       actionScore:
@@ -535,7 +535,7 @@ class Game extends DataClass implements Insertable<Game> {
 
   @override
   String toString() {
-    return (StringBuffer('Game(')
+    return (StringBuffer('GameRow(')
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('actionScore: $actionScore, ')
@@ -579,7 +579,7 @@ class Game extends DataClass implements Insertable<Game> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Game &&
+      (other is GameRow &&
           other.id == this.id &&
           other.title == this.title &&
           other.actionScore == this.actionScore &&
@@ -599,7 +599,7 @@ class Game extends DataClass implements Insertable<Game> {
           other.alreadyPlayed == this.alreadyPlayed);
 }
 
-class GamesCompanion extends UpdateCompanion<Game> {
+class GamesCompanion extends UpdateCompanion<GameRow> {
   final Value<String> id;
   final Value<String> title;
   final Value<int> actionScore;
@@ -674,7 +674,7 @@ class GamesCompanion extends UpdateCompanion<Game> {
         author = Value(author),
         reviewed = Value(reviewed),
         alreadyPlayed = Value(alreadyPlayed);
-  static Insertable<Game> custom({
+  static Insertable<GameRow> custom({
     Expression<String>? id,
     Expression<String>? title,
     Expression<int>? actionScore,
@@ -3589,14 +3589,14 @@ class $$GamesTableAnnotationComposer
 class $$GamesTableTableManager extends RootTableManager<
     _$AppDatabase,
     $GamesTable,
-    Game,
+    GameRow,
     $$GamesTableFilterComposer,
     $$GamesTableOrderingComposer,
     $$GamesTableAnnotationComposer,
     $$GamesTableCreateCompanionBuilder,
     $$GamesTableUpdateCompanionBuilder,
-    (Game, BaseReferences<_$AppDatabase, $GamesTable, Game>),
-    Game,
+    (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
+    GameRow,
     PrefetchHooks Function()> {
   $$GamesTableTableManager(_$AppDatabase db, $GamesTable table)
       : super(TableManagerState(
@@ -3698,14 +3698,14 @@ class $$GamesTableTableManager extends RootTableManager<
 typedef $$GamesTableProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
     $GamesTable,
-    Game,
+    GameRow,
     $$GamesTableFilterComposer,
     $$GamesTableOrderingComposer,
     $$GamesTableAnnotationComposer,
     $$GamesTableCreateCompanionBuilder,
     $$GamesTableUpdateCompanionBuilder,
-    (Game, BaseReferences<_$AppDatabase, $GamesTable, Game>),
-    Game,
+    (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
+    GameRow,
     PrefetchHooks Function()>;
 typedef $$EventsTableCreateCompanionBuilder = EventsCompanion Function({
   Value<int> id,

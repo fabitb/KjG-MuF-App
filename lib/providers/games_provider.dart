@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjg_muf_app/backend/backend_service.dart';
 import 'package:kjg_muf_app/database/db_service.dart';
-import 'package:kjg_muf_app/database/model/game_model.dart';
 import 'package:kjg_muf_app/model/game.dart';
 import 'package:kjg_muf_app/providers/games_filter_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,7 +10,7 @@ part 'games_provider.g.dart';
 @riverpod
 class Games extends _$Games {
   @override
-  Future<List<GameModel>> build() async {
+  Future<List<Game>> build() async {
     final gamesFilter = ref.watch(gamesFilterProvider);
 
     final games = await BackendService()
@@ -24,8 +23,8 @@ class Games extends _$Games {
     return games;
   }
 
-  void updatedPlayedGame(GameModel game, bool played) async {
-    await DBService().saveGame(game..alreadyPlayed = played);
+  void updatedPlayedGame(Game game, bool played) async {
+    await DBService().saveGame(game.copyWith(alreadyPlayed: played));
     ref.notifyListeners();
   }
 
@@ -59,11 +58,11 @@ class Games extends _$Games {
 }
 
 @riverpod
-Future<List<GameModel>> cachedGames(Ref ref) async {
+Future<List<Game>> cachedGames(Ref ref) async {
   final online = ref.watch(gamesProvider);
   final filterSettings = ref.read(gamesFilterProvider);
 
-  if (online.value case List<GameModel> gamesList) {
+  if (online.value case List<Game> gamesList) {
     if (!filterSettings.showReviewed) {
       return gamesList;
     }
@@ -73,8 +72,8 @@ Future<List<GameModel>> cachedGames(Ref ref) async {
 }
 
 @riverpod
-Future<List<GameModel>> filteredGames(Ref ref) async {
-  List<GameModel> games = await ref.watch(cachedGamesProvider.future);
+Future<List<Game>> filteredGames(Ref ref) async {
+  List<Game> games = await ref.watch(cachedGamesProvider.future);
   final gamesFilterSettings = ref.watch(gamesFilterProvider);
   final searchText = ref.watch(gamesFilterTextProvider);
 
@@ -124,7 +123,7 @@ Future<List<GameModel>> filteredGames(Ref ref) async {
 }
 
 @riverpod
-Future<GameModel?> gameById(Ref ref, String id) async {
+Future<Game?> gameById(Ref ref, String id) async {
   final games = await ref.watch(cachedGamesProvider.future);
   return games.firstWhere(
     (game) => game.id == id,

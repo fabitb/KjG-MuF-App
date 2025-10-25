@@ -12,8 +12,7 @@ part of 'games_provider.dart';
 @ProviderFor(Games)
 const gamesProvider = GamesProvider._();
 
-final class GamesProvider
-    extends $AsyncNotifierProvider<Games, List<GameModel>> {
+final class GamesProvider extends $AsyncNotifierProvider<Games, List<Game>> {
   const GamesProvider._()
       : super(
           from: null,
@@ -33,18 +32,18 @@ final class GamesProvider
   Games create() => Games();
 }
 
-String _$gamesHash() => r'1a63aa63f5fde8538f67e2cd16c067cfeae40bd1';
+String _$gamesHash() => r'6156ed2d630993ea98fa806354dbd1c4acbd7125';
 
-abstract class _$Games extends $AsyncNotifier<List<GameModel>> {
-  FutureOr<List<GameModel>> build();
+abstract class _$Games extends $AsyncNotifier<List<Game>> {
+  FutureOr<List<Game>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<List<GameModel>>, List<GameModel>>;
+    final ref = this.ref as $Ref<AsyncValue<List<Game>>, List<Game>>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<GameModel>>, List<GameModel>>,
-        AsyncValue<List<GameModel>>,
+        AnyNotifier<AsyncValue<List<Game>>, List<Game>>,
+        AsyncValue<List<Game>>,
         Object?,
         Object?>;
     element.handleValue(ref, created);
@@ -55,8 +54,8 @@ abstract class _$Games extends $AsyncNotifier<List<GameModel>> {
 const cachedGamesProvider = CachedGamesProvider._();
 
 final class CachedGamesProvider extends $FunctionalProvider<
-        AsyncValue<List<GameModel>>, List<GameModel>, FutureOr<List<GameModel>>>
-    with $FutureModifier<List<GameModel>>, $FutureProvider<List<GameModel>> {
+        AsyncValue<List<Game>>, List<Game>, FutureOr<List<Game>>>
+    with $FutureModifier<List<Game>>, $FutureProvider<List<Game>> {
   const CachedGamesProvider._()
       : super(
           from: null,
@@ -73,24 +72,23 @@ final class CachedGamesProvider extends $FunctionalProvider<
 
   @$internal
   @override
-  $FutureProviderElement<List<GameModel>> $createElement(
-          $ProviderPointer pointer) =>
+  $FutureProviderElement<List<Game>> $createElement($ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<GameModel>> create(Ref ref) {
+  FutureOr<List<Game>> create(Ref ref) {
     return cachedGames(ref);
   }
 }
 
-String _$cachedGamesHash() => r'987d7b1bc6c052fca8d7436f8e3cc216885f717b';
+String _$cachedGamesHash() => r'52c746dded035c54973085e8538f50cc04c2fc0e';
 
 @ProviderFor(filteredGames)
 const filteredGamesProvider = FilteredGamesProvider._();
 
 final class FilteredGamesProvider extends $FunctionalProvider<
-        AsyncValue<List<GameModel>>, List<GameModel>, FutureOr<List<GameModel>>>
-    with $FutureModifier<List<GameModel>>, $FutureProvider<List<GameModel>> {
+        AsyncValue<List<Game>>, List<Game>, FutureOr<List<Game>>>
+    with $FutureModifier<List<Game>>, $FutureProvider<List<Game>> {
   const FilteredGamesProvider._()
       : super(
           from: null,
@@ -107,24 +105,23 @@ final class FilteredGamesProvider extends $FunctionalProvider<
 
   @$internal
   @override
-  $FutureProviderElement<List<GameModel>> $createElement(
-          $ProviderPointer pointer) =>
+  $FutureProviderElement<List<Game>> $createElement($ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<GameModel>> create(Ref ref) {
+  FutureOr<List<Game>> create(Ref ref) {
     return filteredGames(ref);
   }
 }
 
-String _$filteredGamesHash() => r'a2d52fe613020361a6e3213d78dbf51a440caf55';
+String _$filteredGamesHash() => r'e7b9841634ea9365f674414dbf6294b6ee9da3fd';
 
 @ProviderFor(gameById)
 const gameByIdProvider = GameByIdFamily._();
 
-final class GameByIdProvider extends $FunctionalProvider<AsyncValue<GameModel?>,
-        GameModel?, FutureOr<GameModel?>>
-    with $FutureModifier<GameModel?>, $FutureProvider<GameModel?> {
+final class GameByIdProvider
+    extends $FunctionalProvider<AsyncValue<Game?>, Game?, FutureOr<Game?>>
+    with $FutureModifier<Game?>, $FutureProvider<Game?> {
   const GameByIdProvider._(
       {required GameByIdFamily super.from, required String super.argument})
       : super(
@@ -147,11 +144,11 @@ final class GameByIdProvider extends $FunctionalProvider<AsyncValue<GameModel?>,
 
   @$internal
   @override
-  $FutureProviderElement<GameModel?> $createElement($ProviderPointer pointer) =>
+  $FutureProviderElement<Game?> $createElement($ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<GameModel?> create(Ref ref) {
+  FutureOr<Game?> create(Ref ref) {
     final argument = this.argument as String;
     return gameById(
       ref,
@@ -170,10 +167,10 @@ final class GameByIdProvider extends $FunctionalProvider<AsyncValue<GameModel?>,
   }
 }
 
-String _$gameByIdHash() => r'00ead54465794dadc6ccfc6186f37f3ec318b7d8';
+String _$gameByIdHash() => r'9d94c9a1623a30747de2facd51f6a2f5ba280cf8';
 
 final class GameByIdFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<GameModel?>, String> {
+    with $FunctionalFamilyOverride<FutureOr<Game?>, String> {
   const GameByIdFamily._()
       : super(
           retry: null,

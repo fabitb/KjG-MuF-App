@@ -22,6 +22,7 @@ sealed class Game with _$Game {
     required List<String> categories,
     required bool reviewed,
     required String author,
+    @Default(false) bool alreadyPlayed,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
