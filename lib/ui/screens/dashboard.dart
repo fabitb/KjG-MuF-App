@@ -25,7 +25,7 @@ class Dashboard extends ConsumerWidget {
     final authState = ref.watch(authProvider);
 
     final name = switch (authState) {
-      AuthStateLoggedIn(:final userData) => userData.firstName,
+      AuthStateLoggedIn(:final userData) => userData.firstName ?? "DU",
       _ => "DU",
     };
 
@@ -49,8 +49,7 @@ class Dashboard extends ConsumerWidget {
               actions: [
                 if (authState case AuthStateLoggedIn(:final userData))
                   IconButton(
-                    onPressed: () =>
-                        _showMemberCardBottomSheet(context, userData),
+                    onPressed: () => _showMemberCardBottomSheet(context, userData),
                     icon: const Icon(
                       Icons.credit_card,
                       color: Colors.white,
@@ -74,8 +73,7 @@ class Dashboard extends ConsumerWidget {
                   [
                     Center(
                       child: switch (news) {
-                        AsyncError() =>
-                          Text(context.localizations.noNewsAvailable),
+                        AsyncError() => Text(context.localizations.noNewsAvailable),
                         AsyncData(:final value) => NewsCarouselWidget(
                             title: context.localizations.news,
                             newsList: value,
@@ -127,8 +125,7 @@ class Dashboard extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: PromoButton(
                         title: context.localizations.gameDatabase,
-                        description:
-                            context.localizations.gamesDatabaseDescription,
+                        description: context.localizations.gamesDatabaseDescription,
                         icon: Icons.groups,
                         onTap: () => _onGamesDatabaseTap(context),
                       ),
@@ -207,11 +204,10 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding:
-              const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
           child: MemberCard(
             name: userData.name,
-            memberId: userData.memberNumber,
+            memberId: userData.memberNumber ?? "",
             region: userData.region,
             subregion: userData.subregion,
           ),

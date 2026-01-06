@@ -163,5 +163,6 @@
   "gameTutorialHeader3": "Markiere was du schon gespielt hast!",
   "gameTutorialText1": "Du suchst Gruppenspiele für deine Gruppenstunde, euer Zeltlager oder eine Freizeit? Dann bist du hier genau richtig!\n\nDu kannst einfach frei nach Spielen stöbern, die Textsuche benutzen oder auch nach bestimmten Kriterien filtern.",
   "gameTutorialText2": "Mit dem 'Plus-Knopf' kannst du neue Spiele hinzufügen.\n\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!",
-  "gameTutorialText3": "Wenn du lange auf ein Spiel in der Liste klickst wird es als 'bereits gespielt' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf 'ungespielt' stellen."
+  "gameTutorialText3": "Wenn du lange auf ein Spiel in der Liste klickst wird es als 'bereits gespielt' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf 'ungespielt' stellen.",
+  "loggedOutSnack": "Du wurdest ausgeloggt"
 }

@@ -343,4 +343,7 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get gameTutorialText3 =>
       'Wenn du lange auf ein Spiel in der Liste klickst wird es als \'bereits gespielt\' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf \'ungespielt\' stellen.';
+
+  @override
+  String get loggedOutSnack => 'Du wurdest ausgeloggt';
 }

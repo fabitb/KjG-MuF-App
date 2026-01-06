@@ -15,9 +15,7 @@ class Auth extends _$Auth {
 
     _checkLogin();
 
-    return userData != null
-        ? AuthState.loggedIn(userData: userData)
-        : const AuthState.loggedOut();
+    return userData != null ? AuthState.loggedIn(userData: userData) : const AuthState.loggedOut();
   }
 
   Future<void> _checkLogin() async {
@@ -25,11 +23,11 @@ class Auth extends _$Auth {
     final password = SharedPreferencesService.instance.password;
     if (userName == null || password == null) return;
 
-    final userData = await MidaService().checkLogin(userName, password);
+    final userData = await MidaService().loginWorkaround(userName, password);
 
     if (userData == null) {
       // login incorrect -> logout
-      await logout();
+      await logout(error: AuthStateError.wrongData);
     } else {
       // login correct -> use new UserData
       state = AuthState.loggedIn(userData: userData);
@@ -40,7 +38,7 @@ class Auth extends _$Auth {
     state = const AuthState.loading();
 
     try {
-      final userData = await MidaService().checkLogin(userName, password);
+      final userData = await MidaService().loginWorkaround(userName, password);
 
       if (userData != null) {
         SharedPreferencesService.instance.userData = userData;
@@ -52,8 +50,7 @@ class Auth extends _$Auth {
         state = AuthState.loggedOut(error: AuthStateError.wrongData);
       }
     } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionError ||
-          e.type == DioExceptionType.connectionTimeout) {
+      if (e.type == DioExceptionType.connectionError || e.type == DioExceptionType.connectionTimeout) {
         state = AuthState.loggedOut(error: AuthStateError.noInternet);
       } else {
         state = AuthState.loggedOut(error: AuthStateError.unknown);
@@ -61,13 +58,11 @@ class Auth extends _$Auth {
     }
   }
 
-  Future<void> logout() async {
-    state = const AuthState.loading();
-
+  Future<void> logout({AuthStateError? error}) async {
     SharedPreferencesService.instance.userData = null;
     SharedPreferencesService.instance.password = null;
     SharedPreferencesService.instance.passwordHash = null;
 
-    state = const AuthState.loggedOut();
+    state = AuthState.loggedOut(error: error);
   }
 }
