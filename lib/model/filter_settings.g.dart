@@ -12,9 +12,8 @@ FilterSettings _$FilterSettingsFromJson(Map<String, dynamic> json) =>
       ..onlyRegistered = json['onlyRegistered'] as bool
       ..dateTimeRange =
           _$JsonConverterFromJson<String, DateTimeRange<DateTime>>(
-        json['dateTimeRange'],
-        const CustomDateTimeRangeConverter().fromJson,
-      )
+              json['dateTimeRange'],
+              const CustomDateTimeRangeConverter().fromJson)
       ..hideGremien = json['hideGremien'] as bool;
 
 Map<String, dynamic> _$FilterSettingsToJson(FilterSettings instance) =>
@@ -22,9 +21,7 @@ Map<String, dynamic> _$FilterSettingsToJson(FilterSettings instance) =>
       'showOrganizer': instance.showOrganizer,
       'onlyRegistered': instance.onlyRegistered,
       'dateTimeRange': _$JsonConverterToJson<String, DateTimeRange<DateTime>>(
-        instance.dateTimeRange,
-        const CustomDateTimeRangeConverter().toJson,
-      ),
+          instance.dateTimeRange, const CustomDateTimeRangeConverter().toJson),
       'hideGremien': instance.hideGremien,
     };
 

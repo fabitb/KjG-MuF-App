@@ -16,18 +16,16 @@ T _$identity<T>(T value) => value;
 mixin _$UserData {
   @JsonKey(name: "userlogin")
   String get username;
-  @JsonKey(name: "id")
-  String get userId;
   @JsonKey(name: "vorname")
-  String get firstName;
+  String? get firstName;
   @JsonKey(name: "nachname")
-  String get lastName;
+  String? get lastName;
   @JsonKey(name: "key_me")
-  String get me;
+  String? get me;
   @JsonKey(name: "key_og")
-  String get og;
+  String? get og;
   @JsonKey(name: "mitgliedsnummer")
-  String get memberNumber;
+  String? get memberNumber;
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.
@@ -46,7 +44,6 @@ mixin _$UserData {
             other is UserData &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -60,11 +57,11 @@ mixin _$UserData {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, username, userId, firstName, lastName, me, og, memberNumber);
+      runtimeType, username, firstName, lastName, me, og, memberNumber);
 
   @override
   String toString() {
-    return 'UserData(username: $username, userId: $userId, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
+    return 'UserData(username: $username, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
   }
 }
 
@@ -75,12 +72,11 @@ abstract mixin class $UserDataCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "userlogin") String username,
-      @JsonKey(name: "id") String userId,
-      @JsonKey(name: "vorname") String firstName,
-      @JsonKey(name: "nachname") String lastName,
-      @JsonKey(name: "key_me") String me,
-      @JsonKey(name: "key_og") String og,
-      @JsonKey(name: "mitgliedsnummer") String memberNumber});
+      @JsonKey(name: "vorname") String? firstName,
+      @JsonKey(name: "nachname") String? lastName,
+      @JsonKey(name: "key_me") String? me,
+      @JsonKey(name: "key_og") String? og,
+      @JsonKey(name: "mitgliedsnummer") String? memberNumber});
 }
 
 /// @nodoc
@@ -96,42 +92,37 @@ class _$UserDataCopyWithImpl<$Res> implements $UserDataCopyWith<$Res> {
   @override
   $Res call({
     Object? username = null,
-    Object? userId = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? me = null,
-    Object? og = null,
-    Object? memberNumber = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? me = freezed,
+    Object? og = freezed,
+    Object? memberNumber = freezed,
   }) {
     return _then(_self.copyWith(
       username: null == username
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: null == userId
-          ? _self.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+      firstName: freezed == firstName
           ? _self.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      me: null == me
+              as String?,
+      me: freezed == me
           ? _self.me
           : me // ignore: cast_nullable_to_non_nullable
-              as String,
-      og: null == og
+              as String?,
+      og: freezed == og
           ? _self.og
           : og // ignore: cast_nullable_to_non_nullable
-              as String,
-      memberNumber: null == memberNumber
+              as String?,
+      memberNumber: freezed == memberNumber
           ? _self.memberNumber
           : memberNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -229,20 +220,19 @@ extension UserDataPatterns on UserData {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             @JsonKey(name: "userlogin") String username,
-            @JsonKey(name: "id") String userId,
-            @JsonKey(name: "vorname") String firstName,
-            @JsonKey(name: "nachname") String lastName,
-            @JsonKey(name: "key_me") String me,
-            @JsonKey(name: "key_og") String og,
-            @JsonKey(name: "mitgliedsnummer") String memberNumber)?
+            @JsonKey(name: "vorname") String? firstName,
+            @JsonKey(name: "nachname") String? lastName,
+            @JsonKey(name: "key_me") String? me,
+            @JsonKey(name: "key_og") String? og,
+            @JsonKey(name: "mitgliedsnummer") String? memberNumber)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _UserData() when $default != null:
-        return $default(_that.username, _that.userId, _that.firstName,
-            _that.lastName, _that.me, _that.og, _that.memberNumber);
+        return $default(_that.username, _that.firstName, _that.lastName,
+            _that.me, _that.og, _that.memberNumber);
       case _:
         return orElse();
     }
@@ -265,19 +255,18 @@ extension UserDataPatterns on UserData {
   TResult when<TResult extends Object?>(
     TResult Function(
             @JsonKey(name: "userlogin") String username,
-            @JsonKey(name: "id") String userId,
-            @JsonKey(name: "vorname") String firstName,
-            @JsonKey(name: "nachname") String lastName,
-            @JsonKey(name: "key_me") String me,
-            @JsonKey(name: "key_og") String og,
-            @JsonKey(name: "mitgliedsnummer") String memberNumber)
+            @JsonKey(name: "vorname") String? firstName,
+            @JsonKey(name: "nachname") String? lastName,
+            @JsonKey(name: "key_me") String? me,
+            @JsonKey(name: "key_og") String? og,
+            @JsonKey(name: "mitgliedsnummer") String? memberNumber)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UserData():
-        return $default(_that.username, _that.userId, _that.firstName,
-            _that.lastName, _that.me, _that.og, _that.memberNumber);
+        return $default(_that.username, _that.firstName, _that.lastName,
+            _that.me, _that.og, _that.memberNumber);
     }
   }
 
@@ -297,19 +286,18 @@ extension UserDataPatterns on UserData {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             @JsonKey(name: "userlogin") String username,
-            @JsonKey(name: "id") String userId,
-            @JsonKey(name: "vorname") String firstName,
-            @JsonKey(name: "nachname") String lastName,
-            @JsonKey(name: "key_me") String me,
-            @JsonKey(name: "key_og") String og,
-            @JsonKey(name: "mitgliedsnummer") String memberNumber)?
+            @JsonKey(name: "vorname") String? firstName,
+            @JsonKey(name: "nachname") String? lastName,
+            @JsonKey(name: "key_me") String? me,
+            @JsonKey(name: "key_og") String? og,
+            @JsonKey(name: "mitgliedsnummer") String? memberNumber)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UserData() when $default != null:
-        return $default(_that.username, _that.userId, _that.firstName,
-            _that.lastName, _that.me, _that.og, _that.memberNumber);
+        return $default(_that.username, _that.firstName, _that.lastName,
+            _that.me, _that.og, _that.memberNumber);
       case _:
         return null;
     }
@@ -321,12 +309,11 @@ extension UserDataPatterns on UserData {
 class _UserData implements UserData {
   const _UserData(
       {@JsonKey(name: "userlogin") required this.username,
-      @JsonKey(name: "id") required this.userId,
-      @JsonKey(name: "vorname") required this.firstName,
-      @JsonKey(name: "nachname") required this.lastName,
-      @JsonKey(name: "key_me") required this.me,
-      @JsonKey(name: "key_og") required this.og,
-      @JsonKey(name: "mitgliedsnummer") required this.memberNumber});
+      @JsonKey(name: "vorname") this.firstName,
+      @JsonKey(name: "nachname") this.lastName,
+      @JsonKey(name: "key_me") this.me,
+      @JsonKey(name: "key_og") this.og,
+      @JsonKey(name: "mitgliedsnummer") this.memberNumber});
   factory _UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
 
@@ -334,23 +321,20 @@ class _UserData implements UserData {
   @JsonKey(name: "userlogin")
   final String username;
   @override
-  @JsonKey(name: "id")
-  final String userId;
-  @override
   @JsonKey(name: "vorname")
-  final String firstName;
+  final String? firstName;
   @override
   @JsonKey(name: "nachname")
-  final String lastName;
+  final String? lastName;
   @override
   @JsonKey(name: "key_me")
-  final String me;
+  final String? me;
   @override
   @JsonKey(name: "key_og")
-  final String og;
+  final String? og;
   @override
   @JsonKey(name: "mitgliedsnummer")
-  final String memberNumber;
+  final String? memberNumber;
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.
@@ -374,7 +358,6 @@ class _UserData implements UserData {
             other is _UserData &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -388,11 +371,11 @@ class _UserData implements UserData {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, username, userId, firstName, lastName, me, og, memberNumber);
+      runtimeType, username, firstName, lastName, me, og, memberNumber);
 
   @override
   String toString() {
-    return 'UserData(username: $username, userId: $userId, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
+    return 'UserData(username: $username, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
   }
 }
 
@@ -405,12 +388,11 @@ abstract mixin class _$UserDataCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "userlogin") String username,
-      @JsonKey(name: "id") String userId,
-      @JsonKey(name: "vorname") String firstName,
-      @JsonKey(name: "nachname") String lastName,
-      @JsonKey(name: "key_me") String me,
-      @JsonKey(name: "key_og") String og,
-      @JsonKey(name: "mitgliedsnummer") String memberNumber});
+      @JsonKey(name: "vorname") String? firstName,
+      @JsonKey(name: "nachname") String? lastName,
+      @JsonKey(name: "key_me") String? me,
+      @JsonKey(name: "key_og") String? og,
+      @JsonKey(name: "mitgliedsnummer") String? memberNumber});
 }
 
 /// @nodoc
@@ -426,42 +408,37 @@ class __$UserDataCopyWithImpl<$Res> implements _$UserDataCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? username = null,
-    Object? userId = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? me = null,
-    Object? og = null,
-    Object? memberNumber = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? me = freezed,
+    Object? og = freezed,
+    Object? memberNumber = freezed,
   }) {
     return _then(_UserData(
       username: null == username
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: null == userId
-          ? _self.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+      firstName: freezed == firstName
           ? _self.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      me: null == me
+              as String?,
+      me: freezed == me
           ? _self.me
           : me // ignore: cast_nullable_to_non_nullable
-              as String,
-      og: null == og
+              as String?,
+      og: freezed == og
           ? _self.og
           : og // ignore: cast_nullable_to_non_nullable
-              as String,
-      memberNumber: null == memberNumber
+              as String?,
+      memberNumber: freezed == memberNumber
           ? _self.memberNumber
           : memberNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }

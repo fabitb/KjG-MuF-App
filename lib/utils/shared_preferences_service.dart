@@ -38,14 +38,10 @@ class SharedPreferencesService {
         final oldPassword = oldPrefs.getString(keyPassword);
         final oldPasswordHash = oldPrefs.getString(keyPasswordHash);
 
-        if (oldUserName != null &&
-            oldUserId != null &&
-            oldPassword != null &&
-            oldPasswordHash != null) {
+        if (oldUserName != null && oldUserId != null && oldPassword != null && oldPasswordHash != null) {
           // temporary UserData, instantly gets replaced if internet connected
           userData = UserData(
             username: oldUserName,
-            userId: oldUserId.toString(),
             firstName: "geladen",
             lastName: "Nicht",
             me: "",
@@ -63,32 +59,24 @@ class SharedPreferencesService {
     }
   }
 
-  set userData(UserData? value) => value == null
-      ? _prefs.remove(keyUserData)
-      : _prefs.setJson(keyUserData, value);
+  set userData(UserData? value) => value == null ? _prefs.remove(keyUserData) : _prefs.setJson(keyUserData, value);
 
   UserData? get userData => _prefs.getJson(keyUserData, UserData.fromJson);
 
-  set password(String? value) => value == null
-      ? _prefs.remove(keyPassword)
-      : _prefs.setString(keyPassword, value);
+  set password(String? value) => value == null ? _prefs.remove(keyPassword) : _prefs.setString(keyPassword, value);
 
   String? get password => _prefs.getString(keyPassword);
 
-  set passwordHash(String? value) => value == null
-      ? _prefs.remove(keyPasswordHash)
-      : _prefs.setString(keyPasswordHash, value);
+  set passwordHash(String? value) =>
+      value == null ? _prefs.remove(keyPasswordHash) : _prefs.setString(keyPasswordHash, value);
 
   String? get passwordHash => _prefs.getString(keyPasswordHash);
 
-  set downloadDialogShown(bool value) =>
-      _prefs.setBool(keyDownloadDialog, value);
+  set downloadDialogShown(bool value) => _prefs.setBool(keyDownloadDialog, value);
 
   bool get downloadDialogShown => _prefs.getBool(keyDownloadDialog) ?? false;
 
-  String? get token => userData != null && passwordHash != null
-      ? "A/${userData!.username}/$passwordHash"
-      : null;
+  String? get token => userData != null && passwordHash != null ? "A/${userData!.username}/$passwordHash" : null;
 
   set filterSettings(FilterSettings? value) => value == null
       ? _prefs.remove(keyFilterSettings)
@@ -106,9 +94,8 @@ class SharedPreferencesService {
 
   String? get gamesApiKey => _prefs.getString(keyGamesApiKey);
 
-  set gamesApiKey(String? apiKey) => apiKey == null
-      ? _prefs.remove(keyGamesApiKey)
-      : _prefs.setString(keyGamesApiKey, apiKey);
+  set gamesApiKey(String? apiKey) =>
+      apiKey == null ? _prefs.remove(keyGamesApiKey) : _prefs.setString(keyGamesApiKey, apiKey);
 
   int get _version => _prefs.getInt(keySharedPrefVersion) ?? 0;
 
@@ -116,8 +103,7 @@ class SharedPreferencesService {
 
   bool get gameTutorialShown => _prefs.getBool(keyGameTutorialShown) ?? false;
 
-  set gameTutorialShown(bool gameTutorialShown) =>
-      _prefs.setBool(keyGameTutorialShown, gameTutorialShown);
+  set gameTutorialShown(bool gameTutorialShown) => _prefs.setBool(keyGameTutorialShown, gameTutorialShown);
 }
 
 extension SharedPrefJson on SharedPreferencesWithCache {

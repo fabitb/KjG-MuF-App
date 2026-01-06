@@ -7,12 +7,11 @@ part 'user_data.g.dart';
 sealed class UserData with _$UserData {
   const factory UserData({
     @JsonKey(name: "userlogin") required String username,
-    @JsonKey(name: "id") required String userId,
-    @JsonKey(name: "vorname") required String firstName,
-    @JsonKey(name: "nachname") required String lastName,
-    @JsonKey(name: "key_me") required String me,
-    @JsonKey(name: "key_og") required String og,
-    @JsonKey(name: "mitgliedsnummer") required String memberNumber,
+    @JsonKey(name: "vorname") String? firstName,
+    @JsonKey(name: "nachname") String? lastName,
+    @JsonKey(name: "key_me") String? me,
+    @JsonKey(name: "key_og") String? og,
+    @JsonKey(name: "mitgliedsnummer") String? memberNumber,
   }) = _UserData;
 
   factory UserData.fromJson(Map<String, Object?> json) =>

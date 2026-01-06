@@ -699,6 +699,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Wenn du lange auf ein Spiel in der Liste klickst wird es als \'bereits gespielt\' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf \'ungespielt\' stellen.'**
   String get gameTutorialText3;
+
+  /// No description provided for @loggedOutSnack.
+  ///
+  /// In de, this message translates to:
+  /// **'Du wurdest ausgeloggt'**
+  String get loggedOutSnack;
 }
 
 class _AppLocalizationsDelegate
