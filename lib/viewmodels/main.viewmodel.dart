@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/backend/mida_service.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+/*
 class MainViewModel extends ChangeNotifier {
   LoginStatus _loginStatus = LoginStatus.normal;
 
@@ -135,3 +131,6 @@ class MainViewModel extends ChangeNotifier {
 }
 
 enum LoginStatus { normal, loading, loadingUserData }
+
+
+ */

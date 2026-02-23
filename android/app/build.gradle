@@ -12,11 +12,11 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = '1020001' //X.XX.XX.XX major, minor, mini, build localProperties.getProperty('flutter.versionCode')
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
 }
-def flutterVersionName = '1.2.0' //localProperties.getProperty('flutter.versionName')
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
@@ -47,14 +47,24 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "de.kjg.kjg_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
+        versionCode flutterVersionCode.toInteger() + 1020001 // add fixed version because Fabi messed up once
         versionName flutterVersionName
+        resValue "string", "app_name", "KjG App"
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        base {}
+
+        dev {
+            dimension "default"
+            resValue "string", "app_name", "KjG App Dev"
+            applicationIdSuffix ".dev"
+        }
     }
 
     signingConfigs {
@@ -65,6 +75,7 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release

@@ -24,3 +24,6 @@ splash:
 
 icon:
 	fvm dart run flutter_launcher_icons
+
+watch:
+	fvm dart run build_runner watch

@@ -4,9 +4,7 @@
   "filterByOrganizer": "Nach Veranstalter filtern",
   "filterByDate": "Nach Datum filtern",
   "resetFilter": "Filter zurücksetzen",
-
   "events": "Veranstaltungen",
-
   "greeting": "Hallo {name}!",
   "@greeting": {
     "placeholders": {
@@ -21,12 +19,13 @@
   "activities": "Aktionen",
   "noActivitiesAvailable": "Wir konnten leider keine Aktionen laden. Versuche es einfach später nochmal!",
   "subscribeToNewsletter": "Melde dich für unseren Newsletter an, um nichts mehr zu verpassen!",
-
+  "gamesDatabaseDescription": "Entdecke neue Spielen für deine Freizeit, Gruppenstunde oder Zeltlager",
+  "newBadge": "NEU!",
   "login": "Einloggen",
   "username": "Benutzername",
   "password": "Passwort",
   "loginMida": "Login Mida",
-  "loadingUserdata": "Login erfolgreich, lade weitere Nutzerdaten",
+  "loggingIn": "Einloggen...",
   "signupText": "Du hast noch keinen Mida Zugang oder willst KjG Mitglied werden?",
   "writeEmail": "Schreib uns eine Mail!",
   "loggedInText": "Du bist eingeloggt {name}",
@@ -38,16 +37,132 @@
       }
     }
   },
-
   "dontAskAgain": "Nicht erneut nachfragen",
   "download": "Herunterladen",
-  "downloadDescription": "Alle Anhänge dieser Veranstaltung für 90 Tage in der App offline verfügbar machen",
+  "downloadDescription": "Alle Anhänge dieser Veranstaltung in der App offline verfügbar machen. Verwalte die Anhänge unter Mehr > Anhänge",
   "cancel": "Abbrechen",
   "ok": "OK",
-  "error": "Fehler",
+  "error": "Fehler: {error}",
+  "@error": {
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Dieser Fehler ist passiert"
+      }
+    }
+  },
   "fileErrorDescription": "Es können aktuell nur PDF Dateien oder Bilder geöffnet werden",
   "delete": "Löschen",
   "deleteDescription": "Die Anhänge sind dann nicht mehr offline verfügbar",
-  "attachments": "Dateien"
-
+  "attachments": "Anhänge",
+  "unknownError": "Unbekannter Fehler",
+  "noInternet": "Keine Internetverbindung",
+  "loginError": "Falscher Nutzername oder Passwort",
+  "gameDatabase": "Spieledatenbank",
+  "website": "Website",
+  "shop": "Shop",
+  "dataPrivacy": "Datenschutz",
+  "kjgMuF": "KjG München und Freising",
+  "organizer": "Veranstalter",
+  "contact": "Kontakt: {name}",
+  "eventRegister": "Anmelden",
+  "eventUnregister": "Abmelden",
+  "registeredLabel": "Du bist angemeldet",
+  "noPlaceFound": "Es konnte kein Ort gefunden werden",
+  "savedAttachments": "Gespeicherte Anhänge",
+  "attachmentsDeleteTitle": "Anhänge löschen",
+  "attachmentsDeleteMessage": "Willst du wirklich alle Anhänge löschen?",
+  "attachmentsDescription": "Hier siehst du alle Anhänge die aktuell offline verfügbar sind. Zum Löschen eines Anhangs von der Seite wischen.",
+  "notFound": "Nicht gefunden",
+  "yes": "Ja",
+  "no": "Nein",
+  "logout": "Abmelden",
+  "logoutConfirmMessage": "Willst du dich wirklich ausloggen?",
+  "search": "Suche",
+  "apiToken": "API-Token",
+  "typeInAPIToken": "Gib deinen API-Token ein",
+  "resetPlayedGames": "Gespielte Spiele zurücksetzen?",
+  "resetPlayedGamesDescription": "Möchtest du, dass alle Spiele wieder auf ungespielt zurückgesetzt werden?",
+  "showOnlyUnplayedGames": "Nur ungespielte Spiele anzeigen",
+  "showOnlyReviewedGames": "Nur veröffentlichte Spiele anzeigen",
+  "title": "Titel",
+  "playerNumber": "Spieleranzahl",
+  "duration": "Dauer",
+  "action": "Action",
+  "thinking": "Denken",
+  "categories": "Kategorien",
+  "categoriesSeparateWithComma": "Kategorien (mit , trennen)",
+  "material": "Material",
+  "ageRestrictions": "Altersbeschränkungen",
+  "spaceRestrictions": "Raumbeschränkungen",
+  "goalOfGame": "Ziel des Spiels",
+  "preparationsInstructions": "Spielaufbau",
+  "gameplayInstructions": "Spielablauf",
+  "endingInstructions": "Spielende",
+  "author": "Autor",
+  "thanksToGameAuthor": "Danke an {name} für das Erstellen des Spiels!",
+  "@thanksToGameAuthor": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Cosmas"
+      }
+    }
+  },
+  "createGame": "Spiel erstellen",
+  "editGame": "Spiel bearbeiten",
+  "saveGame": "Spiel speichern",
+  "pleaseFillOutMandatoryFields": "Bitte fülle mindestens folgende Felder aus: {fields}",
+  "@pleaseFillOutMandatoryFields": {
+    "placeholders": {
+      "fields": {
+        "type": "String",
+        "example": "Titel, Spieldauer"
+      }
+    }
+  },
+  "gameSaveSuccess": "Spiel gespeichert",
+  "gameSaveSuccessMessage": "Danke, dein Spiel wurde gespeichert. Wir lesen uns dein Spiel nun durch und geben es dann schnellstmöglichst frei, dann findest du es auch in der offiziellen Liste",
+  "gameDeleteTitle": "Spiel löschen",
+  "gameDeleteMessage": "Willst du das Spiel \"{game}\" wirklich löschen?",
+  "@gameDeleteMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameSetReviewedTitle": "Spiel freigeben",
+  "gameSetReviewedMessage": "Hast du das Spiel \"{game}\" vollständig geprüft und willst es freigeben?",
+  "@gameSetReviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameSetUnreviewedTitle": "Spiel wieder zurücknehmen",
+  "gameSetUnreviewedMessage": "Willst du das Spiel \"{game}\" wieder runternehmen?",
+  "@gameSetUnreviewedMessage": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "Ninja"
+      }
+    }
+  },
+  "gameNotFound": "Spiel nicht gefunden",
+  "gameCouldNotLoad": "Spiel konnte nicht geladen werden.",
+  "continueText": "Weiter",
+  "back": "Zurück",
+  "letsGo": "Los gehts's",
+  "gameTutorialHeader1": "Willkommen in der Spieledatenbank!",
+  "gameTutorialHeader2": "Füge neue Spiele für Alle hinzu!",
+  "gameTutorialHeader3": "Markiere was du schon gespielt hast!",
+  "gameTutorialText1": "Du suchst Gruppenspiele für deine Gruppenstunde, euer Zeltlager oder eine Freizeit? Dann bist du hier genau richtig!\n\nDu kannst einfach frei nach Spielen stöbern, die Textsuche benutzen oder auch nach bestimmten Kriterien filtern.",
+  "gameTutorialText2": "Mit dem 'Plus-Knopf' kannst du neue Spiele hinzufügen.\n\nSobald du ein Spiel eingereicht hast, werden wir das Spiel kurz prüfen und dann für Alle freigeben. So können viele andere Gruppen dein Spiel kennenlernen!",
+  "gameTutorialText3": "Wenn du lange auf ein Spiel in der Liste klickst wird es als 'bereits gespielt' markiert. So hast du immer den Überblick, was du alles noch ausprobieren musst.\n\nMit einem weiteren langen Klick entfernst du die Markierung wieder und mit dem Knopf oben rechts kannst du alle Spiele wieder auf 'ungespielt' stellen.",
+  "loggedOutSnack": "Du wurdest ausgeloggt"
 }

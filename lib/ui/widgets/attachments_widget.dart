@@ -1,165 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:kjg_muf_app/constants/strings.dart';
-import 'package:kjg_muf_app/ui/screens/fullscreen_image.dart';
-import 'package:kjg_muf_app/ui/screens/pdf_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kjg_muf_app/database/model/event_attachment.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
+import 'package:kjg_muf_app/providers/attachment_cache_provider.dart';
+import 'package:kjg_muf_app/ui/screens/attachment_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/download_dialog.dart';
-import 'package:kjg_muf_app/viewmodels/event.detail.viewmodel.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:mime/mime.dart';
-import 'package:provider/provider.dart';
-import 'package:kjg_muf_app/utils/extensions.dart';
 
-class AttachmentsWidget extends StatelessWidget {
-  final String baseUrl;
-  final List<String> attachments;
-  final DateTime? cachedTime;
+class AttachmentsWidget extends ConsumerStatefulWidget {
+  final List<EventAttachment> attachments;
 
-  const AttachmentsWidget({
-    super.key,
-    required this.attachments,
-    required this.baseUrl,
-    this.cachedTime,
-  });
+  const AttachmentsWidget({super.key, required this.attachments});
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.localizations.attachments,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  _iconButton(context),
-                ],
-              ),
-              const SizedBox(height: 4),
-              ..._getAttachments(context),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  ConsumerState<AttachmentsWidget> createState() => _AttachmentsWidgetState();
+}
 
-  Widget _iconButton(BuildContext context) {
-    final viewModel = Provider.of<EventDetailViewModel>(context, listen: false);
+class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
+  bool _loading = false;
 
-    if (viewModel.loadingAttachments) {
-      return const IconButton(
-        onPressed: null,
-        icon: SizedBox(
-          width: 12,
-          height: 12,
-          child: CircularProgressIndicator(),
-        ),
-      );
+  Future<void> _cacheAttachments() async {
+    List<Future> futures = [];
+
+    final attachmentsCache = ref.read(attachmentCacheProvider.notifier);
+    for (var attachment in widget.attachments) {
+      futures.add(attachmentsCache.downloadAttachment(attachment));
     }
 
-    if (cachedTime == null) {
-      return IconButton(
-        onPressed: () => _showDownloadDialog(context, viewModel),
-        icon: const Icon(Icons.download),
-      );
+    setState(() {
+      _loading = true;
+    });
+
+    try {
+      await Future.wait(futures, eagerError: true);
+    } on Exception {
+      // ignore
     }
 
-    return IconButton(
-      onPressed: () => _showDeleteDialog(context, viewModel),
-      icon: const Icon(Icons.delete),
-    );
+    if (mounted) {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
-  _showDownloadDialog(BuildContext context, EventDetailViewModel viewModel) {
-    if (viewModel.showDownloadDialog) {
+  Future<void> _deleteAttachments() async {
+    List<Future> futures = [];
+
+    final attachmentsCache = ref.read(attachmentCacheProvider.notifier);
+    for (var attachment in widget.attachments) {
+      futures.add(attachmentsCache.removeAttachment(attachment));
+    }
+
+    await Future.wait(futures);
+
+    setState(() {});
+  }
+
+  _showDownloadDialog() {
+    if (!SharedPreferencesService.instance.downloadDialogShown) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return DownloadDialog(
             downloadAction: (showDownloadDialog) {
-              viewModel.cacheAttachments(showDownloadDialog);
+              if (showDownloadDialog) {
+                SharedPreferencesService.instance.downloadDialogShown = true;
+              }
+              _cacheAttachments();
             },
           );
         },
       );
     } else {
-      viewModel.cacheAttachments(false);
+      _cacheAttachments();
     }
   }
 
-  _showDeleteDialog(BuildContext context, EventDetailViewModel viewModel) {
+  _showDeleteDialog() {
     _showAlertDialog(
       context,
       context.localizations.delete,
       context.localizations.deleteDescription,
       okAction: () {
-        viewModel.deleteAttachments();
+        _deleteAttachments();
       },
       okText: context.localizations.delete,
       withCancel: true,
     );
   }
 
-  Iterable<Widget> _getAttachments(BuildContext context) {
-    return attachments.map((e) {
-      return _attachment(context, e);
-    });
-  }
-
-  Widget _attachment(BuildContext context, String attachment) {
-    final fileType = FileType.getFileType(attachment);
-
-    String fileTitle = fileType.isPdf
-        ? attachment.substring(attachment.indexOf('_') + 1)
-        : attachment;
-    final icon = switch (fileType) {
-      FileType.pdf => Icons.picture_as_pdf,
-      FileType.image => Icons.image,
-      FileType.unsupported => Icons.question_mark,
-    };
-
-    return ListTile(
-      title: Text(fileTitle),
-      leading: Icon(icon),
-      onTap: () => _openFile(context, attachment, fileTitle, fileType),
-    );
-  }
-
-  _openFile(
-    BuildContext context,
-    String attachment,
-    String fileTitle,
-    FileType fileType,
-  ) {
-    if (fileType.isUnsupported) {
-      _showAlertDialog(
-        context,
-        context.localizations.error,
-        context.localizations.fileErrorDescription,
-      );
-      return;
-    }
-
-    final url = Strings.attachmentDownloadLink(baseUrl, attachment);
-
-    Navigator.of(context).push(
+  _openFile(BuildContext context, EventAttachment attachment) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) {
-          return switch (fileType) {
-            FileType.pdf => PDFScreen(
-                pdfLink: url,
-                pageTitle: fileTitle,
-              ),
-            FileType.image => FullscreenImage(url: url),
-            FileType.unsupported => throw UnimplementedError(),
-          };
-        },
+        builder: (context) => AttachmentScreen(attachment: attachment),
       ),
     );
   }
@@ -207,11 +142,93 @@ class AttachmentsWidget extends StatelessWidget {
       },
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.localizations.attachments,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  _iconButton(context),
+                ],
+              ),
+              const SizedBox(height: 4),
+              ..._getAttachments(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _iconButton(BuildContext context) {
+    if (_loading) {
+      return const IconButton(
+        onPressed: null,
+        icon: SizedBox(
+          width: 12,
+          height: 12,
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    final cachedKeys =
+        ref.watch(attachmentCacheProvider).value?.map((e) => e.key) ?? [];
+    final allCached =
+        widget.attachments.where((e) => !cachedKeys.contains(e.key)).isEmpty;
+    if (!allCached) {
+      return IconButton(
+        onPressed: _showDownloadDialog,
+        icon: const Icon(Icons.download),
+      );
+    }
+
+    return IconButton(
+      onPressed: _showDeleteDialog,
+      icon: const Icon(Icons.delete),
+    );
+  }
+
+  Iterable<Widget> _getAttachments(BuildContext context) {
+    return widget.attachments.map((e) {
+      return _attachment(context, e);
+    });
+  }
+
+  Widget _attachment(BuildContext context, EventAttachment attachment) {
+    final fileType = attachment.fileType;
+
+    final cached = ref.watch(attachmentCachedProvider(key: attachment.key));
+
+    return ListTile(
+      title: Text(
+        attachment.displayName,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      leading: Icon(fileType.icon),
+      trailing: cached ? Icon(Icons.download_done) : null,
+      onTap: () => _openFile(context, attachment),
+    );
+  }
 }
 
 enum FileType {
   pdf,
   image,
+  audio,
   unsupported;
 
   static FileType getFileType(String fileName) {
@@ -221,6 +238,7 @@ enum FileType {
 
     if (mimeType.startsWith("image")) return FileType.image;
     if (mimeType == "application/pdf") return FileType.pdf;
+    if (mimeType == "audio/mpeg") return FileType.audio;
 
     return FileType.unsupported;
   }
@@ -230,4 +248,13 @@ enum FileType {
   bool get isImage => this == FileType.image;
 
   bool get isUnsupported => this == FileType.unsupported;
+
+  IconData get icon {
+    return switch (this) {
+      FileType.pdf => Icons.picture_as_pdf,
+      FileType.image => Icons.image,
+      FileType.audio => Icons.audio_file,
+      FileType.unsupported => Icons.question_mark,
+    };
+  }
 }

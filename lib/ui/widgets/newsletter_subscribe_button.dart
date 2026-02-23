@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kjg_muf_app/constants/kjg_colors.dart';
+import 'package:kjg_muf_app/l10n/l10n_extension.dart';
+import 'package:kjg_muf_app/ui/widgets/kjg_dashboard_container.dart';
 
 class NewsletterSubscribeButton extends StatelessWidget {
   final Function onButtonClicked;
@@ -14,33 +14,28 @@ class NewsletterSubscribeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: GestureDetector(
+      child: KjgDashboardContainer(
         onTap: () => onButtonClicked(),
-        child: Card(
-          color: KjGColors.kjgDarkBlue,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!.subscribeToNewsletter,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8.0,
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios,
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                context.localizations.subscribeToNewsletter,
+                style: const TextStyle(
                   color: Colors.white,
+                  fontSize: 16.0,
                 ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(
+              width: 8.0,
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 20.0,
+              color: Colors.white,
+            ),
+          ],
         ),
       ),
     );

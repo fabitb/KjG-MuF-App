@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class KjGColors {
+abstract class KjGColors {
   static const Color kjgLightBlue = Color(0xff00b6be);
   static const Color kjgDarkBlue = Color(0xff006d84);
   static const Color kjgDarkGreen = Color(0xff007576);

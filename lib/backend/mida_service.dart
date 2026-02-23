@@ -1,19 +1,18 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
+import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:kjg_muf_app/constants/strings.dart';
-import 'package:kjg_muf_app/database/model/event_model.dart';
+import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/model/csv_event.dart';
-import 'package:kjg_muf_app/model/registration.dart';
+import 'package:kjg_muf_app/model/user_data.dart';
 import 'package:kjg_muf_app/utils/csv_helper.dart';
-import 'package:kjg_muf_app/utils/shared_prefs.dart';
+import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 
 class MidaService {
   static final MidaService _midaService = MidaService._internal();
+
+  String? get token => SharedPreferencesService.instance.token;
 
   factory MidaService() {
     return _midaService;
@@ -21,295 +20,130 @@ class MidaService {
 
   MidaService._internal();
 
-  final JsonDecoder _decoder = const JsonDecoder();
-  final JsonEncoder _encoder = const JsonEncoder();
+  final Dio _dio = Dio();
 
-  Map<String, String> headers = {"content-type": "text/json"};
-  Map<String, String> cookies = {};
+  Future<UserData?> loginWorkaround(String username, String password) async {
+    final baseMidaResponse = await _dio.post(
+      "https://mida.kjg.de/",
+      options: Options(
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      ),
+      data: {
+        "newuser": username,
+        "newpassword": password,
+      },
+    );
+    final Document parsedBaseMidaResponse = parse(baseMidaResponse.data);
+    final Element? loginForm = parsedBaseMidaResponse.querySelector('form#form1');
+    if (loginForm == null) return null;
 
-  void deleteAllCookies() {
-    headers = {"content-type": "text/json"};
-    cookies = {};
-  }
-
-  Future<bool> verifyLoginForUserName(String username, String password) async {
-    final passwordHash = _generateMd5(password);
-    final response = await _post(
-      "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password",
+    final String? actionUrl = loginForm.attributes['action'];
+    if (actionUrl == null) return null;
+    final userEditResponse = await _dio.post(
+      "https://mida.kjg.de$actionUrl?action=profile_edit",
+      options: Options(
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      ),
+      data: {
+        "newuser": username,
+        "newpassword": password,
+      },
     );
 
-    if (response.statusCode == 200) {
-      try {
-        Map<String, dynamic> jsonResponse = json.decode(response.body);
-        if (jsonResponse['error'] != null) {
-          debugPrint(jsonResponse['error']);
-          return false;
-        }
-      } catch (error) {
-        List jsonResponse = json.decode(response.body);
-        if (jsonResponse.isNotEmpty) {
-          await SharedPref().saveName(jsonResponse.first);
-          await SharedPref().saveUserName(username);
-          await SharedPref().savePasswordHash(passwordHash);
-          await SharedPref().savePassword(password);
-          return true;
-        }
-      }
-    }
-    return false;
+    // Think about switching to using this token instead of username/password for further requests and webviews
+    // TODO: find out validity/duration of this token
+    // final tokenCookie = userEditResponse.headers.map["set-cookie"]
+    //     ?.where((cookie) => cookie.startsWith("token="))
+    //     .firstOrNull
+    //     ?.split(";")
+    //     .first
+    //     .replaceAll("token=", "");
+
+    final Document parsedUserEditResponse = parse(userEditResponse.data);
+    final me = getValueFromAccountField("key_me", parsedUserEditResponse);
+    final og = getValueFromAccountField("key_og", parsedUserEditResponse);
+    final memberNumber = getValueFromAccountField("mitgliedsnummer", parsedUserEditResponse);
+    final firstName = getValueFromAccountField("vorname", parsedUserEditResponse);
+    final lastName = getValueFromAccountField("nachname", parsedUserEditResponse);
+
+    return UserData(
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      me: me,
+      og: og,
+      memberNumber: memberNumber,
+    );
   }
 
-  Future<bool> verifyLoginForUserID(String username, String password) async {
-    final passwordHash = _generateMd5(password);
-    final response = await _post(
-      "${Strings.midaBaseURL}/?api=VerifyLogin&token=A/$username/$passwordHash&user=$username&password=$password&result=id",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        Map<String, dynamic> jsonResponse = json.decode(response.body);
-        if (jsonResponse['error'] != null) {
-          debugPrint(jsonResponse['error']);
-          return false;
-        }
-      } catch (error) {
-        List jsonResponse = json.decode(response.body);
-        if (jsonResponse.isNotEmpty) {
-          await SharedPref().saveUserID(int.parse(jsonResponse.first));
-          return true;
-        }
-      }
+  String? getValueFromAccountField(String fieldName, Document document) {
+    final element = document.querySelector(".fieldgroup.row$fieldName > .fieldcontrol > :first-child");
+    if (element == null) return null;
+    switch (element.localName) {
+      case "input":
+        return element.attributes["value"];
+      case "div":
+        return element.text;
+      default:
+        return null;
     }
-    return false;
-  }
-
-  ///
-  /// Gets Ebene, Unterebene and Ebenenlink
-  ///
-  Future<bool> getEbene() async {
-    final response = await _post(
-      "${Strings.midaBaseURL}/?action=start_orga",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        var document = parse(response.body);
-
-        // my ebene is underlined -> a u
-        final ebeneElement = document.querySelector("a u");
-        final ebene = ebeneElement?.text;
-
-        // find visible minus buttons -> expanded options
-        final minusButtons = document
-            .querySelectorAll('div a.minus:not([style="display:none;"])');
-        // choose second open or Bundesebene
-        final highestNotBundes =
-            minusButtons.length > 1 ? minusButtons[1] : minusButtons[0];
-        // find corresponding name
-        final ueberEbene = highestNotBundes.parent?.children[2].text;
-
-        if (ueberEbene != null) SharedPref().saveUeberEbene(ueberEbene);
-        if (ebene != null) SharedPref().saveEbene(ebene);
-
-        // get link to own ebene
-        final onclick = ebeneElement?.parent?.attributes["onclick"];
-        if (onclick != null) {
-          final linkStart = onclick.indexOf("https://mida.kjg.de/");
-          final linkEnd = onclick.indexOf("/?settokenfreund");
-          final link = onclick.substring(linkStart, linkEnd);
-
-          SharedPref().saveEbenenLink(link);
-          return true;
-        }
-      } catch (error) {
-        return false;
-      }
-    }
-    return false;
-  }
-
-  ///
-  /// Gets memberId (and could get more info from profile screen
-  ///
-  /// needs to be run after getEbene
-  ///
-  Future<bool> getMember() async {
-    final response = await _get(
-      "${await SharedPref().getEbenenLink()}?action=profile_edit",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        var document = parse(response.body);
-        final memberId =
-            document.getElementById("mitgliedsnummer")?.attributes["value"];
-        final dekanat =
-            document.getElementById("key_dekanat")?.attributes["value"];
-        if (memberId != null) SharedPref().saveMitgliedsNummer(memberId);
-
-        return true;
-      } catch (error) {
-        return false;
-      }
-    }
-    return false;
   }
 
   /// Gets future events for the logged in user.
-  ///
-  /// All future events if no argument is given.
-  /// Events for one week from weekStartingFrom if provided.
-  Future<List<CSVEvent>> getFutureEventsPersonal({
-    DateTime? weekStartingFrom,
-  }) async {
-    String action = weekStartingFrom != null
-        ? "&art=ListeWoche&start=${DateFormat('yyyy-MM-dd').format(weekStartingFrom)}"
-        : "&art=ListeZ";
-
-    // get future events as csv [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
-    final response = await _get(
-      "${Strings.midaBaseURL}/?action=events_kalender&print=csv$action&filtermandant=K",
+  Future<List<CSVEvent>> getFutureEventsPersonal() async {
+    final response = await _dio.get(
+      Strings.midaBaseURL,
+      queryParameters: {
+        "action": "events_kalender",
+        "print": "csv",
+        "art": "ListeZ",
+        "token": token,
+      },
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Unexpected error occurred!');
-    }
-
-    final List<int> bytes = response.bodyBytes;
-    // response header says utf8, but it isn't
-    final String csvString = latin1.decode(bytes);
-
+    final csvString = response.data as String;
     List<CSVEvent> csvEvents = CSVHelper.csvToEvents(csvString);
 
     return csvEvents;
   }
 
-  Future<List<EventModel>> getEvents() async {
-    final response = await _get(
-      "${Strings.midaBaseURL}/?api=GetEvents&token=${await SharedPref().getToken()}&jahr=zukunft&restriction=mandant=503||866||867||868||869||870||871||872||873||874||875||876||877||878||879||880||881",
+  Future<List<MidaEvent>> getEvents() async {
+    // parameter "jahr: zukunft" only shows events that start in the future
+    // -> use "abmonat" to also include currently running events
+    // -> remove events that ended in the past
+    final fromDate = DateTime.now().add(Duration(days: -31));
+    final responseNew = await _dio.get(
+      Strings.midaBaseURL,
+      queryParameters: {
+        "api": "GetEvents",
+        "abmonat": DateFormat("yyyyMM").format(fromDate),
+        "sichtbar": "alle",
+        "token": SharedPreferencesService.instance.token,
+      },
     );
 
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse
-          .map((data) => EventModel.fromJson(data))
-          .nonNulls
-          .toList();
-    } else {
-      throw Exception('Unexpected error occurred!');
-    }
-  }
-
-  Future<EventModel> getEvent(String id, {String? baseUrl}) async {
-    final response = await _get("${Strings.midaBaseURL}/?api=GetEvent&id=$id");
-
-    if (response.statusCode == 200) {
-      dynamic jsonResponse = json.decode(response.body);
-      final eventModel = EventModel.fromJson(jsonResponse, baseUrl: baseUrl);
-      if (eventModel == null) throw const FormatException("Invalid json");
-      return eventModel;
-    } else {
-      throw Exception('Unexpected error occurred!');
-    }
-  }
-
-  Future<List<Registration>> getRegistrationsForEvent(String eventID) async {
-    final response = await _get(
-      "${Strings.midaBaseURL}/?api=GetRegistrations&token=${await SharedPref().getToken()}&id=$eventID",
-    );
-
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => Registration.fromJson(data)).toList();
-    } else {
-      throw Exception('Unexpected error occurred!');
-    }
-  }
-
-  Future<http.Response> _get(String url) {
-    return http
-        .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;
-    });
-  }
-
-  Future<http.Response> _post(String url, {body, encoding}) {
-    return http
-        .post(
-      Uri.parse(url),
-      body: _encoder.convert(body),
-      headers: headers,
-      encoding: encoding,
-    )
-        .then((http.Response response) {
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
-      return response;
-    });
-  }
-
-  void _updateCookie(http.Response response) {
-    String? allSetCookie = response.headers['set-cookie'];
-
-    if (allSetCookie != null) {
-      var setCookies = allSetCookie.split(',');
-
-      for (var setCookie in setCookies) {
-        var cookies = setCookie.split(';');
-
-        for (var cookie in cookies) {
-          _setCookie(cookie);
-        }
-      }
-
-      headers['cookie'] = _generateCookieHeader();
-    }
-  }
-
-  void _setCookie(String rawCookie) {
-    if (rawCookie.isNotEmpty) {
-      var keyValue = rawCookie.split('=');
-      if (keyValue.length == 2) {
-        var key = keyValue[0].trim();
-        var value = keyValue[1];
-
-        // ignore keys that aren't cookies
-        if (key == 'path' || key == 'expires') {
-          return;
-        }
-
-        cookies[key] = value;
-      }
-    }
-  }
-
-  String _generateCookieHeader() {
-    String cookie = "";
-
-    for (var key in cookies.keys) {
-      if (cookie.isNotEmpty) {
-        cookie += ";";
-      }
-      cookie += "$key=${cookies[key]}";
+    if (responseNew.data case {"error": String error} when error.isNotEmpty) {
+      throw Exception;
     }
 
-    return cookie;
-  }
+    if (responseNew.data case List<dynamic> list) {
+      final results = list.map((e) => BackendMidaEvent.fromJson(e));
+      final mapped = results.map((e) => MidaEvent.fromBackendMidaEvent(e)).nonNulls.toList();
 
-  String _generateMd5(String input) {
-    return md5.convert(utf8.encode(input)).toString();
+      final startOfToday = DateTime.now().copyWith(
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        microsecond: 0,
+      );
+      return mapped.where((e) => !e.endDateAndTime.isBefore(startOfToday)).toList();
+    }
+
+    throw Exception();
   }
 }

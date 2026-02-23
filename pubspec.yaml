@@ -15,10 +15,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.0+1
+version: 2.1.1+6
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: ">=3.6.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -26,6 +26,7 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
@@ -55,14 +56,11 @@ dependencies:
   flutter_cache_manager: ^3.3.0
 
   flutter_inappwebview: ^6.1.5
-  isar:
-    version: ^3.1.0+1
-    hosted: https://pub.isar-community.dev/
-  isar_flutter_libs:
-    version: ^3.1.0+1
-    hosted: https://pub.isar-community.dev/
+  drift: ^2.22.0
+  drift_flutter: ^0.2.0
+  sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.1.1
-  skeletonizer: ^1.4.2
+  skeletonizer: ^2.0.1
   add_2_calendar: ^3.0.1
   html: ^0.15.4
   photo_view: ^0.15.0
@@ -70,6 +68,12 @@ dependencies:
   flip_card: ^0.7.0
   mime: ^2.0.0
   flutter_native_splash: ^2.2.16
+  flutter_riverpod: ^3.0.1
+  riverpod_annotation: ^3.0.1
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+  dio: ^5.7.0
+  just_audio: ^0.10.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
@@ -82,11 +86,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  isar_generator:
-    version: ^3.1.0+1
-    hosted: https://pub.isar-community.dev/
-  build_runner: ^2.4.6
-  json_serializable: ^6.7.1
+  drift_dev: ^2.22.0
+  build_runner: ^2.4.14
+  json_serializable: ^6.9.0
+  riverpod_generator: ^3.0.1
+  custom_lint: ^0.8.0
+  riverpod_lint: ^3.0.1
+  freezed: ^3.2.3
 
 flutter_launcher_icons:
   min_sdk_android: 21
