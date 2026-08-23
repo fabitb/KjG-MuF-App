@@ -7,6 +7,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:html/parser.dart';
+import 'package:kjg_muf_app/constants/constants.dart';
 import 'package:kjg_muf_app/constants/kjg_colors.dart';
 import 'package:kjg_muf_app/database/model/event.dart';
 import 'package:kjg_muf_app/database/model/event_attachment.dart';
@@ -312,6 +313,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
               ),
               children: [
                 TileLayer(
+                  userAgentPackageName: Constants.mapUserAgent,
                   minZoom: 1,
                   maxZoom: 18,
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
