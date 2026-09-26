@@ -10,21 +10,21 @@ part of 'authorized_games_user_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AuthorizedGamesUserProvider)
-const authorizedGamesUserProviderProvider =
+final authorizedGamesUserProviderProvider =
     AuthorizedGamesUserProviderProvider._();
 
 final class AuthorizedGamesUserProviderProvider
     extends $AsyncNotifierProvider<AuthorizedGamesUserProvider, bool> {
-  const AuthorizedGamesUserProviderProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'authorizedGamesUserProviderProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  AuthorizedGamesUserProviderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authorizedGamesUserProviderProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$authorizedGamesUserProviderHash();
@@ -42,13 +42,15 @@ abstract class _$AuthorizedGamesUserProvider extends $AsyncNotifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<bool>, bool>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<bool>, bool>,
-        AsyncValue<bool>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<bool>, bool>,
+              AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }

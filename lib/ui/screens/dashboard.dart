@@ -49,19 +49,14 @@ class Dashboard extends ConsumerWidget {
               actions: [
                 if (authState case AuthStateLoggedIn(:final userData))
                   IconButton(
-                    onPressed: () => _showMemberCardBottomSheet(context, userData),
-                    icon: const Icon(
-                      Icons.credit_card,
-                      color: Colors.white,
-                    ),
+                    onPressed: () =>
+                        _showMemberCardBottomSheet(context, userData),
+                    icon: const Icon(Icons.credit_card, color: Colors.white),
                   )
                 else
                   IconButton(
                     onPressed: () => _showLoginBottomSheet(context),
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.white,
-                    ),
+                    icon: Icon(Icons.login, color: Colors.white),
                   ),
                 SizedBox(width: 12),
               ],
@@ -69,81 +64,68 @@ class Dashboard extends ConsumerWidget {
             SliverPadding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               sliver: SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Center(
-                      child: switch (news) {
-                        AsyncError() => Text(context.localizations.noNewsAvailable),
-                        AsyncData(:final value) => NewsCarouselWidget(
-                            title: context.localizations.news,
-                            newsList: value,
-                            onNewsClicked: (news) => _showWebsiteBottomSheet(
-                              context,
-                              news.websiteURL,
-                            ),
-                          ),
-                        _ => NewsCarouselWidget(
-                            title: context.localizations.news,
-                            newsList: null,
-                            onNewsClicked: (news) => _showWebsiteBottomSheet(
-                              context,
-                              news.websiteURL,
-                            ),
-                          ),
-                      },
+                delegate: SliverChildListDelegate([
+                  Center(
+                    child: switch (news) {
+                      AsyncError() => Text(
+                        context.localizations.noNewsAvailable,
+                      ),
+                      AsyncData(:final value) => NewsCarouselWidget(
+                        title: context.localizations.news,
+                        newsList: value,
+                        onNewsClicked: (news) =>
+                            _showWebsiteBottomSheet(context, news.websiteURL),
+                      ),
+                      _ => NewsCarouselWidget(
+                        title: context.localizations.news,
+                        newsList: null,
+                        onNewsClicked: (news) =>
+                            _showWebsiteBottomSheet(context, news.websiteURL),
+                      ),
+                    },
+                  ),
+                  const SizedBox(height: 32.0),
+                  Center(
+                    child: switch (activities) {
+                      AsyncError() => Text(
+                        context.localizations.noActivitiesAvailable,
+                      ),
+                      AsyncData(:final value) => NewsCarouselWidget(
+                        title: context.localizations.activities,
+                        newsList: value,
+                        onNewsClicked: (news) =>
+                            _showWebsiteBottomSheet(context, news.websiteURL),
+                      ),
+                      _ => NewsCarouselWidget(
+                        title: context.localizations.activities,
+                        newsList: null,
+                        onNewsClicked: (news) =>
+                            _showWebsiteBottomSheet(context, news.websiteURL),
+                      ),
+                    },
+                  ),
+                  const SizedBox(height: 32.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: PromoButton(
+                      title: context.localizations.gameDatabase,
+                      description:
+                          context.localizations.gamesDatabaseDescription,
+                      icon: Icons.groups,
+                      onTap: () => _onGamesDatabaseTap(context),
                     ),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Center(
-                      child: switch (activities) {
-                        AsyncError() => Text(
-                            context.localizations.noActivitiesAvailable,
-                          ),
-                        AsyncData(:final value) => NewsCarouselWidget(
-                            title: context.localizations.activities,
-                            newsList: value,
-                            onNewsClicked: (news) => _showWebsiteBottomSheet(
-                              context,
-                              news.websiteURL,
-                            ),
-                          ),
-                        _ => NewsCarouselWidget(
-                            title: context.localizations.activities,
-                            newsList: null,
-                            onNewsClicked: (news) => _showWebsiteBottomSheet(
-                              context,
-                              news.websiteURL,
-                            ),
-                          ),
-                      },
-                    ),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: PromoButton(
-                        title: context.localizations.gameDatabase,
-                        description: context.localizations.gamesDatabaseDescription,
-                        icon: Icons.groups,
-                        onTap: () => _onGamesDatabaseTap(context),
+                  ),
+                  const SizedBox(height: 32.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: NewsletterSubscribeButton(
+                      onButtonClicked: () => _showWebsiteBottomSheet(
+                        context,
+                        Strings.newsletterSubscribeURL,
                       ),
                     ),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: NewsletterSubscribeButton(
-                        onButtonClicked: () => _showWebsiteBottomSheet(
-                          context,
-                          Strings.newsletterSubscribeURL,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ]),
               ),
             ),
           ],
@@ -152,7 +134,7 @@ class Dashboard extends ConsumerWidget {
     );
   }
 
-  _showWebsiteBottomSheet(BuildContext context, String url) {
+  void _showWebsiteBottomSheet(BuildContext context, String url) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -164,14 +146,12 @@ class Dashboard extends ConsumerWidget {
         ),
       ),
       builder: (BuildContext context) {
-        return DashboardWebViewScreen(
-          url: url,
-        );
+        return DashboardWebViewScreen(url: url);
       },
     );
   }
 
-  _showLoginBottomSheet(BuildContext context) {
+  void _showLoginBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -183,16 +163,12 @@ class Dashboard extends ConsumerWidget {
         ),
       ),
       builder: (BuildContext context) {
-        return Wrap(
-          children: [
-            LoginWidget(),
-          ],
-        );
+        return Wrap(children: [LoginWidget()]);
       },
     );
   }
 
-  _showMemberCardBottomSheet(BuildContext context, UserData userData) {
+  void _showMemberCardBottomSheet(BuildContext context, UserData userData) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -204,7 +180,12 @@ class Dashboard extends ConsumerWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 128),
+          padding: const EdgeInsets.only(
+            left: 8,
+            right: 8,
+            top: 32,
+            bottom: 128,
+          ),
           child: MemberCard(
             name: userData.name,
             memberId: userData.memberNumber ?? "",

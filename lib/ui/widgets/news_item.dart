@@ -17,9 +17,7 @@ class NewsItem extends StatelessWidget {
         children: [
           news.imageURL.isNotEmpty
               ? _getImageCached(context, news.imageURL)
-              : Container(
-                  color: KjGColors.kjgLightBlue,
-                ),
+              : Container(color: KjGColors.kjgLightBlue),
           Image.asset(
             "assets/elements/bottom_element.png",
             fit: BoxFit.cover,

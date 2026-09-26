@@ -13,8 +13,9 @@ class Games extends _$Games {
   Future<List<Game>> build() async {
     final gamesFilter = ref.watch(gamesFilterProvider);
 
-    final games = await BackendService()
-        .getGames(showReviewedGames: gamesFilter.showReviewed);
+    final games = await BackendService().getGames(
+      showReviewedGames: gamesFilter.showReviewed,
+    );
 
     if (gamesFilter.showReviewed) {
       await AppDatabase().saveGames(games);
@@ -125,7 +126,5 @@ Future<List<Game>> filteredGames(Ref ref) async {
 @riverpod
 Future<Game?> gameById(Ref ref, String id) async {
   final games = await ref.watch(cachedGamesProvider.future);
-  return games.firstWhere(
-    (game) => game.id == id,
-  );
+  return games.firstWhere((game) => game.id == id);
 }

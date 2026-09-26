@@ -10,19 +10,19 @@ part of 'filter_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Filter)
-const filterProvider = FilterProvider._();
+final filterProvider = FilterProvider._();
 
 final class FilterProvider extends $NotifierProvider<Filter, FilterSettings> {
-  const FilterProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'filterProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  FilterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$filterHash();
@@ -40,38 +40,40 @@ final class FilterProvider extends $NotifierProvider<Filter, FilterSettings> {
   }
 }
 
-String _$filterHash() => r'c5a9c320987b3eefa7d949948545723b646e6855';
+String _$filterHash() => r'94e7dbeb0ece7e3ebfe16798edc8f29102fb8af1';
 
 abstract class _$Filter extends $Notifier<FilterSettings> {
   FilterSettings build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<FilterSettings, FilterSettings>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<FilterSettings, FilterSettings>,
-        FilterSettings,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<FilterSettings, FilterSettings>,
+              FilterSettings,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(FilterText)
-const filterTextProvider = FilterTextProvider._();
+final filterTextProvider = FilterTextProvider._();
 
 final class FilterTextProvider extends $NotifierProvider<FilterText, String> {
-  const FilterTextProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'filterTextProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  FilterTextProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filterTextProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$filterTextHash();
@@ -89,17 +91,22 @@ final class FilterTextProvider extends $NotifierProvider<FilterText, String> {
   }
 }
 
-String _$filterTextHash() => r'731bbce588e7dbab8702bc4cfc8b55a5337c145e';
+String _$filterTextHash() => r'3d2737c1ce943ab0ffcb0f46e275b1047d0cb5f8';
 
 abstract class _$FilterText extends $Notifier<String> {
   String build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<String, String>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<String, String>, String, Object?, Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }

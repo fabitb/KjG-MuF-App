@@ -17,10 +17,13 @@ class OrganizerFilterScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => OrganiserFilterViewModel(organizers, showOrganizer),
       builder: (context, child) => Consumer<OrganiserFilterViewModel>(
-        builder: (context, model, child) => WillPopScope(
-          onWillPop: () {
+        builder: (context, model, child) => PopScope<Map<String, bool>>(
+          // Block the default pop so the filter selection can be handed back
+          // to the caller as the route's result.
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
             Navigator.of(context).pop(model.showOrganizer);
-            return Future.value(false);
           },
           child: Scaffold(
             appBar: AppBar(),

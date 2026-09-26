@@ -26,21 +26,15 @@ class _RangeSliderFilterState extends State<RangeSliderFilter> {
   @override
   void initState() {
     super.initState();
-    _currentRangeValues = widget.currentValues ??
-        RangeValues(
-          widget.minValue,
-          widget.maxValue,
-        );
+    _currentRangeValues =
+        widget.currentValues ?? RangeValues(widget.minValue, widget.maxValue);
   }
 
   @override
   void didUpdateWidget(covariant RangeSliderFilter oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.currentValues == null && oldWidget.currentValues != null) {
-      _currentRangeValues = RangeValues(
-        widget.minValue,
-        widget.maxValue,
-      );
+      _currentRangeValues = RangeValues(widget.minValue, widget.maxValue);
     } else if (widget.currentValues != oldWidget.currentValues &&
         widget.currentValues != _currentRangeValues) {
       setState(() {
@@ -53,10 +47,7 @@ class _RangeSliderFilterState extends State<RangeSliderFilter> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          width: 50,
-          child: Text(widget.label),
-        ),
+        SizedBox(width: 50, child: Text(widget.label)),
         Expanded(
           child: RangeSlider(
             values: _currentRangeValues,

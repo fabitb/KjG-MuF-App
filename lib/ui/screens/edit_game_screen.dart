@@ -39,23 +39,30 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     final game = widget.initialGame;
 
     titleController = TextEditingController(text: game?.title ?? '');
-    numberOfPlayersController =
-        TextEditingController(text: game?.numberOfPlayer ?? '');
+    numberOfPlayersController = TextEditingController(
+      text: game?.numberOfPlayer ?? '',
+    );
     durationController = TextEditingController(text: game?.duration ?? '');
-    categoriesController =
-        TextEditingController(text: game?.categories.join(', ') ?? '');
+    categoriesController = TextEditingController(
+      text: game?.categories.join(', ') ?? '',
+    );
     materialsController = TextEditingController(text: game?.materials ?? '');
-    ageLimitationsController =
-        TextEditingController(text: game?.ageLimitations ?? '');
-    spaceLimitationsController =
-        TextEditingController(text: game?.spaceLimitations ?? '');
+    ageLimitationsController = TextEditingController(
+      text: game?.ageLimitations ?? '',
+    );
+    spaceLimitationsController = TextEditingController(
+      text: game?.spaceLimitations ?? '',
+    );
     goalOfGameController = TextEditingController(text: game?.goalOfGame ?? '');
-    preparationsInstructionsController =
-        TextEditingController(text: game?.preparationsInstructions ?? '');
-    gameplayInstructionsController =
-        TextEditingController(text: game?.gameplayInstructions ?? '');
-    endingInstructionsController =
-        TextEditingController(text: game?.endingInstructions ?? '');
+    preparationsInstructionsController = TextEditingController(
+      text: game?.preparationsInstructions ?? '',
+    );
+    gameplayInstructionsController = TextEditingController(
+      text: game?.gameplayInstructions ?? '',
+    );
+    endingInstructionsController = TextEditingController(
+      text: game?.endingInstructions ?? '',
+    );
     authorController = TextEditingController(text: game?.author ?? '');
 
     actionScore = game?.actionScore ?? 0;
@@ -194,9 +201,7 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
         if (isLoading)
           Container(
             color: Colors.black54,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: const Center(child: CircularProgressIndicator()),
           ),
       ],
     );
@@ -267,11 +272,12 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     }
 
     if (missingFields.isNotEmpty) {
-      final message = context.localizations
-          .pleaseFillOutMandatoryFields(missingFields.join(', '));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
+      final message = context.localizations.pleaseFillOutMandatoryFields(
+        missingFields.join(', '),
       );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
       return;
     }
 
@@ -369,8 +375,9 @@ class _EditGameScreenState extends ConsumerState<EditGameScreen> {
     await ref.read(gamesProvider.notifier).deleteGame(widget.initialGame!.id);
 
     if (context.mounted) {
-      Navigator.of(context)
-          .popUntil((route) => route.settings.name == '/gameList');
+      Navigator.of(
+        context,
+      ).popUntil((route) => route.settings.name == '/gameList');
     }
   }
 }

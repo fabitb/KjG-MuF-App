@@ -6,8 +6,12 @@ import 'package:kjg_muf_app/model/csv_event.dart';
 class CSVHelper {
   static List<CSVEvent> csvToEvents(String csvString) {
     // csv format: [Datum, Bild, Veranstaltung, Verein, , , Ort, Status, Link]
-    List<List<dynamic>> rowsAsListOfValues =
-        const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
+    // csv 8 replaced CsvToListConverter with the Csv codec. autoDetect is
+    // disabled so the ";" delimiter is honoured instead of being guessed.
+    List<List<dynamic>> rowsAsListOfValues = Csv(
+      fieldDelimiter: ";",
+      autoDetect: false,
+    ).decode(csvString);
 
     int linkIndex = -1;
     int statusIndex = -1;
@@ -44,8 +48,10 @@ class CSVHelper {
       int idStart = link.indexOf("veranstaltung=");
       int idEnd = link.indexOf("@");
       if (idStart != -1) {
-        String id =
-            link.substring(idStart + 14, idEnd == -1 ? link.length : idEnd);
+        String id = link.substring(
+          idStart + 14,
+          idEnd == -1 ? link.length : idEnd,
+        );
         String baseUrl = link.substring(0, idStart - 1);
 
         String date = (row[dateIndex] as String).substring(3);

@@ -11,136 +11,220 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
-      'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _actionScoreMeta =
-      const VerificationMeta('actionScore');
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _actionScoreMeta = const VerificationMeta(
+    'actionScore',
+  );
   @override
   late final GeneratedColumn<int> actionScore = GeneratedColumn<int>(
-      'action_score', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _cognitiveScoreMeta =
-      const VerificationMeta('cognitiveScore');
+    'action_score',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cognitiveScoreMeta = const VerificationMeta(
+    'cognitiveScore',
+  );
   @override
   late final GeneratedColumn<int> cognitiveScore = GeneratedColumn<int>(
-      'cognitive_score', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _numberOfPlayersMeta =
-      const VerificationMeta('numberOfPlayers');
+    'cognitive_score',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _numberOfPlayersMeta = const VerificationMeta(
+    'numberOfPlayers',
+  );
   @override
   late final GeneratedColumn<String> numberOfPlayers = GeneratedColumn<String>(
-      'number_of_players', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _durationMeta =
-      const VerificationMeta('duration');
+    'number_of_players',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _durationMeta = const VerificationMeta(
+    'duration',
+  );
   @override
   late final GeneratedColumn<String> duration = GeneratedColumn<String>(
-      'duration', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _ageLimitationsMeta =
-      const VerificationMeta('ageLimitations');
+    'duration',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ageLimitationsMeta = const VerificationMeta(
+    'ageLimitations',
+  );
   @override
   late final GeneratedColumn<String> ageLimitations = GeneratedColumn<String>(
-      'age_limitations', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _spaceLimitationsMeta =
-      const VerificationMeta('spaceLimitations');
+    'age_limitations',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _spaceLimitationsMeta = const VerificationMeta(
+    'spaceLimitations',
+  );
   @override
   late final GeneratedColumn<String> spaceLimitations = GeneratedColumn<String>(
-      'space_limitations', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _materialsMeta =
-      const VerificationMeta('materials');
+    'space_limitations',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _materialsMeta = const VerificationMeta(
+    'materials',
+  );
   @override
   late final GeneratedColumn<String> materials = GeneratedColumn<String>(
-      'materials', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _goalOfGameMeta =
-      const VerificationMeta('goalOfGame');
+    'materials',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _goalOfGameMeta = const VerificationMeta(
+    'goalOfGame',
+  );
   @override
   late final GeneratedColumn<String> goalOfGame = GeneratedColumn<String>(
-      'goal_of_game', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'goal_of_game',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _preparationsInstructionsMeta =
       const VerificationMeta('preparationsInstructions');
   @override
   late final GeneratedColumn<String> preparationsInstructions =
-      GeneratedColumn<String>('preparations_instructions', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
+      GeneratedColumn<String>(
+        'preparations_instructions',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
   static const VerificationMeta _gameplayInstructionsMeta =
       const VerificationMeta('gameplayInstructions');
   @override
   late final GeneratedColumn<String> gameplayInstructions =
-      GeneratedColumn<String>('gameplay_instructions', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
+      GeneratedColumn<String>(
+        'gameplay_instructions',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
   static const VerificationMeta _endingInstructionsMeta =
       const VerificationMeta('endingInstructions');
   @override
   late final GeneratedColumn<String> endingInstructions =
-      GeneratedColumn<String>('ending_instructions', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _categoriesMeta =
-      const VerificationMeta('categories');
+      GeneratedColumn<String>(
+        'ending_instructions',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _categoriesMeta = const VerificationMeta(
+    'categories',
+  );
   @override
   late final GeneratedColumn<String> categories = GeneratedColumn<String>(
-      'categories', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'categories',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
   late final GeneratedColumn<String> author = GeneratedColumn<String>(
-      'author', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _reviewedMeta =
-      const VerificationMeta('reviewed');
+    'author',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _reviewedMeta = const VerificationMeta(
+    'reviewed',
+  );
   @override
   late final GeneratedColumn<bool> reviewed = GeneratedColumn<bool>(
-      'reviewed', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("reviewed" IN (0, 1))'));
-  static const VerificationMeta _alreadyPlayedMeta =
-      const VerificationMeta('alreadyPlayed');
+    'reviewed',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("reviewed" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _alreadyPlayedMeta = const VerificationMeta(
+    'alreadyPlayed',
+  );
   @override
   late final GeneratedColumn<bool> alreadyPlayed = GeneratedColumn<bool>(
-      'already_played', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("already_played" IN (0, 1))'));
+    'already_played',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("already_played" IN (0, 1))',
+    ),
+  );
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        title,
-        actionScore,
-        cognitiveScore,
-        numberOfPlayers,
-        duration,
-        ageLimitations,
-        spaceLimitations,
-        materials,
-        goalOfGame,
-        preparationsInstructions,
-        gameplayInstructions,
-        endingInstructions,
-        categories,
-        author,
-        reviewed,
-        alreadyPlayed
-      ];
+    id,
+    title,
+    actionScore,
+    cognitiveScore,
+    numberOfPlayers,
+    duration,
+    ageLimitations,
+    spaceLimitations,
+    materials,
+    goalOfGame,
+    preparationsInstructions,
+    gameplayInstructions,
+    endingInstructions,
+    categories,
+    author,
+    reviewed,
+    alreadyPlayed,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'games';
   @override
-  VerificationContext validateIntegrity(Insertable<GameRow> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<GameRow> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -150,120 +234,159 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('action_score')) {
       context.handle(
+        _actionScoreMeta,
+        actionScore.isAcceptableOrUnknown(
+          data['action_score']!,
           _actionScoreMeta,
-          actionScore.isAcceptableOrUnknown(
-              data['action_score']!, _actionScoreMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_actionScoreMeta);
     }
     if (data.containsKey('cognitive_score')) {
       context.handle(
+        _cognitiveScoreMeta,
+        cognitiveScore.isAcceptableOrUnknown(
+          data['cognitive_score']!,
           _cognitiveScoreMeta,
-          cognitiveScore.isAcceptableOrUnknown(
-              data['cognitive_score']!, _cognitiveScoreMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_cognitiveScoreMeta);
     }
     if (data.containsKey('number_of_players')) {
       context.handle(
+        _numberOfPlayersMeta,
+        numberOfPlayers.isAcceptableOrUnknown(
+          data['number_of_players']!,
           _numberOfPlayersMeta,
-          numberOfPlayers.isAcceptableOrUnknown(
-              data['number_of_players']!, _numberOfPlayersMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_numberOfPlayersMeta);
     }
     if (data.containsKey('duration')) {
-      context.handle(_durationMeta,
-          duration.isAcceptableOrUnknown(data['duration']!, _durationMeta));
+      context.handle(
+        _durationMeta,
+        duration.isAcceptableOrUnknown(data['duration']!, _durationMeta),
+      );
     } else if (isInserting) {
       context.missing(_durationMeta);
     }
     if (data.containsKey('age_limitations')) {
       context.handle(
+        _ageLimitationsMeta,
+        ageLimitations.isAcceptableOrUnknown(
+          data['age_limitations']!,
           _ageLimitationsMeta,
-          ageLimitations.isAcceptableOrUnknown(
-              data['age_limitations']!, _ageLimitationsMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_ageLimitationsMeta);
     }
     if (data.containsKey('space_limitations')) {
       context.handle(
+        _spaceLimitationsMeta,
+        spaceLimitations.isAcceptableOrUnknown(
+          data['space_limitations']!,
           _spaceLimitationsMeta,
-          spaceLimitations.isAcceptableOrUnknown(
-              data['space_limitations']!, _spaceLimitationsMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_spaceLimitationsMeta);
     }
     if (data.containsKey('materials')) {
-      context.handle(_materialsMeta,
-          materials.isAcceptableOrUnknown(data['materials']!, _materialsMeta));
+      context.handle(
+        _materialsMeta,
+        materials.isAcceptableOrUnknown(data['materials']!, _materialsMeta),
+      );
     } else if (isInserting) {
       context.missing(_materialsMeta);
     }
     if (data.containsKey('goal_of_game')) {
       context.handle(
+        _goalOfGameMeta,
+        goalOfGame.isAcceptableOrUnknown(
+          data['goal_of_game']!,
           _goalOfGameMeta,
-          goalOfGame.isAcceptableOrUnknown(
-              data['goal_of_game']!, _goalOfGameMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_goalOfGameMeta);
     }
     if (data.containsKey('preparations_instructions')) {
       context.handle(
+        _preparationsInstructionsMeta,
+        preparationsInstructions.isAcceptableOrUnknown(
+          data['preparations_instructions']!,
           _preparationsInstructionsMeta,
-          preparationsInstructions.isAcceptableOrUnknown(
-              data['preparations_instructions']!,
-              _preparationsInstructionsMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_preparationsInstructionsMeta);
     }
     if (data.containsKey('gameplay_instructions')) {
       context.handle(
+        _gameplayInstructionsMeta,
+        gameplayInstructions.isAcceptableOrUnknown(
+          data['gameplay_instructions']!,
           _gameplayInstructionsMeta,
-          gameplayInstructions.isAcceptableOrUnknown(
-              data['gameplay_instructions']!, _gameplayInstructionsMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_gameplayInstructionsMeta);
     }
     if (data.containsKey('ending_instructions')) {
       context.handle(
+        _endingInstructionsMeta,
+        endingInstructions.isAcceptableOrUnknown(
+          data['ending_instructions']!,
           _endingInstructionsMeta,
-          endingInstructions.isAcceptableOrUnknown(
-              data['ending_instructions']!, _endingInstructionsMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_endingInstructionsMeta);
     }
     if (data.containsKey('categories')) {
       context.handle(
-          _categoriesMeta,
-          categories.isAcceptableOrUnknown(
-              data['categories']!, _categoriesMeta));
+        _categoriesMeta,
+        categories.isAcceptableOrUnknown(data['categories']!, _categoriesMeta),
+      );
     } else if (isInserting) {
       context.missing(_categoriesMeta);
     }
     if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+      context.handle(
+        _authorMeta,
+        author.isAcceptableOrUnknown(data['author']!, _authorMeta),
+      );
     } else if (isInserting) {
       context.missing(_authorMeta);
     }
     if (data.containsKey('reviewed')) {
-      context.handle(_reviewedMeta,
-          reviewed.isAcceptableOrUnknown(data['reviewed']!, _reviewedMeta));
+      context.handle(
+        _reviewedMeta,
+        reviewed.isAcceptableOrUnknown(data['reviewed']!, _reviewedMeta),
+      );
     } else if (isInserting) {
       context.missing(_reviewedMeta);
     }
     if (data.containsKey('already_played')) {
       context.handle(
+        _alreadyPlayedMeta,
+        alreadyPlayed.isAcceptableOrUnknown(
+          data['already_played']!,
           _alreadyPlayedMeta,
-          alreadyPlayed.isAcceptableOrUnknown(
-              data['already_played']!, _alreadyPlayedMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_alreadyPlayedMeta);
     }
@@ -276,42 +399,74 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
   GameRow map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GameRow(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      actionScore: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}action_score'])!,
-      cognitiveScore: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}cognitive_score'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      actionScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}action_score'],
+      )!,
+      cognitiveScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cognitive_score'],
+      )!,
       numberOfPlayers: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}number_of_players'])!,
-      duration: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}duration'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}number_of_players'],
+      )!,
+      duration: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}duration'],
+      )!,
       ageLimitations: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}age_limitations'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}age_limitations'],
+      )!,
       spaceLimitations: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}space_limitations'])!,
-      materials: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}materials'])!,
-      goalOfGame: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}goal_of_game'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}space_limitations'],
+      )!,
+      materials: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}materials'],
+      )!,
+      goalOfGame: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}goal_of_game'],
+      )!,
       preparationsInstructions: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}preparations_instructions'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}preparations_instructions'],
+      )!,
       gameplayInstructions: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}gameplay_instructions'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}gameplay_instructions'],
+      )!,
       endingInstructions: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}ending_instructions'])!,
-      categories: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}categories'])!,
-      author: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}author'])!,
-      reviewed: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}reviewed'])!,
-      alreadyPlayed: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}already_played'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}ending_instructions'],
+      )!,
+      categories: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}categories'],
+      )!,
+      author: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}author'],
+      )!,
+      reviewed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}reviewed'],
+      )!,
+      alreadyPlayed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}already_played'],
+      )!,
     );
   }
 
@@ -339,24 +494,25 @@ class GameRow extends DataClass implements Insertable<GameRow> {
   final String author;
   final bool reviewed;
   final bool alreadyPlayed;
-  const GameRow(
-      {required this.id,
-      required this.title,
-      required this.actionScore,
-      required this.cognitiveScore,
-      required this.numberOfPlayers,
-      required this.duration,
-      required this.ageLimitations,
-      required this.spaceLimitations,
-      required this.materials,
-      required this.goalOfGame,
-      required this.preparationsInstructions,
-      required this.gameplayInstructions,
-      required this.endingInstructions,
-      required this.categories,
-      required this.author,
-      required this.reviewed,
-      required this.alreadyPlayed});
+  const GameRow({
+    required this.id,
+    required this.title,
+    required this.actionScore,
+    required this.cognitiveScore,
+    required this.numberOfPlayers,
+    required this.duration,
+    required this.ageLimitations,
+    required this.spaceLimitations,
+    required this.materials,
+    required this.goalOfGame,
+    required this.preparationsInstructions,
+    required this.gameplayInstructions,
+    required this.endingInstructions,
+    required this.categories,
+    required this.author,
+    required this.reviewed,
+    required this.alreadyPlayed,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -370,8 +526,9 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     map['space_limitations'] = Variable<String>(spaceLimitations);
     map['materials'] = Variable<String>(materials);
     map['goal_of_game'] = Variable<String>(goalOfGame);
-    map['preparations_instructions'] =
-        Variable<String>(preparationsInstructions);
+    map['preparations_instructions'] = Variable<String>(
+      preparationsInstructions,
+    );
     map['gameplay_instructions'] = Variable<String>(gameplayInstructions);
     map['ending_instructions'] = Variable<String>(endingInstructions);
     map['categories'] = Variable<String>(categories);
@@ -403,8 +560,10 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     );
   }
 
-  factory GameRow.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory GameRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return GameRow(
       id: serializer.fromJson<String>(json['id']),
@@ -417,12 +576,15 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       spaceLimitations: serializer.fromJson<String>(json['spaceLimitations']),
       materials: serializer.fromJson<String>(json['materials']),
       goalOfGame: serializer.fromJson<String>(json['goalOfGame']),
-      preparationsInstructions:
-          serializer.fromJson<String>(json['preparationsInstructions']),
-      gameplayInstructions:
-          serializer.fromJson<String>(json['gameplayInstructions']),
-      endingInstructions:
-          serializer.fromJson<String>(json['endingInstructions']),
+      preparationsInstructions: serializer.fromJson<String>(
+        json['preparationsInstructions'],
+      ),
+      gameplayInstructions: serializer.fromJson<String>(
+        json['gameplayInstructions'],
+      ),
+      endingInstructions: serializer.fromJson<String>(
+        json['endingInstructions'],
+      ),
       categories: serializer.fromJson<String>(json['categories']),
       author: serializer.fromJson<String>(json['author']),
       reviewed: serializer.fromJson<bool>(json['reviewed']),
@@ -443,8 +605,9 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       'spaceLimitations': serializer.toJson<String>(spaceLimitations),
       'materials': serializer.toJson<String>(materials),
       'goalOfGame': serializer.toJson<String>(goalOfGame),
-      'preparationsInstructions':
-          serializer.toJson<String>(preparationsInstructions),
+      'preparationsInstructions': serializer.toJson<String>(
+        preparationsInstructions,
+      ),
       'gameplayInstructions': serializer.toJson<String>(gameplayInstructions),
       'endingInstructions': serializer.toJson<String>(endingInstructions),
       'categories': serializer.toJson<String>(categories),
@@ -454,50 +617,51 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     };
   }
 
-  GameRow copyWith(
-          {String? id,
-          String? title,
-          int? actionScore,
-          int? cognitiveScore,
-          String? numberOfPlayers,
-          String? duration,
-          String? ageLimitations,
-          String? spaceLimitations,
-          String? materials,
-          String? goalOfGame,
-          String? preparationsInstructions,
-          String? gameplayInstructions,
-          String? endingInstructions,
-          String? categories,
-          String? author,
-          bool? reviewed,
-          bool? alreadyPlayed}) =>
-      GameRow(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        actionScore: actionScore ?? this.actionScore,
-        cognitiveScore: cognitiveScore ?? this.cognitiveScore,
-        numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
-        duration: duration ?? this.duration,
-        ageLimitations: ageLimitations ?? this.ageLimitations,
-        spaceLimitations: spaceLimitations ?? this.spaceLimitations,
-        materials: materials ?? this.materials,
-        goalOfGame: goalOfGame ?? this.goalOfGame,
-        preparationsInstructions:
-            preparationsInstructions ?? this.preparationsInstructions,
-        gameplayInstructions: gameplayInstructions ?? this.gameplayInstructions,
-        endingInstructions: endingInstructions ?? this.endingInstructions,
-        categories: categories ?? this.categories,
-        author: author ?? this.author,
-        reviewed: reviewed ?? this.reviewed,
-        alreadyPlayed: alreadyPlayed ?? this.alreadyPlayed,
-      );
+  GameRow copyWith({
+    String? id,
+    String? title,
+    int? actionScore,
+    int? cognitiveScore,
+    String? numberOfPlayers,
+    String? duration,
+    String? ageLimitations,
+    String? spaceLimitations,
+    String? materials,
+    String? goalOfGame,
+    String? preparationsInstructions,
+    String? gameplayInstructions,
+    String? endingInstructions,
+    String? categories,
+    String? author,
+    bool? reviewed,
+    bool? alreadyPlayed,
+  }) => GameRow(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    actionScore: actionScore ?? this.actionScore,
+    cognitiveScore: cognitiveScore ?? this.cognitiveScore,
+    numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
+    duration: duration ?? this.duration,
+    ageLimitations: ageLimitations ?? this.ageLimitations,
+    spaceLimitations: spaceLimitations ?? this.spaceLimitations,
+    materials: materials ?? this.materials,
+    goalOfGame: goalOfGame ?? this.goalOfGame,
+    preparationsInstructions:
+        preparationsInstructions ?? this.preparationsInstructions,
+    gameplayInstructions: gameplayInstructions ?? this.gameplayInstructions,
+    endingInstructions: endingInstructions ?? this.endingInstructions,
+    categories: categories ?? this.categories,
+    author: author ?? this.author,
+    reviewed: reviewed ?? this.reviewed,
+    alreadyPlayed: alreadyPlayed ?? this.alreadyPlayed,
+  );
   GameRow copyWithCompanion(GamesCompanion data) {
     return GameRow(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
-      actionScore:
-          data.actionScore.present ? data.actionScore.value : this.actionScore,
+      actionScore: data.actionScore.present
+          ? data.actionScore.value
+          : this.actionScore,
       cognitiveScore: data.cognitiveScore.present
           ? data.cognitiveScore.value
           : this.cognitiveScore,
@@ -512,8 +676,9 @@ class GameRow extends DataClass implements Insertable<GameRow> {
           ? data.spaceLimitations.value
           : this.spaceLimitations,
       materials: data.materials.present ? data.materials.value : this.materials,
-      goalOfGame:
-          data.goalOfGame.present ? data.goalOfGame.value : this.goalOfGame,
+      goalOfGame: data.goalOfGame.present
+          ? data.goalOfGame.value
+          : this.goalOfGame,
       preparationsInstructions: data.preparationsInstructions.present
           ? data.preparationsInstructions.value
           : this.preparationsInstructions,
@@ -523,8 +688,9 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       endingInstructions: data.endingInstructions.present
           ? data.endingInstructions.value
           : this.endingInstructions,
-      categories:
-          data.categories.present ? data.categories.value : this.categories,
+      categories: data.categories.present
+          ? data.categories.value
+          : this.categories,
       author: data.author.present ? data.author.value : this.author,
       reviewed: data.reviewed.present ? data.reviewed.value : this.reviewed,
       alreadyPlayed: data.alreadyPlayed.present
@@ -559,23 +725,24 @@ class GameRow extends DataClass implements Insertable<GameRow> {
 
   @override
   int get hashCode => Object.hash(
-      id,
-      title,
-      actionScore,
-      cognitiveScore,
-      numberOfPlayers,
-      duration,
-      ageLimitations,
-      spaceLimitations,
-      materials,
-      goalOfGame,
-      preparationsInstructions,
-      gameplayInstructions,
-      endingInstructions,
-      categories,
-      author,
-      reviewed,
-      alreadyPlayed);
+    id,
+    title,
+    actionScore,
+    cognitiveScore,
+    numberOfPlayers,
+    duration,
+    ageLimitations,
+    spaceLimitations,
+    materials,
+    goalOfGame,
+    preparationsInstructions,
+    gameplayInstructions,
+    endingInstructions,
+    categories,
+    author,
+    reviewed,
+    alreadyPlayed,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -657,23 +824,23 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     required bool reviewed,
     required bool alreadyPlayed,
     this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        title = Value(title),
-        actionScore = Value(actionScore),
-        cognitiveScore = Value(cognitiveScore),
-        numberOfPlayers = Value(numberOfPlayers),
-        duration = Value(duration),
-        ageLimitations = Value(ageLimitations),
-        spaceLimitations = Value(spaceLimitations),
-        materials = Value(materials),
-        goalOfGame = Value(goalOfGame),
-        preparationsInstructions = Value(preparationsInstructions),
-        gameplayInstructions = Value(gameplayInstructions),
-        endingInstructions = Value(endingInstructions),
-        categories = Value(categories),
-        author = Value(author),
-        reviewed = Value(reviewed),
-        alreadyPlayed = Value(alreadyPlayed);
+  }) : id = Value(id),
+       title = Value(title),
+       actionScore = Value(actionScore),
+       cognitiveScore = Value(cognitiveScore),
+       numberOfPlayers = Value(numberOfPlayers),
+       duration = Value(duration),
+       ageLimitations = Value(ageLimitations),
+       spaceLimitations = Value(spaceLimitations),
+       materials = Value(materials),
+       goalOfGame = Value(goalOfGame),
+       preparationsInstructions = Value(preparationsInstructions),
+       gameplayInstructions = Value(gameplayInstructions),
+       endingInstructions = Value(endingInstructions),
+       categories = Value(categories),
+       author = Value(author),
+       reviewed = Value(reviewed),
+       alreadyPlayed = Value(alreadyPlayed);
   static Insertable<GameRow> custom({
     Expression<String>? id,
     Expression<String>? title,
@@ -718,25 +885,26 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     });
   }
 
-  GamesCompanion copyWith(
-      {Value<String>? id,
-      Value<String>? title,
-      Value<int>? actionScore,
-      Value<int>? cognitiveScore,
-      Value<String>? numberOfPlayers,
-      Value<String>? duration,
-      Value<String>? ageLimitations,
-      Value<String>? spaceLimitations,
-      Value<String>? materials,
-      Value<String>? goalOfGame,
-      Value<String>? preparationsInstructions,
-      Value<String>? gameplayInstructions,
-      Value<String>? endingInstructions,
-      Value<String>? categories,
-      Value<String>? author,
-      Value<bool>? reviewed,
-      Value<bool>? alreadyPlayed,
-      Value<int>? rowid}) {
+  GamesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? title,
+    Value<int>? actionScore,
+    Value<int>? cognitiveScore,
+    Value<String>? numberOfPlayers,
+    Value<String>? duration,
+    Value<String>? ageLimitations,
+    Value<String>? spaceLimitations,
+    Value<String>? materials,
+    Value<String>? goalOfGame,
+    Value<String>? preparationsInstructions,
+    Value<String>? gameplayInstructions,
+    Value<String>? endingInstructions,
+    Value<String>? categories,
+    Value<String>? author,
+    Value<bool>? reviewed,
+    Value<bool>? alreadyPlayed,
+    Value<int>? rowid,
+  }) {
     return GamesCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -794,12 +962,14 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
       map['goal_of_game'] = Variable<String>(goalOfGame.value);
     }
     if (preparationsInstructions.present) {
-      map['preparations_instructions'] =
-          Variable<String>(preparationsInstructions.value);
+      map['preparations_instructions'] = Variable<String>(
+        preparationsInstructions.value,
+      );
     }
     if (gameplayInstructions.present) {
-      map['gameplay_instructions'] =
-          Variable<String>(gameplayInstructions.value);
+      map['gameplay_instructions'] = Variable<String>(
+        gameplayInstructions.value,
+      );
     }
     if (endingInstructions.present) {
       map['ending_instructions'] = Variable<String>(endingInstructions.value);
@@ -856,456 +1026,716 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _clientIdMeta =
-      const VerificationMeta('clientId');
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _clientIdMeta = const VerificationMeta(
+    'clientId',
+  );
   @override
   late final GeneratedColumn<int> clientId = GeneratedColumn<int>(
-      'client_id', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _startDateAndTimeMeta =
-      const VerificationMeta('startDateAndTime');
+    'client_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _startDateAndTimeMeta = const VerificationMeta(
+    'startDateAndTime',
+  );
   @override
   late final GeneratedColumn<DateTime> startDateAndTime =
-      GeneratedColumn<DateTime>('start_date_and_time', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _endDateAndTimeMeta =
-      const VerificationMeta('endDateAndTime');
+      GeneratedColumn<DateTime>(
+        'start_date_and_time',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _endDateAndTimeMeta = const VerificationMeta(
+    'endDateAndTime',
+  );
   @override
   late final GeneratedColumn<DateTime> endDateAndTime =
-      GeneratedColumn<DateTime>('end_date_and_time', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      GeneratedColumn<DateTime>(
+        'end_date_and_time',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _locationMeta =
-      const VerificationMeta('location');
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _locationMeta = const VerificationMeta(
+    'location',
+  );
   @override
   late final GeneratedColumn<String> location = GeneratedColumn<String>(
-      'location', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
+    'location',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _groupIdMeta = const VerificationMeta(
+    'groupId',
+  );
   @override
   late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
-      'group_id', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _timeMeta = const VerificationMeta('time');
   @override
   late final GeneratedColumn<String> time = GeneratedColumn<String>(
-      'time', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _numberOfDaysMeta =
-      const VerificationMeta('numberOfDays');
+    'time',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _numberOfDaysMeta = const VerificationMeta(
+    'numberOfDays',
+  );
   @override
   late final GeneratedColumn<int> numberOfDays = GeneratedColumn<int>(
-      'number_of_days', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _contactNameMeta =
-      const VerificationMeta('contactName');
+    'number_of_days',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _contactNameMeta = const VerificationMeta(
+    'contactName',
+  );
   @override
   late final GeneratedColumn<String> contactName = GeneratedColumn<String>(
-      'contact_name', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _contactEmailMeta =
-      const VerificationMeta('contactEmail');
+    'contact_name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _contactEmailMeta = const VerificationMeta(
+    'contactEmail',
+  );
   @override
   late final GeneratedColumn<String> contactEmail = GeneratedColumn<String>(
-      'contact_email', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _maxParticipantsMeta =
-      const VerificationMeta('maxParticipants');
+    'contact_email',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _maxParticipantsMeta = const VerificationMeta(
+    'maxParticipants',
+  );
   @override
   late final GeneratedColumn<int> maxParticipants = GeneratedColumn<int>(
-      'max_participants', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'max_participants',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
-      'image', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _attachmentsMeta =
-      const VerificationMeta('attachments');
+    'image',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _attachmentsMeta = const VerificationMeta(
+    'attachments',
+  );
   @override
   late final GeneratedColumn<String> attachments = GeneratedColumn<String>(
-      'attachments', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _costMemberMeta =
-      const VerificationMeta('costMember');
+    'attachments',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _costMemberMeta = const VerificationMeta(
+    'costMember',
+  );
   @override
   late final GeneratedColumn<double> costMember = GeneratedColumn<double>(
-      'cost_member', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false);
-  static const VerificationMeta _costGuestMeta =
-      const VerificationMeta('costGuest');
+    'cost_member',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _costGuestMeta = const VerificationMeta(
+    'costGuest',
+  );
   @override
   late final GeneratedColumn<double> costGuest = GeneratedColumn<double>(
-      'cost_guest', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false);
-  static const VerificationMeta _costCompanionMeta =
-      const VerificationMeta('costCompanion');
+    'cost_guest',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _costCompanionMeta = const VerificationMeta(
+    'costCompanion',
+  );
   @override
   late final GeneratedColumn<double> costCompanion = GeneratedColumn<double>(
-      'cost_companion', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false);
+    'cost_companion',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _costMeta = const VerificationMeta('cost');
   @override
   late final GeneratedColumn<String> cost = GeneratedColumn<String>(
-      'cost', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _publicTypeMeta =
-      const VerificationMeta('publicType');
+    'cost',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _publicTypeMeta = const VerificationMeta(
+    'publicType',
+  );
   @override
   late final GeneratedColumn<int> publicType = GeneratedColumn<int>(
-      'public_type', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'public_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
   late final GeneratedColumn<int> type = GeneratedColumn<int>(
-      'type', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _registrationStartMeta =
-      const VerificationMeta('registrationStart');
+    'type',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _registrationStartMeta = const VerificationMeta(
+    'registrationStart',
+  );
   @override
   late final GeneratedColumn<DateTime> registrationStart =
-      GeneratedColumn<DateTime>('registration_start', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+      GeneratedColumn<DateTime>(
+        'registration_start',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _registrationDeadlineMeta =
       const VerificationMeta('registrationDeadline');
   @override
   late final GeneratedColumn<DateTime> registrationDeadline =
-      GeneratedColumn<DateTime>('registration_deadline', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _visibilityTypeMeta =
-      const VerificationMeta('visibilityType');
+      GeneratedColumn<DateTime>(
+        'registration_deadline',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _visibilityTypeMeta = const VerificationMeta(
+    'visibilityType',
+  );
   @override
   late final GeneratedColumn<int> visibilityType = GeneratedColumn<int>(
-      'visibility_type', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'visibility_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _deregistrationDeadlineMeta =
       const VerificationMeta('deregistrationDeadline');
   @override
   late final GeneratedColumn<DateTime> deregistrationDeadline =
-      GeneratedColumn<DateTime>('deregistration_deadline', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _maxCompanionsMeta =
-      const VerificationMeta('maxCompanions');
+      GeneratedColumn<DateTime>(
+        'deregistration_deadline',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _maxCompanionsMeta = const VerificationMeta(
+    'maxCompanions',
+  );
   @override
   late final GeneratedColumn<int> maxCompanions = GeneratedColumn<int>(
-      'max_companions', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _seriesEventIdMeta =
-      const VerificationMeta('seriesEventId');
+    'max_companions',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _seriesEventIdMeta = const VerificationMeta(
+    'seriesEventId',
+  );
   @override
   late final GeneratedColumn<int> seriesEventId = GeneratedColumn<int>(
-      'series_event_id', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'series_event_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _visibilityAssociationMeta =
       const VerificationMeta('visibilityAssociation');
   @override
   late final GeneratedColumn<int> visibilityAssociation = GeneratedColumn<int>(
-      'visibility_association', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'visibility_association',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _rvMeta = const VerificationMeta('rv');
   @override
   late final GeneratedColumn<bool> rv = GeneratedColumn<bool>(
-      'rv', aliasedName, true,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("rv" IN (0, 1))'));
-  static const VerificationMeta _abbreviationMeta =
-      const VerificationMeta('abbreviation');
+    'rv',
+    aliasedName,
+    true,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("rv" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _abbreviationMeta = const VerificationMeta(
+    'abbreviation',
+  );
   @override
   late final GeneratedColumn<String> abbreviation = GeneratedColumn<String>(
-      'abbreviation', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _organizationMeta =
-      const VerificationMeta('organization');
+    'abbreviation',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _organizationMeta = const VerificationMeta(
+    'organization',
+  );
   @override
   late final GeneratedColumn<String> organization = GeneratedColumn<String>(
-      'organization', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _registrationCountMeta =
-      const VerificationMeta('registrationCount');
+    'organization',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _registrationCountMeta = const VerificationMeta(
+    'registrationCount',
+  );
   @override
   late final GeneratedColumn<int> registrationCount = GeneratedColumn<int>(
-      'registration_count', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _freeSlotsMeta =
-      const VerificationMeta('freeSlots');
+    'registration_count',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _freeSlotsMeta = const VerificationMeta(
+    'freeSlots',
+  );
   @override
   late final GeneratedColumn<String> freeSlots = GeneratedColumn<String>(
-      'free_slots', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'free_slots',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _linkMeta = const VerificationMeta('link');
   @override
   late final GeneratedColumn<String> link = GeneratedColumn<String>(
-      'link', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _baseUrlMeta =
-      const VerificationMeta('baseUrl');
+    'link',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _baseUrlMeta = const VerificationMeta(
+    'baseUrl',
+  );
   @override
   late final GeneratedColumn<String> baseUrl = GeneratedColumn<String>(
-      'base_url', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _clientEventIdMeta =
-      const VerificationMeta('clientEventId');
+    'base_url',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _clientEventIdMeta = const VerificationMeta(
+    'clientEventId',
+  );
   @override
   late final GeneratedColumn<String> clientEventId = GeneratedColumn<String>(
-      'client_event_id', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'client_event_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        clientId,
-        startDateAndTime,
-        endDateAndTime,
-        title,
-        description,
-        location,
-        groupId,
-        time,
-        numberOfDays,
-        contactName,
-        contactEmail,
-        maxParticipants,
-        image,
-        attachments,
-        costMember,
-        costGuest,
-        costCompanion,
-        cost,
-        publicType,
-        type,
-        registrationStart,
-        registrationDeadline,
-        visibilityType,
-        deregistrationDeadline,
-        maxCompanions,
-        seriesEventId,
-        visibilityAssociation,
-        rv,
-        abbreviation,
-        organization,
-        registrationCount,
-        freeSlots,
-        link,
-        baseUrl,
-        clientEventId
-      ];
+    id,
+    clientId,
+    startDateAndTime,
+    endDateAndTime,
+    title,
+    description,
+    location,
+    groupId,
+    time,
+    numberOfDays,
+    contactName,
+    contactEmail,
+    maxParticipants,
+    image,
+    attachments,
+    costMember,
+    costGuest,
+    costCompanion,
+    cost,
+    publicType,
+    type,
+    registrationStart,
+    registrationDeadline,
+    visibilityType,
+    deregistrationDeadline,
+    maxCompanions,
+    seriesEventId,
+    visibilityAssociation,
+    rv,
+    abbreviation,
+    organization,
+    registrationCount,
+    freeSlots,
+    link,
+    baseUrl,
+    clientEventId,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'events';
   @override
-  VerificationContext validateIntegrity(Insertable<Event> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Event> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('client_id')) {
-      context.handle(_clientIdMeta,
-          clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta));
+      context.handle(
+        _clientIdMeta,
+        clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta),
+      );
     }
     if (data.containsKey('start_date_and_time')) {
       context.handle(
+        _startDateAndTimeMeta,
+        startDateAndTime.isAcceptableOrUnknown(
+          data['start_date_and_time']!,
           _startDateAndTimeMeta,
-          startDateAndTime.isAcceptableOrUnknown(
-              data['start_date_and_time']!, _startDateAndTimeMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_startDateAndTimeMeta);
     }
     if (data.containsKey('end_date_and_time')) {
       context.handle(
+        _endDateAndTimeMeta,
+        endDateAndTime.isAcceptableOrUnknown(
+          data['end_date_and_time']!,
           _endDateAndTimeMeta,
-          endDateAndTime.isAcceptableOrUnknown(
-              data['end_date_and_time']!, _endDateAndTimeMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_endDateAndTimeMeta);
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
           _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
+        ),
+      );
     }
     if (data.containsKey('location')) {
-      context.handle(_locationMeta,
-          location.isAcceptableOrUnknown(data['location']!, _locationMeta));
+      context.handle(
+        _locationMeta,
+        location.isAcceptableOrUnknown(data['location']!, _locationMeta),
+      );
     }
     if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
+      context.handle(
+        _groupIdMeta,
+        groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta),
+      );
     }
     if (data.containsKey('time')) {
       context.handle(
-          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+        _timeMeta,
+        time.isAcceptableOrUnknown(data['time']!, _timeMeta),
+      );
     }
     if (data.containsKey('number_of_days')) {
       context.handle(
+        _numberOfDaysMeta,
+        numberOfDays.isAcceptableOrUnknown(
+          data['number_of_days']!,
           _numberOfDaysMeta,
-          numberOfDays.isAcceptableOrUnknown(
-              data['number_of_days']!, _numberOfDaysMeta));
+        ),
+      );
     }
     if (data.containsKey('contact_name')) {
       context.handle(
+        _contactNameMeta,
+        contactName.isAcceptableOrUnknown(
+          data['contact_name']!,
           _contactNameMeta,
-          contactName.isAcceptableOrUnknown(
-              data['contact_name']!, _contactNameMeta));
+        ),
+      );
     }
     if (data.containsKey('contact_email')) {
       context.handle(
+        _contactEmailMeta,
+        contactEmail.isAcceptableOrUnknown(
+          data['contact_email']!,
           _contactEmailMeta,
-          contactEmail.isAcceptableOrUnknown(
-              data['contact_email']!, _contactEmailMeta));
+        ),
+      );
     }
     if (data.containsKey('max_participants')) {
       context.handle(
+        _maxParticipantsMeta,
+        maxParticipants.isAcceptableOrUnknown(
+          data['max_participants']!,
           _maxParticipantsMeta,
-          maxParticipants.isAcceptableOrUnknown(
-              data['max_participants']!, _maxParticipantsMeta));
+        ),
+      );
     }
     if (data.containsKey('image')) {
       context.handle(
-          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+        _imageMeta,
+        image.isAcceptableOrUnknown(data['image']!, _imageMeta),
+      );
     }
     if (data.containsKey('attachments')) {
       context.handle(
+        _attachmentsMeta,
+        attachments.isAcceptableOrUnknown(
+          data['attachments']!,
           _attachmentsMeta,
-          attachments.isAcceptableOrUnknown(
-              data['attachments']!, _attachmentsMeta));
+        ),
+      );
     }
     if (data.containsKey('cost_member')) {
       context.handle(
-          _costMemberMeta,
-          costMember.isAcceptableOrUnknown(
-              data['cost_member']!, _costMemberMeta));
+        _costMemberMeta,
+        costMember.isAcceptableOrUnknown(data['cost_member']!, _costMemberMeta),
+      );
     }
     if (data.containsKey('cost_guest')) {
-      context.handle(_costGuestMeta,
-          costGuest.isAcceptableOrUnknown(data['cost_guest']!, _costGuestMeta));
+      context.handle(
+        _costGuestMeta,
+        costGuest.isAcceptableOrUnknown(data['cost_guest']!, _costGuestMeta),
+      );
     }
     if (data.containsKey('cost_companion')) {
       context.handle(
+        _costCompanionMeta,
+        costCompanion.isAcceptableOrUnknown(
+          data['cost_companion']!,
           _costCompanionMeta,
-          costCompanion.isAcceptableOrUnknown(
-              data['cost_companion']!, _costCompanionMeta));
+        ),
+      );
     }
     if (data.containsKey('cost')) {
       context.handle(
-          _costMeta, cost.isAcceptableOrUnknown(data['cost']!, _costMeta));
+        _costMeta,
+        cost.isAcceptableOrUnknown(data['cost']!, _costMeta),
+      );
     }
     if (data.containsKey('public_type')) {
       context.handle(
-          _publicTypeMeta,
-          publicType.isAcceptableOrUnknown(
-              data['public_type']!, _publicTypeMeta));
+        _publicTypeMeta,
+        publicType.isAcceptableOrUnknown(data['public_type']!, _publicTypeMeta),
+      );
     }
     if (data.containsKey('type')) {
       context.handle(
-          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+        _typeMeta,
+        type.isAcceptableOrUnknown(data['type']!, _typeMeta),
+      );
     }
     if (data.containsKey('registration_start')) {
       context.handle(
+        _registrationStartMeta,
+        registrationStart.isAcceptableOrUnknown(
+          data['registration_start']!,
           _registrationStartMeta,
-          registrationStart.isAcceptableOrUnknown(
-              data['registration_start']!, _registrationStartMeta));
+        ),
+      );
     }
     if (data.containsKey('registration_deadline')) {
       context.handle(
+        _registrationDeadlineMeta,
+        registrationDeadline.isAcceptableOrUnknown(
+          data['registration_deadline']!,
           _registrationDeadlineMeta,
-          registrationDeadline.isAcceptableOrUnknown(
-              data['registration_deadline']!, _registrationDeadlineMeta));
+        ),
+      );
     }
     if (data.containsKey('visibility_type')) {
       context.handle(
+        _visibilityTypeMeta,
+        visibilityType.isAcceptableOrUnknown(
+          data['visibility_type']!,
           _visibilityTypeMeta,
-          visibilityType.isAcceptableOrUnknown(
-              data['visibility_type']!, _visibilityTypeMeta));
+        ),
+      );
     }
     if (data.containsKey('deregistration_deadline')) {
       context.handle(
+        _deregistrationDeadlineMeta,
+        deregistrationDeadline.isAcceptableOrUnknown(
+          data['deregistration_deadline']!,
           _deregistrationDeadlineMeta,
-          deregistrationDeadline.isAcceptableOrUnknown(
-              data['deregistration_deadline']!, _deregistrationDeadlineMeta));
+        ),
+      );
     }
     if (data.containsKey('max_companions')) {
       context.handle(
+        _maxCompanionsMeta,
+        maxCompanions.isAcceptableOrUnknown(
+          data['max_companions']!,
           _maxCompanionsMeta,
-          maxCompanions.isAcceptableOrUnknown(
-              data['max_companions']!, _maxCompanionsMeta));
+        ),
+      );
     }
     if (data.containsKey('series_event_id')) {
       context.handle(
+        _seriesEventIdMeta,
+        seriesEventId.isAcceptableOrUnknown(
+          data['series_event_id']!,
           _seriesEventIdMeta,
-          seriesEventId.isAcceptableOrUnknown(
-              data['series_event_id']!, _seriesEventIdMeta));
+        ),
+      );
     }
     if (data.containsKey('visibility_association')) {
       context.handle(
+        _visibilityAssociationMeta,
+        visibilityAssociation.isAcceptableOrUnknown(
+          data['visibility_association']!,
           _visibilityAssociationMeta,
-          visibilityAssociation.isAcceptableOrUnknown(
-              data['visibility_association']!, _visibilityAssociationMeta));
+        ),
+      );
     }
     if (data.containsKey('rv')) {
       context.handle(_rvMeta, rv.isAcceptableOrUnknown(data['rv']!, _rvMeta));
     }
     if (data.containsKey('abbreviation')) {
       context.handle(
+        _abbreviationMeta,
+        abbreviation.isAcceptableOrUnknown(
+          data['abbreviation']!,
           _abbreviationMeta,
-          abbreviation.isAcceptableOrUnknown(
-              data['abbreviation']!, _abbreviationMeta));
+        ),
+      );
     }
     if (data.containsKey('organization')) {
       context.handle(
+        _organizationMeta,
+        organization.isAcceptableOrUnknown(
+          data['organization']!,
           _organizationMeta,
-          organization.isAcceptableOrUnknown(
-              data['organization']!, _organizationMeta));
+        ),
+      );
     }
     if (data.containsKey('registration_count')) {
       context.handle(
+        _registrationCountMeta,
+        registrationCount.isAcceptableOrUnknown(
+          data['registration_count']!,
           _registrationCountMeta,
-          registrationCount.isAcceptableOrUnknown(
-              data['registration_count']!, _registrationCountMeta));
+        ),
+      );
     }
     if (data.containsKey('free_slots')) {
-      context.handle(_freeSlotsMeta,
-          freeSlots.isAcceptableOrUnknown(data['free_slots']!, _freeSlotsMeta));
+      context.handle(
+        _freeSlotsMeta,
+        freeSlots.isAcceptableOrUnknown(data['free_slots']!, _freeSlotsMeta),
+      );
     }
     if (data.containsKey('link')) {
       context.handle(
-          _linkMeta, link.isAcceptableOrUnknown(data['link']!, _linkMeta));
+        _linkMeta,
+        link.isAcceptableOrUnknown(data['link']!, _linkMeta),
+      );
     }
     if (data.containsKey('base_url')) {
-      context.handle(_baseUrlMeta,
-          baseUrl.isAcceptableOrUnknown(data['base_url']!, _baseUrlMeta));
+      context.handle(
+        _baseUrlMeta,
+        baseUrl.isAcceptableOrUnknown(data['base_url']!, _baseUrlMeta),
+      );
     } else if (isInserting) {
       context.missing(_baseUrlMeta);
     }
     if (data.containsKey('client_event_id')) {
       context.handle(
+        _clientEventIdMeta,
+        clientEventId.isAcceptableOrUnknown(
+          data['client_event_id']!,
           _clientEventIdMeta,
-          clientEventId.isAcceptableOrUnknown(
-              data['client_event_id']!, _clientEventIdMeta));
+        ),
+      );
     }
     return context;
   }
@@ -1316,80 +1746,150 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
   Event map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Event(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      clientId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}client_id']),
-      startDateAndTime: attachedDatabase.typeMapping.read(DriftSqlType.dateTime,
-          data['${effectivePrefix}start_date_and_time'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      clientId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}client_id'],
+      ),
+      startDateAndTime: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}start_date_and_time'],
+      )!,
       endDateAndTime: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}end_date_and_time'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description']),
-      location: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}location']),
-      groupId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}group_id']),
-      time: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}time']),
-      numberOfDays: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}number_of_days']),
-      contactName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}contact_name']),
-      contactEmail: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}contact_email']),
-      maxParticipants: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}max_participants']),
-      image: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}image']),
-      attachments: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}attachments']),
-      costMember: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}cost_member']),
-      costGuest: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}cost_guest']),
-      costCompanion: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}cost_companion']),
-      cost: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}cost']),
-      publicType: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}public_type']),
-      type: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}type']),
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}end_date_and_time'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      location: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}location'],
+      ),
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}group_id'],
+      ),
+      time: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}time'],
+      ),
+      numberOfDays: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}number_of_days'],
+      ),
+      contactName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}contact_name'],
+      ),
+      contactEmail: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}contact_email'],
+      ),
+      maxParticipants: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_participants'],
+      ),
+      image: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image'],
+      ),
+      attachments: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}attachments'],
+      ),
+      costMember: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}cost_member'],
+      ),
+      costGuest: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}cost_guest'],
+      ),
+      costCompanion: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}cost_companion'],
+      ),
+      cost: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cost'],
+      ),
+      publicType: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}public_type'],
+      ),
+      type: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}type'],
+      ),
       registrationStart: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}registration_start']),
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}registration_start'],
+      ),
       registrationDeadline: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime,
-          data['${effectivePrefix}registration_deadline']),
-      visibilityType: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}visibility_type']),
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}registration_deadline'],
+      ),
+      visibilityType: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}visibility_type'],
+      ),
       deregistrationDeadline: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime,
-          data['${effectivePrefix}deregistration_deadline']),
-      maxCompanions: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}max_companions']),
-      seriesEventId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}series_event_id']),
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deregistration_deadline'],
+      ),
+      maxCompanions: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_companions'],
+      ),
+      seriesEventId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}series_event_id'],
+      ),
       visibilityAssociation: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}visibility_association']),
-      rv: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}rv']),
-      abbreviation: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}abbreviation']),
-      organization: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}organization']),
-      registrationCount: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}registration_count']),
-      freeSlots: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}free_slots']),
-      link: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}link']),
-      baseUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}base_url'])!,
-      clientEventId: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}client_event_id']),
+        DriftSqlType.int,
+        data['${effectivePrefix}visibility_association'],
+      ),
+      rv: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}rv'],
+      ),
+      abbreviation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}abbreviation'],
+      ),
+      organization: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}organization'],
+      ),
+      registrationCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}registration_count'],
+      ),
+      freeSlots: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}free_slots'],
+      ),
+      link: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}link'],
+      ),
+      baseUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}base_url'],
+      )!,
+      clientEventId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}client_event_id'],
+      ),
     );
   }
 
@@ -1436,43 +1936,44 @@ class Event extends DataClass implements Insertable<Event> {
   final String? link;
   final String baseUrl;
   final String? clientEventId;
-  const Event(
-      {required this.id,
-      this.clientId,
-      required this.startDateAndTime,
-      required this.endDateAndTime,
-      required this.title,
-      this.description,
-      this.location,
-      this.groupId,
-      this.time,
-      this.numberOfDays,
-      this.contactName,
-      this.contactEmail,
-      this.maxParticipants,
-      this.image,
-      this.attachments,
-      this.costMember,
-      this.costGuest,
-      this.costCompanion,
-      this.cost,
-      this.publicType,
-      this.type,
-      this.registrationStart,
-      this.registrationDeadline,
-      this.visibilityType,
-      this.deregistrationDeadline,
-      this.maxCompanions,
-      this.seriesEventId,
-      this.visibilityAssociation,
-      this.rv,
-      this.abbreviation,
-      this.organization,
-      this.registrationCount,
-      this.freeSlots,
-      this.link,
-      required this.baseUrl,
-      this.clientEventId});
+  const Event({
+    required this.id,
+    this.clientId,
+    required this.startDateAndTime,
+    required this.endDateAndTime,
+    required this.title,
+    this.description,
+    this.location,
+    this.groupId,
+    this.time,
+    this.numberOfDays,
+    this.contactName,
+    this.contactEmail,
+    this.maxParticipants,
+    this.image,
+    this.attachments,
+    this.costMember,
+    this.costGuest,
+    this.costCompanion,
+    this.cost,
+    this.publicType,
+    this.type,
+    this.registrationStart,
+    this.registrationDeadline,
+    this.visibilityType,
+    this.deregistrationDeadline,
+    this.maxCompanions,
+    this.seriesEventId,
+    this.visibilityAssociation,
+    this.rv,
+    this.abbreviation,
+    this.organization,
+    this.registrationCount,
+    this.freeSlots,
+    this.link,
+    required this.baseUrl,
+    this.clientEventId,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1541,8 +2042,9 @@ class Event extends DataClass implements Insertable<Event> {
       map['visibility_type'] = Variable<int>(visibilityType);
     }
     if (!nullToAbsent || deregistrationDeadline != null) {
-      map['deregistration_deadline'] =
-          Variable<DateTime>(deregistrationDeadline);
+      map['deregistration_deadline'] = Variable<DateTime>(
+        deregistrationDeadline,
+      );
     }
     if (!nullToAbsent || maxCompanions != null) {
       map['max_companions'] = Variable<int>(maxCompanions);
@@ -1609,8 +2111,9 @@ class Event extends DataClass implements Insertable<Event> {
       maxParticipants: maxParticipants == null && nullToAbsent
           ? const Value.absent()
           : Value(maxParticipants),
-      image:
-          image == null && nullToAbsent ? const Value.absent() : Value(image),
+      image: image == null && nullToAbsent
+          ? const Value.absent()
+          : Value(image),
       attachments: attachments == null && nullToAbsent
           ? const Value.absent()
           : Value(attachments),
@@ -1670,8 +2173,10 @@ class Event extends DataClass implements Insertable<Event> {
     );
   }
 
-  factory Event.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Event.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Event(
       id: serializer.fromJson<int>(json['id']),
@@ -1695,17 +2200,21 @@ class Event extends DataClass implements Insertable<Event> {
       cost: serializer.fromJson<String?>(json['cost']),
       publicType: serializer.fromJson<int?>(json['publicType']),
       type: serializer.fromJson<int?>(json['type']),
-      registrationStart:
-          serializer.fromJson<DateTime?>(json['registrationStart']),
-      registrationDeadline:
-          serializer.fromJson<DateTime?>(json['registrationDeadline']),
+      registrationStart: serializer.fromJson<DateTime?>(
+        json['registrationStart'],
+      ),
+      registrationDeadline: serializer.fromJson<DateTime?>(
+        json['registrationDeadline'],
+      ),
       visibilityType: serializer.fromJson<int?>(json['visibilityType']),
-      deregistrationDeadline:
-          serializer.fromJson<DateTime?>(json['deregistrationDeadline']),
+      deregistrationDeadline: serializer.fromJson<DateTime?>(
+        json['deregistrationDeadline'],
+      ),
       maxCompanions: serializer.fromJson<int?>(json['maxCompanions']),
       seriesEventId: serializer.fromJson<int?>(json['seriesEventId']),
-      visibilityAssociation:
-          serializer.fromJson<int?>(json['visibilityAssociation']),
+      visibilityAssociation: serializer.fromJson<int?>(
+        json['visibilityAssociation'],
+      ),
       rv: serializer.fromJson<bool?>(json['rv']),
       abbreviation: serializer.fromJson<String?>(json['abbreviation']),
       organization: serializer.fromJson<String?>(json['organization']),
@@ -1742,11 +2251,13 @@ class Event extends DataClass implements Insertable<Event> {
       'publicType': serializer.toJson<int?>(publicType),
       'type': serializer.toJson<int?>(type),
       'registrationStart': serializer.toJson<DateTime?>(registrationStart),
-      'registrationDeadline':
-          serializer.toJson<DateTime?>(registrationDeadline),
+      'registrationDeadline': serializer.toJson<DateTime?>(
+        registrationDeadline,
+      ),
       'visibilityType': serializer.toJson<int?>(visibilityType),
-      'deregistrationDeadline':
-          serializer.toJson<DateTime?>(deregistrationDeadline),
+      'deregistrationDeadline': serializer.toJson<DateTime?>(
+        deregistrationDeadline,
+      ),
       'maxCompanions': serializer.toJson<int?>(maxCompanions),
       'seriesEventId': serializer.toJson<int?>(seriesEventId),
       'visibilityAssociation': serializer.toJson<int?>(visibilityAssociation),
@@ -1761,102 +2272,103 @@ class Event extends DataClass implements Insertable<Event> {
     };
   }
 
-  Event copyWith(
-          {int? id,
-          Value<int?> clientId = const Value.absent(),
-          DateTime? startDateAndTime,
-          DateTime? endDateAndTime,
-          String? title,
-          Value<String?> description = const Value.absent(),
-          Value<String?> location = const Value.absent(),
-          Value<int?> groupId = const Value.absent(),
-          Value<String?> time = const Value.absent(),
-          Value<int?> numberOfDays = const Value.absent(),
-          Value<String?> contactName = const Value.absent(),
-          Value<String?> contactEmail = const Value.absent(),
-          Value<int?> maxParticipants = const Value.absent(),
-          Value<String?> image = const Value.absent(),
-          Value<String?> attachments = const Value.absent(),
-          Value<double?> costMember = const Value.absent(),
-          Value<double?> costGuest = const Value.absent(),
-          Value<double?> costCompanion = const Value.absent(),
-          Value<String?> cost = const Value.absent(),
-          Value<int?> publicType = const Value.absent(),
-          Value<int?> type = const Value.absent(),
-          Value<DateTime?> registrationStart = const Value.absent(),
-          Value<DateTime?> registrationDeadline = const Value.absent(),
-          Value<int?> visibilityType = const Value.absent(),
-          Value<DateTime?> deregistrationDeadline = const Value.absent(),
-          Value<int?> maxCompanions = const Value.absent(),
-          Value<int?> seriesEventId = const Value.absent(),
-          Value<int?> visibilityAssociation = const Value.absent(),
-          Value<bool?> rv = const Value.absent(),
-          Value<String?> abbreviation = const Value.absent(),
-          Value<String?> organization = const Value.absent(),
-          Value<int?> registrationCount = const Value.absent(),
-          Value<String?> freeSlots = const Value.absent(),
-          Value<String?> link = const Value.absent(),
-          String? baseUrl,
-          Value<String?> clientEventId = const Value.absent()}) =>
-      Event(
-        id: id ?? this.id,
-        clientId: clientId.present ? clientId.value : this.clientId,
-        startDateAndTime: startDateAndTime ?? this.startDateAndTime,
-        endDateAndTime: endDateAndTime ?? this.endDateAndTime,
-        title: title ?? this.title,
-        description: description.present ? description.value : this.description,
-        location: location.present ? location.value : this.location,
-        groupId: groupId.present ? groupId.value : this.groupId,
-        time: time.present ? time.value : this.time,
-        numberOfDays:
-            numberOfDays.present ? numberOfDays.value : this.numberOfDays,
-        contactName: contactName.present ? contactName.value : this.contactName,
-        contactEmail:
-            contactEmail.present ? contactEmail.value : this.contactEmail,
-        maxParticipants: maxParticipants.present
-            ? maxParticipants.value
-            : this.maxParticipants,
-        image: image.present ? image.value : this.image,
-        attachments: attachments.present ? attachments.value : this.attachments,
-        costMember: costMember.present ? costMember.value : this.costMember,
-        costGuest: costGuest.present ? costGuest.value : this.costGuest,
-        costCompanion:
-            costCompanion.present ? costCompanion.value : this.costCompanion,
-        cost: cost.present ? cost.value : this.cost,
-        publicType: publicType.present ? publicType.value : this.publicType,
-        type: type.present ? type.value : this.type,
-        registrationStart: registrationStart.present
-            ? registrationStart.value
-            : this.registrationStart,
-        registrationDeadline: registrationDeadline.present
-            ? registrationDeadline.value
-            : this.registrationDeadline,
-        visibilityType:
-            visibilityType.present ? visibilityType.value : this.visibilityType,
-        deregistrationDeadline: deregistrationDeadline.present
-            ? deregistrationDeadline.value
-            : this.deregistrationDeadline,
-        maxCompanions:
-            maxCompanions.present ? maxCompanions.value : this.maxCompanions,
-        seriesEventId:
-            seriesEventId.present ? seriesEventId.value : this.seriesEventId,
-        visibilityAssociation: visibilityAssociation.present
-            ? visibilityAssociation.value
-            : this.visibilityAssociation,
-        rv: rv.present ? rv.value : this.rv,
-        abbreviation:
-            abbreviation.present ? abbreviation.value : this.abbreviation,
-        organization:
-            organization.present ? organization.value : this.organization,
-        registrationCount: registrationCount.present
-            ? registrationCount.value
-            : this.registrationCount,
-        freeSlots: freeSlots.present ? freeSlots.value : this.freeSlots,
-        link: link.present ? link.value : this.link,
-        baseUrl: baseUrl ?? this.baseUrl,
-        clientEventId:
-            clientEventId.present ? clientEventId.value : this.clientEventId,
-      );
+  Event copyWith({
+    int? id,
+    Value<int?> clientId = const Value.absent(),
+    DateTime? startDateAndTime,
+    DateTime? endDateAndTime,
+    String? title,
+    Value<String?> description = const Value.absent(),
+    Value<String?> location = const Value.absent(),
+    Value<int?> groupId = const Value.absent(),
+    Value<String?> time = const Value.absent(),
+    Value<int?> numberOfDays = const Value.absent(),
+    Value<String?> contactName = const Value.absent(),
+    Value<String?> contactEmail = const Value.absent(),
+    Value<int?> maxParticipants = const Value.absent(),
+    Value<String?> image = const Value.absent(),
+    Value<String?> attachments = const Value.absent(),
+    Value<double?> costMember = const Value.absent(),
+    Value<double?> costGuest = const Value.absent(),
+    Value<double?> costCompanion = const Value.absent(),
+    Value<String?> cost = const Value.absent(),
+    Value<int?> publicType = const Value.absent(),
+    Value<int?> type = const Value.absent(),
+    Value<DateTime?> registrationStart = const Value.absent(),
+    Value<DateTime?> registrationDeadline = const Value.absent(),
+    Value<int?> visibilityType = const Value.absent(),
+    Value<DateTime?> deregistrationDeadline = const Value.absent(),
+    Value<int?> maxCompanions = const Value.absent(),
+    Value<int?> seriesEventId = const Value.absent(),
+    Value<int?> visibilityAssociation = const Value.absent(),
+    Value<bool?> rv = const Value.absent(),
+    Value<String?> abbreviation = const Value.absent(),
+    Value<String?> organization = const Value.absent(),
+    Value<int?> registrationCount = const Value.absent(),
+    Value<String?> freeSlots = const Value.absent(),
+    Value<String?> link = const Value.absent(),
+    String? baseUrl,
+    Value<String?> clientEventId = const Value.absent(),
+  }) => Event(
+    id: id ?? this.id,
+    clientId: clientId.present ? clientId.value : this.clientId,
+    startDateAndTime: startDateAndTime ?? this.startDateAndTime,
+    endDateAndTime: endDateAndTime ?? this.endDateAndTime,
+    title: title ?? this.title,
+    description: description.present ? description.value : this.description,
+    location: location.present ? location.value : this.location,
+    groupId: groupId.present ? groupId.value : this.groupId,
+    time: time.present ? time.value : this.time,
+    numberOfDays: numberOfDays.present ? numberOfDays.value : this.numberOfDays,
+    contactName: contactName.present ? contactName.value : this.contactName,
+    contactEmail: contactEmail.present ? contactEmail.value : this.contactEmail,
+    maxParticipants: maxParticipants.present
+        ? maxParticipants.value
+        : this.maxParticipants,
+    image: image.present ? image.value : this.image,
+    attachments: attachments.present ? attachments.value : this.attachments,
+    costMember: costMember.present ? costMember.value : this.costMember,
+    costGuest: costGuest.present ? costGuest.value : this.costGuest,
+    costCompanion: costCompanion.present
+        ? costCompanion.value
+        : this.costCompanion,
+    cost: cost.present ? cost.value : this.cost,
+    publicType: publicType.present ? publicType.value : this.publicType,
+    type: type.present ? type.value : this.type,
+    registrationStart: registrationStart.present
+        ? registrationStart.value
+        : this.registrationStart,
+    registrationDeadline: registrationDeadline.present
+        ? registrationDeadline.value
+        : this.registrationDeadline,
+    visibilityType: visibilityType.present
+        ? visibilityType.value
+        : this.visibilityType,
+    deregistrationDeadline: deregistrationDeadline.present
+        ? deregistrationDeadline.value
+        : this.deregistrationDeadline,
+    maxCompanions: maxCompanions.present
+        ? maxCompanions.value
+        : this.maxCompanions,
+    seriesEventId: seriesEventId.present
+        ? seriesEventId.value
+        : this.seriesEventId,
+    visibilityAssociation: visibilityAssociation.present
+        ? visibilityAssociation.value
+        : this.visibilityAssociation,
+    rv: rv.present ? rv.value : this.rv,
+    abbreviation: abbreviation.present ? abbreviation.value : this.abbreviation,
+    organization: organization.present ? organization.value : this.organization,
+    registrationCount: registrationCount.present
+        ? registrationCount.value
+        : this.registrationCount,
+    freeSlots: freeSlots.present ? freeSlots.value : this.freeSlots,
+    link: link.present ? link.value : this.link,
+    baseUrl: baseUrl ?? this.baseUrl,
+    clientEventId: clientEventId.present
+        ? clientEventId.value
+        : this.clientEventId,
+  );
   Event copyWithCompanion(EventsCompanion data) {
     return Event(
       id: data.id.present ? data.id.value : this.id,
@@ -1868,16 +2380,18 @@ class Event extends DataClass implements Insertable<Event> {
           ? data.endDateAndTime.value
           : this.endDateAndTime,
       title: data.title.present ? data.title.value : this.title,
-      description:
-          data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       location: data.location.present ? data.location.value : this.location,
       groupId: data.groupId.present ? data.groupId.value : this.groupId,
       time: data.time.present ? data.time.value : this.time,
       numberOfDays: data.numberOfDays.present
           ? data.numberOfDays.value
           : this.numberOfDays,
-      contactName:
-          data.contactName.present ? data.contactName.value : this.contactName,
+      contactName: data.contactName.present
+          ? data.contactName.value
+          : this.contactName,
       contactEmail: data.contactEmail.present
           ? data.contactEmail.value
           : this.contactEmail,
@@ -1885,17 +2399,20 @@ class Event extends DataClass implements Insertable<Event> {
           ? data.maxParticipants.value
           : this.maxParticipants,
       image: data.image.present ? data.image.value : this.image,
-      attachments:
-          data.attachments.present ? data.attachments.value : this.attachments,
-      costMember:
-          data.costMember.present ? data.costMember.value : this.costMember,
+      attachments: data.attachments.present
+          ? data.attachments.value
+          : this.attachments,
+      costMember: data.costMember.present
+          ? data.costMember.value
+          : this.costMember,
       costGuest: data.costGuest.present ? data.costGuest.value : this.costGuest,
       costCompanion: data.costCompanion.present
           ? data.costCompanion.value
           : this.costCompanion,
       cost: data.cost.present ? data.cost.value : this.cost,
-      publicType:
-          data.publicType.present ? data.publicType.value : this.publicType,
+      publicType: data.publicType.present
+          ? data.publicType.value
+          : this.publicType,
       type: data.type.present ? data.type.value : this.type,
       registrationStart: data.registrationStart.present
           ? data.registrationStart.value
@@ -1982,43 +2499,43 @@ class Event extends DataClass implements Insertable<Event> {
 
   @override
   int get hashCode => Object.hashAll([
-        id,
-        clientId,
-        startDateAndTime,
-        endDateAndTime,
-        title,
-        description,
-        location,
-        groupId,
-        time,
-        numberOfDays,
-        contactName,
-        contactEmail,
-        maxParticipants,
-        image,
-        attachments,
-        costMember,
-        costGuest,
-        costCompanion,
-        cost,
-        publicType,
-        type,
-        registrationStart,
-        registrationDeadline,
-        visibilityType,
-        deregistrationDeadline,
-        maxCompanions,
-        seriesEventId,
-        visibilityAssociation,
-        rv,
-        abbreviation,
-        organization,
-        registrationCount,
-        freeSlots,
-        link,
-        baseUrl,
-        clientEventId
-      ]);
+    id,
+    clientId,
+    startDateAndTime,
+    endDateAndTime,
+    title,
+    description,
+    location,
+    groupId,
+    time,
+    numberOfDays,
+    contactName,
+    contactEmail,
+    maxParticipants,
+    image,
+    attachments,
+    costMember,
+    costGuest,
+    costCompanion,
+    cost,
+    publicType,
+    type,
+    registrationStart,
+    registrationDeadline,
+    visibilityType,
+    deregistrationDeadline,
+    maxCompanions,
+    seriesEventId,
+    visibilityAssociation,
+    rv,
+    abbreviation,
+    organization,
+    registrationCount,
+    freeSlots,
+    link,
+    baseUrl,
+    clientEventId,
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2173,10 +2690,10 @@ class EventsCompanion extends UpdateCompanion<Event> {
     this.link = const Value.absent(),
     required String baseUrl,
     this.clientEventId = const Value.absent(),
-  })  : startDateAndTime = Value(startDateAndTime),
-        endDateAndTime = Value(endDateAndTime),
-        title = Value(title),
-        baseUrl = Value(baseUrl);
+  }) : startDateAndTime = Value(startDateAndTime),
+       endDateAndTime = Value(endDateAndTime),
+       title = Value(title),
+       baseUrl = Value(baseUrl);
   static Insertable<Event> custom({
     Expression<int>? id,
     Expression<int>? clientId,
@@ -2258,43 +2775,44 @@ class EventsCompanion extends UpdateCompanion<Event> {
     });
   }
 
-  EventsCompanion copyWith(
-      {Value<int>? id,
-      Value<int?>? clientId,
-      Value<DateTime>? startDateAndTime,
-      Value<DateTime>? endDateAndTime,
-      Value<String>? title,
-      Value<String?>? description,
-      Value<String?>? location,
-      Value<int?>? groupId,
-      Value<String?>? time,
-      Value<int?>? numberOfDays,
-      Value<String?>? contactName,
-      Value<String?>? contactEmail,
-      Value<int?>? maxParticipants,
-      Value<String?>? image,
-      Value<String?>? attachments,
-      Value<double?>? costMember,
-      Value<double?>? costGuest,
-      Value<double?>? costCompanion,
-      Value<String?>? cost,
-      Value<int?>? publicType,
-      Value<int?>? type,
-      Value<DateTime?>? registrationStart,
-      Value<DateTime?>? registrationDeadline,
-      Value<int?>? visibilityType,
-      Value<DateTime?>? deregistrationDeadline,
-      Value<int?>? maxCompanions,
-      Value<int?>? seriesEventId,
-      Value<int?>? visibilityAssociation,
-      Value<bool?>? rv,
-      Value<String?>? abbreviation,
-      Value<String?>? organization,
-      Value<int?>? registrationCount,
-      Value<String?>? freeSlots,
-      Value<String?>? link,
-      Value<String>? baseUrl,
-      Value<String?>? clientEventId}) {
+  EventsCompanion copyWith({
+    Value<int>? id,
+    Value<int?>? clientId,
+    Value<DateTime>? startDateAndTime,
+    Value<DateTime>? endDateAndTime,
+    Value<String>? title,
+    Value<String?>? description,
+    Value<String?>? location,
+    Value<int?>? groupId,
+    Value<String?>? time,
+    Value<int?>? numberOfDays,
+    Value<String?>? contactName,
+    Value<String?>? contactEmail,
+    Value<int?>? maxParticipants,
+    Value<String?>? image,
+    Value<String?>? attachments,
+    Value<double?>? costMember,
+    Value<double?>? costGuest,
+    Value<double?>? costCompanion,
+    Value<String?>? cost,
+    Value<int?>? publicType,
+    Value<int?>? type,
+    Value<DateTime?>? registrationStart,
+    Value<DateTime?>? registrationDeadline,
+    Value<int?>? visibilityType,
+    Value<DateTime?>? deregistrationDeadline,
+    Value<int?>? maxCompanions,
+    Value<int?>? seriesEventId,
+    Value<int?>? visibilityAssociation,
+    Value<bool?>? rv,
+    Value<String?>? abbreviation,
+    Value<String?>? organization,
+    Value<int?>? registrationCount,
+    Value<String?>? freeSlots,
+    Value<String?>? link,
+    Value<String>? baseUrl,
+    Value<String?>? clientEventId,
+  }) {
     return EventsCompanion(
       id: id ?? this.id,
       clientId: clientId ?? this.clientId,
@@ -2407,15 +2925,17 @@ class EventsCompanion extends UpdateCompanion<Event> {
       map['registration_start'] = Variable<DateTime>(registrationStart.value);
     }
     if (registrationDeadline.present) {
-      map['registration_deadline'] =
-          Variable<DateTime>(registrationDeadline.value);
+      map['registration_deadline'] = Variable<DateTime>(
+        registrationDeadline.value,
+      );
     }
     if (visibilityType.present) {
       map['visibility_type'] = Variable<int>(visibilityType.value);
     }
     if (deregistrationDeadline.present) {
-      map['deregistration_deadline'] =
-          Variable<DateTime>(deregistrationDeadline.value);
+      map['deregistration_deadline'] = Variable<DateTime>(
+        deregistrationDeadline.value,
+      );
     }
     if (maxCompanions.present) {
       map['max_companions'] = Variable<int>(maxCompanions.value);
@@ -2424,8 +2944,9 @@ class EventsCompanion extends UpdateCompanion<Event> {
       map['series_event_id'] = Variable<int>(seriesEventId.value);
     }
     if (visibilityAssociation.present) {
-      map['visibility_association'] =
-          Variable<int>(visibilityAssociation.value);
+      map['visibility_association'] = Variable<int>(
+        visibilityAssociation.value,
+      );
     }
     if (rv.present) {
       map['rv'] = Variable<bool>(rv.value);
@@ -2504,12 +3025,17 @@ class $RegisteredTableTable extends RegisteredTable
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $RegisteredTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _eventIdMeta =
-      const VerificationMeta('eventId');
+  static const VerificationMeta _eventIdMeta = const VerificationMeta(
+    'eventId',
+  );
   @override
   late final GeneratedColumn<int> eventId = GeneratedColumn<int>(
-      'event_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'event_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [eventId];
   @override
@@ -2519,13 +3045,16 @@ class $RegisteredTableTable extends RegisteredTable
   static const String $name = 'registered';
   @override
   VerificationContext validateIntegrity(
-      Insertable<RegisteredTableData> instance,
-      {bool isInserting = false}) {
+    Insertable<RegisteredTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('event_id')) {
-      context.handle(_eventIdMeta,
-          eventId.isAcceptableOrUnknown(data['event_id']!, _eventIdMeta));
+      context.handle(
+        _eventIdMeta,
+        eventId.isAcceptableOrUnknown(data['event_id']!, _eventIdMeta),
+      );
     }
     return context;
   }
@@ -2536,8 +3065,10 @@ class $RegisteredTableTable extends RegisteredTable
   RegisteredTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RegisteredTableData(
-      eventId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}event_id'])!,
+      eventId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}event_id'],
+      )!,
     );
   }
 
@@ -2559,13 +3090,13 @@ class RegisteredTableData extends DataClass
   }
 
   RegisteredTableCompanion toCompanion(bool nullToAbsent) {
-    return RegisteredTableCompanion(
-      eventId: Value(eventId),
-    );
+    return RegisteredTableCompanion(eventId: Value(eventId));
   }
 
-  factory RegisteredTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory RegisteredTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RegisteredTableData(
       eventId: serializer.fromJson<int>(json['eventId']),
@@ -2574,14 +3105,11 @@ class RegisteredTableData extends DataClass
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'eventId': serializer.toJson<int>(eventId),
-    };
+    return <String, dynamic>{'eventId': serializer.toJson<int>(eventId)};
   }
 
-  RegisteredTableData copyWith({int? eventId}) => RegisteredTableData(
-        eventId: eventId ?? this.eventId,
-      );
+  RegisteredTableData copyWith({int? eventId}) =>
+      RegisteredTableData(eventId: eventId ?? this.eventId);
   RegisteredTableData copyWithCompanion(RegisteredTableCompanion data) {
     return RegisteredTableData(
       eventId: data.eventId.present ? data.eventId.value : this.eventId,
@@ -2606,24 +3134,14 @@ class RegisteredTableData extends DataClass
 
 class RegisteredTableCompanion extends UpdateCompanion<RegisteredTableData> {
   final Value<int> eventId;
-  const RegisteredTableCompanion({
-    this.eventId = const Value.absent(),
-  });
-  RegisteredTableCompanion.insert({
-    this.eventId = const Value.absent(),
-  });
-  static Insertable<RegisteredTableData> custom({
-    Expression<int>? eventId,
-  }) {
-    return RawValuesInsertable({
-      if (eventId != null) 'event_id': eventId,
-    });
+  const RegisteredTableCompanion({this.eventId = const Value.absent()});
+  RegisteredTableCompanion.insert({this.eventId = const Value.absent()});
+  static Insertable<RegisteredTableData> custom({Expression<int>? eventId}) {
+    return RawValuesInsertable({if (eventId != null) 'event_id': eventId});
   }
 
   RegisteredTableCompanion copyWith({Value<int>? eventId}) {
-    return RegisteredTableCompanion(
-      eventId: eventId ?? this.eventId,
-    );
+    return RegisteredTableCompanion(eventId: eventId ?? this.eventId);
   }
 
   @override
@@ -2653,52 +3171,88 @@ class $NewsTableTable extends NewsTable
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _contentMeta =
-      const VerificationMeta('content');
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
-      'content', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _imageURLMeta =
-      const VerificationMeta('imageURL');
+    'content',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imageURLMeta = const VerificationMeta(
+    'imageURL',
+  );
   @override
   late final GeneratedColumn<String> imageURL = GeneratedColumn<String>(
-      'image_u_r_l', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _websiteURLMeta =
-      const VerificationMeta('websiteURL');
+    'image_u_r_l',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _websiteURLMeta = const VerificationMeta(
+    'websiteURL',
+  );
   @override
   late final GeneratedColumn<String> websiteURL = GeneratedColumn<String>(
-      'website_u_r_l', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _orderNumberMeta =
-      const VerificationMeta('orderNumber');
+    'website_u_r_l',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _orderNumberMeta = const VerificationMeta(
+    'orderNumber',
+  );
   @override
   late final GeneratedColumn<int> orderNumber = GeneratedColumn<int>(
-      'order_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'order_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, content, imageURL, websiteURL, orderNumber];
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    content,
+    imageURL,
+    websiteURL,
+    orderNumber,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'news';
   @override
-  VerificationContext validateIntegrity(Insertable<NewsTableData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<NewsTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -2706,35 +3260,47 @@ class $NewsTableTable extends NewsTable
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
     if (data.containsKey('image_u_r_l')) {
-      context.handle(_imageURLMeta,
-          imageURL.isAcceptableOrUnknown(data['image_u_r_l']!, _imageURLMeta));
+      context.handle(
+        _imageURLMeta,
+        imageURL.isAcceptableOrUnknown(data['image_u_r_l']!, _imageURLMeta),
+      );
     } else if (isInserting) {
       context.missing(_imageURLMeta);
     }
     if (data.containsKey('website_u_r_l')) {
       context.handle(
+        _websiteURLMeta,
+        websiteURL.isAcceptableOrUnknown(
+          data['website_u_r_l']!,
           _websiteURLMeta,
-          websiteURL.isAcceptableOrUnknown(
-              data['website_u_r_l']!, _websiteURLMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_websiteURLMeta);
     }
     if (data.containsKey('order_number')) {
       context.handle(
+        _orderNumberMeta,
+        orderNumber.isAcceptableOrUnknown(
+          data['order_number']!,
           _orderNumberMeta,
-          orderNumber.isAcceptableOrUnknown(
-              data['order_number']!, _orderNumberMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_orderNumberMeta);
     }
@@ -2747,18 +3313,30 @@ class $NewsTableTable extends NewsTable
   NewsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return NewsTableData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      content: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
-      imageURL: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}image_u_r_l'])!,
-      websiteURL: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}website_u_r_l'])!,
-      orderNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}order_number'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      imageURL: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_u_r_l'],
+      )!,
+      websiteURL: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}website_u_r_l'],
+      )!,
+      orderNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}order_number'],
+      )!,
     );
   }
 
@@ -2775,13 +3353,14 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
   final String imageURL;
   final String websiteURL;
   final int orderNumber;
-  const NewsTableData(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.imageURL,
-      required this.websiteURL,
-      required this.orderNumber});
+  const NewsTableData({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.imageURL,
+    required this.websiteURL,
+    required this.orderNumber,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2805,8 +3384,10 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
     );
   }
 
-  factory NewsTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory NewsTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return NewsTableData(
       id: serializer.fromJson<int>(json['id']),
@@ -2830,31 +3411,33 @@ class NewsTableData extends DataClass implements Insertable<NewsTableData> {
     };
   }
 
-  NewsTableData copyWith(
-          {int? id,
-          String? title,
-          String? content,
-          String? imageURL,
-          String? websiteURL,
-          int? orderNumber}) =>
-      NewsTableData(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        imageURL: imageURL ?? this.imageURL,
-        websiteURL: websiteURL ?? this.websiteURL,
-        orderNumber: orderNumber ?? this.orderNumber,
-      );
+  NewsTableData copyWith({
+    int? id,
+    String? title,
+    String? content,
+    String? imageURL,
+    String? websiteURL,
+    int? orderNumber,
+  }) => NewsTableData(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    content: content ?? this.content,
+    imageURL: imageURL ?? this.imageURL,
+    websiteURL: websiteURL ?? this.websiteURL,
+    orderNumber: orderNumber ?? this.orderNumber,
+  );
   NewsTableData copyWithCompanion(NewsTableCompanion data) {
     return NewsTableData(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       content: data.content.present ? data.content.value : this.content,
       imageURL: data.imageURL.present ? data.imageURL.value : this.imageURL,
-      websiteURL:
-          data.websiteURL.present ? data.websiteURL.value : this.websiteURL,
-      orderNumber:
-          data.orderNumber.present ? data.orderNumber.value : this.orderNumber,
+      websiteURL: data.websiteURL.present
+          ? data.websiteURL.value
+          : this.websiteURL,
+      orderNumber: data.orderNumber.present
+          ? data.orderNumber.value
+          : this.orderNumber,
     );
   }
 
@@ -2908,11 +3491,11 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
     required String imageURL,
     required String websiteURL,
     required int orderNumber,
-  })  : title = Value(title),
-        content = Value(content),
-        imageURL = Value(imageURL),
-        websiteURL = Value(websiteURL),
-        orderNumber = Value(orderNumber);
+  }) : title = Value(title),
+       content = Value(content),
+       imageURL = Value(imageURL),
+       websiteURL = Value(websiteURL),
+       orderNumber = Value(orderNumber);
   static Insertable<NewsTableData> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -2931,13 +3514,14 @@ class NewsTableCompanion extends UpdateCompanion<NewsTableData> {
     });
   }
 
-  NewsTableCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? title,
-      Value<String>? content,
-      Value<String>? imageURL,
-      Value<String>? websiteURL,
-      Value<int>? orderNumber}) {
+  NewsTableCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String>? content,
+    Value<String>? imageURL,
+    Value<String>? websiteURL,
+    Value<int>? orderNumber,
+  }) {
     return NewsTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -2995,44 +3579,78 @@ class $ActivitiesTableTable extends ActivitiesTable
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _contentMeta =
-      const VerificationMeta('content');
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
-      'content', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _imageURLMeta =
-      const VerificationMeta('imageURL');
+    'content',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imageURLMeta = const VerificationMeta(
+    'imageURL',
+  );
   @override
   late final GeneratedColumn<String> imageURL = GeneratedColumn<String>(
-      'image_u_r_l', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _websiteURLMeta =
-      const VerificationMeta('websiteURL');
+    'image_u_r_l',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _websiteURLMeta = const VerificationMeta(
+    'websiteURL',
+  );
   @override
   late final GeneratedColumn<String> websiteURL = GeneratedColumn<String>(
-      'website_u_r_l', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _orderNumberMeta =
-      const VerificationMeta('orderNumber');
+    'website_u_r_l',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _orderNumberMeta = const VerificationMeta(
+    'orderNumber',
+  );
   @override
   late final GeneratedColumn<int> orderNumber = GeneratedColumn<int>(
-      'order_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'order_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, content, imageURL, websiteURL, orderNumber];
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    content,
+    imageURL,
+    websiteURL,
+    orderNumber,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -3040,8 +3658,9 @@ class $ActivitiesTableTable extends ActivitiesTable
   static const String $name = 'activities';
   @override
   VerificationContext validateIntegrity(
-      Insertable<ActivitiesTableData> instance,
-      {bool isInserting = false}) {
+    Insertable<ActivitiesTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -3049,35 +3668,47 @@ class $ActivitiesTableTable extends ActivitiesTable
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
     if (data.containsKey('image_u_r_l')) {
-      context.handle(_imageURLMeta,
-          imageURL.isAcceptableOrUnknown(data['image_u_r_l']!, _imageURLMeta));
+      context.handle(
+        _imageURLMeta,
+        imageURL.isAcceptableOrUnknown(data['image_u_r_l']!, _imageURLMeta),
+      );
     } else if (isInserting) {
       context.missing(_imageURLMeta);
     }
     if (data.containsKey('website_u_r_l')) {
       context.handle(
+        _websiteURLMeta,
+        websiteURL.isAcceptableOrUnknown(
+          data['website_u_r_l']!,
           _websiteURLMeta,
-          websiteURL.isAcceptableOrUnknown(
-              data['website_u_r_l']!, _websiteURLMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_websiteURLMeta);
     }
     if (data.containsKey('order_number')) {
       context.handle(
+        _orderNumberMeta,
+        orderNumber.isAcceptableOrUnknown(
+          data['order_number']!,
           _orderNumberMeta,
-          orderNumber.isAcceptableOrUnknown(
-              data['order_number']!, _orderNumberMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_orderNumberMeta);
     }
@@ -3090,18 +3721,30 @@ class $ActivitiesTableTable extends ActivitiesTable
   ActivitiesTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ActivitiesTableData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      content: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
-      imageURL: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}image_u_r_l'])!,
-      websiteURL: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}website_u_r_l'])!,
-      orderNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}order_number'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      imageURL: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_u_r_l'],
+      )!,
+      websiteURL: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}website_u_r_l'],
+      )!,
+      orderNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}order_number'],
+      )!,
     );
   }
 
@@ -3119,13 +3762,14 @@ class ActivitiesTableData extends DataClass
   final String imageURL;
   final String websiteURL;
   final int orderNumber;
-  const ActivitiesTableData(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.imageURL,
-      required this.websiteURL,
-      required this.orderNumber});
+  const ActivitiesTableData({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.imageURL,
+    required this.websiteURL,
+    required this.orderNumber,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3149,8 +3793,10 @@ class ActivitiesTableData extends DataClass
     );
   }
 
-  factory ActivitiesTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory ActivitiesTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ActivitiesTableData(
       id: serializer.fromJson<int>(json['id']),
@@ -3174,31 +3820,33 @@ class ActivitiesTableData extends DataClass
     };
   }
 
-  ActivitiesTableData copyWith(
-          {int? id,
-          String? title,
-          String? content,
-          String? imageURL,
-          String? websiteURL,
-          int? orderNumber}) =>
-      ActivitiesTableData(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        imageURL: imageURL ?? this.imageURL,
-        websiteURL: websiteURL ?? this.websiteURL,
-        orderNumber: orderNumber ?? this.orderNumber,
-      );
+  ActivitiesTableData copyWith({
+    int? id,
+    String? title,
+    String? content,
+    String? imageURL,
+    String? websiteURL,
+    int? orderNumber,
+  }) => ActivitiesTableData(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    content: content ?? this.content,
+    imageURL: imageURL ?? this.imageURL,
+    websiteURL: websiteURL ?? this.websiteURL,
+    orderNumber: orderNumber ?? this.orderNumber,
+  );
   ActivitiesTableData copyWithCompanion(ActivitiesTableCompanion data) {
     return ActivitiesTableData(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       content: data.content.present ? data.content.value : this.content,
       imageURL: data.imageURL.present ? data.imageURL.value : this.imageURL,
-      websiteURL:
-          data.websiteURL.present ? data.websiteURL.value : this.websiteURL,
-      orderNumber:
-          data.orderNumber.present ? data.orderNumber.value : this.orderNumber,
+      websiteURL: data.websiteURL.present
+          ? data.websiteURL.value
+          : this.websiteURL,
+      orderNumber: data.orderNumber.present
+          ? data.orderNumber.value
+          : this.orderNumber,
     );
   }
 
@@ -3252,11 +3900,11 @@ class ActivitiesTableCompanion extends UpdateCompanion<ActivitiesTableData> {
     required String imageURL,
     required String websiteURL,
     required int orderNumber,
-  })  : title = Value(title),
-        content = Value(content),
-        imageURL = Value(imageURL),
-        websiteURL = Value(websiteURL),
-        orderNumber = Value(orderNumber);
+  }) : title = Value(title),
+       content = Value(content),
+       imageURL = Value(imageURL),
+       websiteURL = Value(websiteURL),
+       orderNumber = Value(orderNumber);
   static Insertable<ActivitiesTableData> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -3275,13 +3923,14 @@ class ActivitiesTableCompanion extends UpdateCompanion<ActivitiesTableData> {
     });
   }
 
-  ActivitiesTableCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? title,
-      Value<String>? content,
-      Value<String>? imageURL,
-      Value<String>? websiteURL,
-      Value<int>? orderNumber}) {
+  ActivitiesTableCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String>? content,
+    Value<String>? imageURL,
+    Value<String>? websiteURL,
+    Value<int>? orderNumber,
+  }) {
     return ActivitiesTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -3335,59 +3984,68 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $GamesTable games = $GamesTable(this);
   late final $EventsTable events = $EventsTable(this);
-  late final $RegisteredTableTable registeredTable =
-      $RegisteredTableTable(this);
+  late final $RegisteredTableTable registeredTable = $RegisteredTableTable(
+    this,
+  );
   late final $NewsTableTable newsTable = $NewsTableTable(this);
-  late final $ActivitiesTableTable activitiesTable =
-      $ActivitiesTableTable(this);
+  late final $ActivitiesTableTable activitiesTable = $ActivitiesTableTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [games, events, registeredTable, newsTable, activitiesTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    games,
+    events,
+    registeredTable,
+    newsTable,
+    activitiesTable,
+  ];
 }
 
-typedef $$GamesTableCreateCompanionBuilder = GamesCompanion Function({
-  required String id,
-  required String title,
-  required int actionScore,
-  required int cognitiveScore,
-  required String numberOfPlayers,
-  required String duration,
-  required String ageLimitations,
-  required String spaceLimitations,
-  required String materials,
-  required String goalOfGame,
-  required String preparationsInstructions,
-  required String gameplayInstructions,
-  required String endingInstructions,
-  required String categories,
-  required String author,
-  required bool reviewed,
-  required bool alreadyPlayed,
-  Value<int> rowid,
-});
-typedef $$GamesTableUpdateCompanionBuilder = GamesCompanion Function({
-  Value<String> id,
-  Value<String> title,
-  Value<int> actionScore,
-  Value<int> cognitiveScore,
-  Value<String> numberOfPlayers,
-  Value<String> duration,
-  Value<String> ageLimitations,
-  Value<String> spaceLimitations,
-  Value<String> materials,
-  Value<String> goalOfGame,
-  Value<String> preparationsInstructions,
-  Value<String> gameplayInstructions,
-  Value<String> endingInstructions,
-  Value<String> categories,
-  Value<String> author,
-  Value<bool> reviewed,
-  Value<bool> alreadyPlayed,
-  Value<int> rowid,
-});
+typedef $$GamesTableCreateCompanionBuilder =
+    GamesCompanion Function({
+      required String id,
+      required String title,
+      required int actionScore,
+      required int cognitiveScore,
+      required String numberOfPlayers,
+      required String duration,
+      required String ageLimitations,
+      required String spaceLimitations,
+      required String materials,
+      required String goalOfGame,
+      required String preparationsInstructions,
+      required String gameplayInstructions,
+      required String endingInstructions,
+      required String categories,
+      required String author,
+      required bool reviewed,
+      required bool alreadyPlayed,
+      Value<int> rowid,
+    });
+typedef $$GamesTableUpdateCompanionBuilder =
+    GamesCompanion Function({
+      Value<String> id,
+      Value<String> title,
+      Value<int> actionScore,
+      Value<int> cognitiveScore,
+      Value<String> numberOfPlayers,
+      Value<String> duration,
+      Value<String> ageLimitations,
+      Value<String> spaceLimitations,
+      Value<String> materials,
+      Value<String> goalOfGame,
+      Value<String> preparationsInstructions,
+      Value<String> gameplayInstructions,
+      Value<String> endingInstructions,
+      Value<String> categories,
+      Value<String> author,
+      Value<bool> reviewed,
+      Value<bool> alreadyPlayed,
+      Value<int> rowid,
+    });
 
 class $$GamesTableFilterComposer extends Composer<_$AppDatabase, $GamesTable> {
   $$GamesTableFilterComposer({
@@ -3398,62 +4056,89 @@ class $$GamesTableFilterComposer extends Composer<_$AppDatabase, $GamesTable> {
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get actionScore => $composableBuilder(
-      column: $table.actionScore, builder: (column) => ColumnFilters(column));
+    column: $table.actionScore,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get cognitiveScore => $composableBuilder(
-      column: $table.cognitiveScore,
-      builder: (column) => ColumnFilters(column));
+    column: $table.cognitiveScore,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get numberOfPlayers => $composableBuilder(
-      column: $table.numberOfPlayers,
-      builder: (column) => ColumnFilters(column));
+    column: $table.numberOfPlayers,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get duration => $composableBuilder(
-      column: $table.duration, builder: (column) => ColumnFilters(column));
+    column: $table.duration,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get ageLimitations => $composableBuilder(
-      column: $table.ageLimitations,
-      builder: (column) => ColumnFilters(column));
+    column: $table.ageLimitations,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get spaceLimitations => $composableBuilder(
-      column: $table.spaceLimitations,
-      builder: (column) => ColumnFilters(column));
+    column: $table.spaceLimitations,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get materials => $composableBuilder(
-      column: $table.materials, builder: (column) => ColumnFilters(column));
+    column: $table.materials,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get goalOfGame => $composableBuilder(
-      column: $table.goalOfGame, builder: (column) => ColumnFilters(column));
+    column: $table.goalOfGame,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get preparationsInstructions => $composableBuilder(
-      column: $table.preparationsInstructions,
-      builder: (column) => ColumnFilters(column));
+    column: $table.preparationsInstructions,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get gameplayInstructions => $composableBuilder(
-      column: $table.gameplayInstructions,
-      builder: (column) => ColumnFilters(column));
+    column: $table.gameplayInstructions,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get endingInstructions => $composableBuilder(
-      column: $table.endingInstructions,
-      builder: (column) => ColumnFilters(column));
+    column: $table.endingInstructions,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get categories => $composableBuilder(
-      column: $table.categories, builder: (column) => ColumnFilters(column));
+    column: $table.categories,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get author => $composableBuilder(
-      column: $table.author, builder: (column) => ColumnFilters(column));
+    column: $table.author,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get reviewed => $composableBuilder(
-      column: $table.reviewed, builder: (column) => ColumnFilters(column));
+    column: $table.reviewed,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get alreadyPlayed => $composableBuilder(
-      column: $table.alreadyPlayed, builder: (column) => ColumnFilters(column));
+    column: $table.alreadyPlayed,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$GamesTableOrderingComposer
@@ -3466,63 +4151,89 @@ class $$GamesTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get actionScore => $composableBuilder(
-      column: $table.actionScore, builder: (column) => ColumnOrderings(column));
+    column: $table.actionScore,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get cognitiveScore => $composableBuilder(
-      column: $table.cognitiveScore,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.cognitiveScore,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get numberOfPlayers => $composableBuilder(
-      column: $table.numberOfPlayers,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.numberOfPlayers,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get duration => $composableBuilder(
-      column: $table.duration, builder: (column) => ColumnOrderings(column));
+    column: $table.duration,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get ageLimitations => $composableBuilder(
-      column: $table.ageLimitations,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.ageLimitations,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get spaceLimitations => $composableBuilder(
-      column: $table.spaceLimitations,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.spaceLimitations,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get materials => $composableBuilder(
-      column: $table.materials, builder: (column) => ColumnOrderings(column));
+    column: $table.materials,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get goalOfGame => $composableBuilder(
-      column: $table.goalOfGame, builder: (column) => ColumnOrderings(column));
+    column: $table.goalOfGame,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get preparationsInstructions => $composableBuilder(
-      column: $table.preparationsInstructions,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.preparationsInstructions,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get gameplayInstructions => $composableBuilder(
-      column: $table.gameplayInstructions,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.gameplayInstructions,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get endingInstructions => $composableBuilder(
-      column: $table.endingInstructions,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.endingInstructions,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get categories => $composableBuilder(
-      column: $table.categories, builder: (column) => ColumnOrderings(column));
+    column: $table.categories,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get author => $composableBuilder(
-      column: $table.author, builder: (column) => ColumnOrderings(column));
+    column: $table.author,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get reviewed => $composableBuilder(
-      column: $table.reviewed, builder: (column) => ColumnOrderings(column));
+    column: $table.reviewed,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get alreadyPlayed => $composableBuilder(
-      column: $table.alreadyPlayed,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.alreadyPlayed,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$GamesTableAnnotationComposer
@@ -3541,40 +4252,60 @@ class $$GamesTableAnnotationComposer
       $composableBuilder(column: $table.title, builder: (column) => column);
 
   GeneratedColumn<int> get actionScore => $composableBuilder(
-      column: $table.actionScore, builder: (column) => column);
+    column: $table.actionScore,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get cognitiveScore => $composableBuilder(
-      column: $table.cognitiveScore, builder: (column) => column);
+    column: $table.cognitiveScore,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get numberOfPlayers => $composableBuilder(
-      column: $table.numberOfPlayers, builder: (column) => column);
+    column: $table.numberOfPlayers,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get duration =>
       $composableBuilder(column: $table.duration, builder: (column) => column);
 
   GeneratedColumn<String> get ageLimitations => $composableBuilder(
-      column: $table.ageLimitations, builder: (column) => column);
+    column: $table.ageLimitations,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get spaceLimitations => $composableBuilder(
-      column: $table.spaceLimitations, builder: (column) => column);
+    column: $table.spaceLimitations,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get materials =>
       $composableBuilder(column: $table.materials, builder: (column) => column);
 
   GeneratedColumn<String> get goalOfGame => $composableBuilder(
-      column: $table.goalOfGame, builder: (column) => column);
+    column: $table.goalOfGame,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get preparationsInstructions => $composableBuilder(
-      column: $table.preparationsInstructions, builder: (column) => column);
+    column: $table.preparationsInstructions,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get gameplayInstructions => $composableBuilder(
-      column: $table.gameplayInstructions, builder: (column) => column);
+    column: $table.gameplayInstructions,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get endingInstructions => $composableBuilder(
-      column: $table.endingInstructions, builder: (column) => column);
+    column: $table.endingInstructions,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get categories => $composableBuilder(
-      column: $table.categories, builder: (column) => column);
+    column: $table.categories,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get author =>
       $composableBuilder(column: $table.author, builder: (column) => column);
@@ -3583,23 +4314,29 @@ class $$GamesTableAnnotationComposer
       $composableBuilder(column: $table.reviewed, builder: (column) => column);
 
   GeneratedColumn<bool> get alreadyPlayed => $composableBuilder(
-      column: $table.alreadyPlayed, builder: (column) => column);
+    column: $table.alreadyPlayed,
+    builder: (column) => column,
+  );
 }
 
-class $$GamesTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $GamesTable,
-    GameRow,
-    $$GamesTableFilterComposer,
-    $$GamesTableOrderingComposer,
-    $$GamesTableAnnotationComposer,
-    $$GamesTableCreateCompanionBuilder,
-    $$GamesTableUpdateCompanionBuilder,
-    (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
-    GameRow,
-    PrefetchHooks Function()> {
+class $$GamesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $GamesTable,
+          GameRow,
+          $$GamesTableFilterComposer,
+          $$GamesTableOrderingComposer,
+          $$GamesTableAnnotationComposer,
+          $$GamesTableCreateCompanionBuilder,
+          $$GamesTableUpdateCompanionBuilder,
+          (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
+          GameRow,
+          PrefetchHooks Function()
+        > {
   $$GamesTableTableManager(_$AppDatabase db, $GamesTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3608,181 +4345,186 @@ class $$GamesTableTableManager extends RootTableManager<
               $$GamesTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$GamesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> title = const Value.absent(),
-            Value<int> actionScore = const Value.absent(),
-            Value<int> cognitiveScore = const Value.absent(),
-            Value<String> numberOfPlayers = const Value.absent(),
-            Value<String> duration = const Value.absent(),
-            Value<String> ageLimitations = const Value.absent(),
-            Value<String> spaceLimitations = const Value.absent(),
-            Value<String> materials = const Value.absent(),
-            Value<String> goalOfGame = const Value.absent(),
-            Value<String> preparationsInstructions = const Value.absent(),
-            Value<String> gameplayInstructions = const Value.absent(),
-            Value<String> endingInstructions = const Value.absent(),
-            Value<String> categories = const Value.absent(),
-            Value<String> author = const Value.absent(),
-            Value<bool> reviewed = const Value.absent(),
-            Value<bool> alreadyPlayed = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              GamesCompanion(
-            id: id,
-            title: title,
-            actionScore: actionScore,
-            cognitiveScore: cognitiveScore,
-            numberOfPlayers: numberOfPlayers,
-            duration: duration,
-            ageLimitations: ageLimitations,
-            spaceLimitations: spaceLimitations,
-            materials: materials,
-            goalOfGame: goalOfGame,
-            preparationsInstructions: preparationsInstructions,
-            gameplayInstructions: gameplayInstructions,
-            endingInstructions: endingInstructions,
-            categories: categories,
-            author: author,
-            reviewed: reviewed,
-            alreadyPlayed: alreadyPlayed,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String title,
-            required int actionScore,
-            required int cognitiveScore,
-            required String numberOfPlayers,
-            required String duration,
-            required String ageLimitations,
-            required String spaceLimitations,
-            required String materials,
-            required String goalOfGame,
-            required String preparationsInstructions,
-            required String gameplayInstructions,
-            required String endingInstructions,
-            required String categories,
-            required String author,
-            required bool reviewed,
-            required bool alreadyPlayed,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              GamesCompanion.insert(
-            id: id,
-            title: title,
-            actionScore: actionScore,
-            cognitiveScore: cognitiveScore,
-            numberOfPlayers: numberOfPlayers,
-            duration: duration,
-            ageLimitations: ageLimitations,
-            spaceLimitations: spaceLimitations,
-            materials: materials,
-            goalOfGame: goalOfGame,
-            preparationsInstructions: preparationsInstructions,
-            gameplayInstructions: gameplayInstructions,
-            endingInstructions: endingInstructions,
-            categories: categories,
-            author: author,
-            reviewed: reviewed,
-            alreadyPlayed: alreadyPlayed,
-            rowid: rowid,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<int> actionScore = const Value.absent(),
+                Value<int> cognitiveScore = const Value.absent(),
+                Value<String> numberOfPlayers = const Value.absent(),
+                Value<String> duration = const Value.absent(),
+                Value<String> ageLimitations = const Value.absent(),
+                Value<String> spaceLimitations = const Value.absent(),
+                Value<String> materials = const Value.absent(),
+                Value<String> goalOfGame = const Value.absent(),
+                Value<String> preparationsInstructions = const Value.absent(),
+                Value<String> gameplayInstructions = const Value.absent(),
+                Value<String> endingInstructions = const Value.absent(),
+                Value<String> categories = const Value.absent(),
+                Value<String> author = const Value.absent(),
+                Value<bool> reviewed = const Value.absent(),
+                Value<bool> alreadyPlayed = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GamesCompanion(
+                id: id,
+                title: title,
+                actionScore: actionScore,
+                cognitiveScore: cognitiveScore,
+                numberOfPlayers: numberOfPlayers,
+                duration: duration,
+                ageLimitations: ageLimitations,
+                spaceLimitations: spaceLimitations,
+                materials: materials,
+                goalOfGame: goalOfGame,
+                preparationsInstructions: preparationsInstructions,
+                gameplayInstructions: gameplayInstructions,
+                endingInstructions: endingInstructions,
+                categories: categories,
+                author: author,
+                reviewed: reviewed,
+                alreadyPlayed: alreadyPlayed,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String title,
+                required int actionScore,
+                required int cognitiveScore,
+                required String numberOfPlayers,
+                required String duration,
+                required String ageLimitations,
+                required String spaceLimitations,
+                required String materials,
+                required String goalOfGame,
+                required String preparationsInstructions,
+                required String gameplayInstructions,
+                required String endingInstructions,
+                required String categories,
+                required String author,
+                required bool reviewed,
+                required bool alreadyPlayed,
+                Value<int> rowid = const Value.absent(),
+              }) => GamesCompanion.insert(
+                id: id,
+                title: title,
+                actionScore: actionScore,
+                cognitiveScore: cognitiveScore,
+                numberOfPlayers: numberOfPlayers,
+                duration: duration,
+                ageLimitations: ageLimitations,
+                spaceLimitations: spaceLimitations,
+                materials: materials,
+                goalOfGame: goalOfGame,
+                preparationsInstructions: preparationsInstructions,
+                gameplayInstructions: gameplayInstructions,
+                endingInstructions: endingInstructions,
+                categories: categories,
+                author: author,
+                reviewed: reviewed,
+                alreadyPlayed: alreadyPlayed,
+                rowid: rowid,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$GamesTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $GamesTable,
-    GameRow,
-    $$GamesTableFilterComposer,
-    $$GamesTableOrderingComposer,
-    $$GamesTableAnnotationComposer,
-    $$GamesTableCreateCompanionBuilder,
-    $$GamesTableUpdateCompanionBuilder,
-    (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
-    GameRow,
-    PrefetchHooks Function()>;
-typedef $$EventsTableCreateCompanionBuilder = EventsCompanion Function({
-  Value<int> id,
-  Value<int?> clientId,
-  required DateTime startDateAndTime,
-  required DateTime endDateAndTime,
-  required String title,
-  Value<String?> description,
-  Value<String?> location,
-  Value<int?> groupId,
-  Value<String?> time,
-  Value<int?> numberOfDays,
-  Value<String?> contactName,
-  Value<String?> contactEmail,
-  Value<int?> maxParticipants,
-  Value<String?> image,
-  Value<String?> attachments,
-  Value<double?> costMember,
-  Value<double?> costGuest,
-  Value<double?> costCompanion,
-  Value<String?> cost,
-  Value<int?> publicType,
-  Value<int?> type,
-  Value<DateTime?> registrationStart,
-  Value<DateTime?> registrationDeadline,
-  Value<int?> visibilityType,
-  Value<DateTime?> deregistrationDeadline,
-  Value<int?> maxCompanions,
-  Value<int?> seriesEventId,
-  Value<int?> visibilityAssociation,
-  Value<bool?> rv,
-  Value<String?> abbreviation,
-  Value<String?> organization,
-  Value<int?> registrationCount,
-  Value<String?> freeSlots,
-  Value<String?> link,
-  required String baseUrl,
-  Value<String?> clientEventId,
-});
-typedef $$EventsTableUpdateCompanionBuilder = EventsCompanion Function({
-  Value<int> id,
-  Value<int?> clientId,
-  Value<DateTime> startDateAndTime,
-  Value<DateTime> endDateAndTime,
-  Value<String> title,
-  Value<String?> description,
-  Value<String?> location,
-  Value<int?> groupId,
-  Value<String?> time,
-  Value<int?> numberOfDays,
-  Value<String?> contactName,
-  Value<String?> contactEmail,
-  Value<int?> maxParticipants,
-  Value<String?> image,
-  Value<String?> attachments,
-  Value<double?> costMember,
-  Value<double?> costGuest,
-  Value<double?> costCompanion,
-  Value<String?> cost,
-  Value<int?> publicType,
-  Value<int?> type,
-  Value<DateTime?> registrationStart,
-  Value<DateTime?> registrationDeadline,
-  Value<int?> visibilityType,
-  Value<DateTime?> deregistrationDeadline,
-  Value<int?> maxCompanions,
-  Value<int?> seriesEventId,
-  Value<int?> visibilityAssociation,
-  Value<bool?> rv,
-  Value<String?> abbreviation,
-  Value<String?> organization,
-  Value<int?> registrationCount,
-  Value<String?> freeSlots,
-  Value<String?> link,
-  Value<String> baseUrl,
-  Value<String?> clientEventId,
-});
+typedef $$GamesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $GamesTable,
+      GameRow,
+      $$GamesTableFilterComposer,
+      $$GamesTableOrderingComposer,
+      $$GamesTableAnnotationComposer,
+      $$GamesTableCreateCompanionBuilder,
+      $$GamesTableUpdateCompanionBuilder,
+      (GameRow, BaseReferences<_$AppDatabase, $GamesTable, GameRow>),
+      GameRow,
+      PrefetchHooks Function()
+    >;
+typedef $$EventsTableCreateCompanionBuilder =
+    EventsCompanion Function({
+      Value<int> id,
+      Value<int?> clientId,
+      required DateTime startDateAndTime,
+      required DateTime endDateAndTime,
+      required String title,
+      Value<String?> description,
+      Value<String?> location,
+      Value<int?> groupId,
+      Value<String?> time,
+      Value<int?> numberOfDays,
+      Value<String?> contactName,
+      Value<String?> contactEmail,
+      Value<int?> maxParticipants,
+      Value<String?> image,
+      Value<String?> attachments,
+      Value<double?> costMember,
+      Value<double?> costGuest,
+      Value<double?> costCompanion,
+      Value<String?> cost,
+      Value<int?> publicType,
+      Value<int?> type,
+      Value<DateTime?> registrationStart,
+      Value<DateTime?> registrationDeadline,
+      Value<int?> visibilityType,
+      Value<DateTime?> deregistrationDeadline,
+      Value<int?> maxCompanions,
+      Value<int?> seriesEventId,
+      Value<int?> visibilityAssociation,
+      Value<bool?> rv,
+      Value<String?> abbreviation,
+      Value<String?> organization,
+      Value<int?> registrationCount,
+      Value<String?> freeSlots,
+      Value<String?> link,
+      required String baseUrl,
+      Value<String?> clientEventId,
+    });
+typedef $$EventsTableUpdateCompanionBuilder =
+    EventsCompanion Function({
+      Value<int> id,
+      Value<int?> clientId,
+      Value<DateTime> startDateAndTime,
+      Value<DateTime> endDateAndTime,
+      Value<String> title,
+      Value<String?> description,
+      Value<String?> location,
+      Value<int?> groupId,
+      Value<String?> time,
+      Value<int?> numberOfDays,
+      Value<String?> contactName,
+      Value<String?> contactEmail,
+      Value<int?> maxParticipants,
+      Value<String?> image,
+      Value<String?> attachments,
+      Value<double?> costMember,
+      Value<double?> costGuest,
+      Value<double?> costCompanion,
+      Value<String?> cost,
+      Value<int?> publicType,
+      Value<int?> type,
+      Value<DateTime?> registrationStart,
+      Value<DateTime?> registrationDeadline,
+      Value<int?> visibilityType,
+      Value<DateTime?> deregistrationDeadline,
+      Value<int?> maxCompanions,
+      Value<int?> seriesEventId,
+      Value<int?> visibilityAssociation,
+      Value<bool?> rv,
+      Value<String?> abbreviation,
+      Value<String?> organization,
+      Value<int?> registrationCount,
+      Value<String?> freeSlots,
+      Value<String?> link,
+      Value<String> baseUrl,
+      Value<String?> clientEventId,
+    });
 
 class $$EventsTableFilterComposer
     extends Composer<_$AppDatabase, $EventsTable> {
@@ -3794,121 +4536,184 @@ class $$EventsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get clientId => $composableBuilder(
-      column: $table.clientId, builder: (column) => ColumnFilters(column));
+    column: $table.clientId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get startDateAndTime => $composableBuilder(
-      column: $table.startDateAndTime,
-      builder: (column) => ColumnFilters(column));
+    column: $table.startDateAndTime,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get endDateAndTime => $composableBuilder(
-      column: $table.endDateAndTime,
-      builder: (column) => ColumnFilters(column));
+    column: $table.endDateAndTime,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get location => $composableBuilder(
-      column: $table.location, builder: (column) => ColumnFilters(column));
+    column: $table.location,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get groupId => $composableBuilder(
-      column: $table.groupId, builder: (column) => ColumnFilters(column));
+    column: $table.groupId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get time => $composableBuilder(
-      column: $table.time, builder: (column) => ColumnFilters(column));
+    column: $table.time,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get numberOfDays => $composableBuilder(
-      column: $table.numberOfDays, builder: (column) => ColumnFilters(column));
+    column: $table.numberOfDays,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get contactName => $composableBuilder(
-      column: $table.contactName, builder: (column) => ColumnFilters(column));
+    column: $table.contactName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get contactEmail => $composableBuilder(
-      column: $table.contactEmail, builder: (column) => ColumnFilters(column));
+    column: $table.contactEmail,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get maxParticipants => $composableBuilder(
-      column: $table.maxParticipants,
-      builder: (column) => ColumnFilters(column));
+    column: $table.maxParticipants,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get image => $composableBuilder(
-      column: $table.image, builder: (column) => ColumnFilters(column));
+    column: $table.image,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get attachments => $composableBuilder(
-      column: $table.attachments, builder: (column) => ColumnFilters(column));
+    column: $table.attachments,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<double> get costMember => $composableBuilder(
-      column: $table.costMember, builder: (column) => ColumnFilters(column));
+    column: $table.costMember,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<double> get costGuest => $composableBuilder(
-      column: $table.costGuest, builder: (column) => ColumnFilters(column));
+    column: $table.costGuest,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<double> get costCompanion => $composableBuilder(
-      column: $table.costCompanion, builder: (column) => ColumnFilters(column));
+    column: $table.costCompanion,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get cost => $composableBuilder(
-      column: $table.cost, builder: (column) => ColumnFilters(column));
+    column: $table.cost,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get publicType => $composableBuilder(
-      column: $table.publicType, builder: (column) => ColumnFilters(column));
+    column: $table.publicType,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get type => $composableBuilder(
-      column: $table.type, builder: (column) => ColumnFilters(column));
+    column: $table.type,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get registrationStart => $composableBuilder(
-      column: $table.registrationStart,
-      builder: (column) => ColumnFilters(column));
+    column: $table.registrationStart,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get registrationDeadline => $composableBuilder(
-      column: $table.registrationDeadline,
-      builder: (column) => ColumnFilters(column));
+    column: $table.registrationDeadline,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get visibilityType => $composableBuilder(
-      column: $table.visibilityType,
-      builder: (column) => ColumnFilters(column));
+    column: $table.visibilityType,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get deregistrationDeadline => $composableBuilder(
-      column: $table.deregistrationDeadline,
-      builder: (column) => ColumnFilters(column));
+    column: $table.deregistrationDeadline,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get maxCompanions => $composableBuilder(
-      column: $table.maxCompanions, builder: (column) => ColumnFilters(column));
+    column: $table.maxCompanions,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get seriesEventId => $composableBuilder(
-      column: $table.seriesEventId, builder: (column) => ColumnFilters(column));
+    column: $table.seriesEventId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get visibilityAssociation => $composableBuilder(
-      column: $table.visibilityAssociation,
-      builder: (column) => ColumnFilters(column));
+    column: $table.visibilityAssociation,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get rv => $composableBuilder(
-      column: $table.rv, builder: (column) => ColumnFilters(column));
+    column: $table.rv,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get abbreviation => $composableBuilder(
-      column: $table.abbreviation, builder: (column) => ColumnFilters(column));
+    column: $table.abbreviation,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get organization => $composableBuilder(
-      column: $table.organization, builder: (column) => ColumnFilters(column));
+    column: $table.organization,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get registrationCount => $composableBuilder(
-      column: $table.registrationCount,
-      builder: (column) => ColumnFilters(column));
+    column: $table.registrationCount,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get freeSlots => $composableBuilder(
-      column: $table.freeSlots, builder: (column) => ColumnFilters(column));
+    column: $table.freeSlots,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get link => $composableBuilder(
-      column: $table.link, builder: (column) => ColumnFilters(column));
+    column: $table.link,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get baseUrl => $composableBuilder(
-      column: $table.baseUrl, builder: (column) => ColumnFilters(column));
+    column: $table.baseUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get clientEventId => $composableBuilder(
-      column: $table.clientEventId, builder: (column) => ColumnFilters(column));
+    column: $table.clientEventId,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$EventsTableOrderingComposer
@@ -3921,129 +4726,184 @@ class $$EventsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get clientId => $composableBuilder(
-      column: $table.clientId, builder: (column) => ColumnOrderings(column));
+    column: $table.clientId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get startDateAndTime => $composableBuilder(
-      column: $table.startDateAndTime,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.startDateAndTime,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get endDateAndTime => $composableBuilder(
-      column: $table.endDateAndTime,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.endDateAndTime,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get location => $composableBuilder(
-      column: $table.location, builder: (column) => ColumnOrderings(column));
+    column: $table.location,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get groupId => $composableBuilder(
-      column: $table.groupId, builder: (column) => ColumnOrderings(column));
+    column: $table.groupId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get time => $composableBuilder(
-      column: $table.time, builder: (column) => ColumnOrderings(column));
+    column: $table.time,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get numberOfDays => $composableBuilder(
-      column: $table.numberOfDays,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.numberOfDays,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get contactName => $composableBuilder(
-      column: $table.contactName, builder: (column) => ColumnOrderings(column));
+    column: $table.contactName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get contactEmail => $composableBuilder(
-      column: $table.contactEmail,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.contactEmail,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get maxParticipants => $composableBuilder(
-      column: $table.maxParticipants,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.maxParticipants,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get image => $composableBuilder(
-      column: $table.image, builder: (column) => ColumnOrderings(column));
+    column: $table.image,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get attachments => $composableBuilder(
-      column: $table.attachments, builder: (column) => ColumnOrderings(column));
+    column: $table.attachments,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<double> get costMember => $composableBuilder(
-      column: $table.costMember, builder: (column) => ColumnOrderings(column));
+    column: $table.costMember,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<double> get costGuest => $composableBuilder(
-      column: $table.costGuest, builder: (column) => ColumnOrderings(column));
+    column: $table.costGuest,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<double> get costCompanion => $composableBuilder(
-      column: $table.costCompanion,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.costCompanion,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get cost => $composableBuilder(
-      column: $table.cost, builder: (column) => ColumnOrderings(column));
+    column: $table.cost,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get publicType => $composableBuilder(
-      column: $table.publicType, builder: (column) => ColumnOrderings(column));
+    column: $table.publicType,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get type => $composableBuilder(
-      column: $table.type, builder: (column) => ColumnOrderings(column));
+    column: $table.type,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get registrationStart => $composableBuilder(
-      column: $table.registrationStart,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.registrationStart,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get registrationDeadline => $composableBuilder(
-      column: $table.registrationDeadline,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.registrationDeadline,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get visibilityType => $composableBuilder(
-      column: $table.visibilityType,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.visibilityType,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get deregistrationDeadline => $composableBuilder(
-      column: $table.deregistrationDeadline,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.deregistrationDeadline,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get maxCompanions => $composableBuilder(
-      column: $table.maxCompanions,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.maxCompanions,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get seriesEventId => $composableBuilder(
-      column: $table.seriesEventId,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.seriesEventId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get visibilityAssociation => $composableBuilder(
-      column: $table.visibilityAssociation,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.visibilityAssociation,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get rv => $composableBuilder(
-      column: $table.rv, builder: (column) => ColumnOrderings(column));
+    column: $table.rv,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get abbreviation => $composableBuilder(
-      column: $table.abbreviation,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.abbreviation,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get organization => $composableBuilder(
-      column: $table.organization,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.organization,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get registrationCount => $composableBuilder(
-      column: $table.registrationCount,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.registrationCount,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get freeSlots => $composableBuilder(
-      column: $table.freeSlots, builder: (column) => ColumnOrderings(column));
+    column: $table.freeSlots,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get link => $composableBuilder(
-      column: $table.link, builder: (column) => ColumnOrderings(column));
+    column: $table.link,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get baseUrl => $composableBuilder(
-      column: $table.baseUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.baseUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get clientEventId => $composableBuilder(
-      column: $table.clientEventId,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.clientEventId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$EventsTableAnnotationComposer
@@ -4062,16 +4922,22 @@ class $$EventsTableAnnotationComposer
       $composableBuilder(column: $table.clientId, builder: (column) => column);
 
   GeneratedColumn<DateTime> get startDateAndTime => $composableBuilder(
-      column: $table.startDateAndTime, builder: (column) => column);
+    column: $table.startDateAndTime,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get endDateAndTime => $composableBuilder(
-      column: $table.endDateAndTime, builder: (column) => column);
+    column: $table.endDateAndTime,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
+    column: $table.description,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get location =>
       $composableBuilder(column: $table.location, builder: (column) => column);
@@ -4083,73 +4949,109 @@ class $$EventsTableAnnotationComposer
       $composableBuilder(column: $table.time, builder: (column) => column);
 
   GeneratedColumn<int> get numberOfDays => $composableBuilder(
-      column: $table.numberOfDays, builder: (column) => column);
+    column: $table.numberOfDays,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get contactName => $composableBuilder(
-      column: $table.contactName, builder: (column) => column);
+    column: $table.contactName,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get contactEmail => $composableBuilder(
-      column: $table.contactEmail, builder: (column) => column);
+    column: $table.contactEmail,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get maxParticipants => $composableBuilder(
-      column: $table.maxParticipants, builder: (column) => column);
+    column: $table.maxParticipants,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get image =>
       $composableBuilder(column: $table.image, builder: (column) => column);
 
   GeneratedColumn<String> get attachments => $composableBuilder(
-      column: $table.attachments, builder: (column) => column);
+    column: $table.attachments,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<double> get costMember => $composableBuilder(
-      column: $table.costMember, builder: (column) => column);
+    column: $table.costMember,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<double> get costGuest =>
       $composableBuilder(column: $table.costGuest, builder: (column) => column);
 
   GeneratedColumn<double> get costCompanion => $composableBuilder(
-      column: $table.costCompanion, builder: (column) => column);
+    column: $table.costCompanion,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get cost =>
       $composableBuilder(column: $table.cost, builder: (column) => column);
 
   GeneratedColumn<int> get publicType => $composableBuilder(
-      column: $table.publicType, builder: (column) => column);
+    column: $table.publicType,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get type =>
       $composableBuilder(column: $table.type, builder: (column) => column);
 
   GeneratedColumn<DateTime> get registrationStart => $composableBuilder(
-      column: $table.registrationStart, builder: (column) => column);
+    column: $table.registrationStart,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get registrationDeadline => $composableBuilder(
-      column: $table.registrationDeadline, builder: (column) => column);
+    column: $table.registrationDeadline,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get visibilityType => $composableBuilder(
-      column: $table.visibilityType, builder: (column) => column);
+    column: $table.visibilityType,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get deregistrationDeadline => $composableBuilder(
-      column: $table.deregistrationDeadline, builder: (column) => column);
+    column: $table.deregistrationDeadline,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get maxCompanions => $composableBuilder(
-      column: $table.maxCompanions, builder: (column) => column);
+    column: $table.maxCompanions,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get seriesEventId => $composableBuilder(
-      column: $table.seriesEventId, builder: (column) => column);
+    column: $table.seriesEventId,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get visibilityAssociation => $composableBuilder(
-      column: $table.visibilityAssociation, builder: (column) => column);
+    column: $table.visibilityAssociation,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<bool> get rv =>
       $composableBuilder(column: $table.rv, builder: (column) => column);
 
   GeneratedColumn<String> get abbreviation => $composableBuilder(
-      column: $table.abbreviation, builder: (column) => column);
+    column: $table.abbreviation,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get organization => $composableBuilder(
-      column: $table.organization, builder: (column) => column);
+    column: $table.organization,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get registrationCount => $composableBuilder(
-      column: $table.registrationCount, builder: (column) => column);
+    column: $table.registrationCount,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get freeSlots =>
       $composableBuilder(column: $table.freeSlots, builder: (column) => column);
@@ -4161,23 +5063,29 @@ class $$EventsTableAnnotationComposer
       $composableBuilder(column: $table.baseUrl, builder: (column) => column);
 
   GeneratedColumn<String> get clientEventId => $composableBuilder(
-      column: $table.clientEventId, builder: (column) => column);
+    column: $table.clientEventId,
+    builder: (column) => column,
+  );
 }
 
-class $$EventsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $EventsTable,
-    Event,
-    $$EventsTableFilterComposer,
-    $$EventsTableOrderingComposer,
-    $$EventsTableAnnotationComposer,
-    $$EventsTableCreateCompanionBuilder,
-    $$EventsTableUpdateCompanionBuilder,
-    (Event, BaseReferences<_$AppDatabase, $EventsTable, Event>),
-    Event,
-    PrefetchHooks Function()> {
+class $$EventsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EventsTable,
+          Event,
+          $$EventsTableFilterComposer,
+          $$EventsTableOrderingComposer,
+          $$EventsTableAnnotationComposer,
+          $$EventsTableCreateCompanionBuilder,
+          $$EventsTableUpdateCompanionBuilder,
+          (Event, BaseReferences<_$AppDatabase, $EventsTable, Event>),
+          Event,
+          PrefetchHooks Function()
+        > {
   $$EventsTableTableManager(_$AppDatabase db, $EventsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -4186,185 +5094,184 @@ class $$EventsTableTableManager extends RootTableManager<
               $$EventsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$EventsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int?> clientId = const Value.absent(),
-            Value<DateTime> startDateAndTime = const Value.absent(),
-            Value<DateTime> endDateAndTime = const Value.absent(),
-            Value<String> title = const Value.absent(),
-            Value<String?> description = const Value.absent(),
-            Value<String?> location = const Value.absent(),
-            Value<int?> groupId = const Value.absent(),
-            Value<String?> time = const Value.absent(),
-            Value<int?> numberOfDays = const Value.absent(),
-            Value<String?> contactName = const Value.absent(),
-            Value<String?> contactEmail = const Value.absent(),
-            Value<int?> maxParticipants = const Value.absent(),
-            Value<String?> image = const Value.absent(),
-            Value<String?> attachments = const Value.absent(),
-            Value<double?> costMember = const Value.absent(),
-            Value<double?> costGuest = const Value.absent(),
-            Value<double?> costCompanion = const Value.absent(),
-            Value<String?> cost = const Value.absent(),
-            Value<int?> publicType = const Value.absent(),
-            Value<int?> type = const Value.absent(),
-            Value<DateTime?> registrationStart = const Value.absent(),
-            Value<DateTime?> registrationDeadline = const Value.absent(),
-            Value<int?> visibilityType = const Value.absent(),
-            Value<DateTime?> deregistrationDeadline = const Value.absent(),
-            Value<int?> maxCompanions = const Value.absent(),
-            Value<int?> seriesEventId = const Value.absent(),
-            Value<int?> visibilityAssociation = const Value.absent(),
-            Value<bool?> rv = const Value.absent(),
-            Value<String?> abbreviation = const Value.absent(),
-            Value<String?> organization = const Value.absent(),
-            Value<int?> registrationCount = const Value.absent(),
-            Value<String?> freeSlots = const Value.absent(),
-            Value<String?> link = const Value.absent(),
-            Value<String> baseUrl = const Value.absent(),
-            Value<String?> clientEventId = const Value.absent(),
-          }) =>
-              EventsCompanion(
-            id: id,
-            clientId: clientId,
-            startDateAndTime: startDateAndTime,
-            endDateAndTime: endDateAndTime,
-            title: title,
-            description: description,
-            location: location,
-            groupId: groupId,
-            time: time,
-            numberOfDays: numberOfDays,
-            contactName: contactName,
-            contactEmail: contactEmail,
-            maxParticipants: maxParticipants,
-            image: image,
-            attachments: attachments,
-            costMember: costMember,
-            costGuest: costGuest,
-            costCompanion: costCompanion,
-            cost: cost,
-            publicType: publicType,
-            type: type,
-            registrationStart: registrationStart,
-            registrationDeadline: registrationDeadline,
-            visibilityType: visibilityType,
-            deregistrationDeadline: deregistrationDeadline,
-            maxCompanions: maxCompanions,
-            seriesEventId: seriesEventId,
-            visibilityAssociation: visibilityAssociation,
-            rv: rv,
-            abbreviation: abbreviation,
-            organization: organization,
-            registrationCount: registrationCount,
-            freeSlots: freeSlots,
-            link: link,
-            baseUrl: baseUrl,
-            clientEventId: clientEventId,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int?> clientId = const Value.absent(),
-            required DateTime startDateAndTime,
-            required DateTime endDateAndTime,
-            required String title,
-            Value<String?> description = const Value.absent(),
-            Value<String?> location = const Value.absent(),
-            Value<int?> groupId = const Value.absent(),
-            Value<String?> time = const Value.absent(),
-            Value<int?> numberOfDays = const Value.absent(),
-            Value<String?> contactName = const Value.absent(),
-            Value<String?> contactEmail = const Value.absent(),
-            Value<int?> maxParticipants = const Value.absent(),
-            Value<String?> image = const Value.absent(),
-            Value<String?> attachments = const Value.absent(),
-            Value<double?> costMember = const Value.absent(),
-            Value<double?> costGuest = const Value.absent(),
-            Value<double?> costCompanion = const Value.absent(),
-            Value<String?> cost = const Value.absent(),
-            Value<int?> publicType = const Value.absent(),
-            Value<int?> type = const Value.absent(),
-            Value<DateTime?> registrationStart = const Value.absent(),
-            Value<DateTime?> registrationDeadline = const Value.absent(),
-            Value<int?> visibilityType = const Value.absent(),
-            Value<DateTime?> deregistrationDeadline = const Value.absent(),
-            Value<int?> maxCompanions = const Value.absent(),
-            Value<int?> seriesEventId = const Value.absent(),
-            Value<int?> visibilityAssociation = const Value.absent(),
-            Value<bool?> rv = const Value.absent(),
-            Value<String?> abbreviation = const Value.absent(),
-            Value<String?> organization = const Value.absent(),
-            Value<int?> registrationCount = const Value.absent(),
-            Value<String?> freeSlots = const Value.absent(),
-            Value<String?> link = const Value.absent(),
-            required String baseUrl,
-            Value<String?> clientEventId = const Value.absent(),
-          }) =>
-              EventsCompanion.insert(
-            id: id,
-            clientId: clientId,
-            startDateAndTime: startDateAndTime,
-            endDateAndTime: endDateAndTime,
-            title: title,
-            description: description,
-            location: location,
-            groupId: groupId,
-            time: time,
-            numberOfDays: numberOfDays,
-            contactName: contactName,
-            contactEmail: contactEmail,
-            maxParticipants: maxParticipants,
-            image: image,
-            attachments: attachments,
-            costMember: costMember,
-            costGuest: costGuest,
-            costCompanion: costCompanion,
-            cost: cost,
-            publicType: publicType,
-            type: type,
-            registrationStart: registrationStart,
-            registrationDeadline: registrationDeadline,
-            visibilityType: visibilityType,
-            deregistrationDeadline: deregistrationDeadline,
-            maxCompanions: maxCompanions,
-            seriesEventId: seriesEventId,
-            visibilityAssociation: visibilityAssociation,
-            rv: rv,
-            abbreviation: abbreviation,
-            organization: organization,
-            registrationCount: registrationCount,
-            freeSlots: freeSlots,
-            link: link,
-            baseUrl: baseUrl,
-            clientEventId: clientEventId,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int?> clientId = const Value.absent(),
+                Value<DateTime> startDateAndTime = const Value.absent(),
+                Value<DateTime> endDateAndTime = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<String?> location = const Value.absent(),
+                Value<int?> groupId = const Value.absent(),
+                Value<String?> time = const Value.absent(),
+                Value<int?> numberOfDays = const Value.absent(),
+                Value<String?> contactName = const Value.absent(),
+                Value<String?> contactEmail = const Value.absent(),
+                Value<int?> maxParticipants = const Value.absent(),
+                Value<String?> image = const Value.absent(),
+                Value<String?> attachments = const Value.absent(),
+                Value<double?> costMember = const Value.absent(),
+                Value<double?> costGuest = const Value.absent(),
+                Value<double?> costCompanion = const Value.absent(),
+                Value<String?> cost = const Value.absent(),
+                Value<int?> publicType = const Value.absent(),
+                Value<int?> type = const Value.absent(),
+                Value<DateTime?> registrationStart = const Value.absent(),
+                Value<DateTime?> registrationDeadline = const Value.absent(),
+                Value<int?> visibilityType = const Value.absent(),
+                Value<DateTime?> deregistrationDeadline = const Value.absent(),
+                Value<int?> maxCompanions = const Value.absent(),
+                Value<int?> seriesEventId = const Value.absent(),
+                Value<int?> visibilityAssociation = const Value.absent(),
+                Value<bool?> rv = const Value.absent(),
+                Value<String?> abbreviation = const Value.absent(),
+                Value<String?> organization = const Value.absent(),
+                Value<int?> registrationCount = const Value.absent(),
+                Value<String?> freeSlots = const Value.absent(),
+                Value<String?> link = const Value.absent(),
+                Value<String> baseUrl = const Value.absent(),
+                Value<String?> clientEventId = const Value.absent(),
+              }) => EventsCompanion(
+                id: id,
+                clientId: clientId,
+                startDateAndTime: startDateAndTime,
+                endDateAndTime: endDateAndTime,
+                title: title,
+                description: description,
+                location: location,
+                groupId: groupId,
+                time: time,
+                numberOfDays: numberOfDays,
+                contactName: contactName,
+                contactEmail: contactEmail,
+                maxParticipants: maxParticipants,
+                image: image,
+                attachments: attachments,
+                costMember: costMember,
+                costGuest: costGuest,
+                costCompanion: costCompanion,
+                cost: cost,
+                publicType: publicType,
+                type: type,
+                registrationStart: registrationStart,
+                registrationDeadline: registrationDeadline,
+                visibilityType: visibilityType,
+                deregistrationDeadline: deregistrationDeadline,
+                maxCompanions: maxCompanions,
+                seriesEventId: seriesEventId,
+                visibilityAssociation: visibilityAssociation,
+                rv: rv,
+                abbreviation: abbreviation,
+                organization: organization,
+                registrationCount: registrationCount,
+                freeSlots: freeSlots,
+                link: link,
+                baseUrl: baseUrl,
+                clientEventId: clientEventId,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int?> clientId = const Value.absent(),
+                required DateTime startDateAndTime,
+                required DateTime endDateAndTime,
+                required String title,
+                Value<String?> description = const Value.absent(),
+                Value<String?> location = const Value.absent(),
+                Value<int?> groupId = const Value.absent(),
+                Value<String?> time = const Value.absent(),
+                Value<int?> numberOfDays = const Value.absent(),
+                Value<String?> contactName = const Value.absent(),
+                Value<String?> contactEmail = const Value.absent(),
+                Value<int?> maxParticipants = const Value.absent(),
+                Value<String?> image = const Value.absent(),
+                Value<String?> attachments = const Value.absent(),
+                Value<double?> costMember = const Value.absent(),
+                Value<double?> costGuest = const Value.absent(),
+                Value<double?> costCompanion = const Value.absent(),
+                Value<String?> cost = const Value.absent(),
+                Value<int?> publicType = const Value.absent(),
+                Value<int?> type = const Value.absent(),
+                Value<DateTime?> registrationStart = const Value.absent(),
+                Value<DateTime?> registrationDeadline = const Value.absent(),
+                Value<int?> visibilityType = const Value.absent(),
+                Value<DateTime?> deregistrationDeadline = const Value.absent(),
+                Value<int?> maxCompanions = const Value.absent(),
+                Value<int?> seriesEventId = const Value.absent(),
+                Value<int?> visibilityAssociation = const Value.absent(),
+                Value<bool?> rv = const Value.absent(),
+                Value<String?> abbreviation = const Value.absent(),
+                Value<String?> organization = const Value.absent(),
+                Value<int?> registrationCount = const Value.absent(),
+                Value<String?> freeSlots = const Value.absent(),
+                Value<String?> link = const Value.absent(),
+                required String baseUrl,
+                Value<String?> clientEventId = const Value.absent(),
+              }) => EventsCompanion.insert(
+                id: id,
+                clientId: clientId,
+                startDateAndTime: startDateAndTime,
+                endDateAndTime: endDateAndTime,
+                title: title,
+                description: description,
+                location: location,
+                groupId: groupId,
+                time: time,
+                numberOfDays: numberOfDays,
+                contactName: contactName,
+                contactEmail: contactEmail,
+                maxParticipants: maxParticipants,
+                image: image,
+                attachments: attachments,
+                costMember: costMember,
+                costGuest: costGuest,
+                costCompanion: costCompanion,
+                cost: cost,
+                publicType: publicType,
+                type: type,
+                registrationStart: registrationStart,
+                registrationDeadline: registrationDeadline,
+                visibilityType: visibilityType,
+                deregistrationDeadline: deregistrationDeadline,
+                maxCompanions: maxCompanions,
+                seriesEventId: seriesEventId,
+                visibilityAssociation: visibilityAssociation,
+                rv: rv,
+                abbreviation: abbreviation,
+                organization: organization,
+                registrationCount: registrationCount,
+                freeSlots: freeSlots,
+                link: link,
+                baseUrl: baseUrl,
+                clientEventId: clientEventId,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$EventsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $EventsTable,
-    Event,
-    $$EventsTableFilterComposer,
-    $$EventsTableOrderingComposer,
-    $$EventsTableAnnotationComposer,
-    $$EventsTableCreateCompanionBuilder,
-    $$EventsTableUpdateCompanionBuilder,
-    (Event, BaseReferences<_$AppDatabase, $EventsTable, Event>),
-    Event,
-    PrefetchHooks Function()>;
-typedef $$RegisteredTableTableCreateCompanionBuilder = RegisteredTableCompanion
-    Function({
-  Value<int> eventId,
-});
-typedef $$RegisteredTableTableUpdateCompanionBuilder = RegisteredTableCompanion
-    Function({
-  Value<int> eventId,
-});
+typedef $$EventsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EventsTable,
+      Event,
+      $$EventsTableFilterComposer,
+      $$EventsTableOrderingComposer,
+      $$EventsTableAnnotationComposer,
+      $$EventsTableCreateCompanionBuilder,
+      $$EventsTableUpdateCompanionBuilder,
+      (Event, BaseReferences<_$AppDatabase, $EventsTable, Event>),
+      Event,
+      PrefetchHooks Function()
+    >;
+typedef $$RegisteredTableTableCreateCompanionBuilder =
+    RegisteredTableCompanion Function({Value<int> eventId});
+typedef $$RegisteredTableTableUpdateCompanionBuilder =
+    RegisteredTableCompanion Function({Value<int> eventId});
 
 class $$RegisteredTableTableFilterComposer
     extends Composer<_$AppDatabase, $RegisteredTableTable> {
@@ -4376,7 +5283,9 @@ class $$RegisteredTableTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get eventId => $composableBuilder(
-      column: $table.eventId, builder: (column) => ColumnFilters(column));
+    column: $table.eventId,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$RegisteredTableTableOrderingComposer
@@ -4389,7 +5298,9 @@ class $$RegisteredTableTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get eventId => $composableBuilder(
-      column: $table.eventId, builder: (column) => ColumnOrderings(column));
+    column: $table.eventId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$RegisteredTableTableAnnotationComposer
@@ -4405,24 +5316,33 @@ class $$RegisteredTableTableAnnotationComposer
       $composableBuilder(column: $table.eventId, builder: (column) => column);
 }
 
-class $$RegisteredTableTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $RegisteredTableTable,
-    RegisteredTableData,
-    $$RegisteredTableTableFilterComposer,
-    $$RegisteredTableTableOrderingComposer,
-    $$RegisteredTableTableAnnotationComposer,
-    $$RegisteredTableTableCreateCompanionBuilder,
-    $$RegisteredTableTableUpdateCompanionBuilder,
-    (
-      RegisteredTableData,
-      BaseReferences<_$AppDatabase, $RegisteredTableTable, RegisteredTableData>
-    ),
-    RegisteredTableData,
-    PrefetchHooks Function()> {
+class $$RegisteredTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $RegisteredTableTable,
+          RegisteredTableData,
+          $$RegisteredTableTableFilterComposer,
+          $$RegisteredTableTableOrderingComposer,
+          $$RegisteredTableTableAnnotationComposer,
+          $$RegisteredTableTableCreateCompanionBuilder,
+          $$RegisteredTableTableUpdateCompanionBuilder,
+          (
+            RegisteredTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $RegisteredTableTable,
+              RegisteredTableData
+            >,
+          ),
+          RegisteredTableData,
+          PrefetchHooks Function()
+        > {
   $$RegisteredTableTableTableManager(
-      _$AppDatabase db, $RegisteredTableTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $RegisteredTableTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -4431,56 +5351,59 @@ class $$RegisteredTableTableTableManager extends RootTableManager<
               $$RegisteredTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$RegisteredTableTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> eventId = const Value.absent(),
-          }) =>
-              RegisteredTableCompanion(
-            eventId: eventId,
-          ),
-          createCompanionCallback: ({
-            Value<int> eventId = const Value.absent(),
-          }) =>
-              RegisteredTableCompanion.insert(
-            eventId: eventId,
-          ),
+          updateCompanionCallback:
+              ({Value<int> eventId = const Value.absent()}) =>
+                  RegisteredTableCompanion(eventId: eventId),
+          createCompanionCallback:
+              ({Value<int> eventId = const Value.absent()}) =>
+                  RegisteredTableCompanion.insert(eventId: eventId),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$RegisteredTableTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $RegisteredTableTable,
-    RegisteredTableData,
-    $$RegisteredTableTableFilterComposer,
-    $$RegisteredTableTableOrderingComposer,
-    $$RegisteredTableTableAnnotationComposer,
-    $$RegisteredTableTableCreateCompanionBuilder,
-    $$RegisteredTableTableUpdateCompanionBuilder,
-    (
+typedef $$RegisteredTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $RegisteredTableTable,
       RegisteredTableData,
-      BaseReferences<_$AppDatabase, $RegisteredTableTable, RegisteredTableData>
-    ),
-    RegisteredTableData,
-    PrefetchHooks Function()>;
-typedef $$NewsTableTableCreateCompanionBuilder = NewsTableCompanion Function({
-  Value<int> id,
-  required String title,
-  required String content,
-  required String imageURL,
-  required String websiteURL,
-  required int orderNumber,
-});
-typedef $$NewsTableTableUpdateCompanionBuilder = NewsTableCompanion Function({
-  Value<int> id,
-  Value<String> title,
-  Value<String> content,
-  Value<String> imageURL,
-  Value<String> websiteURL,
-  Value<int> orderNumber,
-});
+      $$RegisteredTableTableFilterComposer,
+      $$RegisteredTableTableOrderingComposer,
+      $$RegisteredTableTableAnnotationComposer,
+      $$RegisteredTableTableCreateCompanionBuilder,
+      $$RegisteredTableTableUpdateCompanionBuilder,
+      (
+        RegisteredTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $RegisteredTableTable,
+          RegisteredTableData
+        >,
+      ),
+      RegisteredTableData,
+      PrefetchHooks Function()
+    >;
+typedef $$NewsTableTableCreateCompanionBuilder =
+    NewsTableCompanion Function({
+      Value<int> id,
+      required String title,
+      required String content,
+      required String imageURL,
+      required String websiteURL,
+      required int orderNumber,
+    });
+typedef $$NewsTableTableUpdateCompanionBuilder =
+    NewsTableCompanion Function({
+      Value<int> id,
+      Value<String> title,
+      Value<String> content,
+      Value<String> imageURL,
+      Value<String> websiteURL,
+      Value<int> orderNumber,
+    });
 
 class $$NewsTableTableFilterComposer
     extends Composer<_$AppDatabase, $NewsTableTable> {
@@ -4492,22 +5415,34 @@ class $$NewsTableTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnFilters(column));
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get imageURL => $composableBuilder(
-      column: $table.imageURL, builder: (column) => ColumnFilters(column));
+    column: $table.imageURL,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => ColumnFilters(column));
+    column: $table.websiteURL,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => ColumnFilters(column));
+    column: $table.orderNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$NewsTableTableOrderingComposer
@@ -4520,22 +5455,34 @@ class $$NewsTableTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnOrderings(column));
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get imageURL => $composableBuilder(
-      column: $table.imageURL, builder: (column) => ColumnOrderings(column));
+    column: $table.imageURL,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => ColumnOrderings(column));
+    column: $table.websiteURL,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.orderNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$NewsTableTableAnnotationComposer
@@ -4560,29 +5507,37 @@ class $$NewsTableTableAnnotationComposer
       $composableBuilder(column: $table.imageURL, builder: (column) => column);
 
   GeneratedColumn<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => column);
+    column: $table.websiteURL,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => column);
+    column: $table.orderNumber,
+    builder: (column) => column,
+  );
 }
 
-class $$NewsTableTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $NewsTableTable,
-    NewsTableData,
-    $$NewsTableTableFilterComposer,
-    $$NewsTableTableOrderingComposer,
-    $$NewsTableTableAnnotationComposer,
-    $$NewsTableTableCreateCompanionBuilder,
-    $$NewsTableTableUpdateCompanionBuilder,
-    (
-      NewsTableData,
-      BaseReferences<_$AppDatabase, $NewsTableTable, NewsTableData>
-    ),
-    NewsTableData,
-    PrefetchHooks Function()> {
+class $$NewsTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NewsTableTable,
+          NewsTableData,
+          $$NewsTableTableFilterComposer,
+          $$NewsTableTableOrderingComposer,
+          $$NewsTableTableAnnotationComposer,
+          $$NewsTableTableCreateCompanionBuilder,
+          $$NewsTableTableUpdateCompanionBuilder,
+          (
+            NewsTableData,
+            BaseReferences<_$AppDatabase, $NewsTableTable, NewsTableData>,
+          ),
+          NewsTableData,
+          PrefetchHooks Function()
+        > {
   $$NewsTableTableTableManager(_$AppDatabase db, $NewsTableTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -4591,78 +5546,81 @@ class $$NewsTableTableTableManager extends RootTableManager<
               $$NewsTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$NewsTableTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> title = const Value.absent(),
-            Value<String> content = const Value.absent(),
-            Value<String> imageURL = const Value.absent(),
-            Value<String> websiteURL = const Value.absent(),
-            Value<int> orderNumber = const Value.absent(),
-          }) =>
-              NewsTableCompanion(
-            id: id,
-            title: title,
-            content: content,
-            imageURL: imageURL,
-            websiteURL: websiteURL,
-            orderNumber: orderNumber,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String title,
-            required String content,
-            required String imageURL,
-            required String websiteURL,
-            required int orderNumber,
-          }) =>
-              NewsTableCompanion.insert(
-            id: id,
-            title: title,
-            content: content,
-            imageURL: imageURL,
-            websiteURL: websiteURL,
-            orderNumber: orderNumber,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String> imageURL = const Value.absent(),
+                Value<String> websiteURL = const Value.absent(),
+                Value<int> orderNumber = const Value.absent(),
+              }) => NewsTableCompanion(
+                id: id,
+                title: title,
+                content: content,
+                imageURL: imageURL,
+                websiteURL: websiteURL,
+                orderNumber: orderNumber,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String title,
+                required String content,
+                required String imageURL,
+                required String websiteURL,
+                required int orderNumber,
+              }) => NewsTableCompanion.insert(
+                id: id,
+                title: title,
+                content: content,
+                imageURL: imageURL,
+                websiteURL: websiteURL,
+                orderNumber: orderNumber,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$NewsTableTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $NewsTableTable,
-    NewsTableData,
-    $$NewsTableTableFilterComposer,
-    $$NewsTableTableOrderingComposer,
-    $$NewsTableTableAnnotationComposer,
-    $$NewsTableTableCreateCompanionBuilder,
-    $$NewsTableTableUpdateCompanionBuilder,
-    (
+typedef $$NewsTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NewsTableTable,
       NewsTableData,
-      BaseReferences<_$AppDatabase, $NewsTableTable, NewsTableData>
-    ),
-    NewsTableData,
-    PrefetchHooks Function()>;
-typedef $$ActivitiesTableTableCreateCompanionBuilder = ActivitiesTableCompanion
-    Function({
-  Value<int> id,
-  required String title,
-  required String content,
-  required String imageURL,
-  required String websiteURL,
-  required int orderNumber,
-});
-typedef $$ActivitiesTableTableUpdateCompanionBuilder = ActivitiesTableCompanion
-    Function({
-  Value<int> id,
-  Value<String> title,
-  Value<String> content,
-  Value<String> imageURL,
-  Value<String> websiteURL,
-  Value<int> orderNumber,
-});
+      $$NewsTableTableFilterComposer,
+      $$NewsTableTableOrderingComposer,
+      $$NewsTableTableAnnotationComposer,
+      $$NewsTableTableCreateCompanionBuilder,
+      $$NewsTableTableUpdateCompanionBuilder,
+      (
+        NewsTableData,
+        BaseReferences<_$AppDatabase, $NewsTableTable, NewsTableData>,
+      ),
+      NewsTableData,
+      PrefetchHooks Function()
+    >;
+typedef $$ActivitiesTableTableCreateCompanionBuilder =
+    ActivitiesTableCompanion Function({
+      Value<int> id,
+      required String title,
+      required String content,
+      required String imageURL,
+      required String websiteURL,
+      required int orderNumber,
+    });
+typedef $$ActivitiesTableTableUpdateCompanionBuilder =
+    ActivitiesTableCompanion Function({
+      Value<int> id,
+      Value<String> title,
+      Value<String> content,
+      Value<String> imageURL,
+      Value<String> websiteURL,
+      Value<int> orderNumber,
+    });
 
 class $$ActivitiesTableTableFilterComposer
     extends Composer<_$AppDatabase, $ActivitiesTableTable> {
@@ -4674,22 +5632,34 @@ class $$ActivitiesTableTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnFilters(column));
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get imageURL => $composableBuilder(
-      column: $table.imageURL, builder: (column) => ColumnFilters(column));
+    column: $table.imageURL,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => ColumnFilters(column));
+    column: $table.websiteURL,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => ColumnFilters(column));
+    column: $table.orderNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$ActivitiesTableTableOrderingComposer
@@ -4702,22 +5672,34 @@ class $$ActivitiesTableTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnOrderings(column));
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get imageURL => $composableBuilder(
-      column: $table.imageURL, builder: (column) => ColumnOrderings(column));
+    column: $table.imageURL,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => ColumnOrderings(column));
+    column: $table.websiteURL,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.orderNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$ActivitiesTableTableAnnotationComposer
@@ -4742,30 +5724,43 @@ class $$ActivitiesTableTableAnnotationComposer
       $composableBuilder(column: $table.imageURL, builder: (column) => column);
 
   GeneratedColumn<String> get websiteURL => $composableBuilder(
-      column: $table.websiteURL, builder: (column) => column);
+    column: $table.websiteURL,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get orderNumber => $composableBuilder(
-      column: $table.orderNumber, builder: (column) => column);
+    column: $table.orderNumber,
+    builder: (column) => column,
+  );
 }
 
-class $$ActivitiesTableTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $ActivitiesTableTable,
-    ActivitiesTableData,
-    $$ActivitiesTableTableFilterComposer,
-    $$ActivitiesTableTableOrderingComposer,
-    $$ActivitiesTableTableAnnotationComposer,
-    $$ActivitiesTableTableCreateCompanionBuilder,
-    $$ActivitiesTableTableUpdateCompanionBuilder,
-    (
-      ActivitiesTableData,
-      BaseReferences<_$AppDatabase, $ActivitiesTableTable, ActivitiesTableData>
-    ),
-    ActivitiesTableData,
-    PrefetchHooks Function()> {
+class $$ActivitiesTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ActivitiesTableTable,
+          ActivitiesTableData,
+          $$ActivitiesTableTableFilterComposer,
+          $$ActivitiesTableTableOrderingComposer,
+          $$ActivitiesTableTableAnnotationComposer,
+          $$ActivitiesTableTableCreateCompanionBuilder,
+          $$ActivitiesTableTableUpdateCompanionBuilder,
+          (
+            ActivitiesTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $ActivitiesTableTable,
+              ActivitiesTableData
+            >,
+          ),
+          ActivitiesTableData,
+          PrefetchHooks Function()
+        > {
   $$ActivitiesTableTableTableManager(
-      _$AppDatabase db, $ActivitiesTableTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $ActivitiesTableTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -4774,60 +5769,67 @@ class $$ActivitiesTableTableTableManager extends RootTableManager<
               $$ActivitiesTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$ActivitiesTableTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> title = const Value.absent(),
-            Value<String> content = const Value.absent(),
-            Value<String> imageURL = const Value.absent(),
-            Value<String> websiteURL = const Value.absent(),
-            Value<int> orderNumber = const Value.absent(),
-          }) =>
-              ActivitiesTableCompanion(
-            id: id,
-            title: title,
-            content: content,
-            imageURL: imageURL,
-            websiteURL: websiteURL,
-            orderNumber: orderNumber,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String title,
-            required String content,
-            required String imageURL,
-            required String websiteURL,
-            required int orderNumber,
-          }) =>
-              ActivitiesTableCompanion.insert(
-            id: id,
-            title: title,
-            content: content,
-            imageURL: imageURL,
-            websiteURL: websiteURL,
-            orderNumber: orderNumber,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String> imageURL = const Value.absent(),
+                Value<String> websiteURL = const Value.absent(),
+                Value<int> orderNumber = const Value.absent(),
+              }) => ActivitiesTableCompanion(
+                id: id,
+                title: title,
+                content: content,
+                imageURL: imageURL,
+                websiteURL: websiteURL,
+                orderNumber: orderNumber,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String title,
+                required String content,
+                required String imageURL,
+                required String websiteURL,
+                required int orderNumber,
+              }) => ActivitiesTableCompanion.insert(
+                id: id,
+                title: title,
+                content: content,
+                imageURL: imageURL,
+                websiteURL: websiteURL,
+                orderNumber: orderNumber,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$ActivitiesTableTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $ActivitiesTableTable,
-    ActivitiesTableData,
-    $$ActivitiesTableTableFilterComposer,
-    $$ActivitiesTableTableOrderingComposer,
-    $$ActivitiesTableTableAnnotationComposer,
-    $$ActivitiesTableTableCreateCompanionBuilder,
-    $$ActivitiesTableTableUpdateCompanionBuilder,
-    (
+typedef $$ActivitiesTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ActivitiesTableTable,
       ActivitiesTableData,
-      BaseReferences<_$AppDatabase, $ActivitiesTableTable, ActivitiesTableData>
-    ),
-    ActivitiesTableData,
-    PrefetchHooks Function()>;
+      $$ActivitiesTableTableFilterComposer,
+      $$ActivitiesTableTableOrderingComposer,
+      $$ActivitiesTableTableAnnotationComposer,
+      $$ActivitiesTableTableCreateCompanionBuilder,
+      $$ActivitiesTableTableUpdateCompanionBuilder,
+      (
+        ActivitiesTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $ActivitiesTableTable,
+          ActivitiesTableData
+        >,
+      ),
+      ActivitiesTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

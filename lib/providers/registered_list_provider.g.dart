@@ -10,21 +10,26 @@ part of 'registered_list_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(cachedRegistered)
-const cachedRegisteredProvider = CachedRegisteredProvider._();
+final cachedRegisteredProvider = CachedRegisteredProvider._();
 
-final class CachedRegisteredProvider extends $FunctionalProvider<
-        AsyncValue<List<int>>, List<int>, FutureOr<List<int>>>
+final class CachedRegisteredProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<int>>,
+          List<int>,
+          FutureOr<List<int>>
+        >
     with $FutureModifier<List<int>>, $FutureProvider<List<int>> {
-  const CachedRegisteredProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'cachedRegisteredProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  CachedRegisteredProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cachedRegisteredProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$cachedRegisteredHash();
@@ -43,20 +48,20 @@ final class CachedRegisteredProvider extends $FunctionalProvider<
 String _$cachedRegisteredHash() => r'bf7e866f9204d2ca4900b6ff7c064ab73b8a4b4e';
 
 @ProviderFor(RegisteredList)
-const registeredListProvider = RegisteredListProvider._();
+final registeredListProvider = RegisteredListProvider._();
 
 final class RegisteredListProvider
     extends $AsyncNotifierProvider<RegisteredList, List<int>> {
-  const RegisteredListProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'registeredListProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  RegisteredListProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'registeredListProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$registeredListHash();
@@ -73,32 +78,35 @@ abstract class _$RegisteredList extends $AsyncNotifier<List<int>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<List<int>>, List<int>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<int>>, List<int>>,
-        AsyncValue<List<int>>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<int>>, List<int>>,
+              AsyncValue<List<int>>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(eventRegistered)
-const eventRegisteredProvider = EventRegisteredFamily._();
+final eventRegisteredProvider = EventRegisteredFamily._();
 
 final class EventRegisteredProvider
-    extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
-  const EventRegisteredProvider._(
-      {required EventRegisteredFamily super.from,
-      required MidaEvent super.argument})
-      : super(
-          retry: null,
-          name: r'eventRegisteredProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  EventRegisteredProvider._({
+    required EventRegisteredFamily super.from,
+    required MidaEvent super.argument,
+  }) : super(
+         retry: null,
+         name: r'eventRegisteredProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$eventRegisteredHash();
@@ -118,10 +126,7 @@ final class EventRegisteredProvider
   @override
   bool create(Ref ref) {
     final argument = this.argument as MidaEvent;
-    return eventRegistered(
-      ref,
-      argument,
-    );
+    return eventRegistered(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -147,18 +152,16 @@ String _$eventRegisteredHash() => r'0aa7dd34777cb81e359029b0a9a6d82e5951939a';
 
 final class EventRegisteredFamily extends $Family
     with $FunctionalFamilyOverride<bool, MidaEvent> {
-  const EventRegisteredFamily._()
-      : super(
-          retry: null,
-          name: r'eventRegisteredProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
-          isAutoDispose: true,
-        );
+  EventRegisteredFamily._()
+    : super(
+        retry: null,
+        name: r'eventRegisteredProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-  EventRegisteredProvider call(
-    MidaEvent event,
-  ) =>
+  EventRegisteredProvider call(MidaEvent event) =>
       EventRegisteredProvider._(argument: event, from: this);
 
   @override

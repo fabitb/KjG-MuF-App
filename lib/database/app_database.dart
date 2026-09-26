@@ -267,15 +267,16 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<void> resetPlayedGames() async {
-    await (update(games)..where((g) => g.alreadyPlayed.equals(true)))
-        .write(const GamesCompanion(alreadyPlayed: Value(false)));
+    await (update(games)..where((g) => g.alreadyPlayed.equals(true))).write(
+      const GamesCompanion(alreadyPlayed: Value(false)),
+    );
   }
 
   // Events operations
   Future<List<MidaEvent>> getCachedEvents() async {
-    final results = await (select(events)
-          ..orderBy([(e) => OrderingTerm.asc(e.startDateAndTime)]))
-        .get();
+    final results = await (select(
+      events,
+    )..orderBy([(e) => OrderingTerm.asc(e.startDateAndTime)])).get();
     return results.map(_eventRowToModel).toList();
   }
 
@@ -357,8 +358,10 @@ class AppDatabase extends _$AppDatabase {
       preparationsInstructions: game.preparationsInstructions,
       gameplayInstructions: game.gameplayInstructions,
       endingInstructions: game.endingInstructions,
-      categories:
-          game.categories.split(',').where((c) => c.isNotEmpty).toList(),
+      categories: game.categories
+          .split(',')
+          .where((c) => c.isNotEmpty)
+          .toList(),
       author: game.author,
       reviewed: game.reviewed,
       alreadyPlayed: game.alreadyPlayed,
@@ -381,8 +384,10 @@ class AppDatabase extends _$AppDatabase {
       contactEmail: event.contactEmail,
       maxParticipants: event.maxParticipants,
       image: event.image,
-      attachments:
-          event.attachments?.split(',').where((a) => a.isNotEmpty).toList(),
+      attachments: event.attachments
+          ?.split(',')
+          .where((a) => a.isNotEmpty)
+          .toList(),
       costMember: event.costMember,
       costGuest: event.costGuest,
       costCompanion: event.costCompanion,

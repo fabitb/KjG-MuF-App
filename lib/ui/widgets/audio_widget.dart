@@ -62,10 +62,7 @@ class _AudioWidgetState extends State<AudioWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (displayName != null)
-              Text(
-                displayName,
-                style: TextStyle(fontSize: 18),
-              ),
+              Text(displayName, style: TextStyle(fontSize: 18)),
             Slider(
               min: 0.0,
               max: _duration.inMilliseconds.toDouble(),

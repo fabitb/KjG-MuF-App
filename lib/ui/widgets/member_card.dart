@@ -27,9 +27,9 @@ class MemberCard extends StatelessWidget {
           final width = constraints.maxWidth;
           final height = constraints.maxHeight;
 
-          final textStyleNormal = DefaultTextStyle.of(context).style.copyWith(
-                fontSize: 0.07 * height,
-              );
+          final textStyleNormal = DefaultTextStyle.of(
+            context,
+          ).style.copyWith(fontSize: 0.07 * height);
 
           final textShrinkingFactor = min(1, (1 / (name.length / 19)));
 
@@ -68,9 +68,7 @@ class MemberCard extends StatelessWidget {
       elevation: 5,
       child: Stack(
         children: [
-          Container(
-            color: KjGColors.kjgLightBlue,
-          ),
+          Container(color: KjGColors.kjgLightBlue),
           Positioned(
             top: 0,
             right: -0.4 * width,
@@ -108,10 +106,7 @@ class MemberCard extends StatelessWidget {
           Positioned(
             left: 0.37 * width,
             top: 0.05 * height,
-            child: Text(
-              name,
-              style: textStyleBold,
-            ),
+            child: Text(name, style: textStyleBold),
           ),
           Positioned(
             right: 0.05 * width,
@@ -123,15 +118,9 @@ class MemberCard extends StatelessWidget {
                 style: textStyleNormal,
                 children: [
                   if (region != null)
-                    TextSpan(
-                      text: "$region\n",
-                      style: textStyleNormal,
-                    ),
+                    TextSpan(text: "$region\n", style: textStyleNormal),
                   if (subregion != null)
-                    TextSpan(
-                      text: "$subregion\n",
-                      style: textStyleNormal,
-                    ),
+                    TextSpan(text: "$subregion\n", style: textStyleNormal),
                 ],
               ),
             ),
@@ -147,9 +136,7 @@ class MemberCard extends StatelessWidget {
       elevation: 5,
       child: Stack(
         children: [
-          Container(
-            color: KjGColors.kjgDarkBlue,
-          ),
+          Container(color: KjGColors.kjgDarkBlue),
           Positioned(
             left: 0.5 * width,
             bottom: 0.1 * height,

@@ -9,9 +9,7 @@ class GameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: Padding(
@@ -69,10 +67,7 @@ class GameItem extends StatelessWidget {
                   spacing: 4,
                   children: [
                     const Icon(Icons.access_time, size: 18),
-                    Text(
-                      game.duration,
-                      style: const TextStyle(fontSize: 14),
-                    ),
+                    Text(game.duration, style: const TextStyle(fontSize: 14)),
                   ],
                 ),
               ],

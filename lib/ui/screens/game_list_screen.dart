@@ -43,12 +43,12 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
       body: switch (games) {
         AsyncValue(:final value?, error: null) => _body(context, ref, value),
         _ => const Center(
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(),
-            ),
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(),
           ),
+        ),
       },
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
@@ -56,11 +56,9 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
         children: [
           FloatingActionButton(
             heroTag: 'addGameButton',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => EditGameScreen(),
-              ),
-            ),
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => EditGameScreen())),
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 12),
@@ -135,23 +133,20 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
             child: Searchbar(onSearchString: searchTextProvider.setFilterText),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final game = games[index];
-                return InkWell(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => GameDetailScreen(gameId: game.id),
-                    ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final game = games[index];
+              return InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => GameDetailScreen(gameId: game.id),
                   ),
-                  onLongPress: () => ref
-                      .read(gamesProvider.notifier)
-                      .updatedPlayedGame(game, !game.alreadyPlayed),
-                  child: GameItem(game: game),
-                );
-              },
-              childCount: games.length,
-            ),
+                ),
+                onLongPress: () => ref
+                    .read(gamesProvider.notifier)
+                    .updatedPlayedGame(game, !game.alreadyPlayed),
+                child: GameItem(game: game),
+              );
+            }, childCount: games.length),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
@@ -181,10 +176,7 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
       ],
     );
 
-    showDialog(
-      context: context,
-      builder: (context) => alert,
-    );
+    showDialog(context: context, builder: (context) => alert);
   }
 
   Future<String?> _showApiTokenDialog(BuildContext context) async {
@@ -230,8 +222,10 @@ class _GameListScreenState extends ConsumerState<GameListScreen> {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 10.0,
+            ),
             child: GamesFilterBottomSheet(isAuthorized: isAuthorized),
           ),
         );

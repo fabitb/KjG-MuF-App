@@ -66,7 +66,8 @@ class AttachmentCache extends _$AttachmentCache {
   Future<void> removeAttachment(EventAttachment attachment) async {
     await _cache.removeFile(attachment.key);
     // wait until provider reload is done, otherwise swipe to dismiss exception
-    await ref.refresh(attachmentCacheProvider.future);
+    ref.invalidateSelf();
+    await ref.read(attachmentCacheProvider.future);
   }
 
   Future<File> getSingleFile(EventAttachment attachment) async {

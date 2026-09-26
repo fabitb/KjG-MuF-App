@@ -10,19 +10,19 @@ part of 'auth_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Auth)
-const authProvider = AuthProvider._();
+final authProvider = AuthProvider._();
 
 final class AuthProvider extends $NotifierProvider<Auth, AuthState> {
-  const AuthProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'authProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  AuthProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$authHash();
@@ -40,17 +40,22 @@ final class AuthProvider extends $NotifierProvider<Auth, AuthState> {
   }
 }
 
-String _$authHash() => r'aed95ba86146081b38bc6a78788f5fa075daa732';
+String _$authHash() => r'2098cdd7d34aa4fba4e1b05e4c5020ceeabb31da';
 
 abstract class _$Auth extends $Notifier<AuthState> {
   AuthState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AuthState, AuthState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AuthState, AuthState>, AuthState, Object?, Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AuthState, AuthState>,
+              AuthState,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }
