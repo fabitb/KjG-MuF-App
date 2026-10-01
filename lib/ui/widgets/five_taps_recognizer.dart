@@ -38,9 +38,6 @@ class _FiveTapsRecognizerState extends State<FiveTapsRecognizer> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      child: widget.child,
-    );
+    return GestureDetector(onTap: _handleTap, child: widget.child);
   }
 }

@@ -12,8 +12,9 @@ FilterSettings _$FilterSettingsFromJson(Map<String, dynamic> json) =>
       ..onlyRegistered = json['onlyRegistered'] as bool
       ..dateTimeRange =
           _$JsonConverterFromJson<String, DateTimeRange<DateTime>>(
-              json['dateTimeRange'],
-              const CustomDateTimeRangeConverter().fromJson)
+            json['dateTimeRange'],
+            const CustomDateTimeRangeConverter().fromJson,
+          )
       ..hideGremien = json['hideGremien'] as bool;
 
 Map<String, dynamic> _$FilterSettingsToJson(FilterSettings instance) =>
@@ -21,18 +22,18 @@ Map<String, dynamic> _$FilterSettingsToJson(FilterSettings instance) =>
       'showOrganizer': instance.showOrganizer,
       'onlyRegistered': instance.onlyRegistered,
       'dateTimeRange': _$JsonConverterToJson<String, DateTimeRange<DateTime>>(
-          instance.dateTimeRange, const CustomDateTimeRangeConverter().toJson),
+        instance.dateTimeRange,
+        const CustomDateTimeRangeConverter().toJson,
+      ),
       'hideGremien': instance.hideGremien,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
   Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+) => json == null ? null : fromJson(json as Json);
 
 Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
   Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+) => value == null ? null : toJson(value);

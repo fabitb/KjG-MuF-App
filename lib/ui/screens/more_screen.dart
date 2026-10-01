@@ -40,11 +40,9 @@ class MoreScreen extends ConsumerWidget {
   }
 
   void _onAttachmentsTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const AttachmentsScreen(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => const AttachmentsScreen()));
   }
 
   void _onGamesDatabaseTap(BuildContext context) {
@@ -71,11 +69,9 @@ class MoreScreen extends ConsumerWidget {
   }
 
   void _onDataPrivacyTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DataPrivacyScreen(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => DataPrivacyScreen()));
   }
 
   @override
@@ -122,10 +118,7 @@ class MoreScreen extends ConsumerWidget {
                         title: loc.website,
                         onTap: () => _onWebsiteTap(context),
                       ),
-                      _tile(
-                        title: loc.shop,
-                        onTap: () => _onShopTap(context),
-                      ),
+                      _tile(title: loc.shop, onTap: () => _onShopTap(context)),
                     ],
                     _tile(
                       title: loc.dataPrivacy,
@@ -162,10 +155,7 @@ class MoreScreen extends ConsumerWidget {
   }) {
     return ListTile(
       title: Text(title),
-      trailing: Icon(
-        Icons.arrow_forward_ios,
-        size: 16,
-      ),
+      trailing: Icon(Icons.arrow_forward_ios, size: 16),
       onTap: onTap,
       enabled: enabled,
     );

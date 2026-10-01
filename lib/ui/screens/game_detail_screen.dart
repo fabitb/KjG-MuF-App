@@ -39,22 +39,14 @@ class GameDetailScreen extends ConsumerWidget {
                   if (isAuthorized.value == true)
                     if (game.reviewed)
                       IconButton(
-                        onPressed: () => _showSetReviewedDialog(
-                          context,
-                          ref,
-                          game,
-                          false,
-                        ),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, game, false),
                         icon: const Icon(Icons.close),
                       )
                     else
                       IconButton(
-                        onPressed: () => _showSetReviewedDialog(
-                          context,
-                          ref,
-                          game,
-                          true,
-                        ),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, game, true),
                         icon: const Icon(Icons.check),
                       ),
                 ],
@@ -113,9 +105,8 @@ class GameDetailScreen extends ConsumerWidget {
               : null,
         );
       },
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
         appBar: AppBar(title: Text(context.localizations.error(""))),
         body: Center(child: Text(context.localizations.error(e.toString()))),

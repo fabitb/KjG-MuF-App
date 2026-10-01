@@ -54,9 +54,7 @@ class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
 
   void _onEventTap(BuildContext context, MidaEvent event) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => EventDetailScreen(event: event),
-      ),
+      MaterialPageRoute(builder: (context) => EventDetailScreen(event: event)),
     );
   }
 
@@ -191,29 +189,28 @@ class _AttachmentsScreenState extends ConsumerState<AttachmentsScreen> {
     }
 
     // only show attachments that contain every part (in name or event name)
-    final matchingAttachments =
-        attachmentsWithEvents.where((s) => matchesSearch(s.$1, s.$2));
-
-    return matchingAttachments.map(
-      (a) {
-        final attachment = a.$1;
-        final event = a.$2;
-        return ListTile(
-          dense: true,
-          title: Text(
-            attachment.displayName,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-          subtitle: event != null ? Text(event.title) : null,
-          leading: Icon(a.$1.fileType.icon),
-          onTap: () {
-            _controller.closeView("");
-            _onAttachmentTap(context, attachment);
-          },
-        );
-      },
+    final matchingAttachments = attachmentsWithEvents.where(
+      (s) => matchesSearch(s.$1, s.$2),
     );
+
+    return matchingAttachments.map((a) {
+      final attachment = a.$1;
+      final event = a.$2;
+      return ListTile(
+        dense: true,
+        title: Text(
+          attachment.displayName,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+        subtitle: event != null ? Text(event.title) : null,
+        leading: Icon(a.$1.fileType.icon),
+        onTap: () {
+          _controller.closeView("");
+          _onAttachmentTap(context, attachment);
+        },
+      );
+    });
   }
 
   Widget _attachmentGroup(

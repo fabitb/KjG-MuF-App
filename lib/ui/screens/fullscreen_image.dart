@@ -26,9 +26,7 @@ class FullscreenImage extends StatelessWidget {
               imageProvider: FileImage(snapshot.data!.absolute),
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

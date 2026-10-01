@@ -7,10 +7,7 @@ import 'package:kjg_muf_app/utils/url_helper.dart';
 class DashboardWebViewScreen extends StatelessWidget {
   final String url;
 
-  DashboardWebViewScreen({
-    super.key,
-    required this.url,
-  });
+  DashboardWebViewScreen({super.key, required this.url});
 
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer()),
