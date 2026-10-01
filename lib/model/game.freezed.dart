@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'game.dart';
@@ -9,6 +9,7 @@ part of 'game.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $GameCopyWith<Game> get copyWith => _$GameCopyWithImpl<Game>(this as Game, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.actionScore, actionScore) || other.actionScore == actionScore)&&(identical(other.cognitiveScore, cognitiveScore) || other.cognitiveScore == cognitiveScore)&&(identical(other.numberOfPlayer, numberOfPlayer) || other.numberOfPlayer == numberOfPlayer)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.ageLimitations, ageLimitations) || other.ageLimitations == ageLimitations)&&(identical(other.spaceLimitations, spaceLimitations) || other.spaceLimitations == spaceLimitations)&&(identical(other.materials, materials) || other.materials == materials)&&(identical(other.goalOfGame, goalOfGame) || other.goalOfGame == goalOfGame)&&(identical(other.preparationsInstructions, preparationsInstructions) || other.preparationsInstructions == preparationsInstructions)&&(identical(other.gameplayInstructions, gameplayInstructions) || other.gameplayInstructions == gameplayInstructions)&&(identical(other.endingInstructions, endingInstructions) || other.endingInstructions == endingInstructions)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.reviewed, reviewed) || other.reviewed == reviewed)&&(identical(other.author, author) || other.author == author)&&(identical(other.alreadyPlayed, alreadyPlayed) || other.alreadyPlayed == alreadyPlayed));
+  final _this = this as Game;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.actionScore, _this.actionScore) || other.actionScore == _this.actionScore)&&(identical(other.cognitiveScore, _this.cognitiveScore) || other.cognitiveScore == _this.cognitiveScore)&&(identical(other.numberOfPlayer, _this.numberOfPlayer) || other.numberOfPlayer == _this.numberOfPlayer)&&(identical(other.duration, _this.duration) || other.duration == _this.duration)&&(identical(other.ageLimitations, _this.ageLimitations) || other.ageLimitations == _this.ageLimitations)&&(identical(other.spaceLimitations, _this.spaceLimitations) || other.spaceLimitations == _this.spaceLimitations)&&(identical(other.materials, _this.materials) || other.materials == _this.materials)&&(identical(other.goalOfGame, _this.goalOfGame) || other.goalOfGame == _this.goalOfGame)&&(identical(other.preparationsInstructions, _this.preparationsInstructions) || other.preparationsInstructions == _this.preparationsInstructions)&&(identical(other.gameplayInstructions, _this.gameplayInstructions) || other.gameplayInstructions == _this.gameplayInstructions)&&(identical(other.endingInstructions, _this.endingInstructions) || other.endingInstructions == _this.endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.reviewed, _this.reviewed) || other.reviewed == _this.reviewed)&&(identical(other.author, _this.author) || other.author == _this.author)&&(identical(other.alreadyPlayed, _this.alreadyPlayed) || other.alreadyPlayed == _this.alreadyPlayed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,actionScore,cognitiveScore,numberOfPlayer,duration,ageLimitations,spaceLimitations,materials,goalOfGame,preparationsInstructions,gameplayInstructions,endingInstructions,const DeepCollectionEquality().hash(categories),reviewed,author,alreadyPlayed);
+int get hashCode {
+  final _this = this as Game;
+  return Object.hash(runtimeType,_this.id,_this.title,_this.actionScore,_this.cognitiveScore,_this.numberOfPlayer,_this.duration,_this.ageLimitations,_this.spaceLimitations,_this.materials,_this.goalOfGame,_this.preparationsInstructions,_this.gameplayInstructions,_this.endingInstructions,const DeepCollectionEquality().hash(_this.categories),_this.reviewed,_this.author,_this.alreadyPlayed);
+}
 
 @override
 String toString() {
-  return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
+  final _this = this as Game;
+  return 'Game(id: ${_this.id}, title: ${_this.title}, actionScore: ${_this.actionScore}, cognitiveScore: ${_this.cognitiveScore}, numberOfPlayer: ${_this.numberOfPlayer}, duration: ${_this.duration}, ageLimitations: ${_this.ageLimitations}, spaceLimitations: ${_this.spaceLimitations}, materials: ${_this.materials}, goalOfGame: ${_this.goalOfGame}, preparationsInstructions: ${_this.preparationsInstructions}, gameplayInstructions: ${_this.gameplayInstructions}, endingInstructions: ${_this.endingInstructions}, categories: ${_this.categories}, reviewed: ${_this.reviewed}, author: ${_this.author}, alreadyPlayed: ${_this.alreadyPlayed})';
 }
 
 
@@ -66,7 +72,7 @@ class _$GameCopyWithImpl<$Res>
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? actionScore = null,Object? cognitiveScore = null,Object? numberOfPlayer = null,Object? duration = null,Object? ageLimitations = freezed,Object? spaceLimitations = null,Object? materials = null,Object? goalOfGame = null,Object? preparationsInstructions = null,Object? gameplayInstructions = null,Object? endingInstructions = null,Object? categories = null,Object? reviewed = null,Object? author = null,Object? alreadyPlayed = null,}) {
-  return _then(_self.copyWith(
+  return _then(Game(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,actionScore: null == actionScore ? _self.actionScore : actionScore // ignore: cast_nullable_to_non_nullable
@@ -219,7 +225,7 @@ return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_tha
 @JsonSerializable()
 
 class _Game implements Game {
-  const _Game({@JsonKey(name: '_id') required this.id, required this.title, required this.actionScore, required this.cognitiveScore, required this.numberOfPlayer, required this.duration, required this.ageLimitations, required this.spaceLimitations, required this.materials, required this.goalOfGame, required this.preparationsInstructions, required this.gameplayInstructions, required this.endingInstructions, required final  List<String> categories, required this.reviewed, required this.author, this.alreadyPlayed = false}): _categories = categories;
+  const _Game({@JsonKey(name: '_id') required this.id, required this.title, required this.actionScore, required this.cognitiveScore, required this.numberOfPlayer, required this.duration, required this.ageLimitations, required this.spaceLimitations, required this.materials, required this.goalOfGame, required this.preparationsInstructions, required this.gameplayInstructions, required this.endingInstructions, required  List<String> categories, required this.reviewed, required this.author, this.alreadyPlayed = false}): _categories = categories;
   factory _Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 
 @override@JsonKey(name: '_id') final  String id;
@@ -259,16 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.actionScore, actionScore) || other.actionScore == actionScore)&&(identical(other.cognitiveScore, cognitiveScore) || other.cognitiveScore == cognitiveScore)&&(identical(other.numberOfPlayer, numberOfPlayer) || other.numberOfPlayer == numberOfPlayer)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.ageLimitations, ageLimitations) || other.ageLimitations == ageLimitations)&&(identical(other.spaceLimitations, spaceLimitations) || other.spaceLimitations == spaceLimitations)&&(identical(other.materials, materials) || other.materials == materials)&&(identical(other.goalOfGame, goalOfGame) || other.goalOfGame == goalOfGame)&&(identical(other.preparationsInstructions, preparationsInstructions) || other.preparationsInstructions == preparationsInstructions)&&(identical(other.gameplayInstructions, gameplayInstructions) || other.gameplayInstructions == gameplayInstructions)&&(identical(other.endingInstructions, endingInstructions) || other.endingInstructions == endingInstructions)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.reviewed, reviewed) || other.reviewed == reviewed)&&(identical(other.author, author) || other.author == author)&&(identical(other.alreadyPlayed, alreadyPlayed) || other.alreadyPlayed == alreadyPlayed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.actionScore, actionScore) || other.actionScore == actionScore)&&(identical(other.cognitiveScore, cognitiveScore) || other.cognitiveScore == cognitiveScore)&&(identical(other.numberOfPlayer, numberOfPlayer) || other.numberOfPlayer == numberOfPlayer)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.ageLimitations, ageLimitations) || other.ageLimitations == ageLimitations)&&(identical(other.spaceLimitations, spaceLimitations) || other.spaceLimitations == spaceLimitations)&&(identical(other.materials, materials) || other.materials == materials)&&(identical(other.goalOfGame, goalOfGame) || other.goalOfGame == goalOfGame)&&(identical(other.preparationsInstructions, preparationsInstructions) || other.preparationsInstructions == preparationsInstructions)&&(identical(other.gameplayInstructions, gameplayInstructions) || other.gameplayInstructions == gameplayInstructions)&&(identical(other.endingInstructions, endingInstructions) || other.endingInstructions == endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.reviewed, reviewed) || other.reviewed == reviewed)&&(identical(other.author, author) || other.author == author)&&(identical(other.alreadyPlayed, alreadyPlayed) || other.alreadyPlayed == alreadyPlayed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,actionScore,cognitiveScore,numberOfPlayer,duration,ageLimitations,spaceLimitations,materials,goalOfGame,preparationsInstructions,gameplayInstructions,endingInstructions,const DeepCollectionEquality().hash(_categories),reviewed,author,alreadyPlayed);
+int get hashCode {
+    return Object.hash(runtimeType,id,title,actionScore,cognitiveScore,numberOfPlayer,duration,ageLimitations,spaceLimitations,materials,goalOfGame,preparationsInstructions,gameplayInstructions,endingInstructions,const DeepCollectionEquality().hash(_categories),reviewed,author,alreadyPlayed);
+}
 
 @override
 String toString() {
-  return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
+    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
 }
 
 

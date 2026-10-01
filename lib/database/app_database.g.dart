@@ -4426,7 +4426,16 @@ class $$GamesTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$GamesTable, GameRow>(table),
+                  BaseReferences<_$AppDatabase, $GamesTable, GameRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -5247,7 +5256,16 @@ class $$EventsTableTableManager
                 clientEventId: clientEventId,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$EventsTable, Event>(table),
+                  BaseReferences<_$AppDatabase, $EventsTable, Event>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -5358,7 +5376,18 @@ class $$RegisteredTableTableTableManager
               ({Value<int> eventId = const Value.absent()}) =>
                   RegisteredTableCompanion.insert(eventId: eventId),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$RegisteredTableTable, RegisteredTableData>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $RegisteredTableTable,
+                    RegisteredTableData
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -5579,7 +5608,16 @@ class $$NewsTableTableTableManager
                 orderNumber: orderNumber,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$NewsTableTable, NewsTableData>(table),
+                  BaseReferences<_$AppDatabase, $NewsTableTable, NewsTableData>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -5802,7 +5840,18 @@ class $$ActivitiesTableTableTableManager
                 orderNumber: orderNumber,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$ActivitiesTableTable, ActivitiesTableData>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $ActivitiesTableTable,
+                    ActivitiesTableData
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

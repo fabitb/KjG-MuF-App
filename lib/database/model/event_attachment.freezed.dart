@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'event_attachment.dart';
@@ -9,6 +9,7 @@ part of 'event_attachment.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $EventAttachmentCopyWith<EventAttachment> get copyWith => _$EventAttachmentCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EventAttachment&&(identical(other.eventId, eventId) || other.eventId == eventId)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&(identical(other.cacheObject, cacheObject) || other.cacheObject == cacheObject));
+  final _this = this as EventAttachment;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EventAttachment&&(identical(other.eventId, _this.eventId) || other.eventId == _this.eventId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.cacheObject, _this.cacheObject) || other.cacheObject == _this.cacheObject));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,eventId,name,url,cacheObject);
+int get hashCode {
+  final _this = this as EventAttachment;
+  return Object.hash(runtimeType,_this.eventId,_this.name,_this.url,_this.cacheObject);
+}
 
 @override
 String toString() {
-  return 'EventAttachment(eventId: $eventId, name: $name, url: $url, cacheObject: $cacheObject)';
+  final _this = this as EventAttachment;
+  return 'EventAttachment(eventId: ${_this.eventId}, name: ${_this.name}, url: ${_this.url}, cacheObject: ${_this.cacheObject})';
 }
 
 
@@ -63,7 +69,7 @@ class _$EventAttachmentCopyWithImpl<$Res>
 /// Create a copy of EventAttachment
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? eventId = null,Object? name = null,Object? url = null,Object? cacheObject = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(EventAttachment(
 eventId: null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
@@ -221,16 +227,18 @@ _$EventAttachmentCopyWith<_EventAttachment> get copyWith => __$EventAttachmentCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EventAttachment&&(identical(other.eventId, eventId) || other.eventId == eventId)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&(identical(other.cacheObject, cacheObject) || other.cacheObject == cacheObject));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EventAttachment&&(identical(other.eventId, eventId) || other.eventId == eventId)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&(identical(other.cacheObject, cacheObject) || other.cacheObject == cacheObject));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,eventId,name,url,cacheObject);
+int get hashCode {
+    return Object.hash(runtimeType,eventId,name,url,cacheObject);
+}
 
 @override
 String toString() {
-  return 'EventAttachment(eventId: $eventId, name: $name, url: $url, cacheObject: $cacheObject)';
+    return 'EventAttachment(eventId: $eventId, name: $name, url: $url, cacheObject: $cacheObject)';
 }
 
 

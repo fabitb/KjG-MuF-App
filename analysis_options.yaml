@@ -99,3 +99,8 @@ analyzer:
   errors:
     # ignore warnings from using json_annotation with freezed
     invalid_annotation_target: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**

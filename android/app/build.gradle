@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -28,18 +27,18 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "de.kjg.kjg_muf_app"
+    namespace = "de.kjg.kjg_muf_app"
 
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = '17'
+    buildFeatures {
+        resValues = true
     }
 
     sourceSets {
@@ -47,43 +46,49 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.kjg.kjg_app"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger() + 1020001 // add fixed version because Fabi messed up once
-        versionName flutterVersionName
+        applicationId = "de.kjg.kjg_app"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutterVersionCode.toInteger() + 1020001 // add fixed version because Fabi messed up once
+        versionName = flutterVersionName
         resValue "string", "app_name", "KjG App"
     }
 
-    flavorDimensions "default"
+    flavorDimensions = ["default"]
 
     productFlavors {
         base {}
 
         dev {
-            dimension "default"
+            dimension = "default"
             resValue "string", "app_name", "KjG App Dev"
-            applicationIdSuffix ".dev"
+            applicationIdSuffix = ".dev"
         }
     }
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+            keyAlias = keystoreProperties['keyAlias']
+            keyPassword = keystoreProperties['keyPassword']
+            storeFile = keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword = keystoreProperties['storePassword']
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
         }
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
 flutter {
-    source '../..'
+    source = '../..'
 }
 

@@ -46,7 +46,7 @@ abstract class _$Filter extends $Notifier<FilterSettings> {
   FilterSettings build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<FilterSettings, FilterSettings>;
     final element =
         ref.element
@@ -56,7 +56,7 @@ abstract class _$Filter extends $Notifier<FilterSettings> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
@@ -97,7 +97,7 @@ abstract class _$FilterText extends $Notifier<String> {
   String build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
@@ -107,6 +107,6 @@ abstract class _$FilterText extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

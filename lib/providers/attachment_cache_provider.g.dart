@@ -39,7 +39,7 @@ abstract class _$AttachmentCache extends $AsyncNotifier<List<EventAttachment>> {
   FutureOr<List<EventAttachment>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<AsyncValue<List<EventAttachment>>, List<EventAttachment>>;
@@ -54,7 +54,7 @@ abstract class _$AttachmentCache extends $AsyncNotifier<List<EventAttachment>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

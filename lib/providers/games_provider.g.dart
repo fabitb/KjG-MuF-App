@@ -38,7 +38,7 @@ abstract class _$Games extends $AsyncNotifier<List<Game>> {
   FutureOr<List<Game>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<List<Game>>, List<Game>>;
     final element =
         ref.element
@@ -48,7 +48,7 @@ abstract class _$Games extends $AsyncNotifier<List<Game>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

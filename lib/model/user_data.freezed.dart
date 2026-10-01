@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_data.dart';
@@ -9,6 +9,7 @@ part of 'user_data.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $UserDataCopyWith<UserData> get copyWith => _$UserDataCopyWithImpl<UserData>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserData&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.me, me) || other.me == me)&&(identical(other.og, og) || other.og == og)&&(identical(other.memberNumber, memberNumber) || other.memberNumber == memberNumber));
+  final _this = this as UserData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserData&&(identical(other.username, _this.username) || other.username == _this.username)&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.me, _this.me) || other.me == _this.me)&&(identical(other.og, _this.og) || other.og == _this.og)&&(identical(other.memberNumber, _this.memberNumber) || other.memberNumber == _this.memberNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,firstName,lastName,me,og,memberNumber);
+int get hashCode {
+  final _this = this as UserData;
+  return Object.hash(runtimeType,_this.username,_this.firstName,_this.lastName,_this.me,_this.og,_this.memberNumber);
+}
 
 @override
 String toString() {
-  return 'UserData(username: $username, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
+  final _this = this as UserData;
+  return 'UserData(username: ${_this.username}, firstName: ${_this.firstName}, lastName: ${_this.lastName}, me: ${_this.me}, og: ${_this.og}, memberNumber: ${_this.memberNumber})';
 }
 
 
@@ -66,7 +72,7 @@ class _$UserDataCopyWithImpl<$Res>
 /// Create a copy of UserData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? username = null,Object? firstName = freezed,Object? lastName = freezed,Object? me = freezed,Object? og = freezed,Object? memberNumber = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(UserData(
 username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserData&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.me, me) || other.me == me)&&(identical(other.og, og) || other.og == og)&&(identical(other.memberNumber, memberNumber) || other.memberNumber == memberNumber));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserData&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.me, me) || other.me == me)&&(identical(other.og, og) || other.og == og)&&(identical(other.memberNumber, memberNumber) || other.memberNumber == memberNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,firstName,lastName,me,og,memberNumber);
+int get hashCode {
+    return Object.hash(runtimeType,username,firstName,lastName,me,og,memberNumber);
+}
 
 @override
 String toString() {
-  return 'UserData(username: $username, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
+    return 'UserData(username: $username, firstName: $firstName, lastName: $lastName, me: $me, og: $og, memberNumber: $memberNumber)';
 }
 
 

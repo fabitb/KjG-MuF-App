@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'games_filter_settings.dart';
@@ -9,6 +9,7 @@ part of 'games_filter_settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $GamesFilterSettingsCopyWith<GamesFilterSettings> get copyWith => _$GamesFilterS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GamesFilterSettings&&(identical(other.showReviewed, showReviewed) || other.showReviewed == showReviewed)&&(identical(other.showOnlyUnplayed, showOnlyUnplayed) || other.showOnlyUnplayed == showOnlyUnplayed)&&(identical(other.actionRange, actionRange) || other.actionRange == actionRange)&&(identical(other.thinkingRange, thinkingRange) || other.thinkingRange == thinkingRange));
+  final _this = this as GamesFilterSettings;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GamesFilterSettings&&(identical(other.showReviewed, _this.showReviewed) || other.showReviewed == _this.showReviewed)&&(identical(other.showOnlyUnplayed, _this.showOnlyUnplayed) || other.showOnlyUnplayed == _this.showOnlyUnplayed)&&(identical(other.actionRange, _this.actionRange) || other.actionRange == _this.actionRange)&&(identical(other.thinkingRange, _this.thinkingRange) || other.thinkingRange == _this.thinkingRange));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,showReviewed,showOnlyUnplayed,actionRange,thinkingRange);
+int get hashCode {
+  final _this = this as GamesFilterSettings;
+  return Object.hash(runtimeType,_this.showReviewed,_this.showOnlyUnplayed,_this.actionRange,_this.thinkingRange);
+}
 
 @override
 String toString() {
-  return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, actionRange: $actionRange, thinkingRange: $thinkingRange)';
+  final _this = this as GamesFilterSettings;
+  return 'GamesFilterSettings(showReviewed: ${_this.showReviewed}, showOnlyUnplayed: ${_this.showOnlyUnplayed}, actionRange: ${_this.actionRange}, thinkingRange: ${_this.thinkingRange})';
 }
 
 
@@ -63,7 +69,7 @@ class _$GamesFilterSettingsCopyWithImpl<$Res>
 /// Create a copy of GamesFilterSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? showReviewed = null,Object? showOnlyUnplayed = null,Object? actionRange = freezed,Object? thinkingRange = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(GamesFilterSettings(
 showReviewed: null == showReviewed ? _self.showReviewed : showReviewed // ignore: cast_nullable_to_non_nullable
 as bool,showOnlyUnplayed: null == showOnlyUnplayed ? _self.showOnlyUnplayed : showOnlyUnplayed // ignore: cast_nullable_to_non_nullable
 as bool,actionRange: freezed == actionRange ? _self.actionRange : actionRange // ignore: cast_nullable_to_non_nullable
@@ -221,16 +227,18 @@ _$GamesFilterSettingsCopyWith<_GamesFilterSettings> get copyWith => __$GamesFilt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GamesFilterSettings&&(identical(other.showReviewed, showReviewed) || other.showReviewed == showReviewed)&&(identical(other.showOnlyUnplayed, showOnlyUnplayed) || other.showOnlyUnplayed == showOnlyUnplayed)&&(identical(other.actionRange, actionRange) || other.actionRange == actionRange)&&(identical(other.thinkingRange, thinkingRange) || other.thinkingRange == thinkingRange));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GamesFilterSettings&&(identical(other.showReviewed, showReviewed) || other.showReviewed == showReviewed)&&(identical(other.showOnlyUnplayed, showOnlyUnplayed) || other.showOnlyUnplayed == showOnlyUnplayed)&&(identical(other.actionRange, actionRange) || other.actionRange == actionRange)&&(identical(other.thinkingRange, thinkingRange) || other.thinkingRange == thinkingRange));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,showReviewed,showOnlyUnplayed,actionRange,thinkingRange);
+int get hashCode {
+    return Object.hash(runtimeType,showReviewed,showOnlyUnplayed,actionRange,thinkingRange);
+}
 
 @override
 String toString() {
-  return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, actionRange: $actionRange, thinkingRange: $thinkingRange)';
+    return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, actionRange: $actionRange, thinkingRange: $thinkingRange)';
 }
 
 

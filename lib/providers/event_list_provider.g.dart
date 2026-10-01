@@ -78,7 +78,7 @@ abstract class _$EventList extends $AsyncNotifier<List<MidaEvent>> {
   FutureOr<List<MidaEvent>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<List<MidaEvent>>, List<MidaEvent>>;
     final element =
         ref.element
@@ -88,7 +88,7 @@ abstract class _$EventList extends $AsyncNotifier<List<MidaEvent>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
