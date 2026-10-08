@@ -11,17 +11,11 @@ class BackendService {
   Map<String, String> headers = {"Content-type": "application/json"};
   Map<String, String> cookies = {};
 
-  final _dio = Dio(
-    BaseOptions(
-      baseUrl: backendBaseURL,
-    ),
-  );
+  final _dio = Dio(BaseOptions(baseUrl: backendBaseURL));
 
   BackendService() {
     if (kDebugMode) {
-      _dio.interceptors.add(
-        LogInterceptor(),
-      );
+      _dio.interceptors.add(LogInterceptor());
     }
   }
 
@@ -68,8 +62,10 @@ class BackendService {
   }
 
   Future<bool> isAuthorized(String apiToken) async {
-    final response = await _dio
-        .post("/games/isAuthorized", queryParameters: {"apiToken": apiToken});
+    final response = await _dio.post(
+      "/games/isAuthorized",
+      queryParameters: {"apiToken": apiToken},
+    );
     return response.data["success"] as bool;
   }
 

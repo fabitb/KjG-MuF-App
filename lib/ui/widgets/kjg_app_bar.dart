@@ -27,9 +27,14 @@ class KjgAppBar extends StatelessWidget {
       flexibleSpace: text != null
           ? FlexibleSpaceBar(
               centerTitle: centerTitle,
-              titlePadding: EdgeInsets.all(16.0),
+              titlePadding: EdgeInsets.symmetric(
+                horizontal: centerTitle ? 56.0 : 16.0,
+                vertical: 16.0,
+              ),
               title: Text(
                 text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20.0,

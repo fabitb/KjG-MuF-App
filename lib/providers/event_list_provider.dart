@@ -32,9 +32,10 @@ class EventList extends _$EventList {
   }
 
   Future<void> refresh() async {
-    // use refresh to await new value for refresh loading indicator
+    // read the new value to await the reload for the refresh loading indicator
     ref.invalidateSelf();
-    await ref.refresh(registeredListProvider.future);
+    ref.invalidate(registeredListProvider);
+    await ref.read(registeredListProvider.future);
   }
 }
 
@@ -48,7 +49,9 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
   final searchText = ref.watch(filterTextProvider);
 
   if (filterSettings.onlyRegistered) {
-    events = events.where((element) => registered.contains(element.id)).toList();
+    events = events
+        .where((element) => registered.contains(element.id))
+        .toList();
   }
 
   if (filterSettings.hideGremien) {
@@ -58,7 +61,9 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
 
   events = events
       .where(
-        (element) => filterSettings.showOrganizer[element.organization ?? "Unbekannt"] ?? true,
+        (element) =>
+            filterSettings.showOrganizer[element.organization ?? "Unbekannt"] ??
+            true,
       )
       .toList();
 
@@ -68,7 +73,8 @@ Future<List<MidaEvent>> filteredEvents(Ref ref) async {
       DateTime start = filterSettings.dateTimeRange!.start;
       // Aktionen am Endtag sollen inkludiert sein
       DateTime end = filterDateTimeRange.end.add(const Duration(days: 1));
-      return element.endDateAndTime.isAfter(start) && element.startDateAndTime.isBefore(end);
+      return element.endDateAndTime.isAfter(start) &&
+          element.startDateAndTime.isBefore(end);
     }).toList();
   }
 

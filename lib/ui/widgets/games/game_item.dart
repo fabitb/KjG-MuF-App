@@ -9,9 +9,7 @@ class GameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: Padding(
@@ -51,31 +49,44 @@ class GameItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  spacing: 4,
-                  children: [
-                    const Icon(Icons.people_outline, size: 18),
-                    Text(
-                      game.numberOfPlayer,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  spacing: 4,
-                  children: [
-                    const Icon(Icons.access_time, size: 18),
-                    Text(
-                      game.duration,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 120),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 4,
+                    children: [
+                      const Icon(Icons.people_outline, size: 18),
+                      Flexible(
+                        child: Text(
+                          game.numberOfPlayer,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 4,
+                    children: [
+                      const Icon(Icons.access_time, size: 18),
+                      Flexible(
+                        child: Text(
+                          game.duration,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

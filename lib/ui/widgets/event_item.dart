@@ -24,10 +24,7 @@ class EventItem extends StatelessWidget {
           children: [
             Text(
               event.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 10),
             Row(
@@ -35,9 +32,7 @@ class EventItem extends StatelessWidget {
               children: [
                 const Icon(Icons.date_range_outlined),
                 Text(
-                  "${dateFormat.format(event.startDateAndTime)}${(event.numberOfDays ?? 0) > 1 ? " - ${dateFormat.format(
-                      event.endDateAndTime,
-                    )}" : ""}",
+                  "${dateFormat.format(event.startDateAndTime)}${(event.numberOfDays ?? 0) > 1 ? " - ${dateFormat.format(event.endDateAndTime)}" : ""}",
                 ),
                 const SizedBox(width: 20),
                 const Icon(Icons.watch_later_outlined),

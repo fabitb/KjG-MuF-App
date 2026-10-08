@@ -33,9 +33,9 @@ class WordpressService {
   }
 
   Future<http.Response> _get(String url) {
-    return http
-        .get(Uri.parse(url), headers: headers)
-        .then((http.Response response) {
+    return http.get(Uri.parse(url), headers: headers).then((
+      http.Response response,
+    ) {
       final int statusCode = response.statusCode;
 
       _updateCookie(response);

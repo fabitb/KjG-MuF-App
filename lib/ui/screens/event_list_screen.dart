@@ -31,22 +31,18 @@ class EventListScreen extends ConsumerWidget {
         body: switch (events) {
           AsyncValue(:final value?, error: null) => _body(value, ref),
           _ => Skeletonizer(
-              enabled: true,
-              child: ListView(
-                children: MidaEvent.createFakeData()
-                    .map((e) => EventItem(event: e, registered: false))
-                    .toList(),
-              ),
+            enabled: true,
+            child: ListView(
+              children: MidaEvent.createFakeData()
+                  .map((e) => EventItem(event: e, registered: false))
+                  .toList(),
             ),
+          ),
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showFilterSheet(
-          context,
-          allEvents,
-          filterSettings,
-          ref,
-        ),
+        onPressed: () =>
+            _showFilterSheet(context, allEvents, filterSettings, ref),
         child: Icon(
           filterSettings.isActive() ? Icons.filter_list : Icons.filter_list_off,
         ),

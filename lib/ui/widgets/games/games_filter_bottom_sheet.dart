@@ -8,10 +8,7 @@ import 'package:kjg_muf_app/ui/widgets/games/range_slider_filter.dart';
 class GamesFilterBottomSheet extends ConsumerWidget {
   final bool isAuthorized;
 
-  const GamesFilterBottomSheet({
-    super.key,
-    required this.isAuthorized,
-  });
+  const GamesFilterBottomSheet({super.key, required this.isAuthorized});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +21,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
           child: RangeSliderFilter(
             label: context.localizations.action,
             onRangeValuesChangeEnd: (rangeValue) {
-              ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+              ref
+                  .read(gamesFilterProvider.notifier)
+                  .setGamesFilterSettings(
                     gamesFilter.copyWith(actionRange: rangeValue),
                   );
             },
@@ -36,7 +35,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
           child: RangeSliderFilter(
             label: context.localizations.thinking,
             onRangeValuesChangeEnd: (rangeValue) {
-              ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+              ref
+                  .read(gamesFilterProvider.notifier)
+                  .setGamesFilterSettings(
                     gamesFilter.copyWith(thinkingRange: rangeValue),
                   );
             },
@@ -48,7 +49,9 @@ class GamesFilterBottomSheet extends ConsumerWidget {
           trailing: Checkbox(
             value: gamesFilter.showOnlyUnplayed,
             onChanged: (checked) {
-              ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+              ref
+                  .read(gamesFilterProvider.notifier)
+                  .setGamesFilterSettings(
                     gamesFilter.copyWith(showOnlyUnplayed: checked ?? false),
                   );
             },
@@ -60,15 +63,15 @@ class GamesFilterBottomSheet extends ConsumerWidget {
             trailing: Checkbox(
               value: gamesFilter.showReviewed,
               onChanged: (checked) {
-                ref.read(gamesFilterProvider.notifier).setGamesFilterSettings(
+                ref
+                    .read(gamesFilterProvider.notifier)
+                    .setGamesFilterSettings(
                       gamesFilter.copyWith(showReviewed: checked ?? true),
                     );
               },
             ),
           ),
-        SizedBox(
-          height: 32,
-        ),
+        SizedBox(height: 32),
         ElevatedButton(
           onPressed: () {
             ref

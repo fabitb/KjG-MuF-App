@@ -11,7 +11,7 @@ class Filter extends _$Filter {
     return SharedPreferencesService.instance.filterSettings ?? FilterSettings();
   }
 
-  setFilterSettings(FilterSettings newValue) {
+  void setFilterSettings(FilterSettings newValue) {
     state = newValue;
     ref.notifyListeners();
 
@@ -26,7 +26,7 @@ class FilterText extends _$FilterText {
     return "";
   }
 
-  setFilterText(String newValue) {
+  void setFilterText(String newValue) {
     state = newValue;
   }
 }

@@ -26,17 +26,14 @@ class MidaService {
     final baseMidaResponse = await _dio.post(
       "https://mida.kjg.de/",
       options: Options(
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
       ),
-      data: {
-        "newuser": username,
-        "newpassword": password,
-      },
+      data: {"newuser": username, "newpassword": password},
     );
     final Document parsedBaseMidaResponse = parse(baseMidaResponse.data);
-    final Element? loginForm = parsedBaseMidaResponse.querySelector('form#form1');
+    final Element? loginForm = parsedBaseMidaResponse.querySelector(
+      'form#form1',
+    );
     if (loginForm == null) return null;
 
     final String? actionUrl = loginForm.attributes['action'];
@@ -44,14 +41,9 @@ class MidaService {
     final userEditResponse = await _dio.post(
       "https://mida.kjg.de$actionUrl?action=profile_edit",
       options: Options(
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
       ),
-      data: {
-        "newuser": username,
-        "newpassword": password,
-      },
+      data: {"newuser": username, "newpassword": password},
     );
 
     // Think about switching to using this token instead of username/password for further requests and webviews
@@ -66,9 +58,18 @@ class MidaService {
     final Document parsedUserEditResponse = parse(userEditResponse.data);
     final me = getValueFromAccountField("key_me", parsedUserEditResponse);
     final og = getValueFromAccountField("key_og", parsedUserEditResponse);
-    final memberNumber = getValueFromAccountField("mitgliedsnummer", parsedUserEditResponse);
-    final firstName = getValueFromAccountField("vorname", parsedUserEditResponse);
-    final lastName = getValueFromAccountField("nachname", parsedUserEditResponse);
+    final memberNumber = getValueFromAccountField(
+      "mitgliedsnummer",
+      parsedUserEditResponse,
+    );
+    final firstName = getValueFromAccountField(
+      "vorname",
+      parsedUserEditResponse,
+    );
+    final lastName = getValueFromAccountField(
+      "nachname",
+      parsedUserEditResponse,
+    );
 
     return UserData(
       username: username,
@@ -81,7 +82,9 @@ class MidaService {
   }
 
   String? getValueFromAccountField(String fieldName, Document document) {
-    final element = document.querySelector(".fieldgroup.row$fieldName > .fieldcontrol > :first-child");
+    final element = document.querySelector(
+      ".fieldgroup.row$fieldName > .fieldcontrol > :first-child",
+    );
     if (element == null) return null;
     switch (element.localName) {
       case "input":
@@ -132,7 +135,10 @@ class MidaService {
 
     if (responseNew.data case List<dynamic> list) {
       final results = list.map((e) => BackendMidaEvent.fromJson(e));
-      final mapped = results.map((e) => MidaEvent.fromBackendMidaEvent(e)).nonNulls.toList();
+      final mapped = results
+          .map((e) => MidaEvent.fromBackendMidaEvent(e))
+          .nonNulls
+          .toList();
 
       final startOfToday = DateTime.now().copyWith(
         hour: 0,
@@ -141,7 +147,9 @@ class MidaService {
         millisecond: 0,
         microsecond: 0,
       );
-      return mapped.where((e) => !e.endDateAndTime.isBefore(startOfToday)).toList();
+      return mapped
+          .where((e) => !e.endDateAndTime.isBefore(startOfToday))
+          .toList();
     }
 
     throw Exception();

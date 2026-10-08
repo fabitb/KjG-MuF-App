@@ -9,9 +9,7 @@ class DataPrivacyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Datenschutz"),
-      ),
+      appBar: AppBar(title: const Text("Datenschutz")),
       body: WebViewPop(
         child: InAppWebView(
           initialSettings: InAppWebViewSettings(
@@ -43,8 +41,9 @@ class DataPrivacyScreen extends StatelessWidget {
             }
             return NavigationActionPolicy.CANCEL;
           },
-          initialUrlRequest:
-              URLRequest(url: WebUri.uri(Uri.parse(Strings.dataPrivacyLink))),
+          initialUrlRequest: URLRequest(
+            url: WebUri.uri(Uri.parse(Strings.dataPrivacyLink)),
+          ),
         ),
       ),
     );
