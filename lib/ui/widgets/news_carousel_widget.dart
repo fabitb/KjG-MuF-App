@@ -42,9 +42,7 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           SizedBox(
             height: 180,
             width: double.infinity,
@@ -67,20 +65,13 @@ class _NewsCarouselState extends State<NewsCarouselWidget> {
               },
             ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           if (widget.newsList != null)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List<Widget>.generate(news.length, (index) {
                 return Row(
-                  children: [
-                    positionCircle(index),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                  ],
+                  children: [positionCircle(index), const SizedBox(width: 4.0)],
                 );
               }),
             ),

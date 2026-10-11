@@ -37,8 +37,9 @@ class FilterWidget extends ConsumerWidget {
     if (filterSettings.dateTimeRange != null) {
       parts.add(filterSettings.dateTimeRange!.startEndString());
     }
-    int count =
-        filterSettings.showOrganizer.values.where((element) => !element).length;
+    int count = filterSettings.showOrganizer.values
+        .where((element) => !element)
+        .length;
     if (count > 0) parts.add("$count Veranstalter ausgeblendet");
 
     if (filterSettings.hideGremien) parts.add("Keine Gremiensitzungen");

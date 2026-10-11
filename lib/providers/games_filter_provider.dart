@@ -10,7 +10,7 @@ class GamesFilter extends _$GamesFilter {
     return GamesFilterSettings();
   }
 
-  setGamesFilterSettings(GamesFilterSettings newValue) {
+  void setGamesFilterSettings(GamesFilterSettings newValue) {
     state = newValue;
     ref.notifyListeners();
   }
@@ -23,7 +23,7 @@ class GamesFilterText extends _$GamesFilterText {
     return "";
   }
 
-  setFilterText(String newValue) {
+  void setFilterText(String newValue) {
     state = newValue;
   }
 }

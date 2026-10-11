@@ -19,8 +19,10 @@ class FilterViewModel extends ChangeNotifier {
   bool get hideGremien => _filterSettings.hideGremien;
 
   FilterViewModel(List<MidaEvent> events, this._filterSettings)
-      : _organisers =
-            events.map((e) => e.organization ?? "Unbekannt").toSet().toList() {
+    : _organisers = events
+          .map((e) => e.organization ?? "Unbekannt")
+          .toSet()
+          .toList() {
     _organisers.sort();
     for (var element in _organisers) {
       if (!_filterSettings.showOrganizer.containsKey(element)) {
@@ -29,27 +31,27 @@ class FilterViewModel extends ChangeNotifier {
     }
   }
 
-  setOnlyRegistered(bool newValue) {
+  void setOnlyRegistered(bool newValue) {
     _filterSettings.onlyRegistered = newValue;
     notifyListeners();
   }
 
-  setShowOrganizer(Map<String, bool> newValue) {
+  void setShowOrganizer(Map<String, bool> newValue) {
     _filterSettings.showOrganizer = newValue;
     notifyListeners();
   }
 
-  setDateTimeRange(DateTimeRange? newValue) {
+  void setDateTimeRange(DateTimeRange? newValue) {
     _filterSettings.dateTimeRange = newValue;
     notifyListeners();
   }
 
-  setHideGremien(bool newValue) {
+  void setHideGremien(bool newValue) {
     _filterSettings.hideGremien = newValue;
     notifyListeners();
   }
 
-  resetFilterSettings() {
+  void resetFilterSettings() {
     _filterSettings.onlyRegistered = false;
     _filterSettings.dateTimeRange = null;
     _filterSettings.hideGremien = false;

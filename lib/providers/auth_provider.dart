@@ -15,7 +15,9 @@ class Auth extends _$Auth {
 
     _checkLogin();
 
-    return userData != null ? AuthState.loggedIn(userData: userData) : const AuthState.loggedOut();
+    return userData != null
+        ? AuthState.loggedIn(userData: userData)
+        : const AuthState.loggedOut();
   }
 
   Future<void> _checkLogin() async {
@@ -50,7 +52,8 @@ class Auth extends _$Auth {
         state = AuthState.loggedOut(error: AuthStateError.wrongData);
       }
     } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionError || e.type == DioExceptionType.connectionTimeout) {
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
         state = AuthState.loggedOut(error: AuthStateError.noInternet);
       } else {
         state = AuthState.loggedOut(error: AuthStateError.unknown);

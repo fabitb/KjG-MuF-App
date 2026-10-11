@@ -23,7 +23,7 @@ class FilterBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => FilterViewModel(events, filterSettings),
-      builder: (_, __) {
+      builder: (_, _) {
         return Consumer<FilterViewModel>(
           builder: (_, model, child) {
             return Column(
@@ -89,8 +89,9 @@ class FilterBottomSheet extends StatelessWidget {
                     final result = await showDateRangePicker(
                       context: context,
                       firstDate: DateTime.now(),
-                      lastDate:
-                          DateTime.now().add(const Duration(days: 365 * 2)),
+                      lastDate: DateTime.now().add(
+                        const Duration(days: 365 * 2),
+                      ),
                       initialDateRange: model.dateTimeRange,
                     );
 

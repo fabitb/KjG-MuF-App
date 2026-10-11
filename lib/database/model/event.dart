@@ -140,8 +140,8 @@ abstract class MidaEvent with _$MidaEvent {
         (v == null || v.trim().isEmpty) ? null : v;
     DateTime? tryParseDate(String? v) =>
         nullIfEmpty(v) == null || v == '0000-00-00'
-            ? null
-            : DateTime.tryParse(v!);
+        ? null
+        : DateTime.tryParse(v!);
     int? tryParseInt(String? v) => int.tryParse(nullIfEmpty(v) ?? '');
     double? tryParseDouble(String? v) => double.tryParse(nullIfEmpty(v) ?? '');
     bool? parseBool(String? v) => nullIfEmpty(v) == '1';
@@ -172,8 +172,10 @@ abstract class MidaEvent with _$MidaEvent {
         ? parsedDate.add(matches[1])
         : start.add(Duration(days: (tryParseInt(e.numberOfDays) ?? 1) - 1));
 
-    final attachments =
-        e.attachments?.split("\n").where((e) => e.isNotEmpty).toList();
+    final attachments = e.attachments
+        ?.split("\n")
+        .where((e) => e.isNotEmpty)
+        .toList();
 
     return MidaEvent(
       id: id,

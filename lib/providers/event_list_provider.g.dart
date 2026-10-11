@@ -10,21 +10,26 @@ part of 'event_list_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(cachedEvents)
-const cachedEventsProvider = CachedEventsProvider._();
+final cachedEventsProvider = CachedEventsProvider._();
 
-final class CachedEventsProvider extends $FunctionalProvider<
-        AsyncValue<List<MidaEvent>>, List<MidaEvent>, FutureOr<List<MidaEvent>>>
+final class CachedEventsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<MidaEvent>>,
+          List<MidaEvent>,
+          FutureOr<List<MidaEvent>>
+        >
     with $FutureModifier<List<MidaEvent>>, $FutureProvider<List<MidaEvent>> {
-  const CachedEventsProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'cachedEventsProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  CachedEventsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cachedEventsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$cachedEventsHash();
@@ -32,8 +37,8 @@ final class CachedEventsProvider extends $FunctionalProvider<
   @$internal
   @override
   $FutureProviderElement<List<MidaEvent>> $createElement(
-          $ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<List<MidaEvent>> create(Ref ref) {
@@ -44,20 +49,20 @@ final class CachedEventsProvider extends $FunctionalProvider<
 String _$cachedEventsHash() => r'46c6139312dfbc8058ae08133e6f3dfb56daf800';
 
 @ProviderFor(EventList)
-const eventListProvider = EventListProvider._();
+final eventListProvider = EventListProvider._();
 
 final class EventListProvider
     extends $AsyncNotifierProvider<EventList, List<MidaEvent>> {
-  const EventListProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'eventListProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  EventListProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'eventListProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$eventListHash();
@@ -67,40 +72,47 @@ final class EventListProvider
   EventList create() => EventList();
 }
 
-String _$eventListHash() => r'e8edb879de7850777a9a59626371abc6fb7cf857';
+String _$eventListHash() => r'f3706e3669f5e5eb5c744e012a2a7c672ba0fd0a';
 
 abstract class _$EventList extends $AsyncNotifier<List<MidaEvent>> {
   FutureOr<List<MidaEvent>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<List<MidaEvent>>, List<MidaEvent>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<MidaEvent>>, List<MidaEvent>>,
-        AsyncValue<List<MidaEvent>>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<MidaEvent>>, List<MidaEvent>>,
+              AsyncValue<List<MidaEvent>>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(filteredEvents)
-const filteredEventsProvider = FilteredEventsProvider._();
+final filteredEventsProvider = FilteredEventsProvider._();
 
-final class FilteredEventsProvider extends $FunctionalProvider<
-        AsyncValue<List<MidaEvent>>, List<MidaEvent>, FutureOr<List<MidaEvent>>>
+final class FilteredEventsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<MidaEvent>>,
+          List<MidaEvent>,
+          FutureOr<List<MidaEvent>>
+        >
     with $FutureModifier<List<MidaEvent>>, $FutureProvider<List<MidaEvent>> {
-  const FilteredEventsProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'filteredEventsProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  FilteredEventsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filteredEventsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$filteredEventsHash();
@@ -108,8 +120,8 @@ final class FilteredEventsProvider extends $FunctionalProvider<
   @$internal
   @override
   $FutureProviderElement<List<MidaEvent>> $createElement(
-          $ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<List<MidaEvent>> create(Ref ref) {

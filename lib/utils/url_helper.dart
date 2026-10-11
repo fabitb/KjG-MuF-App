@@ -33,9 +33,7 @@ abstract class URLHelper {
           ),
         ),
         builder: (BuildContext context) {
-          return DashboardWebViewScreen(
-            url: url,
-          );
+          return DashboardWebViewScreen(url: url);
         },
       );
     } else {

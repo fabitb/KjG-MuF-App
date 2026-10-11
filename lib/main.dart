@@ -31,11 +31,7 @@ Future<void> main() async {
 
   await SharedPreferencesService.instance.init();
 
-  runApp(
-    ProviderScope(
-      child: const KjGApp(),
-    ),
-  );
+  runApp(ProviderScope(child: const KjGApp()));
   FlutterNativeSplash.remove();
 }
 
@@ -101,31 +97,37 @@ class _KjGAppMainState extends State<KjGAppMain> {
       body: Consumer(
         builder: (context, ref, child) {
           // listen to auth changes to show snackbars
-          ref.listen(
-            authProvider,
-            (previous, next) {
-              if (previous is AuthStateLoggedIn && next is AuthStateLoggedOut) {
-                final String? errorMessage = next.error?.localizedString(context.localizations);
+          ref.listen(authProvider, (previous, next) {
+            if (previous is AuthStateLoggedIn && next is AuthStateLoggedOut) {
+              final String? errorMessage = next.error?.localizedString(
+                context.localizations,
+              );
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(context.localizations.loggedOutSnack),
-                        if (errorMessage != null) Text(errorMessage),
-                      ],
-                    ),
-                    backgroundColor: errorMessage != null ? Colors.red : null,
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.localizations.loggedOutSnack),
+                      if (errorMessage != null) Text(errorMessage),
+                    ],
                   ),
-                );
-              } else if (previous is! AuthStateLoggedIn && next is AuthStateLoggedIn) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(context.localizations.loggedInText(next.userData.firstName ?? ""))),
-                );
-              }
-            },
-          );
+                  backgroundColor: errorMessage != null ? Colors.red : null,
+                ),
+              );
+            } else if (previous is! AuthStateLoggedIn &&
+                next is AuthStateLoggedIn) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    context.localizations.loggedInText(
+                      next.userData.firstName ?? "",
+                    ),
+                  ),
+                ),
+              );
+            }
+          });
 
           return child!;
         },

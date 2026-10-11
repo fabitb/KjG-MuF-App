@@ -22,7 +22,7 @@ import 'package:kjg_muf_app/utils/extensions.dart';
 import 'package:kjg_muf_app/utils/shared_preferences_service.dart';
 import 'package:kjg_muf_app/utils/url_helper.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_launcher/map_launcher.dart';
+import 'package:map_launcher/map_launcher.dart' hide Location;
 
 enum GeolocationState { loaded, loading, error }
 
@@ -50,7 +50,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     if (location == null) return;
 
     try {
-      final locations = await locationFromAddress(location);
+      final locations = await Geocoding().locationFromAddress(location);
       setState(() {
         _location = locations.first;
         _geoState = GeolocationState.loaded;
@@ -63,11 +63,13 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
   }
 
   Future<void> _onMapButtonPressed(Location location) async {
-    final availableMaps = await MapLauncher.installedMaps;
-    await availableMaps.first.showMarker(
-      coords: Coords(location.latitude, location.longitude),
-      title: widget.event.locationForMap ?? widget.event.title,
-    );
+    await MapLauncher.marker(
+      LocationCoords(
+        location.latitude,
+        location.longitude,
+        title: widget.event.locationForMap ?? widget.event.title,
+      ),
+    ).show();
   }
 
   Future<void> _onLinkTap(String? link) async {
@@ -140,9 +142,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     final registered = ref.watch(eventRegisteredProvider(event));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(event.title),
-      ),
+      appBar: AppBar(title: Text(event.title)),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -163,11 +163,14 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                   if (event.imageAttachment
                       case EventAttachment imageAttachment)
                     _imageCard(imageAttachment),
-                  if (event
-                      case MidaEvent(:final contactEmail?, :final contactName?))
+                  if (event case MidaEvent(
+                    :final contactEmail?,
+                    :final contactName?,
+                  ))
                     _contactCard(contactEmail, contactName),
-                  if (event case MidaEvent(:final eventAttachments?)
-                      when eventAttachments.isNotEmpty)
+                  if (event case MidaEvent(
+                    :final eventAttachments?,
+                  ) when eventAttachments.isNotEmpty)
                     _attachments(eventAttachments),
                 ],
               ),
@@ -181,10 +184,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
 
   Widget _descriptionCard(String description) {
     return Card(
-      child: Html(
-        data: description,
-        onLinkTap: (url, _, __) => _onLinkTap(url),
-      ),
+      child: Html(data: description, onLinkTap: (url, _, _) => _onLinkTap(url)),
     );
   }
 
@@ -269,9 +269,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
           .getSingleFile(imageAttachment),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Image(
-            image: FileImage(snapshot.data!.absolute),
-          );
+          return Image(image: FileImage(snapshot.data!.absolute));
         }
 
         return const Center(child: CircularProgressIndicator());

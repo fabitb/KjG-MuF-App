@@ -79,9 +79,7 @@ class MidaWebViewScreen extends StatelessWidget {
               gestureRecognizers: gestureRecognizers,
               initialUrlRequest: URLRequest(
                 url: WebUri.uri(
-                  Uri.parse(
-                    "$url${token != null ? "&token=$token" : ""}",
-                  ),
+                  Uri.parse("$url${token != null ? "&token=$token" : ""}"),
                 ),
               ),
               shouldOverrideUrlLoading: URLHelper.shouldOverrideUrlLoading,

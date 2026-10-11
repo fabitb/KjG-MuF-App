@@ -8,7 +8,7 @@ class OrganiserFilterViewModel extends ChangeNotifier {
 
   OrganiserFilterViewModel(this._organisers, this._showOrganizer);
 
-  toggleFiltered(int index) {
+  void toggleFiltered(int index) {
     bool before = _showOrganizer[_organisers[index]] ?? true;
     _showOrganizer[_organisers[index]] = !before;
     notifyListeners();

@@ -4,10 +4,7 @@ import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 class DownloadDialog extends StatefulWidget {
   final Function(bool) downloadAction;
 
-  const DownloadDialog({
-    super.key,
-    required this.downloadAction,
-  });
+  const DownloadDialog({super.key, required this.downloadAction});
 
   @override
   State<DownloadDialog> createState() => _DownloadDialogState();
@@ -24,9 +21,7 @@ class _DownloadDialogState extends State<DownloadDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(context.localizations.downloadDescription),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -38,9 +33,7 @@ class _DownloadDialogState extends State<DownloadDialog> {
                   });
                 },
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Text(context.localizations.dontAskAgain),
             ],
           ),
@@ -49,9 +42,7 @@ class _DownloadDialogState extends State<DownloadDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            widget.downloadAction(
-              _showDownloadDialog,
-            );
+            widget.downloadAction(_showDownloadDialog);
             Navigator.of(context).pop();
           },
           child: Text(context.localizations.download),

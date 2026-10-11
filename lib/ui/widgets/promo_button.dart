@@ -30,11 +30,7 @@ class PromoButton extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: Icon(
-              icon,
-              size: 32.0,
-              color: Colors.white,
-            ),
+            child: Icon(icon, size: 32.0, color: Colors.white),
           ),
           const SizedBox(width: 16.0),
           Expanded(
@@ -88,11 +84,7 @@ class PromoButton extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.white,
-            size: 20.0,
-          ),
+          const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 20.0),
         ],
       ),
     );

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kjg_muf_app/model/game.dart';
@@ -33,28 +31,20 @@ class GameDetailScreen extends ConsumerWidget {
           body: NestedScrollView(
             headerSliverBuilder: (context, _) => [
               KjgAppBar(
-                title: game.title.substring(0, min(game.title.length, 30)),
+                title: game.title,
                 centerTitle: true,
                 actions: [
                   if (isAuthorized.value == true)
                     if (game.reviewed)
                       IconButton(
-                        onPressed: () => _showSetReviewedDialog(
-                          context,
-                          ref,
-                          game,
-                          false,
-                        ),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, game, false),
                         icon: const Icon(Icons.close),
                       )
                     else
                       IconButton(
-                        onPressed: () => _showSetReviewedDialog(
-                          context,
-                          ref,
-                          game,
-                          true,
-                        ),
+                        onPressed: () =>
+                            _showSetReviewedDialog(context, ref, game, true),
                         icon: const Icon(Icons.check),
                       ),
                 ],
@@ -113,9 +103,8 @@ class GameDetailScreen extends ConsumerWidget {
               : null,
         );
       },
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
         appBar: AppBar(title: Text(context.localizations.error(""))),
         body: Center(child: Text(context.localizations.error(e.toString()))),
@@ -172,24 +161,15 @@ class GameDetailScreen extends ConsumerWidget {
             ),
             const SizedBox(width: 16),
             // Right Column
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.people_alt_outlined),
-                    const SizedBox(width: 4),
-                    Text(game.numberOfPlayer),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.timelapse_outlined),
-                    const SizedBox(width: 4),
-                    Text(game.duration),
-                  ],
-                ),
-              ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 140),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  _buildMetaRow(Icons.people_alt_outlined, game.numberOfPlayer),
+                  _buildMetaRow(Icons.timelapse_outlined, game.duration),
+                ],
+              ),
             ),
           ],
         ),
@@ -200,13 +180,31 @@ class GameDetailScreen extends ConsumerWidget {
   Widget _buildIconRow(String label, int score, IconData icon) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Text("$label:", style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(width: 8),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Text(
+              "$label:",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
           ...List.generate(score, (_) => Icon(icon, size: 20)),
         ],
       ),
+    );
+  }
+
+  Widget _buildMetaRow(IconData icon, String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon),
+        const SizedBox(width: 4),
+        Flexible(child: Text(text, textAlign: TextAlign.end)),
+      ],
     );
   }
 

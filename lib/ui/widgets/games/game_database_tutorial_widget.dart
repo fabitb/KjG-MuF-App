@@ -23,18 +23,16 @@ class _GameDatabaseTutorialWidgetState
   void initState() {
     super.initState();
     _controller = PageController();
-    _controller.addListener(
-      () {
-        if (_targetPage != null) return;
+    _controller.addListener(() {
+      if (_targetPage != null) return;
 
-        final page = _controller.page?.round() ?? 0;
-        if (page != _currentPage) {
-          setState(() {
-            _currentPage = page;
-          });
-        }
-      },
-    );
+      final page = _controller.page?.round() ?? 0;
+      if (page != _currentPage) {
+        setState(() {
+          _currentPage = page;
+        });
+      }
+    });
   }
 
   @override
@@ -121,17 +119,12 @@ class _GameDatabaseTutorialWidgetState
         ),
         Text(
           tutorialHeader,
-          style: TextStyle(
-            fontSize: 24,
-          ),
+          style: TextStyle(fontSize: 24),
           textAlign: TextAlign.center,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            tutorialText,
-            textAlign: TextAlign.center,
-          ),
+          child: Text(tutorialText, textAlign: TextAlign.center),
         ),
       ],
     );
@@ -147,21 +140,9 @@ class _GameDatabaseTutorialWidgetState
         mainAxisSize: MainAxisSize.min,
         spacing: 8,
         children: [
-          Icon(
-            Icons.circle,
-            size: 8,
-            color: selected,
-          ),
-          Icon(
-            Icons.circle,
-            size: 8,
-            color: _page >= 1 ? selected : not,
-          ),
-          Icon(
-            Icons.circle,
-            size: 8,
-            color: _page >= 2 ? selected : not,
-          ),
+          Icon(Icons.circle, size: 8, color: selected),
+          Icon(Icons.circle, size: 8, color: _page >= 1 ? selected : not),
+          Icon(Icons.circle, size: 8, color: _page >= 2 ? selected : not),
         ],
       ),
     );
@@ -197,9 +178,7 @@ class _GameDatabaseTutorialWidgetState
             backgroundColor: KjGColors.kjgLightBlue,
             foregroundColor: Colors.white,
           ),
-          child: Text(
-            context.localizations.back,
-          ),
+          child: Text(context.localizations.back),
         ),
         FilledButton(
           onPressed: nextFunction,

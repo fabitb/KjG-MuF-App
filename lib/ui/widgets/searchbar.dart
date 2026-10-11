@@ -4,10 +4,7 @@ import 'package:kjg_muf_app/l10n/l10n_extension.dart';
 class Searchbar extends StatelessWidget {
   final Function(String) onSearchString;
 
-  const Searchbar({
-    super.key,
-    required this.onSearchString,
-  });
+  const Searchbar({super.key, required this.onSearchString});
 
   @override
   Widget build(BuildContext context) {

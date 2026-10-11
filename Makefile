@@ -1,5 +1,5 @@
 gen:
-	fvm flutter packages pub run build_runner build --delete-conflicting-outputs
+	fvm dart run build_runner build
 
 translation:
 	fvm flutter gen-l10n

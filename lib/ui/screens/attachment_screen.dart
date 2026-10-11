@@ -22,9 +22,7 @@ class AttachmentScreen extends ConsumerWidget {
     final fileType = attachment.fileType;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(attachment.displayName),
-      ),
+      appBar: AppBar(title: Text(attachment.displayName)),
       body: fileType != FileType.unsupported
           ? FutureBuilder<File>(
               future: attachmentsCache.getSingleFile(attachment),
@@ -48,22 +46,22 @@ class AttachmentScreen extends ConsumerWidget {
   Widget content(BuildContext context, File file, FileType fileType) {
     return switch (fileType) {
       FileType.pdf => PDFView(
-          fitPolicy: FitPolicy.WIDTH,
-          filePath: file.path,
-          pageSnap: true,
-        ),
+        fitPolicy: FitPolicy.WIDTH,
+        filePath: file.path,
+        pageSnap: true,
+      ),
       FileType.image => PhotoView(
-          backgroundDecoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
-          minScale: PhotoViewComputedScale.contained,
-          maxScale: PhotoViewComputedScale.covered * 2,
-          imageProvider: FileImage(file.absolute),
+        backgroundDecoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
+        minScale: PhotoViewComputedScale.contained,
+        maxScale: PhotoViewComputedScale.covered * 2,
+        imageProvider: FileImage(file.absolute),
+      ),
       FileType.audio => AudioWidget(
-          file: file,
-          displayName: attachment.displayName,
-        ),
+        file: file,
+        displayName: attachment.displayName,
+      ),
       FileType.unsupported => throw UnimplementedError(),
     };
   }

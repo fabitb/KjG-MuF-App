@@ -19,9 +19,7 @@ class PDFScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(pageTitle),
-      ),
+      appBar: AppBar(title: Text(pageTitle)),
       body: FutureBuilder<File>(
         future: KjGCacheManager.instance.getSingleFile(pdfLink, key: pdfKey),
         builder: (context, snapshot) => snapshot.hasData

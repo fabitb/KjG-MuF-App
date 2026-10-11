@@ -21,10 +21,9 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
 
   void _login() {
     FocusManager.instance.primaryFocus?.unfocus();
-    ref.read(authProvider.notifier).login(
-          _emailController.text,
-          _passwordController.text,
-        );
+    ref
+        .read(authProvider.notifier)
+        .login(_emailController.text, _passwordController.text);
   }
 
   @override
@@ -47,10 +46,7 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
         children: <Widget>[
           Text(
             context.localizations.loginMida,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 50),
           _textField(
@@ -93,10 +89,7 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
             ),
           if (!Platform.isIOS) ...[
             const SizedBox(height: 32),
-            Text(
-              context.localizations.signupText,
-              textAlign: TextAlign.center,
-            ),
+            Text(context.localizations.signupText, textAlign: TextAlign.center),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => URLHelper.sendEmail(Strings.contactEmailAddress),
@@ -125,9 +118,7 @@ class _LoginWidgetState extends ConsumerState<LoginWidget> {
         fillColor: Colors.grey.shade100,
         filled: true,
         hintText: hintText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }

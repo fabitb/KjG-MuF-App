@@ -58,7 +58,7 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     setState(() {});
   }
 
-  _showDownloadDialog() {
+  void _showDownloadDialog() {
     if (!SharedPreferencesService.instance.downloadDialogShown) {
       showDialog(
         context: context,
@@ -78,7 +78,7 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     }
   }
 
-  _showDeleteDialog() {
+  void _showDeleteDialog() {
     _showAlertDialog(
       context,
       context.localizations.delete,
@@ -91,7 +91,10 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     );
   }
 
-  _openFile(BuildContext context, EventAttachment attachment) async {
+  Future<void> _openFile(
+    BuildContext context,
+    EventAttachment attachment,
+  ) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => AttachmentScreen(attachment: attachment),
@@ -99,7 +102,7 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
     );
   }
 
-  _showAlertDialog(
+  void _showAlertDialog(
     BuildContext context,
     String title,
     String message, {
@@ -186,8 +189,9 @@ class _AttachmentsWidgetState extends ConsumerState<AttachmentsWidget> {
 
     final cachedKeys =
         ref.watch(attachmentCacheProvider).value?.map((e) => e.key) ?? [];
-    final allCached =
-        widget.attachments.where((e) => !cachedKeys.contains(e.key)).isEmpty;
+    final allCached = widget.attachments
+        .where((e) => !cachedKeys.contains(e.key))
+        .isEmpty;
     if (!allCached) {
       return IconButton(
         onPressed: _showDownloadDialog,

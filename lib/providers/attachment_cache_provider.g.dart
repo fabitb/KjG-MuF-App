@@ -10,20 +10,20 @@ part of 'attachment_cache_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AttachmentCache)
-const attachmentCacheProvider = AttachmentCacheProvider._();
+final attachmentCacheProvider = AttachmentCacheProvider._();
 
 final class AttachmentCacheProvider
     extends $AsyncNotifierProvider<AttachmentCache, List<EventAttachment>> {
-  const AttachmentCacheProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'attachmentCacheProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  AttachmentCacheProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'attachmentCacheProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$attachmentCacheHash();
@@ -33,40 +33,47 @@ final class AttachmentCacheProvider
   AttachmentCache create() => AttachmentCache();
 }
 
-String _$attachmentCacheHash() => r'4b21a3151cc3c5c2da8e41197d763bb125530c69';
+String _$attachmentCacheHash() => r'a6da77fb573a6fc00546eb7cd488d1237034eec7';
 
 abstract class _$AttachmentCache extends $AsyncNotifier<List<EventAttachment>> {
   FutureOr<List<EventAttachment>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
-    final ref = this.ref
-        as $Ref<AsyncValue<List<EventAttachment>>, List<EventAttachment>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<EventAttachment>>, List<EventAttachment>>,
-        AsyncValue<List<EventAttachment>>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
+  WhenComplete runBuild() {
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<List<EventAttachment>>, List<EventAttachment>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<List<EventAttachment>>,
+                List<EventAttachment>
+              >,
+              AsyncValue<List<EventAttachment>>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(attachmentCached)
-const attachmentCachedProvider = AttachmentCachedFamily._();
+final attachmentCachedProvider = AttachmentCachedFamily._();
 
 final class AttachmentCachedProvider
-    extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
-  const AttachmentCachedProvider._(
-      {required AttachmentCachedFamily super.from,
-      required String super.argument})
-      : super(
-          retry: null,
-          name: r'attachmentCachedProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  AttachmentCachedProvider._({
+    required AttachmentCachedFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'attachmentCachedProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$attachmentCachedHash();
@@ -86,10 +93,7 @@ final class AttachmentCachedProvider
   @override
   bool create(Ref ref) {
     final argument = this.argument as String;
-    return attachmentCached(
-      ref,
-      key: argument,
-    );
+    return attachmentCached(ref, key: argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -115,18 +119,16 @@ String _$attachmentCachedHash() => r'2c9a5627a897ac6fcd3c4632437fb60579af11cc';
 
 final class AttachmentCachedFamily extends $Family
     with $FunctionalFamilyOverride<bool, String> {
-  const AttachmentCachedFamily._()
-      : super(
-          retry: null,
-          name: r'attachmentCachedProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
-          isAutoDispose: true,
-        );
+  AttachmentCachedFamily._()
+    : super(
+        retry: null,
+        name: r'attachmentCachedProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-  AttachmentCachedProvider call({
-    required String key,
-  }) =>
+  AttachmentCachedProvider call({required String key}) =>
       AttachmentCachedProvider._(argument: key, from: this);
 
   @override
