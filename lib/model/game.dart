@@ -23,6 +23,9 @@ sealed class Game with _$Game {
     required bool reviewed,
     required String author,
     @Default(false) bool alreadyPlayed,
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    @Default(false)
+    bool isFavorite,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);

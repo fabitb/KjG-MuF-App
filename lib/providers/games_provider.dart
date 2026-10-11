@@ -29,6 +29,11 @@ class Games extends _$Games {
     ref.notifyListeners();
   }
 
+  Future<void> updateFavoriteGame(Game game, bool favorite) async {
+    await AppDatabase().saveGameModel(game.copyWith(isFavorite: favorite));
+    ref.notifyListeners();
+  }
+
   Future<void> createGame(Game game) async {
     await BackendService().createGame(game);
   }
@@ -80,6 +85,10 @@ Future<List<Game>> filteredGames(Ref ref) async {
 
   if (gamesFilterSettings.showOnlyUnplayed) {
     games = games.where((g) => !g.alreadyPlayed).toList();
+  }
+
+  if (gamesFilterSettings.showOnlyFavorites) {
+    games = games.where((g) => g.isFavorite).toList();
   }
 
   RangeValues? actionRange = gamesFilterSettings.actionRange;

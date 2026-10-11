@@ -34,6 +34,17 @@ class GameDetailScreen extends ConsumerWidget {
                 title: game.title,
                 centerTitle: true,
                 actions: [
+                  IconButton(
+                    onPressed: () => ref
+                        .read(gamesProvider.notifier)
+                        .updateFavoriteGame(game, !game.isFavorite),
+                    tooltip: game.isFavorite
+                        ? context.localizations.removeFromFavorites
+                        : context.localizations.addToFavorites,
+                    icon: game.isFavorite
+                        ? const Icon(Icons.star, color: Colors.amber)
+                        : const Icon(Icons.star_border),
+                  ),
                   if (isAuthorized.value == true)
                     if (game.reviewed)
                       IconButton(

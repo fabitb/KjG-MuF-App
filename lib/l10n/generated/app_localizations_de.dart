@@ -211,6 +211,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showOnlyUnplayedGames => 'Nur ungespielte Spiele anzeigen';
 
   @override
+  String get showOnlyFavoriteGames => 'Nur Favoriten anzeigen';
+
+  @override
+  String get addToFavorites => 'Zu Favoriten hinzufügen';
+
+  @override
+  String get removeFromFavorites => 'Aus Favoriten entfernen';
+
+  @override
   String get showOnlyReviewedGames => 'Nur veröffentlichte Spiele anzeigen';
 
   @override
