@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GamesFilterSettings {
 
- bool get showReviewed; bool get showOnlyUnplayed; RangeValues? get actionRange; RangeValues? get thinkingRange;
+ bool get showReviewed; bool get showOnlyUnplayed; bool get showOnlyFavorites; RangeValues? get actionRange; RangeValues? get thinkingRange;
 /// Create a copy of GamesFilterSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $GamesFilterSettingsCopyWith<GamesFilterSettings> get copyWith => _$GamesFilterS
 @override
 bool operator ==(Object other) {
   final _this = this as GamesFilterSettings;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GamesFilterSettings&&(identical(other.showReviewed, _this.showReviewed) || other.showReviewed == _this.showReviewed)&&(identical(other.showOnlyUnplayed, _this.showOnlyUnplayed) || other.showOnlyUnplayed == _this.showOnlyUnplayed)&&(identical(other.actionRange, _this.actionRange) || other.actionRange == _this.actionRange)&&(identical(other.thinkingRange, _this.thinkingRange) || other.thinkingRange == _this.thinkingRange));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GamesFilterSettings&&(identical(other.showReviewed, _this.showReviewed) || other.showReviewed == _this.showReviewed)&&(identical(other.showOnlyUnplayed, _this.showOnlyUnplayed) || other.showOnlyUnplayed == _this.showOnlyUnplayed)&&(identical(other.showOnlyFavorites, _this.showOnlyFavorites) || other.showOnlyFavorites == _this.showOnlyFavorites)&&(identical(other.actionRange, _this.actionRange) || other.actionRange == _this.actionRange)&&(identical(other.thinkingRange, _this.thinkingRange) || other.thinkingRange == _this.thinkingRange));
 }
 
 
 @override
 int get hashCode {
   final _this = this as GamesFilterSettings;
-  return Object.hash(runtimeType,_this.showReviewed,_this.showOnlyUnplayed,_this.actionRange,_this.thinkingRange);
+  return Object.hash(runtimeType,_this.showReviewed,_this.showOnlyUnplayed,_this.showOnlyFavorites,_this.actionRange,_this.thinkingRange);
 }
 
 @override
 String toString() {
   final _this = this as GamesFilterSettings;
-  return 'GamesFilterSettings(showReviewed: ${_this.showReviewed}, showOnlyUnplayed: ${_this.showOnlyUnplayed}, actionRange: ${_this.actionRange}, thinkingRange: ${_this.thinkingRange})';
+  return 'GamesFilterSettings(showReviewed: ${_this.showReviewed}, showOnlyUnplayed: ${_this.showOnlyUnplayed}, showOnlyFavorites: ${_this.showOnlyFavorites}, actionRange: ${_this.actionRange}, thinkingRange: ${_this.thinkingRange})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $GamesFilterSettingsCopyWith<$Res>  {
   factory $GamesFilterSettingsCopyWith(GamesFilterSettings value, $Res Function(GamesFilterSettings) _then) = _$GamesFilterSettingsCopyWithImpl;
 @useResult
 $Res call({
- bool showReviewed, bool showOnlyUnplayed, RangeValues? actionRange, RangeValues? thinkingRange
+ bool showReviewed, bool showOnlyUnplayed, bool showOnlyFavorites, RangeValues? actionRange, RangeValues? thinkingRange
 });
 
 
@@ -68,10 +68,11 @@ class _$GamesFilterSettingsCopyWithImpl<$Res>
 
 /// Create a copy of GamesFilterSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? showReviewed = null,Object? showOnlyUnplayed = null,Object? actionRange = freezed,Object? thinkingRange = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? showReviewed = null,Object? showOnlyUnplayed = null,Object? showOnlyFavorites = null,Object? actionRange = freezed,Object? thinkingRange = freezed,}) {
   return _then(GamesFilterSettings(
 showReviewed: null == showReviewed ? _self.showReviewed : showReviewed // ignore: cast_nullable_to_non_nullable
 as bool,showOnlyUnplayed: null == showOnlyUnplayed ? _self.showOnlyUnplayed : showOnlyUnplayed // ignore: cast_nullable_to_non_nullable
+as bool,showOnlyFavorites: null == showOnlyFavorites ? _self.showOnlyFavorites : showOnlyFavorites // ignore: cast_nullable_to_non_nullable
 as bool,actionRange: freezed == actionRange ? _self.actionRange : actionRange // ignore: cast_nullable_to_non_nullable
 as RangeValues?,thinkingRange: freezed == thinkingRange ? _self.thinkingRange : thinkingRange // ignore: cast_nullable_to_non_nullable
 as RangeValues?,
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showReviewed,  bool showOnlyUnplayed,  RangeValues? actionRange,  RangeValues? thinkingRange)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showReviewed,  bool showOnlyUnplayed,  bool showOnlyFavorites,  RangeValues? actionRange,  RangeValues? thinkingRange)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GamesFilterSettings() when $default != null:
-return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_that.thinkingRange);case _:
+return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.showOnlyFavorites,_that.actionRange,_that.thinkingRange);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showReviewed,  bool showOnlyUnplayed,  RangeValues? actionRange,  RangeValues? thinkingRange)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showReviewed,  bool showOnlyUnplayed,  bool showOnlyFavorites,  RangeValues? actionRange,  RangeValues? thinkingRange)  $default,) {final _that = this;
 switch (_that) {
 case _GamesFilterSettings():
-return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_that.thinkingRange);}
+return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.showOnlyFavorites,_that.actionRange,_that.thinkingRange);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -194,10 +195,10 @@ return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showReviewed,  bool showOnlyUnplayed,  RangeValues? actionRange,  RangeValues? thinkingRange)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showReviewed,  bool showOnlyUnplayed,  bool showOnlyFavorites,  RangeValues? actionRange,  RangeValues? thinkingRange)?  $default,) {final _that = this;
 switch (_that) {
 case _GamesFilterSettings() when $default != null:
-return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_that.thinkingRange);case _:
+return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.showOnlyFavorites,_that.actionRange,_that.thinkingRange);case _:
   return null;
 
 }
@@ -209,11 +210,12 @@ return $default(_that.showReviewed,_that.showOnlyUnplayed,_that.actionRange,_tha
 
 
 class _GamesFilterSettings extends GamesFilterSettings {
-  const _GamesFilterSettings({this.showReviewed = true, this.showOnlyUnplayed = false, this.actionRange, this.thinkingRange}): super._();
+  const _GamesFilterSettings({this.showReviewed = true, this.showOnlyUnplayed = false, this.showOnlyFavorites = false, this.actionRange, this.thinkingRange}): super._();
   
 
 @override@JsonKey() final  bool showReviewed;
 @override@JsonKey() final  bool showOnlyUnplayed;
+@override@JsonKey() final  bool showOnlyFavorites;
 @override final  RangeValues? actionRange;
 @override final  RangeValues? thinkingRange;
 
@@ -227,18 +229,18 @@ _$GamesFilterSettingsCopyWith<_GamesFilterSettings> get copyWith => __$GamesFilt
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GamesFilterSettings&&(identical(other.showReviewed, showReviewed) || other.showReviewed == showReviewed)&&(identical(other.showOnlyUnplayed, showOnlyUnplayed) || other.showOnlyUnplayed == showOnlyUnplayed)&&(identical(other.actionRange, actionRange) || other.actionRange == actionRange)&&(identical(other.thinkingRange, thinkingRange) || other.thinkingRange == thinkingRange));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GamesFilterSettings&&(identical(other.showReviewed, showReviewed) || other.showReviewed == showReviewed)&&(identical(other.showOnlyUnplayed, showOnlyUnplayed) || other.showOnlyUnplayed == showOnlyUnplayed)&&(identical(other.showOnlyFavorites, showOnlyFavorites) || other.showOnlyFavorites == showOnlyFavorites)&&(identical(other.actionRange, actionRange) || other.actionRange == actionRange)&&(identical(other.thinkingRange, thinkingRange) || other.thinkingRange == thinkingRange));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,showReviewed,showOnlyUnplayed,actionRange,thinkingRange);
+    return Object.hash(runtimeType,showReviewed,showOnlyUnplayed,showOnlyFavorites,actionRange,thinkingRange);
 }
 
 @override
 String toString() {
-    return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, actionRange: $actionRange, thinkingRange: $thinkingRange)';
+    return 'GamesFilterSettings(showReviewed: $showReviewed, showOnlyUnplayed: $showOnlyUnplayed, showOnlyFavorites: $showOnlyFavorites, actionRange: $actionRange, thinkingRange: $thinkingRange)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$GamesFilterSettingsCopyWith<$Res> implements $GamesFilter
   factory _$GamesFilterSettingsCopyWith(_GamesFilterSettings value, $Res Function(_GamesFilterSettings) _then) = __$GamesFilterSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- bool showReviewed, bool showOnlyUnplayed, RangeValues? actionRange, RangeValues? thinkingRange
+ bool showReviewed, bool showOnlyUnplayed, bool showOnlyFavorites, RangeValues? actionRange, RangeValues? thinkingRange
 });
 
 
@@ -266,10 +268,11 @@ class __$GamesFilterSettingsCopyWithImpl<$Res>
 
 /// Create a copy of GamesFilterSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? showReviewed = null,Object? showOnlyUnplayed = null,Object? actionRange = freezed,Object? thinkingRange = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? showReviewed = null,Object? showOnlyUnplayed = null,Object? showOnlyFavorites = null,Object? actionRange = freezed,Object? thinkingRange = freezed,}) {
   return _then(_GamesFilterSettings(
 showReviewed: null == showReviewed ? _self.showReviewed : showReviewed // ignore: cast_nullable_to_non_nullable
 as bool,showOnlyUnplayed: null == showOnlyUnplayed ? _self.showOnlyUnplayed : showOnlyUnplayed // ignore: cast_nullable_to_non_nullable
+as bool,showOnlyFavorites: null == showOnlyFavorites ? _self.showOnlyFavorites : showOnlyFavorites // ignore: cast_nullable_to_non_nullable
 as bool,actionRange: freezed == actionRange ? _self.actionRange : actionRange // ignore: cast_nullable_to_non_nullable
 as RangeValues?,thinkingRange: freezed == thinkingRange ? _self.thinkingRange : thinkingRange // ignore: cast_nullable_to_non_nullable
 as RangeValues?,

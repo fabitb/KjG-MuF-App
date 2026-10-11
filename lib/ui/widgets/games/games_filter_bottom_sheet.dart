@@ -45,6 +45,19 @@ class GamesFilterBottomSheet extends ConsumerWidget {
           ),
         ),
         ListTile(
+          title: Text(context.localizations.showOnlyFavoriteGames),
+          trailing: Checkbox(
+            value: gamesFilter.showOnlyFavorites,
+            onChanged: (checked) {
+              ref
+                  .read(gamesFilterProvider.notifier)
+                  .setGamesFilterSettings(
+                    gamesFilter.copyWith(showOnlyFavorites: checked ?? false),
+                  );
+            },
+          ),
+        ),
+        ListTile(
           title: Text(context.localizations.showOnlyUnplayedGames),
           trailing: Checkbox(
             value: gamesFilter.showOnlyUnplayed,

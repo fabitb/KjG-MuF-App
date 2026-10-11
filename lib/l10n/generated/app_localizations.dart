@@ -460,6 +460,24 @@ abstract class AppLocalizations {
   /// **'Nur ungespielte Spiele anzeigen'**
   String get showOnlyUnplayedGames;
 
+  /// No description provided for @showOnlyFavoriteGames.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur Favoriten anzeigen'**
+  String get showOnlyFavoriteGames;
+
+  /// No description provided for @addToFavorites.
+  ///
+  /// In de, this message translates to:
+  /// **'Zu Favoriten hinzufügen'**
+  String get addToFavorites;
+
+  /// No description provided for @removeFromFavorites.
+  ///
+  /// In de, this message translates to:
+  /// **'Aus Favoriten entfernen'**
+  String get removeFromFavorites;
+
   /// No description provided for @showOnlyReviewedGames.
   ///
   /// In de, this message translates to:

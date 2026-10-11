@@ -32,7 +32,7 @@ final class GamesProvider extends $AsyncNotifierProvider<Games, List<Game>> {
   Games create() => Games();
 }
 
-String _$gamesHash() => r'09e46498d7621efe060870d40526cca6e1b794f0';
+String _$gamesHash() => r'1193ee098e494fe9db0dd49091a971f646328516';
 
 abstract class _$Games extends $AsyncNotifier<List<Game>> {
   FutureOr<List<Game>> build();
@@ -126,7 +126,7 @@ final class FilteredGamesProvider
   }
 }
 
-String _$filteredGamesHash() => r'e7b9841634ea9365f674414dbf6294b6ee9da3fd';
+String _$filteredGamesHash() => r'2987c1798943548d408506f08a31d5bfc2a39066';
 
 @ProviderFor(gameById)
 final gameByIdProvider = GameByIdFamily._();
