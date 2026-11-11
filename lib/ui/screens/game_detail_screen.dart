@@ -6,6 +6,7 @@ import 'package:kjg_muf_app/providers/authorized_games_user_provider.dart';
 import 'package:kjg_muf_app/providers/games_provider.dart';
 import 'package:kjg_muf_app/ui/screens/edit_game_screen.dart';
 import 'package:kjg_muf_app/ui/widgets/kjg_app_bar.dart';
+import 'package:kjg_muf_app/ui/widgets/linkified_text.dart';
 
 class GameDetailScreen extends ConsumerWidget {
   final String gameId;
@@ -18,6 +19,7 @@ class GameDetailScreen extends ConsumerWidget {
     final gameAsync = ref.watch(gameByIdProvider(gameId));
 
     return gameAsync.when(
+      skipLoadingOnReload: true,
       data: (game) {
         // Should really not happen
         if (game == null) {
@@ -226,7 +228,7 @@ class GameDetailScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-          Text(content),
+          LinkifiedText(content),
         ],
       ),
     );
@@ -244,7 +246,7 @@ class GameDetailScreen extends ConsumerWidget {
             title,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Text(content, style: const TextStyle(fontSize: 16)),
+          LinkifiedText(content, style: const TextStyle(fontSize: 16)),
         ],
       ),
     );
