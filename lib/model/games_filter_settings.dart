@@ -8,6 +8,7 @@ sealed class GamesFilterSettings with _$GamesFilterSettings {
   const factory GamesFilterSettings({
     @Default(true) bool showReviewed,
     @Default(false) bool showOnlyUnplayed,
+    @Default(false) bool showOnlyFavorites,
     RangeValues? actionRange,
     RangeValues? thinkingRange,
   }) = _GamesFilterSettings;
@@ -17,6 +18,7 @@ sealed class GamesFilterSettings with _$GamesFilterSettings {
   bool get isActive =>
       showReviewed ||
       showOnlyUnplayed ||
+      showOnlyFavorites ||
       actionRange != null ||
       thinkingRange != null;
 }

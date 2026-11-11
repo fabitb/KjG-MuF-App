@@ -195,6 +195,21 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
       'CHECK ("already_played" IN (0, 1))',
     ),
   );
+  static const VerificationMeta _isFavoriteMeta = const VerificationMeta(
+    'isFavorite',
+  );
+  @override
+  late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
+    'is_favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_favorite" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -214,6 +229,7 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
     author,
     reviewed,
     alreadyPlayed,
+    isFavorite,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -390,6 +406,12 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
     } else if (isInserting) {
       context.missing(_alreadyPlayedMeta);
     }
+    if (data.containsKey('is_favorite')) {
+      context.handle(
+        _isFavoriteMeta,
+        isFavorite.isAcceptableOrUnknown(data['is_favorite']!, _isFavoriteMeta),
+      );
+    }
     return context;
   }
 
@@ -467,6 +489,10 @@ class $GamesTable extends Games with TableInfo<$GamesTable, GameRow> {
         DriftSqlType.bool,
         data['${effectivePrefix}already_played'],
       )!,
+      isFavorite: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_favorite'],
+      )!,
     );
   }
 
@@ -494,6 +520,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
   final String author;
   final bool reviewed;
   final bool alreadyPlayed;
+  final bool isFavorite;
   const GameRow({
     required this.id,
     required this.title,
@@ -512,6 +539,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     required this.author,
     required this.reviewed,
     required this.alreadyPlayed,
+    required this.isFavorite,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -535,6 +563,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     map['author'] = Variable<String>(author);
     map['reviewed'] = Variable<bool>(reviewed);
     map['already_played'] = Variable<bool>(alreadyPlayed);
+    map['is_favorite'] = Variable<bool>(isFavorite);
     return map;
   }
 
@@ -557,6 +586,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       author: Value(author),
       reviewed: Value(reviewed),
       alreadyPlayed: Value(alreadyPlayed),
+      isFavorite: Value(isFavorite),
     );
   }
 
@@ -589,6 +619,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       author: serializer.fromJson<String>(json['author']),
       reviewed: serializer.fromJson<bool>(json['reviewed']),
       alreadyPlayed: serializer.fromJson<bool>(json['alreadyPlayed']),
+      isFavorite: serializer.fromJson<bool>(json['isFavorite']),
     );
   }
   @override
@@ -614,6 +645,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       'author': serializer.toJson<String>(author),
       'reviewed': serializer.toJson<bool>(reviewed),
       'alreadyPlayed': serializer.toJson<bool>(alreadyPlayed),
+      'isFavorite': serializer.toJson<bool>(isFavorite),
     };
   }
 
@@ -635,6 +667,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     String? author,
     bool? reviewed,
     bool? alreadyPlayed,
+    bool? isFavorite,
   }) => GameRow(
     id: id ?? this.id,
     title: title ?? this.title,
@@ -654,6 +687,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     author: author ?? this.author,
     reviewed: reviewed ?? this.reviewed,
     alreadyPlayed: alreadyPlayed ?? this.alreadyPlayed,
+    isFavorite: isFavorite ?? this.isFavorite,
   );
   GameRow copyWithCompanion(GamesCompanion data) {
     return GameRow(
@@ -696,6 +730,9 @@ class GameRow extends DataClass implements Insertable<GameRow> {
       alreadyPlayed: data.alreadyPlayed.present
           ? data.alreadyPlayed.value
           : this.alreadyPlayed,
+      isFavorite: data.isFavorite.present
+          ? data.isFavorite.value
+          : this.isFavorite,
     );
   }
 
@@ -718,7 +755,8 @@ class GameRow extends DataClass implements Insertable<GameRow> {
           ..write('categories: $categories, ')
           ..write('author: $author, ')
           ..write('reviewed: $reviewed, ')
-          ..write('alreadyPlayed: $alreadyPlayed')
+          ..write('alreadyPlayed: $alreadyPlayed, ')
+          ..write('isFavorite: $isFavorite')
           ..write(')'))
         .toString();
   }
@@ -742,6 +780,7 @@ class GameRow extends DataClass implements Insertable<GameRow> {
     author,
     reviewed,
     alreadyPlayed,
+    isFavorite,
   );
   @override
   bool operator ==(Object other) =>
@@ -763,7 +802,8 @@ class GameRow extends DataClass implements Insertable<GameRow> {
           other.categories == this.categories &&
           other.author == this.author &&
           other.reviewed == this.reviewed &&
-          other.alreadyPlayed == this.alreadyPlayed);
+          other.alreadyPlayed == this.alreadyPlayed &&
+          other.isFavorite == this.isFavorite);
 }
 
 class GamesCompanion extends UpdateCompanion<GameRow> {
@@ -784,6 +824,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
   final Value<String> author;
   final Value<bool> reviewed;
   final Value<bool> alreadyPlayed;
+  final Value<bool> isFavorite;
   final Value<int> rowid;
   const GamesCompanion({
     this.id = const Value.absent(),
@@ -803,6 +844,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     this.author = const Value.absent(),
     this.reviewed = const Value.absent(),
     this.alreadyPlayed = const Value.absent(),
+    this.isFavorite = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   GamesCompanion.insert({
@@ -823,6 +865,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     required String author,
     required bool reviewed,
     required bool alreadyPlayed,
+    this.isFavorite = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        title = Value(title),
@@ -859,6 +902,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     Expression<String>? author,
     Expression<bool>? reviewed,
     Expression<bool>? alreadyPlayed,
+    Expression<bool>? isFavorite,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -881,6 +925,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
       if (author != null) 'author': author,
       if (reviewed != null) 'reviewed': reviewed,
       if (alreadyPlayed != null) 'already_played': alreadyPlayed,
+      if (isFavorite != null) 'is_favorite': isFavorite,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -903,6 +948,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     Value<String>? author,
     Value<bool>? reviewed,
     Value<bool>? alreadyPlayed,
+    Value<bool>? isFavorite,
     Value<int>? rowid,
   }) {
     return GamesCompanion(
@@ -924,6 +970,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
       author: author ?? this.author,
       reviewed: reviewed ?? this.reviewed,
       alreadyPlayed: alreadyPlayed ?? this.alreadyPlayed,
+      isFavorite: isFavorite ?? this.isFavorite,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -986,6 +1033,9 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
     if (alreadyPlayed.present) {
       map['already_played'] = Variable<bool>(alreadyPlayed.value);
     }
+    if (isFavorite.present) {
+      map['is_favorite'] = Variable<bool>(isFavorite.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1012,6 +1062,7 @@ class GamesCompanion extends UpdateCompanion<GameRow> {
           ..write('author: $author, ')
           ..write('reviewed: $reviewed, ')
           ..write('alreadyPlayed: $alreadyPlayed, ')
+          ..write('isFavorite: $isFavorite, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -4023,6 +4074,7 @@ typedef $$GamesTableCreateCompanionBuilder =
       required String author,
       required bool reviewed,
       required bool alreadyPlayed,
+      Value<bool> isFavorite,
       Value<int> rowid,
     });
 typedef $$GamesTableUpdateCompanionBuilder =
@@ -4044,6 +4096,7 @@ typedef $$GamesTableUpdateCompanionBuilder =
       Value<String> author,
       Value<bool> reviewed,
       Value<bool> alreadyPlayed,
+      Value<bool> isFavorite,
       Value<int> rowid,
     });
 
@@ -4137,6 +4190,11 @@ class $$GamesTableFilterComposer extends Composer<_$AppDatabase, $GamesTable> {
 
   ColumnFilters<bool> get alreadyPlayed => $composableBuilder(
     column: $table.alreadyPlayed,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isFavorite => $composableBuilder(
+    column: $table.isFavorite,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -4234,6 +4292,11 @@ class $$GamesTableOrderingComposer
     column: $table.alreadyPlayed,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<bool> get isFavorite => $composableBuilder(
+    column: $table.isFavorite,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$GamesTableAnnotationComposer
@@ -4317,6 +4380,11 @@ class $$GamesTableAnnotationComposer
     column: $table.alreadyPlayed,
     builder: (column) => column,
   );
+
+  GeneratedColumn<bool> get isFavorite => $composableBuilder(
+    column: $table.isFavorite,
+    builder: (column) => column,
+  );
 }
 
 class $$GamesTableTableManager
@@ -4364,6 +4432,7 @@ class $$GamesTableTableManager
                 Value<String> author = const Value.absent(),
                 Value<bool> reviewed = const Value.absent(),
                 Value<bool> alreadyPlayed = const Value.absent(),
+                Value<bool> isFavorite = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GamesCompanion(
                 id: id,
@@ -4383,6 +4452,7 @@ class $$GamesTableTableManager
                 author: author,
                 reviewed: reviewed,
                 alreadyPlayed: alreadyPlayed,
+                isFavorite: isFavorite,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -4404,6 +4474,7 @@ class $$GamesTableTableManager
                 required String author,
                 required bool reviewed,
                 required bool alreadyPlayed,
+                Value<bool> isFavorite = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GamesCompanion.insert(
                 id: id,
@@ -4423,6 +4494,7 @@ class $$GamesTableTableManager
                 author: author,
                 reviewed: reviewed,
                 alreadyPlayed: alreadyPlayed,
+                isFavorite: isFavorite,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

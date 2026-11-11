@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Game {
 
-@JsonKey(name: '_id') String get id; String get title; int get actionScore; int get cognitiveScore; String get numberOfPlayer; String get duration; String? get ageLimitations; String get spaceLimitations; String get materials; String get goalOfGame; String get preparationsInstructions; String get gameplayInstructions; String get endingInstructions; List<String> get categories; bool get reviewed; String get author; bool get alreadyPlayed;
+@JsonKey(name: '_id') String get id; String get title; int get actionScore; int get cognitiveScore; String get numberOfPlayer; String get duration; String? get ageLimitations; String get spaceLimitations; String get materials; String get goalOfGame; String get preparationsInstructions; String get gameplayInstructions; String get endingInstructions; List<String> get categories; bool get reviewed; String get author; bool get alreadyPlayed;@JsonKey(includeFromJson: false, includeToJson: false) bool get isFavorite;
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $GameCopyWith<Game> get copyWith => _$GameCopyWithImpl<Game>(this as Game, _$ide
 @override
 bool operator ==(Object other) {
   final _this = this as Game;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.actionScore, _this.actionScore) || other.actionScore == _this.actionScore)&&(identical(other.cognitiveScore, _this.cognitiveScore) || other.cognitiveScore == _this.cognitiveScore)&&(identical(other.numberOfPlayer, _this.numberOfPlayer) || other.numberOfPlayer == _this.numberOfPlayer)&&(identical(other.duration, _this.duration) || other.duration == _this.duration)&&(identical(other.ageLimitations, _this.ageLimitations) || other.ageLimitations == _this.ageLimitations)&&(identical(other.spaceLimitations, _this.spaceLimitations) || other.spaceLimitations == _this.spaceLimitations)&&(identical(other.materials, _this.materials) || other.materials == _this.materials)&&(identical(other.goalOfGame, _this.goalOfGame) || other.goalOfGame == _this.goalOfGame)&&(identical(other.preparationsInstructions, _this.preparationsInstructions) || other.preparationsInstructions == _this.preparationsInstructions)&&(identical(other.gameplayInstructions, _this.gameplayInstructions) || other.gameplayInstructions == _this.gameplayInstructions)&&(identical(other.endingInstructions, _this.endingInstructions) || other.endingInstructions == _this.endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.reviewed, _this.reviewed) || other.reviewed == _this.reviewed)&&(identical(other.author, _this.author) || other.author == _this.author)&&(identical(other.alreadyPlayed, _this.alreadyPlayed) || other.alreadyPlayed == _this.alreadyPlayed));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.actionScore, _this.actionScore) || other.actionScore == _this.actionScore)&&(identical(other.cognitiveScore, _this.cognitiveScore) || other.cognitiveScore == _this.cognitiveScore)&&(identical(other.numberOfPlayer, _this.numberOfPlayer) || other.numberOfPlayer == _this.numberOfPlayer)&&(identical(other.duration, _this.duration) || other.duration == _this.duration)&&(identical(other.ageLimitations, _this.ageLimitations) || other.ageLimitations == _this.ageLimitations)&&(identical(other.spaceLimitations, _this.spaceLimitations) || other.spaceLimitations == _this.spaceLimitations)&&(identical(other.materials, _this.materials) || other.materials == _this.materials)&&(identical(other.goalOfGame, _this.goalOfGame) || other.goalOfGame == _this.goalOfGame)&&(identical(other.preparationsInstructions, _this.preparationsInstructions) || other.preparationsInstructions == _this.preparationsInstructions)&&(identical(other.gameplayInstructions, _this.gameplayInstructions) || other.gameplayInstructions == _this.gameplayInstructions)&&(identical(other.endingInstructions, _this.endingInstructions) || other.endingInstructions == _this.endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.reviewed, _this.reviewed) || other.reviewed == _this.reviewed)&&(identical(other.author, _this.author) || other.author == _this.author)&&(identical(other.alreadyPlayed, _this.alreadyPlayed) || other.alreadyPlayed == _this.alreadyPlayed)&&(identical(other.isFavorite, _this.isFavorite) || other.isFavorite == _this.isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Game;
-  return Object.hash(runtimeType,_this.id,_this.title,_this.actionScore,_this.cognitiveScore,_this.numberOfPlayer,_this.duration,_this.ageLimitations,_this.spaceLimitations,_this.materials,_this.goalOfGame,_this.preparationsInstructions,_this.gameplayInstructions,_this.endingInstructions,const DeepCollectionEquality().hash(_this.categories),_this.reviewed,_this.author,_this.alreadyPlayed);
+  return Object.hash(runtimeType,_this.id,_this.title,_this.actionScore,_this.cognitiveScore,_this.numberOfPlayer,_this.duration,_this.ageLimitations,_this.spaceLimitations,_this.materials,_this.goalOfGame,_this.preparationsInstructions,_this.gameplayInstructions,_this.endingInstructions,const DeepCollectionEquality().hash(_this.categories),_this.reviewed,_this.author,_this.alreadyPlayed,_this.isFavorite);
 }
 
 @override
 String toString() {
   final _this = this as Game;
-  return 'Game(id: ${_this.id}, title: ${_this.title}, actionScore: ${_this.actionScore}, cognitiveScore: ${_this.cognitiveScore}, numberOfPlayer: ${_this.numberOfPlayer}, duration: ${_this.duration}, ageLimitations: ${_this.ageLimitations}, spaceLimitations: ${_this.spaceLimitations}, materials: ${_this.materials}, goalOfGame: ${_this.goalOfGame}, preparationsInstructions: ${_this.preparationsInstructions}, gameplayInstructions: ${_this.gameplayInstructions}, endingInstructions: ${_this.endingInstructions}, categories: ${_this.categories}, reviewed: ${_this.reviewed}, author: ${_this.author}, alreadyPlayed: ${_this.alreadyPlayed})';
+  return 'Game(id: ${_this.id}, title: ${_this.title}, actionScore: ${_this.actionScore}, cognitiveScore: ${_this.cognitiveScore}, numberOfPlayer: ${_this.numberOfPlayer}, duration: ${_this.duration}, ageLimitations: ${_this.ageLimitations}, spaceLimitations: ${_this.spaceLimitations}, materials: ${_this.materials}, goalOfGame: ${_this.goalOfGame}, preparationsInstructions: ${_this.preparationsInstructions}, gameplayInstructions: ${_this.gameplayInstructions}, endingInstructions: ${_this.endingInstructions}, categories: ${_this.categories}, reviewed: ${_this.reviewed}, author: ${_this.author}, alreadyPlayed: ${_this.alreadyPlayed}, isFavorite: ${_this.isFavorite})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $GameCopyWith<$Res>  {
   factory $GameCopyWith(Game value, $Res Function(Game) _then) = _$GameCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: '_id') String id, String title, int actionScore, int cognitiveScore, String numberOfPlayer, String duration, String? ageLimitations, String spaceLimitations, String materials, String goalOfGame, String preparationsInstructions, String gameplayInstructions, String endingInstructions, List<String> categories, bool reviewed, String author, bool alreadyPlayed
+@JsonKey(name: '_id') String id, String title, int actionScore, int cognitiveScore, String numberOfPlayer, String duration, String? ageLimitations, String spaceLimitations, String materials, String goalOfGame, String preparationsInstructions, String gameplayInstructions, String endingInstructions, List<String> categories, bool reviewed, String author, bool alreadyPlayed,@JsonKey(includeFromJson: false, includeToJson: false) bool isFavorite
 });
 
 
@@ -71,7 +71,7 @@ class _$GameCopyWithImpl<$Res>
 
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? actionScore = null,Object? cognitiveScore = null,Object? numberOfPlayer = null,Object? duration = null,Object? ageLimitations = freezed,Object? spaceLimitations = null,Object? materials = null,Object? goalOfGame = null,Object? preparationsInstructions = null,Object? gameplayInstructions = null,Object? endingInstructions = null,Object? categories = null,Object? reviewed = null,Object? author = null,Object? alreadyPlayed = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? actionScore = null,Object? cognitiveScore = null,Object? numberOfPlayer = null,Object? duration = null,Object? ageLimitations = freezed,Object? spaceLimitations = null,Object? materials = null,Object? goalOfGame = null,Object? preparationsInstructions = null,Object? gameplayInstructions = null,Object? endingInstructions = null,Object? categories = null,Object? reviewed = null,Object? author = null,Object? alreadyPlayed = null,Object? isFavorite = null,}) {
   return _then(Game(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -90,6 +90,7 @@ as String,categories: null == categories ? _self.categories : categories // igno
 as List<String>,reviewed: null == reviewed ? _self.reviewed : reviewed // ignore: cast_nullable_to_non_nullable
 as bool,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
 as String,alreadyPlayed: null == alreadyPlayed ? _self.alreadyPlayed : alreadyPlayed // ignore: cast_nullable_to_non_nullable
+as bool,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -172,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed, @JsonKey(includeFromJson: false, includeToJson: false)  bool isFavorite)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Game() when $default != null:
-return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed);case _:
+return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed,_that.isFavorite);case _:
   return orElse();
 
 }
@@ -193,10 +194,10 @@ return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed, @JsonKey(includeFromJson: false, includeToJson: false)  bool isFavorite)  $default,) {final _that = this;
 switch (_that) {
 case _Game():
-return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed);}
+return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed,_that.isFavorite);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -210,10 +211,10 @@ return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  String id,  String title,  int actionScore,  int cognitiveScore,  String numberOfPlayer,  String duration,  String? ageLimitations,  String spaceLimitations,  String materials,  String goalOfGame,  String preparationsInstructions,  String gameplayInstructions,  String endingInstructions,  List<String> categories,  bool reviewed,  String author,  bool alreadyPlayed, @JsonKey(includeFromJson: false, includeToJson: false)  bool isFavorite)?  $default,) {final _that = this;
 switch (_that) {
 case _Game() when $default != null:
-return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed);case _:
+return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_that.numberOfPlayer,_that.duration,_that.ageLimitations,_that.spaceLimitations,_that.materials,_that.goalOfGame,_that.preparationsInstructions,_that.gameplayInstructions,_that.endingInstructions,_that.categories,_that.reviewed,_that.author,_that.alreadyPlayed,_that.isFavorite);case _:
   return null;
 
 }
@@ -225,7 +226,7 @@ return $default(_that.id,_that.title,_that.actionScore,_that.cognitiveScore,_tha
 @JsonSerializable()
 
 class _Game implements Game {
-  const _Game({@JsonKey(name: '_id') required this.id, required this.title, required this.actionScore, required this.cognitiveScore, required this.numberOfPlayer, required this.duration, required this.ageLimitations, required this.spaceLimitations, required this.materials, required this.goalOfGame, required this.preparationsInstructions, required this.gameplayInstructions, required this.endingInstructions, required  List<String> categories, required this.reviewed, required this.author, this.alreadyPlayed = false}): _categories = categories;
+  const _Game({@JsonKey(name: '_id') required this.id, required this.title, required this.actionScore, required this.cognitiveScore, required this.numberOfPlayer, required this.duration, required this.ageLimitations, required this.spaceLimitations, required this.materials, required this.goalOfGame, required this.preparationsInstructions, required this.gameplayInstructions, required this.endingInstructions, required  List<String> categories, required this.reviewed, required this.author, this.alreadyPlayed = false, @JsonKey(includeFromJson: false, includeToJson: false) this.isFavorite = false}): _categories = categories;
   factory _Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 
 @override@JsonKey(name: '_id') final  String id;
@@ -251,6 +252,7 @@ class _Game implements Game {
 @override final  bool reviewed;
 @override final  String author;
 @override@JsonKey() final  bool alreadyPlayed;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  bool isFavorite;
 
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
@@ -265,18 +267,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.actionScore, actionScore) || other.actionScore == actionScore)&&(identical(other.cognitiveScore, cognitiveScore) || other.cognitiveScore == cognitiveScore)&&(identical(other.numberOfPlayer, numberOfPlayer) || other.numberOfPlayer == numberOfPlayer)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.ageLimitations, ageLimitations) || other.ageLimitations == ageLimitations)&&(identical(other.spaceLimitations, spaceLimitations) || other.spaceLimitations == spaceLimitations)&&(identical(other.materials, materials) || other.materials == materials)&&(identical(other.goalOfGame, goalOfGame) || other.goalOfGame == goalOfGame)&&(identical(other.preparationsInstructions, preparationsInstructions) || other.preparationsInstructions == preparationsInstructions)&&(identical(other.gameplayInstructions, gameplayInstructions) || other.gameplayInstructions == gameplayInstructions)&&(identical(other.endingInstructions, endingInstructions) || other.endingInstructions == endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.reviewed, reviewed) || other.reviewed == reviewed)&&(identical(other.author, author) || other.author == author)&&(identical(other.alreadyPlayed, alreadyPlayed) || other.alreadyPlayed == alreadyPlayed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.actionScore, actionScore) || other.actionScore == actionScore)&&(identical(other.cognitiveScore, cognitiveScore) || other.cognitiveScore == cognitiveScore)&&(identical(other.numberOfPlayer, numberOfPlayer) || other.numberOfPlayer == numberOfPlayer)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.ageLimitations, ageLimitations) || other.ageLimitations == ageLimitations)&&(identical(other.spaceLimitations, spaceLimitations) || other.spaceLimitations == spaceLimitations)&&(identical(other.materials, materials) || other.materials == materials)&&(identical(other.goalOfGame, goalOfGame) || other.goalOfGame == goalOfGame)&&(identical(other.preparationsInstructions, preparationsInstructions) || other.preparationsInstructions == preparationsInstructions)&&(identical(other.gameplayInstructions, gameplayInstructions) || other.gameplayInstructions == gameplayInstructions)&&(identical(other.endingInstructions, endingInstructions) || other.endingInstructions == endingInstructions)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.reviewed, reviewed) || other.reviewed == reviewed)&&(identical(other.author, author) || other.author == author)&&(identical(other.alreadyPlayed, alreadyPlayed) || other.alreadyPlayed == alreadyPlayed)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,title,actionScore,cognitiveScore,numberOfPlayer,duration,ageLimitations,spaceLimitations,materials,goalOfGame,preparationsInstructions,gameplayInstructions,endingInstructions,const DeepCollectionEquality().hash(_categories),reviewed,author,alreadyPlayed);
+    return Object.hash(runtimeType,id,title,actionScore,cognitiveScore,numberOfPlayer,duration,ageLimitations,spaceLimitations,materials,goalOfGame,preparationsInstructions,gameplayInstructions,endingInstructions,const DeepCollectionEquality().hash(_categories),reviewed,author,alreadyPlayed,isFavorite);
 }
 
 @override
 String toString() {
-    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed)';
+    return 'Game(id: $id, title: $title, actionScore: $actionScore, cognitiveScore: $cognitiveScore, numberOfPlayer: $numberOfPlayer, duration: $duration, ageLimitations: $ageLimitations, spaceLimitations: $spaceLimitations, materials: $materials, goalOfGame: $goalOfGame, preparationsInstructions: $preparationsInstructions, gameplayInstructions: $gameplayInstructions, endingInstructions: $endingInstructions, categories: $categories, reviewed: $reviewed, author: $author, alreadyPlayed: $alreadyPlayed, isFavorite: $isFavorite)';
 }
 
 
@@ -287,7 +289,7 @@ abstract mixin class _$GameCopyWith<$Res> implements $GameCopyWith<$Res> {
   factory _$GameCopyWith(_Game value, $Res Function(_Game) _then) = __$GameCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: '_id') String id, String title, int actionScore, int cognitiveScore, String numberOfPlayer, String duration, String? ageLimitations, String spaceLimitations, String materials, String goalOfGame, String preparationsInstructions, String gameplayInstructions, String endingInstructions, List<String> categories, bool reviewed, String author, bool alreadyPlayed
+@JsonKey(name: '_id') String id, String title, int actionScore, int cognitiveScore, String numberOfPlayer, String duration, String? ageLimitations, String spaceLimitations, String materials, String goalOfGame, String preparationsInstructions, String gameplayInstructions, String endingInstructions, List<String> categories, bool reviewed, String author, bool alreadyPlayed,@JsonKey(includeFromJson: false, includeToJson: false) bool isFavorite
 });
 
 
@@ -304,7 +306,7 @@ class __$GameCopyWithImpl<$Res>
 
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? actionScore = null,Object? cognitiveScore = null,Object? numberOfPlayer = null,Object? duration = null,Object? ageLimitations = freezed,Object? spaceLimitations = null,Object? materials = null,Object? goalOfGame = null,Object? preparationsInstructions = null,Object? gameplayInstructions = null,Object? endingInstructions = null,Object? categories = null,Object? reviewed = null,Object? author = null,Object? alreadyPlayed = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? actionScore = null,Object? cognitiveScore = null,Object? numberOfPlayer = null,Object? duration = null,Object? ageLimitations = freezed,Object? spaceLimitations = null,Object? materials = null,Object? goalOfGame = null,Object? preparationsInstructions = null,Object? gameplayInstructions = null,Object? endingInstructions = null,Object? categories = null,Object? reviewed = null,Object? author = null,Object? alreadyPlayed = null,Object? isFavorite = null,}) {
   return _then(_Game(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -323,6 +325,7 @@ as String,categories: null == categories ? _self._categories : categories // ign
 as List<String>,reviewed: null == reviewed ? _self.reviewed : reviewed // ignore: cast_nullable_to_non_nullable
 as bool,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
 as String,alreadyPlayed: null == alreadyPlayed ? _self.alreadyPlayed : alreadyPlayed // ignore: cast_nullable_to_non_nullable
+as bool,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

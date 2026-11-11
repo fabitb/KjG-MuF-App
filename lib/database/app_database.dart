@@ -44,6 +44,8 @@ class Games extends Table {
 
   BoolColumn get alreadyPlayed => boolean()();
 
+  BoolColumn get isFavorite => boolean().withDefault(const Constant(false))();
+
   @override
   Set<Column> get primaryKey => {id};
 }
@@ -184,7 +186,17 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase._internal() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) => m.createAll(),
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.addColumn(games, games.isFavorite);
+      }
+    },
+  );
 
   static QueryExecutor _openConnection() {
     return driftDatabase(name: 'kjg_muf_app_db');
@@ -215,6 +227,7 @@ class AppDatabase extends _$AppDatabase {
         author: game.author,
         reviewed: game.reviewed,
         alreadyPlayed: game.alreadyPlayed,
+        isFavorite: Value(game.isFavorite),
       ),
     );
   }
@@ -224,6 +237,10 @@ class AppDatabase extends _$AppDatabase {
     final existingGames = await select(games).get();
     final alreadyPlayedIds = existingGames
         .where((game) => game.alreadyPlayed)
+        .map((game) => game.id)
+        .toSet();
+    final favoriteIds = existingGames
+        .where((game) => game.isFavorite)
         .map((game) => game.id)
         .toSet();
 
@@ -247,6 +264,7 @@ class AppDatabase extends _$AppDatabase {
         author: gameModel.author,
         reviewed: gameModel.reviewed,
         alreadyPlayed: alreadyPlayedIds.contains(gameModel.id),
+        isFavorite: Value(favoriteIds.contains(gameModel.id)),
       );
     }).toList();
 
@@ -365,6 +383,7 @@ class AppDatabase extends _$AppDatabase {
       author: game.author,
       reviewed: game.reviewed,
       alreadyPlayed: game.alreadyPlayed,
+      isFavorite: game.isFavorite,
     );
   }
 
